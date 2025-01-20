@@ -1,0 +1,104 @@
+.homepage-container .banner {
+  position: relative;
+}
+.homepage-container .banner .overlay {
+  position: absolute;
+  background: #00000060;
+  width: 100%;
+  height: 100%;
+}
+
+.homepage-container .banner .layout {
+  text-align: center;
+  background: url('../../images/banner.jpg') no-repeat center/cover;
+  height: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.homepage-container .banner .layout h1,
+.homepage-container .banner .layout p,
+.homepage-container .banner .layout .btn {
+  z-index: 9;
+  position: sticky;
+}
+
+.homepage-container .banner .tag-container {
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  right: 0;
+}
+.homepage-container .tag-content {
+  transition: 0.5s;
+}
+.homepage-container .tag-content:hover {
+  background: #40bb15;
+  border: #40bb15;
+}
+.homepage-container .tag-content:hover h3,
+.homepage-container .tag-content:hover p {
+  color: #fff;
+}
+.homepage-container .tag-content:hover path {
+  fill: #fff;
+}
+
+@media only screen and (min-width: 1600px) {
+  .homepage-container .tag-container {
+    padding: 20px 300px;
+  }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1599px) {
+  .homepage-container .tag-container {
+    padding: 20px 200px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .homepage-container .tag-container {
+    padding: 20px 150px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .homepage-container .tag-container {
+    padding: 20px 100px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .homepage-container .tag-container {
+    padding: 20px 60px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .homepage-container .tag-container {
+    padding: 60px 30px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .homepage-container .tag-container {
+    padding: 20px 20px;
+  }
+}
+.homepage-container .pricing-container .box {
+  background: #fff;
+  transition: 0.5s;
+  height: 100%;
+  z-index: 10;
+}
+.homepage-container .pricing-container .box:hover {
+  background: #252b42;
+  scale: 1.1;
+  z-index: 11;
+}
+.homepage-container .pricing-container .box:hover h3,
+.homepage-container .pricing-container .box:hover p,
+.homepage-container .pricing-container .box:hover li {
+  color: #fff;
+}
