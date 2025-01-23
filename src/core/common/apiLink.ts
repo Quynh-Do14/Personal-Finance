@@ -11,6 +11,7 @@ export class Endpoint {
     static Goal = class {
         static Personal = class {
             static Get = "/goals/user/all"
+            static GetById = "/goals/user"
             static Add = "/goals/team/create"
         }
         static Team = class {
@@ -28,7 +29,7 @@ export class Endpoint {
     static Chat = class {
         static Personal = class {
             static Get = "/chat-logs/me/all"
-            static Add = "/ai/chat/spend/1"
+            static Add = "/ai/chat/spend"
             static GetBill = "/ai/bill/info"
         }
         // static Team = class {

@@ -87,7 +87,7 @@ class GoalService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Goal.Personal.Get}/${id}`)
+                .get(`${Endpoint.Goal.Personal.GetById}/${id}`)
                 .then(response => {
                     if (response) {
                         return response

@@ -13,14 +13,19 @@ import goalService from "../../../infrastructure/repositories/goal/goal.service"
 import { useParams } from "react-router-dom";
 import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
+import { formatCurrencyVND } from "../../../infrastructure/helper/helper";
+import RoundChartMiniCommon from "../../../infrastructure/common/components/mini-chart/round-chart";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PersonalFinancePage = () => {
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
+    const [loadingBot, setLoadingBot] = useState(false);
+
     const [isOpenChatBox, setIsOpenChatBox] = useState<boolean>(false);
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
+    const [messages, setMessages] = useState<string>("");
 
     const pieData = {
         labels: ["Giao thông", "Giải trí", "Thức ăn & Đồ uống"],
@@ -51,7 +56,7 @@ const PersonalFinancePage = () => {
         try {
             await chatService.GetChatPersonal(
                 String(id),
-                setLoading
+                setLoadingBot
             ).then((res) => {
                 setDataChatBox(res);
             })
@@ -64,7 +69,29 @@ const PersonalFinancePage = () => {
     useEffect(() => {
         onGetDetailGoalAsync().then(_ => { });
         onGetChatBoxAsync().then(_ => { });
-    }, [isOpenChatBox]);
+    }, []);
+
+    const handleSendMessage = async () => {
+        try {
+            await chatService.AddChatPersonal(
+                String(id),
+                {
+                    question: messages
+                },
+                async () => {
+                    setTimeout(async () => {
+                        setMessages("");
+                        await onGetChatBoxAsync();
+                    }, 10);
+                },
+                setLoadingBot
+            ).then(() => {
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <LayoutClient>
@@ -75,61 +102,63 @@ const PersonalFinancePage = () => {
                     </div>
                 </div>
                 <div className="personal-finance-container padding-common">
-                    <div className="bg-white">
+                    <div className="bg-white flex flex-col gap-6">
                         {/* Tổng số dư */}
-                        <div className="text-center mb-6">
-                            <p className="text-gray-500 text-sm">Tất cả số dư trong ví:</p>
-                            <p className="text-2xl font-semibold">VND: 29,790,000₫</p>
+                        <div className="flex flex-col gap-2 items-center justify-center">
+                            <p className="text-[#40BB15] font-semibold text-[28px]">{detailGoal.name}</p>
+                            <p className="text-[24px] font-semibold">VND:{formatCurrencyVND(detailGoal.goalAmount)}</p>
                         </div>
 
                         {/* Danh sách ví */}
-                        <div className="flex space-x-4 items-center mb-6">
-                            <div className="flex-1 bg-gray-100 p-4 rounded-lg shadow">
-                                <p className="font-semibold text-gray-800">QuynhDo</p>
-                                <p className="text-gray-600">29,790,000₫</p>
+                        <div className="flex items-center justify-between bg-[#f1f1f1] p-4 rounded-lg shadow">
+                            <div className="flex flex-col gap-2">
+                                <p className="text-[20px] font-semibold text-[#212121]">{detailGoal.user?.username} </p>
+                                <p className="text-[16Fpx] text-[#303030]">Mục tiêu đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
+                                <p className="text-[16Fpx] text-[#303030]">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
                             </div>
-                            <button className="flex items-center justify-center w-24 h-20 border-2 border-dashed border-gray-400 rounded-lg text-gray-600 hover:bg-gray-200">
-                                +
-                            </button>
+                            <RoundChartMiniCommon
+                                completed={detailGoal.currentAmount}
+                                total={detailGoal.goalAmount}
+                            />
                         </div>
 
                         {/* Bộ lọc thời gian */}
-                        <div className="mb-6">
+                        {/* <div className="">
                             <div className="relative">
                                 <select
-                                    className="w-full border rounded-lg px-4 py-3 text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    className="w-full border rounded-lg px-4 py-3 text-[#303030] focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     defaultValue="Tháng"
                                 >
                                     <option value="Tháng">Tháng</option>
                                     <option value="Tuần">Tuần</option>
                                 </select>
                             </div>
-                            <p className="text-center mt-2 text-gray-600">tháng 1 năm 2025</p>
-                        </div>
+                            <p className="text-center mt-2 text-[#303030]">tháng 1 năm 2025</p>
+                        </div> */}
 
                         {/* Thẻ số dư */}
-                        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow mb-6">
+                        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow ">
                             <div>
-                                <p className="text-gray-800 font-medium">Tổng số dư</p>
+                                <p className="text-[#212121] font-medium">Tổng chi tiêu hôm nay</p>
                                 <p className="text-red-500 text-2xl font-bold">₫-210,000 😟</p>
                             </div>
                             <div className="text-gray-500 text-2xl">ℹ️</div>
                         </div>
 
                         {/* Thông tin thu chi */}
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center justify-between ">
                             <div className="text-center">
                                 <p className="text-red-500 font-semibold">Chi phí</p>
-                                <p className="text-gray-800 text-xl font-bold">₫510,000</p>
+                                <p className="text-[#212121] text-xl font-bold">₫510,000</p>
                             </div>
                             <div className="text-center">
                                 <p className="text-green-500 font-semibold">Thu nhập</p>
-                                <p className="text-gray-800 text-xl font-bold">₫300,000</p>
+                                <p className="text-[#212121] text-xl font-bold">₫300,000</p>
                             </div>
                         </div>
 
                         {/* Tabs chi phí / thu nhập */}
-                        <div className="flex justify-center space-x-4 mb-6">
+                        <div className="flex justify-center space-x-4 ">
                             <button className="bg-[#40BB15] text-[#FFF] px-6 py-3 rounded-lg font-semibold">
                                 Chi phí
                             </button>
@@ -139,7 +168,7 @@ const PersonalFinancePage = () => {
                         </div>
 
                         {/* Biểu đồ tròn */}
-                        <div className="flex justify-center mb-6">
+                        <div className="flex justify-center ">
                             <div className="w-72 h-72">
                                 <Pie data={pieData} />
                             </div>
@@ -148,6 +177,10 @@ const PersonalFinancePage = () => {
                             isOpenChatBox={isOpenChatBox}
                             setIsOpenChatBox={setIsOpenChatBox}
                             dataChatBox={dataChatBox}
+                            handleSendMessage={handleSendMessage}
+                            messages={messages}
+                            setMessages={setMessages}
+                            loading={loadingBot}
                         />
                     </div>
                 </div>

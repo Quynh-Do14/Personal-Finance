@@ -6,20 +6,27 @@ type Props = {
     isOpenChatBox: boolean
     setIsOpenChatBox: Function
     dataChatBox: Array<any>
+    handleSendMessage: () => void
+    messages: string
+    setMessages: Function
+    loading: boolean
 }
+
+
 const ChatButton = (props: Props) => {
     const {
         isOpenChatBox,
         setIsOpenChatBox,
-        dataChatBox
+        dataChatBox,
+        handleSendMessage,
+        messages,
+        setMessages,
+        loading
     } = props;
-    const [loading, setLoading] = useState<boolean>(false);
 
     const handleCartClick = () => {
         setIsOpenChatBox(!isOpenChatBox)
     };
-
-
     return (
         <div className="chat-container">
             <div className="btn-chat" onClick={handleCartClick}>
@@ -28,10 +35,13 @@ const ChatButton = (props: Props) => {
             <ChatBoxCommon
                 isOpen={isOpenChatBox}
                 closeDrawer={() => setIsOpenChatBox(false)}
-                setLoading={setLoading}
+                loading={loading}
                 dataChatBox={dataChatBox}
+                handleSendMessage={handleSendMessage}
+                messages={messages}
+                setMessages={setMessages}
             />
-            <FullPageLoading isLoading={loading} />
+            {/* <FullPageLoading isLoading={loading} /> */}
         </div>
     );
 };

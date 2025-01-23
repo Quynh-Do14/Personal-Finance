@@ -115,7 +115,7 @@ const TeamPage = () => {
                                             </Col>
                                             <Col span={18}>
                                                 <div className="flex flex-col gap-2">
-                                                    <p className="text-[20px] font-semibold text-[#1d1d1d]">{item.name}</p>
+                                                    <p className="text-[20px] font-semibold text-[#1d1d1d] text-truncate">{item.name}</p>
                                                     <p className="text-[14px] text-[#242424]">Ngày tạo: {item.createdAt}</p>
                                                     <p className="text-[14px] text-[#242424]">Trưởng nhóm: {item.teamLeader.name}</p>
                                                 </div>

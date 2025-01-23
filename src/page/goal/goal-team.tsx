@@ -26,6 +26,7 @@ const GoalSpendingTeamPage = () => {
     useEffect(() => {
         onGetListGoalAsync().then(_ => { });
     }, []);
+    console.log("listGoal", listGoal);
 
     return (
         <LayoutClient>
