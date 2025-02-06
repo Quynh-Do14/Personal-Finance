@@ -15,9 +15,15 @@ import { FullPageLoading } from "../../../infrastructure/common/components/contr
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
 import { formatCurrencyVND } from "../../../infrastructure/helper/helper";
 import RoundChartMiniCommon from "../../../infrastructure/common/components/mini-chart/round-chart";
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
+import spendService from "../../../infrastructure/repositories/spend/spend.service";
+import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PersonalFinancePage = () => {
+    const tokenString = localStorage.getItem('token');
+
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const [loadingBot, setLoadingBot] = useState(false);
@@ -26,23 +32,28 @@ const PersonalFinancePage = () => {
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
     const [messages, setMessages] = useState<string>("");
-
-    const pieData = {
-        labels: ["Giao thông", "Giải trí", "Thức ăn & Đồ uống"],
-        datasets: [
-            {
-                data: [100, 150, 50],
-                backgroundColor: ["#F87171", "#60A5FA", "#34D399"],
-                hoverBackgroundColor: ["#EF4444", "#3B82F6", "#059669"],
-            },
-        ],
-    };
+    const [dailySpend, setDailySpend] = useState<any>();
+    const [spendStatistics, setSpendStatistics] = useState<any>({});
+    const [incomeStatistics, setIncomeStatistics] = useState<any>({});
+    const [endDate, setEndDate] = useState<string>("");
+    const [startDate, setStartDate] = useState<string>("");
+    const [timeRange, setTimeRange] = useState<string>("daily");
+    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
+    const [spendData, setSpendData] = useState({
+        labels: [],
+        datasets: [{ data: [], backgroundColor: ["#FF6384"] }],
+    });
+    
+    const [incomeData, setIncomeData] = useState({
+        labels: [],
+        datasets: [{ data: [], backgroundColor: ["#36A2EB"] }],
+    });
 
     const onGetDetailGoalAsync = async () => {
         try {
             await goalService.GoalPersonalById(
                 String(id),
-                setLoading
+                () =>{}
             ).then((res) => {
                 setDetailGoal(res);
             })
@@ -56,7 +67,7 @@ const PersonalFinancePage = () => {
         try {
             await chatService.GetChatPersonal(
                 String(id),
-                setLoadingBot
+                () =>{}
             ).then((res) => {
                 setDataChatBox(res);
             })
@@ -66,10 +77,148 @@ const PersonalFinancePage = () => {
         }
     };
 
+    const onGetSpendPersonalByGoalStatisticalDaily = async () => {
+        try {
+            await spendService.PersonalStatisticalByGoal(
+                String(id),
+                "",
+                "",
+                "daily",
+                () =>{}
+            ).then((res) => {
+                setDailySpend(res.spendStatistics.totalSpend);
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    const generateColors = (length: number) => {
+        const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
+        return Array.from({ length }, (_, i) => colors[i % colors.length]); // Lặp lại màu nếu thiếu
+    };
+    
+    const onGetSpendPersonalByGoalStatistical = async () => {
+        setLoading(true);
+        try {
+            const res = await spendService.PersonalStatisticalByGoal(
+                String(id),
+                startDate,
+                endDate,
+                timeRange,
+                () =>{}
+            );
+    
+            if (!res.spendStatistics || !Array.isArray(res.spendStatistics.spendingTypeAndAmounts)) {
+                console.warn("No spending data available");
+                setSpendData({ labels: [], datasets: [] });
+                return;
+            }
+    
+            const labels = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.spendingType?.name || "Unknown");
+            const dataValues = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.amount || 0);
+            const colors = generateColors(labels.length);
+    
+            setSpendStatistics(res.spendStatistics);
+            setSpendData({
+                labels: labels,
+                datasets: [
+                    {
+                        data: dataValues,
+                        backgroundColor: colors,
+                    },
+                ],
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };       
+    
+    const onGetIncomePersonalByGoalStatistical = async () => {
+        setLoading(true);
+        try {
+            const res = await spendService.PersonalStatisticalByGoal(
+                String(id),
+                startDate,
+                endDate,
+                timeRange,
+                () =>{}
+            );
+    
+            if (!res.incomeStatistics || !Array.isArray(res.incomeStatistics.inComeTypeAndAmounts)) {
+                console.warn("No income data available");
+                setIncomeData({ labels: [], datasets: [] });
+                return;
+            }
+    
+            const labels = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.inComeType?.name || "Unknown");
+            const dataValues = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.amount || 0);
+            const colors = generateColors(labels.length);
+    
+            setIncomeStatistics(res.incomeStatistics);
+            setIncomeData({
+                labels: labels,
+                datasets: [
+                    {
+                        data: dataValues,
+                        backgroundColor: colors,
+                    },
+                ],
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };          
+
     useEffect(() => {
         onGetDetailGoalAsync().then(_ => { });
         onGetChatBoxAsync().then(_ => { });
-    }, []);
+        onGetSpendPersonalByGoalStatisticalDaily().then(_ => { });
+        onGetSpendPersonalByGoalStatistical().then(_ => { });
+        onGetIncomePersonalByGoalStatistical().then(_ => { });
+    }, [timeRange]);
+
+    useEffect(() => {
+        // Lấy JWT từ localStorage hoặc sessionStorage
+        const tokenData = tokenString ? JSON.parse(tokenString) : null;
+        const token = tokenData ? tokenData.accessToken : null;
+        const baseUrl = process.env.REACT_APP_BASE_URL;
+    
+        const socket = new SockJS(`${baseUrl}/ws?token=${token}`);
+    
+        const stompClient = new Client({
+          webSocketFactory: () => socket,
+          debug: (str) => {
+            console.log('STOMP Debug: ' + str);
+          },
+          connectHeaders: {
+            Authorization: `Bearer ${token}`
+          },
+          onConnect: (frame) => {
+            console.log('Connected: ' + frame);
+    
+            // Lắng nghe thông báo từ đích riêng của user
+            stompClient.subscribe('/user/queue/chat', () => {
+                onGetDetailGoalAsync();
+                onGetChatBoxAsync();
+                onGetSpendPersonalByGoalStatisticalDaily();
+                onGetSpendPersonalByGoalStatistical();
+                onGetIncomePersonalByGoalStatistical();
+            });
+          },
+        });
+    
+        stompClient.activate();
+    
+        return () => {
+          stompClient.deactivate();
+        };
+    }, [tokenString]);
 
     const handleSendMessage = async () => {
         try {
@@ -79,19 +228,21 @@ const PersonalFinancePage = () => {
                     question: messages
                 },
                 async () => {
-                    setTimeout(async () => {
-                        setMessages("");
-                        await onGetChatBoxAsync();
-                    }, 10);
+                    // setTimeout(async () => {
+                    //     setMessages("");
+                    //     await onGetChatBoxAsync();
+                    // }, 10);
+                    setMessages("");
                 },
-                setLoadingBot
+                // setLoadingBot
+                () =>{}
             ).then(() => {
             });
         }
         catch (error) {
             console.error(error);
         }
-    }
+    };
 
     return (
         <LayoutClient>
@@ -117,61 +268,68 @@ const PersonalFinancePage = () => {
                                 <p className="text-[16Fpx] text-[#303030]">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
                             </div>
                             <RoundChartMiniCommon
-                                completed={detailGoal.currentAmount}
-                                total={detailGoal.goalAmount}
+                                completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
+                                total={100}
                             />
                         </div>
-
-                        {/* Bộ lọc thời gian */}
-                        {/* <div className="">
-                            <div className="relative">
-                                <select
-                                    className="w-full border rounded-lg px-4 py-3 text-[#303030] focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    defaultValue="Tháng"
-                                >
-                                    <option value="Tháng">Tháng</option>
-                                    <option value="Tuần">Tuần</option>
-                                </select>
-                            </div>
-                            <p className="text-center mt-2 text-[#303030]">tháng 1 năm 2025</p>
-                        </div> */}
 
                         {/* Thẻ số dư */}
                         <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow ">
                             <div>
                                 <p className="text-[#212121] font-medium">Tổng chi tiêu hôm nay</p>
-                                <p className="text-red-500 text-2xl font-bold">₫-210,000 😟</p>
+                                <p className="text-red-500 text-2xl font-bold">VND {formatCurrencyVND(dailySpend)} 😟</p>
                             </div>
                             <div className="text-gray-500 text-2xl">ℹ️</div>
                         </div>
+
+                        {/* Bộ lọc thời gian */}
+                        <TimeFilter 
+                            setTimeRange={setTimeRange}
+                            startDate={startDate}
+                            endDate={endDate}
+                            setStartDate={setStartDate}
+                            setEndDate={setEndDate}
+                            fetchData={() => {
+                                onGetSpendPersonalByGoalStatistical();
+                                onGetIncomePersonalByGoalStatistical();
+                            }}
+                        />
 
                         {/* Thông tin thu chi */}
                         <div className="flex items-center justify-between ">
                             <div className="text-center">
                                 <p className="text-red-500 font-semibold">Chi phí</p>
-                                <p className="text-[#212121] text-xl font-bold">₫510,000</p>
+                                <p className="text-[#212121] text-xl font-bold">VND {formatCurrencyVND(spendStatistics.totalSpend)}</p>
                             </div>
                             <div className="text-center">
                                 <p className="text-green-500 font-semibold">Thu nhập</p>
-                                <p className="text-[#212121] text-xl font-bold">₫300,000</p>
+                                <p className="text-[#212121] text-xl font-bold">VND {formatCurrencyVND(incomeStatistics.totalInCome)}</p>
                             </div>
                         </div>
 
                         {/* Tabs chi phí / thu nhập */}
-                        <div className="flex justify-center space-x-4 ">
-                            <button className="bg-[#40BB15] text-[#FFF] px-6 py-3 rounded-lg font-semibold">
-                                Chi phí
+                        <div className="flex justify-center space-x-4 mb-6">
+                            <button
+                            className={`px-6 py-3 rounded-lg font-semibold ${
+                                selectedTab === "spend" ? "bg-[#40BB15] text-white" : "bg-[#cfcfcf] text-[#303030]"
+                            }`}
+                            onClick={() => setSelectedTab("spend")}
+                            >
+                            Chi phí
                             </button>
-                            <button className="bg-[#cfcfcf] text-[#303030] px-6 py-3 rounded-lg font-semibold">
-                                Thu nhập
+                            <button
+                            className={`px-6 py-3 rounded-lg font-semibold ${
+                                selectedTab === "income" ? "bg-[#40BB15] text-white" : "bg-[#cfcfcf] text-[#303030]"
+                            }`}
+                            onClick={() => setSelectedTab("income")}
+                            >
+                            Thu nhập
                             </button>
                         </div>
 
                         {/* Biểu đồ tròn */}
-                        <div className="flex justify-center ">
-                            <div className="w-72 h-72">
-                                <Pie data={pieData} />
-                            </div>
+                        <div className="w-72 h-72">
+                            <Pie data={selectedTab === "spend" ? spendData : incomeData} />
                         </div>
                         <ChatButton
                             isOpenChatBox={isOpenChatBox}
@@ -185,7 +343,7 @@ const PersonalFinancePage = () => {
                     </div>
                 </div>
             </div>
-            <FullPageLoading isLoading={loading} />
+            <FullPageLoading isLoading={false} />
         </LayoutClient >
     );
 };

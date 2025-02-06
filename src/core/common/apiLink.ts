@@ -37,4 +37,10 @@ export class Endpoint {
         //     static Add = "/goals/team/create"
         // }
     }
+
+    static Spend = class {
+        static Personal = class {
+            static GetStatisticalGoal = "/spends/user/statistical"
+        }
+    }
 }
