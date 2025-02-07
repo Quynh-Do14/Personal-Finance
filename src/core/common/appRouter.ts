@@ -8,6 +8,8 @@ export const ROUTE_PATH = {
     HOME_PAGE: `${PREFIX}/`,
     CHAT_BOX_PAGE: `${PREFIX}/chat-box`,
     PERSONAL_FINANCE_PAGE: `${PREFIX}/personal-finance/:id`,
+    TEAM_FINANCE_PAGE: `${PREFIX}/team-finance/:id`,
+
     REPORT_PAGE: `${PREFIX}/report`,
     GOAL_SPENDING_PAGE: `${PREFIX}/goal-spending`,
     GOAL_SPENDING_TEAM_PAGE: `${PREFIX}/goal-spending-team/:id`,

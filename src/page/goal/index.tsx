@@ -3,11 +3,35 @@ import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link } from "react-router-dom";
-import { formatCurrencyVND } from "../../infrastructure/helper/helper";
+import { convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
+import ModalCreateGoal from "./modalCreate";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
+
+    const [validate, setValidate] = useState<any>({});
+    const [submittedTime, setSubmittedTime] = useState<any>();
+    const [_dataRequest, _setDataRequest] = useState<any>({});
+    const dataRequest = _dataRequest;
+
+    const setDataRequest = (data: any) => {
+        Object.assign(dataRequest, { ...data });
+        _setDataRequest({ ...dataRequest })
+    }
+    const isValidData = () => {
+        let allRequestOK = true;
+
+        setValidate({ ...validate });
+
+        Object.values(validate).forEach((it: any) => {
+            if (it.isError === true) {
+                allRequestOK = false;
+            }
+        });
+        return allRequestOK;
+    };
     const onGetListGoalAsync = async () => {
         const param = {
             page: 0,
@@ -29,6 +53,34 @@ const GoalSpendingPage = () => {
         onGetListGoalAsync().then(_ => { });
     }, [])
 
+    const onOpenModalCreate = () => {
+        setIsOpenModalCreate(!isOpenModalCreate)
+    }
+
+    const onCloseModalCreate = () => {
+        setIsOpenModalCreate(false)
+    }
+    const onCreateGoalAsync = async () => {
+        try {
+            await goalService.AddGoalPersonal(
+                {
+                    name: dataRequest.name,
+                    goalAmount: dataRequest.goalAmount,
+                    startDate: convertDateOnly(dataRequest.startDate),
+                    endDate: convertDateOnly(dataRequest.endDate)
+                },
+                () => {
+                    onGetListGoalAsync().then(_ => { });
+                    onCloseModalCreate();
+                },
+                setLoading
+            ).then((res) => {
+            })
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <LayoutClient>
             <div className="personal-finance-container">
@@ -75,13 +127,23 @@ const GoalSpendingPage = () => {
                     </div>
 
                     {/* Nút thêm mục tiêu mới */}
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-6" onClick={onOpenModalCreate}>
                         <button className="bg-[#40bb15] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#41bb15e1]">
                             + Thêm mục tiêu mới
                         </button>
                     </div>
                 </div>
             </div>
+            <ModalCreateGoal
+                handleOk={onCreateGoalAsync}
+                handleCancel={onCloseModalCreate}
+                visible={isOpenModalCreate}
+                data={dataRequest}
+                setData={setDataRequest}
+                validate={validate}
+                setValidate={setValidate}
+                submittedTime={submittedTime}
+            />
             <FullPageLoading isLoading={loading} />
         </LayoutClient >
     );

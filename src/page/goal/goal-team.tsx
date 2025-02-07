@@ -2,13 +2,37 @@ import React, { useEffect, useState } from "react";
 import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
-import { useParams } from "react-router-dom";
-import { formatCurrencyVND } from "../../infrastructure/helper/helper";
+import { Link, useParams } from "react-router-dom";
+import { convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
+import ModalCreateGoal from "./modalCreate";
 
 const GoalSpendingTeamPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
     const { id } = useParams();
+
+    const [validate, setValidate] = useState<any>({});
+    const [submittedTime, setSubmittedTime] = useState<any>();
+    const [_dataRequest, _setDataRequest] = useState<any>({});
+    const dataRequest = _dataRequest;
+
+    const setDataRequest = (data: any) => {
+        Object.assign(dataRequest, { ...data });
+        _setDataRequest({ ...dataRequest })
+    }
+    const isValidData = () => {
+        let allRequestOK = true;
+
+        setValidate({ ...validate });
+
+        Object.values(validate).forEach((it: any) => {
+            if (it.isError === true) {
+                allRequestOK = false;
+            }
+        });
+        return allRequestOK;
+    };
 
     const onGetListGoalAsync = async () => {
         try {
@@ -26,7 +50,36 @@ const GoalSpendingTeamPage = () => {
     useEffect(() => {
         onGetListGoalAsync().then(_ => { });
     }, []);
-    console.log("listGoal", listGoal);
+
+    const onOpenModalCreate = () => {
+        setIsOpenModalCreate(!isOpenModalCreate)
+    }
+
+    const onCloseModalCreate = () => {
+        setIsOpenModalCreate(false)
+    }
+    const onCreateGoalAsync = async () => {
+        try {
+            await goalService.AddGoalTeam(
+                String(id),
+                {
+                    name: dataRequest.name,
+                    goalAmount: dataRequest.goalAmount,
+                    startDate: convertDateOnly(dataRequest.startDate),
+                    endDate: convertDateOnly(dataRequest.endDate)
+                },
+                () => {
+                    onGetListGoalAsync().then(_ => { });
+                    onCloseModalCreate();
+                },
+                setLoading
+            ).then((res) => {
+            })
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
 
     return (
         <LayoutClient>
@@ -44,7 +97,7 @@ const GoalSpendingTeamPage = () => {
                         {listGoal.map((goal) => {
                             const percentage = Math.min((goal.currentAmount / goal.goalAmount) * 100, 100);
                             return (
-                                <div
+                                <Link to={`/team-finance/${goal.id}`}
                                     key={goal.id}
                                     className="p-4 bg-gray-100 rounded-lg shadow flex flex-col md:flex-row md:items-center justify-between"
                                 >
@@ -68,19 +121,29 @@ const GoalSpendingTeamPage = () => {
                                             {percentage.toFixed(0)}%
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </div>
 
                     {/* Nút thêm mục tiêu mới */}
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-6" onClick={onOpenModalCreate}>
                         <button className="bg-[#40bb15] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#41bb15e1]">
                             + Thêm mục tiêu mới
                         </button>
                     </div>
                 </div>
             </div>
+            <ModalCreateGoal
+                handleOk={onCreateGoalAsync}
+                handleCancel={onCloseModalCreate}
+                visible={isOpenModalCreate}
+                data={dataRequest}
+                setData={setDataRequest}
+                validate={validate}
+                setValidate={setValidate}
+                submittedTime={submittedTime}
+            />
             <FullPageLoading isLoading={loading} />
         </LayoutClient >
     );

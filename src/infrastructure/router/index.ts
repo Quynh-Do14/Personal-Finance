@@ -5,6 +5,7 @@ import HomePage from "../../page/home";
 import PersonalFinancePage from "../../page/goal/personal-finance";
 import ReportPage from "../../page/report";
 import TeamPage from "../../page/team";
+import TeamFinancePage from "../../page/goal/team-finance";
 
 export const privateRoutes = [
 
@@ -21,6 +22,11 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.PERSONAL_FINANCE_PAGE,
         component: PersonalFinancePage,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.TEAM_FINANCE_PAGE,
+        component: TeamFinancePage,
         private: false,
     },
     {

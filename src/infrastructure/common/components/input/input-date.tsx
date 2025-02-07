@@ -15,7 +15,7 @@ type Props = {
     validate: any,
     setValidate: Function,
     submittedTime: any,
-    disabledToDate: any,
+    // disabledToDate: any,
     showTime?: boolean,
     showHour?: boolean,
 }
@@ -30,23 +30,23 @@ const InputDateCommon = (props: Props) => {
         disabled = false,
         dataAttribute,
         submittedTime,
-        disabledToDate = null,
+        // disabledToDate = null,
         showTime = false,
         showHour = false,
     } = props;
     const [value, setValue] = useState<Dayjs | null>(null);
 
-    const disabledDate = (current: any) => {
-        if (disabledToDate == true) {
-            return current && current < moment().startOf('day');
-        }
-        else if (disabledToDate == false) {
-            return current && current >= moment().startOf('day');
-        }
-        else {
-            return
-        }
-    };
+    // const disabledDate = (current: any) => {
+    //     if (disabledToDate == true) {
+    //         return current && current < moment().startOf('day');
+    //     }
+    //     else if (disabledToDate == false) {
+    //         return current && current >= moment().startOf('day');
+    //     }
+    //     else {
+    //         return
+    //     }
+    // };
 
     const onChange = async (dateString: any) => {
         setValue(dateString || null);
@@ -62,14 +62,14 @@ const InputDateCommon = (props: Props) => {
     }
     useEffect(() => {
         if (dataAttribute) {
-          const parsedDate = dayjs(dataAttribute);
-          if (parsedDate.isValid()) {
-            setValue(parsedDate);
-          } else {
-            console.error('Invalid date format:', dataAttribute);
-          }
+            const parsedDate = dayjs(dataAttribute);
+            if (parsedDate.isValid()) {
+                setValue(parsedDate);
+            } else {
+                console.error('Invalid date format:', dataAttribute);
+            }
         }
-      }, [dataAttribute]);
+    }, [dataAttribute]);
     useEffect(() => {
         if (submittedTime != null) {
             onBlur(true);
@@ -94,7 +94,7 @@ const InputDateCommon = (props: Props) => {
                     placeholder={`Chọn ${label}`}
                     // onChange={(values) => setValue(values)}
                     onChange={onChange}
-                    disabledDate={disabledDate}
+                    // disabledDate={disabledDate}
                     disabled={disabled}
                     format={`${showHour ? "DD/MM/YYYY hh:mm:ss" : "DD/MM/YYYY"}`}
                     onBlur={() => onBlur(false)}

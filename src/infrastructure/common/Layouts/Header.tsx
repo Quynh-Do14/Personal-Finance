@@ -5,8 +5,6 @@ import Constants from '../../../core/common/constants'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../core/common/appRouter';
 import { isTokenStoraged } from '../../utils/storage';
-import logo from '../../../assets/images/logo.jpg';
-import avatar from "../../../assets/images/avatar.png"
 import authService from '../../repositories/auth/service/auth.service';
 import { useRecoilState } from 'recoil';
 import { ProfileState } from '../../../core/atoms/profile/profileState';
@@ -16,6 +14,9 @@ import ChangePasswordModal from '../components/toast/changePassword';
 import { configImageURL } from '../../helper/helper';
 import LoginModal from '../../../page/Auth/Login';
 import RegisterModal from '../../../page/Auth/Register';
+import avatar from '../../../assets/images/no-avatar.png';
+import logo from '../../../assets/images/logo.png';
+
 const HeaderClient = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -207,12 +208,12 @@ const HeaderClient = () => {
     return (
         <div className="header-common header-layout-client">
             <nav className="flex items-center justify-between">
-                <div className="text-[#FFF] font-bold text-[14px] ">BrandName</div>
+                <img className='rounded-full cursor-pointer' width={80} height={50} src={logo} alt='' />
                 <ul className="flex space-x-6 text-[#FFF] text-[14px] font-semibold">
-                    <li>Home</li>
-                    <li>Product</li>
-                    <li>Pricing</li>
-                    <li>Contact</li>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/goal-spending">Tài chính</a></li>
+                    <li><a href="/team">Quỹ nhóm</a></li>
+                    <li><a href="/contact">Liên hệ</a></li>
                 </ul>
                 <div className="flex space-x-4">
                     <div>
@@ -230,7 +231,7 @@ const HeaderClient = () => {
                                     <Dropdown overlay={listAction} trigger={['click']}>
                                         <a onClick={(e) => e.preventDefault()}>
                                             <Space>
-                                                <img className='rounded-full cursor-pointer' width={50} height={50} src={imageUrl ? imageUrl : ""} alt='' />
+                                                <img className='rounded-full cursor-pointer' width={50} height={50} src={imageUrl ? imageUrl : avatar} alt='' />
                                             </Space>
                                         </a>
                                     </Dropdown>
