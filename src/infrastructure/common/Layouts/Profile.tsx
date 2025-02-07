@@ -211,7 +211,6 @@ const ProfileModal = (props: Props) => {
                   validate={validate}
                   setValidate={setValidate}
                   submittedTime={submittedTime}
-                  disabledToDate={false}
                 />
               </Col>
             </Row>

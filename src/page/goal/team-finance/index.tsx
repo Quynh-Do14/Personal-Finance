@@ -21,7 +21,7 @@ import spendService from "../../../infrastructure/repositories/spend/spend.servi
 import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PersonalFinancePage = () => {
+const TeamFinancePage = () => {
     const tokenString = localStorage.getItem('token');
 
     const { id } = useParams();
@@ -49,24 +49,25 @@ const PersonalFinancePage = () => {
         datasets: [{ data: [], backgroundColor: ["#36A2EB"] }],
     });
 
-    const onGetDetailGoalAsync = async () => {
-        try {
-            await goalService.GoalPersonalById(
-                String(id),
-                () => { }
-            ).then((res) => {
-                setDetailGoal(res);
-            })
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
+    // const onGetDetailGoalAsync = async () => {
+    //     try {
+    //         await goalService.GoalPersonalById(
+    //             String(id),
+    //             () => { }
+    //         ).then((res) => {
+    //             setDetailGoal(res);
+    //         })
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     const onGetChatBoxAsync = async () => {
         try {
-            await chatService.GetChatPersonal(
+            await chatService.GetChatTeam(
                 String(id),
+                String(1),
                 () => { }
             ).then((res) => {
                 setDataChatBox(res);
@@ -79,12 +80,13 @@ const PersonalFinancePage = () => {
 
     const onGetSpendPersonalByGoalStatisticalDaily = async () => {
         try {
-            await spendService.PersonalStatisticalByGoal(
+            await spendService.TeamStatisticalByGoal(
                 String(id),
+                String(1),
                 "",
                 "",
                 "daily",
-                () => { }
+                setLoading
             ).then((res) => {
                 setDailySpend(res.spendStatistics.totalSpend);
             })
@@ -102,12 +104,13 @@ const PersonalFinancePage = () => {
     const onGetSpendPersonalByGoalStatistical = async () => {
         setLoading(true);
         try {
-            const res = await spendService.PersonalStatisticalByGoal(
+            const res = await spendService.TeamStatisticalByGoal(
                 String(id),
+                String(1),
                 startDate,
                 endDate,
                 timeRange,
-                () => { }
+                setLoading
             );
 
             if (!res.spendStatistics || !Array.isArray(res.spendStatistics.spendingTypeAndAmounts)) {
@@ -140,8 +143,9 @@ const PersonalFinancePage = () => {
     const onGetIncomePersonalByGoalStatistical = async () => {
         setLoading(true);
         try {
-            const res = await spendService.PersonalStatisticalByGoal(
+            const res = await spendService.TeamStatisticalByGoal(
                 String(id),
+                String(1),
                 startDate,
                 endDate,
                 timeRange,
@@ -176,7 +180,7 @@ const PersonalFinancePage = () => {
     };
 
     useEffect(() => {
-        onGetDetailGoalAsync().then(_ => { });
+        // onGetDetailGoalAsync().then(_ => { });
         onGetChatBoxAsync().then(_ => { });
         onGetSpendPersonalByGoalStatisticalDaily().then(_ => { });
         onGetSpendPersonalByGoalStatistical().then(_ => { });
@@ -204,7 +208,7 @@ const PersonalFinancePage = () => {
 
                 // Lắng nghe thông báo từ đích riêng của user
                 stompClient.subscribe('/user/queue/chat', () => {
-                    onGetDetailGoalAsync();
+                    // onGetDetailGoalAsync();
                     onGetChatBoxAsync();
                     onGetSpendPersonalByGoalStatisticalDaily();
                     onGetSpendPersonalByGoalStatistical();
@@ -222,7 +226,8 @@ const PersonalFinancePage = () => {
 
     const handleSendMessage = async () => {
         try {
-            await chatService.AddChatPersonal(
+            await chatService.AddChatTeam(
+                String(1),
                 String(id),
                 {
                     question: messages
@@ -255,19 +260,19 @@ const PersonalFinancePage = () => {
                     <div className="bg-white flex flex-col gap-6">
                         {/* Tổng số dư */}
                         <div className="flex flex-col gap-2 items-center justify-center">
-                            <p className="text-[#40BB15] font-semibold text-[28px]">{detailGoal.name}</p>
-                            <p className="text-[24px] font-semibold">VND:{formatCurrencyVND(detailGoal.goalAmount)}</p>
+                            <p className="text-[#40BB15] font-semibold text-[28px]">{detailGoal?.name}</p>
+                            <p className="text-[24px] font-semibold">VND:{formatCurrencyVND(detailGoal?.goalAmount)}</p>
                         </div>
 
                         {/* Danh sách ví */}
                         <div className="flex items-center justify-between bg-[#f1f1f1] p-4 rounded-lg shadow">
                             <div className="flex flex-col gap-2">
-                                <p className="text-[20px] font-semibold text-[#212121]">{detailGoal.user?.username} </p>
-                                <p className="text-[16Fpx] text-[#303030]">Mục tiêu đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
-                                <p className="text-[16Fpx] text-[#303030]">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
+                                <p className="text-[20px] font-semibold text-[#212121]">{detailGoal?.user?.username} </p>
+                                <p className="text-[16Fpx] text-[#303030]">Mục tiêu đã đạt được: {formatCurrencyVND(detailGoal?.currentAmount)}</p>
+                                <p className="text-[16Fpx] text-[#303030]">Thời hạn: {detailGoal?.startDate} - {detailGoal?.endDate} </p>
                             </div>
                             <RoundChartMiniCommon
-                                completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
+                                completed={Number(((detailGoal?.currentAmount / detailGoal?.goalAmount) * 100).toFixed(2))}
                                 total={100}
                             />
                         </div>
@@ -345,4 +350,4 @@ const PersonalFinancePage = () => {
     );
 };
 
-export default PersonalFinancePage;
+export default TeamFinancePage;

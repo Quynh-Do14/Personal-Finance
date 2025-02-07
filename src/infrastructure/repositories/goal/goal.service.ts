@@ -39,11 +39,11 @@ class GoalService {
             setLoading(false);
         }
     };
-    async AddGoalTeam(data: object, onBack: Function, setLoading: Function) {
+    async AddGoalTeam(id: string, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .post(Endpoint.Goal.Team.Add,
+                .post(`${Endpoint.Goal.Team.Add}/${id}`,
                     data
                 )
                 .then(response => {

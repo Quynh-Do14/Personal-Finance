@@ -12,7 +12,7 @@ export class Endpoint {
         static Personal = class {
             static Get = "/goals/user/all"
             static GetById = "/goals/user"
-            static Add = "/goals/team/create"
+            static Add = "/goals/user/create"
         }
         static Team = class {
             static Get = "/goals/user/team"
@@ -32,15 +32,18 @@ export class Endpoint {
             static Add = "/ai/chat/spend"
             static GetBill = "/ai/bill/info"
         }
-        // static Team = class {
-        //     static Get = "/goals/user/team"
-        //     static Add = "/goals/team/create"
-        // }
+        static Team = class {
+            static Get = "/chat-logs/team/all"
+            static Add = "/ai/chat/spend"
+        }
     }
 
     static Spend = class {
         static Personal = class {
             static GetStatisticalGoal = "/spends/user/statistical"
+        }
+        static Team = class {
+            static GetStatisticalGoal = "/spends/team/statistical"
         }
     }
 }

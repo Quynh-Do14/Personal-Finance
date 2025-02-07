@@ -25,6 +25,29 @@ class SpendService {
             setLoading(false);
         }
     };
+
+    async TeamStatisticalByGoal(goalId: string, teamId: string, endDate: string, startDate: string, timeRange: string, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .get(`${Endpoint.Spend.Team.GetStatisticalGoal}/${goalId}/${teamId}`, {
+                    endDate,
+                    startDate,
+                    timeRange
+                })
+                .then(response => {
+                    if (response) {
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    };
 }
 
 export default new SpendService();
