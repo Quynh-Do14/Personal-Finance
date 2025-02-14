@@ -261,7 +261,7 @@ const TeamFinancePage = () => {
                         {/* Tổng số dư */}
                         <div className="flex flex-col gap-2 items-center justify-center">
                             <p className="text-[#40BB15] font-semibold text-[28px]">{detailGoal?.name}</p>
-                            <p className="text-[24px] font-semibold">VND:{formatCurrencyVND(detailGoal?.goalAmount)}</p>
+                            <p className="text-[24px] font-semibold">Mục tiêu: {formatCurrencyVND(detailGoal?.goalAmount)}</p>
                         </div>
 
                         {/* Danh sách ví */}

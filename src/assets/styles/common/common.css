@@ -218,8 +218,12 @@
   .ant-modal.custom-modal {
     width: 100% !important;
   }
-  
+
   .ant-drawer-content-wrapper {
     width: 100% !important;
   }
+}
+
+.ant-drawer-body {
+  padding: 4px 6px !important;
 }

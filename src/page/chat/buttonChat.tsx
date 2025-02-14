@@ -30,7 +30,7 @@ const ChatButton = (props: Props) => {
     return (
         <div className="chat-container">
             <div className="btn-chat" onClick={handleCartClick}>
-                +
+                <i className="fa fa-commenting" aria-hidden="true"></i>
             </div>
             <ChatBoxCommon
                 isOpen={isOpenChatBox}

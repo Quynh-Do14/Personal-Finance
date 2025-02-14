@@ -1,60 +1,45 @@
 import { useEffect, useState } from "react";
 import "../../../assets/styles/components/MainLayout.css";
-import authService from "../../repositories/auth/service/auth.service";
 import FooterClient from "./Footer";
 import HeaderClient from "./Header";
-import { useRecoilState } from "recoil";
-import { ProfileState } from "../../../core/atoms/profile/profileState";
-import { isTokenStoraged } from "../../utils/storage";
 const LayoutClient = ({ ...props }: any) => {
-    const [dataProfile, setDataProfile] = useState<any>({});
-    // const [, setProfileState] = useRecoilState(ProfileState);
-    // const [, setMyCourseState] = useRecoilState(MyCourseState);
-    // const [, setCategoryState] = useRecoilState(CategoryState);
 
-    // const token = isTokenStoraged();
-    // const getProfileUser = async () => {
-    //     if (token) {
-    //         try {
-    //             await authService.profile(
-    //                 () => { }
-    //             ).then((response) => {
-    //                 if (response) {
-    //                     setDataProfile(response)
-    //                     setProfileState(
-    //                         {
-    //                             user: response,
-    //                         }
-    //                     )
-    //                 }
-    //             })
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }
-    // }
-    // useEffect(() => {
-    //     if (token) {
-    //         getProfileUser().then(() => { })
-    //     }
-    // }, [token])
+    const [scrollDirection, setScrollDirection] = useState<boolean>(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
+    useEffect(() => {
+        let lastY = window.scrollY;
 
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastY && currentScrollY > 50) {
+                setScrollDirection(true);
+            } else if (currentScrollY < lastY) {
+                setScrollDirection(false);
+            }
+            lastY = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+    console.log("scrollDirection", scrollDirection);
 
     return (
         <div className="main-layout-client">
-            <HeaderClient />
-            <div className="container-layout-client">
-                {/* <div className="overlay"></div> */}
-                <div className="content-layout-client bg-[#FFF] flex flex-col scroll-auto">
-                    <div>
-                        {props.children}
-                    </div>
+            <HeaderClient
+                scrollDirection={scrollDirection}
+            />
+            {/* <div className="overlay"></div> */}
+            <div className="content-layout-client bg-[#FFF] flex flex-col scroll-auto">
+                <div>
+                    {props.children}
                 </div>
                 <FooterClient />
             </div>
         </div>
-
     )
 }
 

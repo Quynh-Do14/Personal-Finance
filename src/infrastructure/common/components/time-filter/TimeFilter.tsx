@@ -57,7 +57,7 @@ const TimeFilter: React.FC<TimeFilterProps> = ({ setTimeRange, startDate, endDat
             )}
 
             {/* Nút Xem nếu đã chọn khoảng thời gian */}
-            {((!isCustom) || (isCustom && startDate && endDate)) && (
+            {((isCustom && startDate && endDate)) && (
                 <div className="flex items-center justify-between mt-4">
                     {isCustom && (
                         <p className="text-[#303030]">

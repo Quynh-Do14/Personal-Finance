@@ -1,8 +1,8 @@
-import React from "react";
 import "../../assets/styles/page/homepage.css"
 import { Col, Row } from "antd";
 import { ROUTE_PATH } from "../../core/common/appRouter";
 import { Link } from "react-router-dom";
+import robot from "../../assets/images/robot.gif";
 const services = [
     { title: "Tài chính cá nhân", description: "The quick fox jumps over the lazy dog", path: ROUTE_PATH.GOAL_SPENDING_PAGE },
     { title: "Lập nhóm tiết kiệm", description: "The quick fox jumps over the lazy dog", path: ROUTE_PATH.TEAM_PAGE },
@@ -18,9 +18,9 @@ const TagComponent = () => {
                         lg={8} md={12} sm={12} xs={24}
                         key={index}
                     >
-                        <Link to={String(service.path)}>
+                        <Link to={String(service.path)} className="tag-col">
                             <div
-                                className="tag-content bg-white border-[1px] border-[#F2F2F2] shadow-lg p-6 flex flex-col items-start text-left gap-3 hover:shadow-xl transition-shadow"
+                                className="tag-content shadow-lg p-6 flex flex-col items-start text-left gap-3 hover:shadow-xl transition-shadow"
                             >
                                 <svg width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1479_8236)">
@@ -35,8 +35,8 @@ const TagComponent = () => {
                                 <h3 className="text-[20px] font-semibold text-[#171717]">{service.title}</h3>
                                 <p className="text-[#2b2b2b] text-[16px]">{service.description}</p>
                             </div>
+                            <img src={robot} alt="" width={120} />
                         </Link>
-
                     </Col>
                 ))}
             </Row>

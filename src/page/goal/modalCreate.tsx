@@ -106,7 +106,7 @@ const ModalCreateGoal = (props: Props) => {
                 <ButtonCommon
                     classColor={'blue'}
                     onClick={handleOk}
-                    title={'Thêm sản phẩm'}
+                    title={'Thêm mục tiêu'}
                 />
             </div>
 

@@ -1,6 +1,6 @@
 import { Col, Dropdown, Menu, Row, Space } from 'antd'
 import "../../../assets/styles/components/MainLayout.css";
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Constants from '../../../core/common/constants'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../core/common/appRouter';
@@ -16,8 +16,12 @@ import LoginModal from '../../../page/Auth/Login';
 import RegisterModal from '../../../page/Auth/Register';
 import avatar from '../../../assets/images/no-avatar.png';
 import logo from '../../../assets/images/logo.png';
-
-const HeaderClient = () => {
+import AnimatedButton from '../components/button/animationButton';
+type Props = {
+    scrollDirection: boolean
+}
+const HeaderClient = (props: Props) => {
+    const { scrollDirection } = props;
     const navigate = useNavigate();
     const location = useLocation();
     const [dataProfile, setDataProfile] = useState<any>({});
@@ -25,15 +29,12 @@ const HeaderClient = () => {
     const [isOpenModalLogout, setIsOpenModalLogout] = useState<boolean>(false);
     const [isOpenModalProfile, setIsOpenModalProfile] = useState<boolean>(false);
     const [isOpenModalChangePassword, setIsOpenModalChangePassword] = useState<boolean>(false);
-    const [isOpenModalMyCourse, setIsOpenModalMyCourse] = useState<boolean>(false);
-    const [isOpenModalReport, setIsOpenModalReport] = useState<boolean>(false);
 
     const [isLoginClick, setIsLoginClick] = useState<boolean>(false);
     const [dataLogined, setDataLogined] = useState<boolean>(false)
     const [isRegister, setIsRegisterClick] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
-    const [isTeacher, setIsTeacher] = useState<boolean>(false);
 
     // const [, setProfileState] = useRecoilState(ProfileState);
     const token = isTokenStoraged();
@@ -85,40 +86,12 @@ const HeaderClient = () => {
         }
     }
 
-    useEffect(() => {
-        dataProfile?.roles?.map((it: any) => {
-            if (it.name == "ADMIN") {
-                setIsAdmin(true)
-            }
-            else if (it.name == "TEACHER") {
-                setIsTeacher(true)
-            }
-        })
-    }, [dataProfile])
-
     const openModalProfile = () => {
         setIsOpenModalProfile(true);
     };
 
     const onCloseModalProfile = () => {
         setIsOpenModalProfile(false);
-    };
-
-
-    const openModalMyCourse = () => {
-        setIsOpenModalMyCourse(true);
-    };
-
-    const onCloseModalMyCourse = () => {
-        setIsOpenModalMyCourse(false);
-    };
-
-    const openModalReport = () => {
-        setIsOpenModalReport(true);
-    };
-
-    const onCloseModalReport = () => {
-        setIsOpenModalReport(false);
     };
 
     const openModalChangePassword = () => {
@@ -204,17 +177,16 @@ const HeaderClient = () => {
             return ""
         }
     }
-
     return (
-        <div className="header-common header-layout-client">
+        <div className={`header-common header-layout-client ${scrollDirection ? 'down' : 'up'}`}>
             <nav className="flex items-center justify-between">
                 <img className='rounded-full cursor-pointer' width={80} height={50} src={logo} alt='' />
-                <ul className="flex space-x-6 text-[#FFF] text-[14px] font-semibold">
-                    <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/goal-spending">Tài chính</a></li>
-                    <li><a href="/team">Quỹ nhóm</a></li>
-                    <li><a href="/contact">Liên hệ</a></li>
-                </ul>
+                <nav className="flex space-x-8">
+                    <a href="/">Trang chủ</a>
+                    <a href="/goal-spending">Tài chính</a>
+                    <a href="/team">Quỹ nhóm</a>
+                    <a href="/contact">Liên hệ</a>
+                </nav>
                 <div className="flex space-x-4">
                     <div>
                         {token ? (
@@ -238,11 +210,11 @@ const HeaderClient = () => {
                                 </Col>
                             </Row>
                         ) : (
-                            <button
+                            <AnimatedButton
+                                classColor={'green'}
+                                label={'Đăng nhập'}
                                 onClick={() => setIsLoginClick(!isLoginClick)}
-                                className="px-4 py-2 text-[14px]  font-semibold bg-[#40BB15] text-[#FFF] rounded hover:bg-[#40BB1590] duration-300">
-                                Login
-                            </button>
+                            />
                         )}
                     </div>
 

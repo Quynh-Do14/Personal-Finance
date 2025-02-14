@@ -1,3 +1,93 @@
 .personal-finance-container {
   position: relative;
 }
+
+.personal-finance-container .box {
+  background: #63c1ff;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.personal-finance-container .box:hover p {
+  animation: boxText 0.5s both ease-out 1;
+}
+
+.personal-finance-container .box p {
+  color: #ffffff;
+}
+
+.personal-finance-container .box::before {
+  content: '';
+  background: #e0cdff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  z-index: -1;
+  transition: width 0.5s ease-out;
+}
+
+.personal-finance-container .box:hover::before {
+  width: 100%;
+}
+
+@keyframes boxText {
+  0% {
+    color: #ffffff;
+  }
+  100% {
+    color: #1d1d1d;
+  }
+}
+.personal-finance-container .overview {
+  position: relative;
+}
+
+.personal-finance-container .overview .content {
+  z-index: 10;
+  position: relative;
+  background: linear-gradient(-45deg, #40bb15, #32a8a8, #1e8449, #0e6655);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+.personal-finance-container .overview .content {
+  z-index: 10;
+  position: relative;
+  background: linear-gradient(-45deg, #40bb15, #32a8a8, #1e8449, #0e6655);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.personal-finance-container .overview img {
+  position: absolute;
+  right: 0;
+  z-index: 9;
+  animation: robot 6s both ease-out infinite;
+}
+
+@keyframes robot {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 100px;
+  }
+  100% {
+    bottom: 0;
+  }
+}

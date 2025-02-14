@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Drawer } from "antd";
 import "../../assets/styles/page/chat.css"
 import { convertDate, convertDateShow } from "../../infrastructure/helper/helper";
+import BubbleCommon from "../../infrastructure/common/components/controls/Bubble";
+import TypingIndicator from "../../infrastructure/common/components/controls/Typing";
 
 type Props = {
     isOpen: boolean,
@@ -12,17 +14,6 @@ type Props = {
     messages: string
     setMessages: Function
 }
-
-function TypingIndicator() {
-    return (
-        <div className="typing-indicator">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-        </div>
-    );
-}
-
 
 const ChatBoxCommon = (props: Props) => {
     const {
@@ -35,6 +26,30 @@ const ChatBoxCommon = (props: Props) => {
         setMessages
     } = props;
 
+    const chatBoxRef = useRef<HTMLDivElement>(null);
+    const [isAtBottom, setIsAtBottom] = useState(true);
+
+    useEffect(() => {
+        const chatBox = chatBoxRef.current;
+        if (!chatBox) return;
+
+        const handleScroll = () => {
+            const isNearBottom = chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 10;
+            setIsAtBottom(isNearBottom);
+        };
+
+        chatBox.addEventListener("scroll", handleScroll);
+        return () => chatBox.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const scrollToBottom = () => {
+        chatBoxRef.current?.scrollTo({ top: chatBoxRef.current.scrollHeight, behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [isOpen, handleSendMessage]);
+    
     const onChangeText = (e: any) => {
         setMessages(e.target.value)
     }
@@ -45,8 +60,9 @@ const ChatBoxCommon = (props: Props) => {
             onClose={closeDrawer}
             open={isOpen}
         >
-            <div className="flex flex-col justify-between h-full">
-                <div className="flex flex-col gap-2 overflow-auto p-2">
+            <div className="chat-box-container flex flex-col justify-between h-full relative">
+                <BubbleCommon />
+                <div className="chat-box flex flex-col gap-2 overflow-auto p-2" ref={chatBoxRef}>
                     {dataChatBox.map((message, index) => (
                         <div
                             key={index}
@@ -57,7 +73,7 @@ const ChatBoxCommon = (props: Props) => {
                                 className={`flex justify-end`}
                             >
                                 <div
-                                    className={`max-w-[90%] break-words px-4 py-2 rounded-lg bg-[#40bb15] text-white`}
+                                    className={`max-w-[90%] break-words px-4 py-2 rounded-[16px] bg-[#40bb15] text-white shadow-lg z-10`}
                                 >
                                     {message.userMessage}
                                     <div className="text-[10px] text-right mt-1">{convertDateShow(message.createdAt)} </div>
@@ -68,7 +84,7 @@ const ChatBoxCommon = (props: Props) => {
                                 className={`flex justify-start`}
                             >
                                 <div
-                                    className={`max-w-[90%] break-words px-4 py-2 rounded-lg bg-gray-300 text-black`}
+                                    className={`max-w-[90%] break-words px-4 py-2 rounded-[16px] bg-[#eeeeee] text-[#242424] shadow-lg z-10`}
                                 >
                                     {message.botMessage}
                                     <div className="text-[10px] text-left mt-1">{convertDateShow(message.createdAt)} </div>
@@ -106,12 +122,16 @@ const ChatBoxCommon = (props: Props) => {
                             :
                             null
                     }
+
                 </div>
-                <div className="flex-none p-4 bg-white border-t">
+                <button className="scroll-button" onClick={scrollToBottom}>
+                    <i className="fa fa-arrow-down" aria-hidden="true"></i>
+                </button>
+                <div className="flex-none p-4 border-t">
                     <div className="flex items-center space-x-2">
                         <input
                             type="text"
-                            placeholder="Type your message..."
+                            placeholder="Nhập tin nhắn của bạn..."
                             className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#40bb15]"
                             value={messages}
                             onChange={onChangeText}
@@ -121,11 +141,12 @@ const ChatBoxCommon = (props: Props) => {
                             className="bg-[#40bb15] text-white px-4 py-2 rounded-lg hover:bg-[#40bb15]"
                             onClick={handleSendMessage}
                         >
-                            Gửi
+                            <i className="fa fa-paper-plane" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
             </div>
+
         </Drawer >
     );
 };

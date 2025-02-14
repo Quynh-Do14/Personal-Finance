@@ -5,6 +5,7 @@ import { FullPageLoading } from "../../infrastructure/common/components/controls
 import { Link, useParams } from "react-router-dom";
 import { convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
+import '../../assets/styles/page/personalFinance.css'
 
 const GoalSpendingTeamPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -90,7 +91,7 @@ const GoalSpendingTeamPage = () => {
                     </div>
                 </div>
                 <div className="padding-common">
-                    <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Danh mục mục tiêu</h1>
+                    <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Các mục tiêu</h1>
 
                     {/* Danh sách mục tiêu */}
                     <div className="space-y-4">
@@ -99,19 +100,19 @@ const GoalSpendingTeamPage = () => {
                             return (
                                 <Link to={`/team-finance/${goal.id}`}
                                     key={goal.id}
-                                    className="p-4 bg-gray-100 rounded-lg shadow flex flex-col md:flex-row md:items-center justify-between"
+                                    className="box p-4 rounded-lg shadow flex flex-col md:flex-row md:items-center justify-between"
                                 >
                                     {/* Thông tin mục tiêu */}
                                     <div className="flex flex-col gap-2">
-                                        <p className="text-[20px] font-semibold text-[#1d1d1d]">{goal.name}</p>
-                                        <p className="text-[14px] text-[#242424]">Số tiền mục tiêu: {formatCurrencyVND(goal.goalAmount)}</p>
-                                        <p className="text-[14px] text-[#242424]">Đã đạt được: {formatCurrencyVND(goal.currentAmount)}</p>
-                                        <p className="text-[14px] text-[#242424]">Ngày tạo: {goal.startDate}</p>
-                                        <p className="text-[14px] text-[#242424]">Ngày kết thúc: {goal.endDate}</p>
+                                        <p className="text-[20px] font-semibold">{goal.name}</p>
+                                        <p className="text-[14px]">Số tiền mục tiêu: {formatCurrencyVND(goal.goalAmount)}</p>
+                                        <p className="text-[14px]">Đã đạt được: {formatCurrencyVND(goal.currentAmount)}</p>
+                                        <p className="text-[14px]">Ngày tạo: {goal.startDate}</p>
+                                        <p className="text-[14px]">Ngày kết thúc: {goal.endDate}</p>
                                     </div>
                                     {/* Thanh tiến trình */}
                                     <div className="w-full md:w-1/2 mt-4 md:mt-0 md:ml-4">
-                                        <div className="relative w-full h-4 bg-[#dedede] rounded-full overflow-hidden">
+                                        <div className="relative w-full h-4 bg-[#ffffff] rounded-full overflow-hidden">
                                             <div
                                                 className="absolute top-0 left-0 h-full bg-[#40bb15]"
                                                 style={{ width: `${percentage}%` }}

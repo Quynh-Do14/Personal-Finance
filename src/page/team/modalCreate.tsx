@@ -79,7 +79,7 @@ const ModalCreateTeam = (props: Props) => {
                 <ButtonCommon
                     classColor={'blue'}
                     onClick={handleOk}
-                    title={'Thêm sản phẩm'}
+                    title={'Thêm nhóm mới'}
                 />
             </div>
 
