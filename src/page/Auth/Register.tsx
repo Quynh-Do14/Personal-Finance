@@ -5,6 +5,7 @@ import InputPasswordCommon from '../../infrastructure/common/components/input/in
 import { useState } from 'react';
 import authService from '../../infrastructure/repositories/auth/service/auth.service';
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
+import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 
 type Props = {
 
@@ -55,10 +56,13 @@ const RegisterModal = (props: Props) => {
             try {
                 await authService.register(
                     {
+                        name: dataLogin.name,
                         username: dataLogin.username,
                         email: dataLogin.email,
-                        name: dataLogin.name,
                         password: dataLogin.password,
+                        confirmPassword: dataLogin.confirmPassword,
+                        phoneNumber: dataLogin.phoneNumber,
+                        roles: "user"
                     },
                     setLoading
                 ).then((response) => {
@@ -88,7 +92,7 @@ const RegisterModal = (props: Props) => {
                     <img src={""} alt="" />
                 </div>
                 <div className="">
-                    <p className="text-center font-bold text-[2rem] ">Đăng ký</p>
+                    <p className="text-center font-bold text-[2rem] text-[#787878]">Đăng ký</p>
                 </div>
                 <Row gutter={[10, 10]}>
                     <Col span={24}>
@@ -131,6 +135,19 @@ const RegisterModal = (props: Props) => {
                         />
                     </Col>
                     <Col span={24}>
+                        <InputTextCommon
+                            label={"Số điện thoại"}
+                            attribute={"phoneNumber"}
+                            isRequired={true}
+                            dataAttribute={dataLogin.phoneNumber}
+                            setData={setDataLogin}
+                            disabled={false}
+                            validate={validate}
+                            setValidate={setValidate}
+                            submittedTime={submittedTime}
+                        />
+                    </Col>
+                    <Col span={24}>
                         <InputPasswordCommon
                             label={"Mật khẩu"}
                             attribute={"password"}
@@ -144,12 +161,26 @@ const RegisterModal = (props: Props) => {
                         />
                     </Col>
                     <Col span={24}>
-                        <button className="w-full bg-[#40bb15] hover:bg-[#53ffff] text-white hover:text-[#1d1d1d] transition duration-300 p-2 rounded-[4px] text-[16px] font-semibold " onClick={onRegisterAsync}>Đăng nhập</button>
+                        <InputPasswordCommon
+                            label={"Nhập lại mật khẩu"}
+                            attribute={"confirmPassword"}
+                            isRequired={true}
+                            dataAttribute={dataLogin.confirmPassword}
+                            setData={setDataLogin}
+                            disabled={false}
+                            validate={validate}
+                            setValidate={setValidate}
+                            submittedTime={submittedTime}
+                        />
+                    </Col>
+                    <Col span={24}>
+                        <ButtonCommon
+                            onClick={onRegisterAsync}
+                            title={'Đăng ký'}
+                            classColor={'green'}
+                        />
                     </Col>
                 </Row>
-                <div className="flex justify-between gap-[10rem] py-2">
-                    <Link onClick={() => { }} className="cursor-pointer" to={''}>Bạn đã có tài khoản</Link>
-                </div>
             </div>
         </Modal>
     )

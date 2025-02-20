@@ -2,11 +2,12 @@ export class Endpoint {
     static Auth = class {
         static Login = "/auth/login"
         static Register = "/auth/signup"
-        static Profile = "/profile"
-        static ProfileUpdate = "/profile/update"
+        static Profile = "/auth/get/profile"
+        static ProfileUpdate = "/auth/update-profile"
         static Customer = "/customers/update"
         static ChangePassword = "/profile/change-password"
         static RefreshToken = "/auth/refresh-token"
+        static SelectBot = "/auth/user/change-bot"
     }
     static Goal = class {
         static Personal = class {

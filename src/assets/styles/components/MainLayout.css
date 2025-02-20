@@ -33,25 +33,26 @@
   background: #fff;
 }
 
-.main-layout .header .avatar {
+.main-layout .header-common .avatar {
   border-radius: 50%;
 }
 
-.main-layout .header .user-name {
-  color: #1c3e66;
-  font-size: 13px;
+.main-layout-client .header-common .user-name {
+  color: #40bb15;
+  font-size: 16px;
   font-weight: 600;
   line-height: 22px;
 }
 
-.main-layout .header .role {
-  color: #fe7524;
-  font-size: 14px;
+.main-layout-client .header-common .role {
+  color: #1a1a1a;
+  font-size: 12px;
   font-weight: 600;
   line-height: 22px;
+  text-align: right;
 }
 
-.main-layout .header .logout {
+.main-layout-client .header-common .logout {
   color: #000;
   font-feature-settings: 'clig' off, 'liga' off;
   font-size: 15px;
@@ -76,17 +77,14 @@
   /* box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.25), -3px -3px 10px 0px rgba(0, 0, 0, 0.25); */
 }
 
-.action-admin .info-admin {
-  border-top: 1px solid #cccccc;
-  border-radius: 0px !important;
-}
-
 .action-admin .info-admin .info-admin-title {
-  color: #808080;
+  color: #787878;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
 }
-
+.action-admin .info-admin .info-admin-title i {
+  margin-right: 8px;
+}
 .main-layout
   .sider
   ul.ant-menu.ant-menu-root.ant-menu-vertical.ant-menu-light.menu.css-dev-only-do-not-override-pr0fja {
@@ -249,39 +247,81 @@
 .main-layout-client .header-common ul li.active {
   border: 2px solid #edeef3;
 }
+.main-layout-client .header-common a {
+  color: #787878;
+  font-size: 16px;
+  font-weight: 600;
+}
 
-/* .main-layout-client .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #84848454;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-} */
+.main-layout-client .header-common .avatar-user {
+  height: 52px;
+  width: 52px;
+  position: relative;
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+}
+.main-layout-client .header-common .avatar-user:before {
+  content: ':hover state on';
+  display: inline-block;
+  position: absolute;
+  left: -70px;
+  top: -80px;
+  height: 40px;
+  line-height: 40px;
+  width: 200px;
+  text-align: center;
+  color: #1e1e21;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
+  font-family: 'Roboto Mono', monospace;
+}
+.main-layout-client .header-common .grad {
+  height: inherit;
+  width: inherit;
+  background: linear-gradient(180deg, #40bb15 80%, #db21a0);
+  position: absolute;
+  border-radius: 50%;
+}
 
-.menu-info-user {
-  /* min-width: 200px; */
-  background: #fff;
-  border: 1px solid #ffffff;
-  box-shadow: 0px 8px 16px rgb(0 0 0 / 8%);
+.main-layout-client .header-common .avatar-user img {
+  height: 48px;
+  width: 48px;
+  border: 1px solid #787878;
+  position: absolute;
+  margin: 2px 0 0 2px;
+  z-index: 99;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.main-layout-client .header-common .spin {
+  animation-duration: 1s;
+  animation-name: spin;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.main-layout-client .content-layout-client {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  /* padding: 24px 24px 24px 24px; */
-  white-space: nowrap;
-  padding: 8px;
-  border-radius: 6px;
+  background: #fff;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media only screen and (min-width: 1600px) {
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 300px;
+    padding: 12px 300px;
   }
 }
 
@@ -289,7 +329,7 @@
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 200px;
+    padding: 12px 200px;
   }
 }
 
@@ -297,7 +337,7 @@
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 150px;
+    padding: 12px 150px;
   }
 }
 
@@ -305,7 +345,7 @@
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 100px;
+    padding: 12px 100px;
   }
 }
 
@@ -313,7 +353,7 @@
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 60px;
+    padding: 12px 60px;
   }
 }
 
@@ -321,7 +361,7 @@
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 30px;
+    padding: 12px 30px;
   }
 }
 
@@ -329,6 +369,6 @@
   /* .main-layout-client .content-layout-client, */
   .main-layout-client .header-layout-client,
   .main-layout-client .footer-layout-client {
-    padding: 20px 20px;
+    padding: 12px 20px;
   }
 }

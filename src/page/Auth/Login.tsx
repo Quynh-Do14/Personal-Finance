@@ -5,6 +5,7 @@ import InputPasswordCommon from '../../infrastructure/common/components/input/in
 import { useState } from 'react';
 import authService from '../../infrastructure/repositories/auth/service/auth.service';
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
+import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 
 type Props = {
     isLoginClick: boolean,
@@ -92,7 +93,7 @@ const LoginModal = (props: Props) => {
                     <img src={""} alt="" />
                 </div>
                 <div className="">
-                    <p className="text-center font-bold text-[2rem] ">Đăng nhập</p>
+                    <p className="text-center font-bold text-[2rem] text-[#787878]">Đăng nhập</p>
                 </div>
                 <Row gutter={[10, 10]}>
                     <Col span={24}>
@@ -119,13 +120,19 @@ const LoginModal = (props: Props) => {
                             validate={validate}
                             setValidate={setValidate}
                             submittedTime={submittedTime}
+                            onEnterPress={onLoginAsync}
                         />
                     </Col>
                     <Col span={24}>
-                        <button className="w-full bg-[#40bb15] hover:bg-[#38d9d9] text-white hover:text-[#1d1d1d] transition duration-300 p-2 rounded-[4px] text-[16px] font-semibold " onClick={onLoginAsync}>Đăng nhập</button>
+                        <ButtonCommon
+                            onClick={onLoginAsync}
+                            title={'Đăng nhập'}
+                            classColor={'green'}
+                            isFullWidth={true}
+                        />
                     </Col>
                 </Row>
-                <div className="flex justify-between gap-[10rem] py-2">
+                <div className="flex justify-between gap-[10rem] py-2 text-[#787878]">
                     <Link to={""} className="">Quên mật khẩu?</Link>
                     <Link onClick={handleRegister} className="cursor-pointer" to={''}>Chưa có tài khoản</Link>
                 </div>

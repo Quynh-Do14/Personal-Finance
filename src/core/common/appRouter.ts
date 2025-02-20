@@ -16,16 +16,9 @@ export const ROUTE_PATH = {
     TEAM_PAGE: `${PREFIX}/team`,
 
 
-    LIST_COURSE: `${PREFIX}/course-public`,
-    DETAIL_COURSE: `${PREFIX}/course-public/view/:id`,
-    LIST_TEACHER: `${PREFIX}/teacher-public`,
-    DETAIL_TEACHER: `${PREFIX}/teacher-public/view/:id`,
+    VERIFY_EMAIL: `${PREFIX}/verify`,
 
-    LIST_LESSON: `${PREFIX}/lesson-public`,
-    DETAIL_LESSON: `${PREFIX}/lesson-public/view/:id`,
-
-    LIST_DOCUMENT: `${PREFIX}/document-public`,
-    DETAIL_DOCUMENT: `${PREFIX}/document-public/view/:id`,
+    SELECT_CHAT_BOT: `${PREFIX}/select-bot`,
 
     ///Management
     MANAGE_LAYOUT: `${PREFIX}/manage-layout`,

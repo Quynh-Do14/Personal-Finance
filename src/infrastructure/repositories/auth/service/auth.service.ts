@@ -34,7 +34,7 @@ class AuthService {
     async logout(setLoading: Function) {
         setLoading(true)
         try {
-            sessionStorage.clear();
+            localStorage.clear();
             SuccessMessage("Đăng xuất thành công", "")
         } catch (error) {
             console.error(error)
@@ -179,6 +179,28 @@ class AuthService {
     //         setLoading(false);
     //     }
     // }
+
+    async changeBotChat(id: number, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .put(`${Endpoint.Auth.SelectBot}/${id}`)
+                .then(response => {
+                    if (response) {
+                        onBack();
+                        SuccessMessage("Cập nhật thành công", "")
+                    }
+                    setLoading(false);
+                    return response;
+                });
+        } catch (error: any) {
+            console.error(error)
+            FailMessage("Cập nhật không thành công", "Vui lòng kiểm tra thông tin")
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
 }
 

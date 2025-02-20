@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
+import SelectFilterCommon from "../input/select-filter";
+import Constants from "../../../../core/common/constants";
+import InputDateFilterCommon from "../input/input-date-filter";
+import { ButtonCommon } from "../button/button-common";
 
 // Interface cho TimeFilter
 interface TimeFilterProps {
@@ -23,53 +27,31 @@ const TimeFilter: React.FC<TimeFilterProps> = ({ setTimeRange, startDate, endDat
         <div>
             {/* Dropdown chọn khoảng thời gian */}
             <div className="relative">
-                <select
-                    className="w-full border rounded-lg px-4 py-3 text-[#303030] focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    defaultValue="daily"
+                <SelectFilterCommon
+                    label={"Lọc theo thời gian"}
+                    listDataOfItem={Constants.TimeFilter.List}
                     onChange={handleTimeRangeChange}
-                >
-                    <option value="daily">Ngày</option>
-                    <option value="weekly">Tuần</option>
-                    <option value="monthly">Tháng</option>
-                    <option value="">Lựa chọn thời gian</option>
-                </select>
+                />
             </div>
 
             {/* Chọn khoảng thời gian nếu chọn "Lựa chọn thời gian" */}
             {isCustom && (
-                <div className="mt-4 space-y-3">
-                    <label className="text-[#303030] font-semibold">Chọn khoảng thời gian:</label>
-                    <div className="flex space-x-4">
-                        <input
-                            type="date"
-                            className="border rounded-lg px-4 py-2 text-[#303030] focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                        <input
-                            type="date"
-                            className="border rounded-lg px-4 py-2 text-[#303030] focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </div>
-                </div>
-            )}
-
-            {/* Nút Xem nếu đã chọn khoảng thời gian */}
-            {((isCustom && startDate && endDate)) && (
-                <div className="flex items-center justify-between mt-4">
-                    {isCustom && (
-                        <p className="text-[#303030]">
-                            Từ <b>{startDate}</b> đến <b>{endDate}</b>
-                        </p>
-                    )}
-                    <button
-                        className="px-4 py-2 rounded-lg bg-[#40BB15] text-white font-semibold"
+                <div className="flex gap-4 mt-4 items-end">
+                    <InputDateFilterCommon
+                        label={"Thời gian bắt đầu"}
+                        value={startDate}
+                        onChange={setStartDate}
+                    />
+                    <InputDateFilterCommon
+                        label={"Thời gian kết thúc"}
+                        value={endDate}
+                        onChange={setEndDate}
+                    />
+                    <ButtonCommon
+                        title="Lọc"
+                        classColor="green"
                         onClick={fetchData}
-                    >
-                        Xem
-                    </button>
+                    />
                 </div>
             )}
         </div>

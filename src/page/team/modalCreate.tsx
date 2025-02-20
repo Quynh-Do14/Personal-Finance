@@ -7,7 +7,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
 
 type Props = {
-    handleOk: Function,
+    handleOk: () => void,
     handleCancel: Function,
     visible: boolean,
     data: any,
@@ -77,7 +77,7 @@ const ModalCreateTeam = (props: Props) => {
                     </Col>
                 </Row>
                 <ButtonCommon
-                    classColor={'blue'}
+                    classColor={'green'}
                     onClick={handleOk}
                     title={'Thêm nhóm mới'}
                 />

@@ -25,6 +25,7 @@ import robot from "../../../assets/images/robot.gif";
 
 import { Col, Row } from "antd";
 import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
+import { ButtonCommon } from "../../../infrastructure/common/components/button/button-common";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -329,21 +330,17 @@ const PersonalFinancePage = () => {
                         />
 
                         {/* Tabs chi phí / thu nhập */}
-                        <div className="flex justify-center space-x-4 mb-6">
-                            <button
-                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "spend" ? "bg-[#40BB15] text-white" : "bg-[#cfcfcf] text-[#303030]"
-                                    }`}
+                        <div className="flex justify-center gap-4 mb-6">
+                            <ButtonCommon
+                                classColor={selectedTab === "spend" ? "green" : "red"}
                                 onClick={() => setSelectedTab("spend")}
-                            >
-                                Chi phí
-                            </button>
-                            <button
-                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "income" ? "bg-[#40BB15] text-white" : "bg-[#cfcfcf] text-[#303030]"
-                                    }`}
+                                title={"Chi phí"}
+                            />
+                            <ButtonCommon
+                                classColor={selectedTab === "income" ? "green" : "red"}
                                 onClick={() => setSelectedTab("income")}
-                            >
-                                Thu nhập
-                            </button>
+                                title={"Thu nhập"}
+                            />
                         </div>
                         {/* Thông tin thu chi */}
 
@@ -354,7 +351,7 @@ const PersonalFinancePage = () => {
                                 ?
                                 <Row gutter={[40, 20]}>
                                     <Col md={24} lg={8} className="w-full">
-                                        <Pie data={selectedTab === "spend" ? spendData : incomeData} />
+                                        <Pie data={selectedTab === "spend" ? spendData : incomeData}/>
                                     </Col>
                                     <Col md={24} lg={16} className="overflow-x-auto">
                                         <table className="w-full text-left text-sm font-light text-[#FFF]">
@@ -391,6 +388,7 @@ const PersonalFinancePage = () => {
                         }
 
                         <ChatButton
+                            titleChat={detailGoal.name}
                             isOpenChatBox={isOpenChatBox}
                             setIsOpenChatBox={setIsOpenChatBox}
                             dataChatBox={dataChatBox}

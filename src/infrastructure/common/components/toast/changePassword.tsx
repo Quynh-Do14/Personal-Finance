@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { ROUTE_PATH } from '../../../../core/common/appRouter'
 type Props = {
     // handleOk: Function,
-    handleCancel: Function,
+    handleCancel: () => void,
     visible: boolean,
     isLoading?: boolean,
 }
@@ -78,79 +78,70 @@ const ChangePasswordModal = (props: Props) => {
             onCancel={() => handleCancel()}
             width={"50%"}
         >
-            <div className='main-page h-full flex-1 overflow-auto bg-white px-4 py-8'>
-                <div className='bg-white scroll-auto'></div>
-                <Row>
-                    <Col span={24} className='border-add'>
-                        <div className='legend-title'>Thay đổi mật khẩu</div>
-                        <Row gutter={[30, 0]}>
+            <div className='flex flex-col gap-4'>
+                <div className="">
+                    <p className="text-center font-bold text-[2rem] text-[#787878]">Thay đổi mật khẩu</p>
+                </div>
+                <Row gutter={[10, 10]}>
 
-                            <Col span={24}>
-                                <InputPasswordCommon
-                                    label={"Mật khẩu hiện tại"}
-                                    attribute={"oldPassword"}
-                                    isRequired={true}
-                                    dataAttribute={changePassword.oldPassword}
-                                    setData={setchangePassword}
-                                    disabled={false}
-                                    validate={validate}
-                                    setValidate={setValidate}
-                                    submittedTime={submittedTime}
-                                />
-                            </Col>
-                            <Col span={24}>
-                                <InputPasswordCommon
-                                    label={"Mật khẩu mới"}
-                                    attribute={"newPassword"}
-                                    isRequired={true}
-                                    dataAttribute={changePassword.newPassword}
-                                    setData={setchangePassword}
-                                    disabled={false}
-                                    validate={validate}
-                                    setValidate={setValidate}
-                                    submittedTime={submittedTime}
-                                    data={changePassword}
-                                />
-                            </Col>
-                            <Col span={24}>
-                                <InputPasswordCommon
-                                    label={"Xác nhận mật khẩu"}
-                                    attribute={"confirmPassword"}
-                                    isRequired={true}
-                                    dataAttribute={changePassword.confirmPassword}
-                                    setData={setchangePassword}
-                                    disabled={false}
-                                    validate={validate}
-                                    setValidate={setValidate}
-                                    submittedTime={submittedTime}
-                                    data={changePassword}
-                                />
-                            </Col>
-                        </Row>
+                    <Col span={24}>
+                        <InputPasswordCommon
+                            label={"Mật khẩu hiện tại"}
+                            attribute={"oldPassword"}
+                            isRequired={true}
+                            dataAttribute={changePassword.oldPassword}
+                            setData={setchangePassword}
+                            disabled={false}
+                            validate={validate}
+                            setValidate={setValidate}
+                            submittedTime={submittedTime}
+                        />
+                    </Col>
+                    <Col span={24}>
+                        <InputPasswordCommon
+                            label={"Mật khẩu mới"}
+                            attribute={"newPassword"}
+                            isRequired={true}
+                            dataAttribute={changePassword.newPassword}
+                            setData={setchangePassword}
+                            disabled={false}
+                            validate={validate}
+                            setValidate={setValidate}
+                            submittedTime={submittedTime}
+                            data={changePassword}
+                        />
+                    </Col>
+                    <Col span={24}>
+                        <InputPasswordCommon
+                            label={"Xác nhận mật khẩu"}
+                            attribute={"confirmPassword"}
+                            isRequired={true}
+                            dataAttribute={changePassword.confirmPassword}
+                            setData={setchangePassword}
+                            disabled={false}
+                            validate={validate}
+                            setValidate={setValidate}
+                            submittedTime={submittedTime}
+                            data={changePassword}
+                        />
                     </Col>
                 </Row>
             </div>
             <div className='container-btn main-page bg-white p-4 flex flex-col'>
-                <Row justify={"center"}>
-                    <Col className='mx-1'>
-                        <ButtonCommon
-                            onClick={handleCancel}
-                            classColor="blue"
-                            icon={null}
-                            title={'Quay lại'}
-                        />
-                    </Col>
-                    <Col className='mx-1'>
-                        <ButtonCommon
-                            onClick={onUpdateProfile}
-                            classColor="orange"
-                            icon={null}
-                            title={'Cập nhật'}
-                        />
-                    </Col>
-                </Row>
-            </div >
-        </Modal >
+                <div className='flex gap-2 justify-center'>
+                    <ButtonCommon
+                        onClick={handleCancel}
+                        classColor="red"
+                        title={'Quay lại'}
+                    />
+                    <ButtonCommon
+                        onClick={onUpdateProfile}
+                        classColor="green"
+                        title={'Cập nhật'}
+                    />
+                </div>
+            </div>
+        </Modal>
     )
 }
 

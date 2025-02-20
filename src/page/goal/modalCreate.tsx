@@ -8,7 +8,7 @@ import UploadImageAvatar from '../../infrastructure/common/components/input/uplo
 import InputDateCommon from '../../infrastructure/common/components/input/input-date';
 
 type Props = {
-    handleOk: Function,
+    handleOk: () => void,
     handleCancel: Function,
     visible: boolean,
     data: any,
@@ -104,8 +104,9 @@ const ModalCreateGoal = (props: Props) => {
                     </Col>
                 </Row>
                 <ButtonCommon
-                    classColor={'blue'}
+                    classColor={'green'}
                     onClick={handleOk}
+                    isFullWidth={true}
                     title={'Thêm mục tiêu'}
                 />
             </div>

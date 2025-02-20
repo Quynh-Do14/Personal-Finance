@@ -73,11 +73,3 @@ export const formatCurrencyVND = (amount: any) => {
     let formattedAmount = String(amount).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     return `${formattedAmount} ₫`;
 }
-export const configGender = (gender: boolean) => {
-    if (gender == Constants.Gender.MALE.value) {
-        return Constants.Gender.MALE.position
-    }
-    else if (gender == Constants.Gender.FEMALE.value) {
-        return Constants.Gender.FEMALE.position
-    }
-}

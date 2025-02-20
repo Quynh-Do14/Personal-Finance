@@ -13,7 +13,7 @@ import { isTokenStoraged } from '../../utils/storage';
 
 type Props = {
   // handleOk: Function,
-  handleCancel: Function,
+  handleCancel: () => void,
   visible: boolean,
   loading?: boolean,
   setLoading: Function
@@ -24,8 +24,6 @@ const ProfileModal = (props: Props) => {
   const [submittedTime, setSubmittedTime] = useState<any>();
   const [detailProfile, setDetailProfile] = useState<any>({});
 
-  const [imageUrl, setImageUrl] = useState<any>(null);
-  const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
   const token = isTokenStoraged();
 
@@ -78,13 +76,9 @@ const ProfileModal = (props: Props) => {
   useEffect(() => {
     if (detailProfile) {
       setDataProfile({
-        avatar: detailProfile.avatar?.fileCode,
+        avatar: detailProfile.avatarCode,
         name: detailProfile.name,
-        email: detailProfile.email,
-        username: detailProfile.username,
         phoneNumber: detailProfile.phoneNumber,
-        cccd: detailProfile.cccd,
-        dob: detailProfile.dob,
       });
     }
   }, [detailProfile]);
@@ -94,13 +88,11 @@ const ProfileModal = (props: Props) => {
     if (isValidData()) {
       await authService.updateProfile(
         {
-          avatar: avatar ? avatar : imageUrl,
+          avatar: dataProfile.email,
           email: dataProfile.email,
           username: dataProfile.username,
           name: dataProfile.name,
           phoneNumber: dataProfile.phoneNumber,
-          cccd: dataProfile.cccd,
-          dob: convertDateOnly(dataProfile.dob),
         },
         () => {
           onGetProfileAsync();
@@ -113,8 +105,7 @@ const ProfileModal = (props: Props) => {
       WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
     };
   };
-  console.log("dataProfile",dataProfile.avatar);
-  
+
   return (
     <Modal
       key={"f-0"}
@@ -125,118 +116,81 @@ const ProfileModal = (props: Props) => {
       onCancel={() => handleCancel()}
       width={"70%"}
     >
-      <div className='main-page h-full flex-1 overflow-auto bg-white px-4 py-8'>
-        <div className='bg-white scroll-auto'></div>
-        <Row>
-          <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={5} className='border-add flex justify-center'>
-            <div className='legend-title'>Cập nhật ảnh</div>
+      <div className='flex flex-col gap-4'>
+        <div className="">
+          <p className="text-center font-bold text-[2rem] text-[#787878]">Đăng nhập</p>
+        </div>
+        <Row gutter={[30, 0]}>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+            <InputTextCommon
+              label={"Tên đăng nhập"}
+              attribute={"username"}
+              isRequired={false}
+              dataAttribute={dataProfile.username}
+              setData={setDataProfile}
+              disabled={true}
+              validate={validate}
+              setValidate={setValidate}
+              submittedTime={submittedTime}
+            />
           </Col>
-          <Col xs={24} sm={24} md={12} lg={16} xl={18} xxl={19} className='border-add'>
-            <div className='legend-title'>Cập nhật thông tin</div>
-            <Row gutter={[30, 0]}>
-
-              <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                <InputTextCommon
-                  label={"Tên đăng nhập"}
-                  attribute={"username"}
-                  isRequired={false}
-                  dataAttribute={dataProfile.username}
-                  setData={setDataProfile}
-                  disabled={true}
-                  validate={validate}
-                  setValidate={setValidate}
-                  submittedTime={submittedTime}
-                />
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                <InputTextCommon
-                  label={"Email"}
-                  attribute={"email"}
-                  isRequired={false}
-                  dataAttribute={dataProfile.email}
-                  setData={setDataProfile}
-                  disabled={true}
-                  validate={validate}
-                  setValidate={setValidate}
-                  submittedTime={submittedTime}
-                />
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                <InputTextCommon
-                  label={"Tên khách hàng"}
-                  attribute={"name"}
-                  isRequired={true}
-                  dataAttribute={dataProfile.name}
-                  setData={setDataProfile}
-                  disabled={false}
-                  validate={validate}
-                  setValidate={setValidate}
-                  submittedTime={submittedTime}
-                />
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                <InputTextCommon
-                  label={"Số điện thoại"}
-                  attribute={"phoneNumber"}
-                  isRequired={true}
-                  dataAttribute={dataProfile.phoneNumber}
-                  setData={setDataProfile}
-                  disabled={false}
-                  validate={validate}
-                  setValidate={setValidate}
-                  submittedTime={submittedTime}
-                />
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                <InputTextCommon
-                  label={"CCCD"}
-                  attribute={"cccd"}
-                  isRequired={false}
-                  dataAttribute={dataProfile.cccd}
-                  setData={setDataProfile}
-                  disabled={false}
-                  validate={validate}
-                  setValidate={setValidate}
-                  submittedTime={submittedTime}
-                />
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                <InputDateCommon
-                  label={"Ngày sinh"}
-                  attribute={"dob"}
-                  isRequired={true}
-                  dataAttribute={dataProfile.dob}
-                  setData={setDataProfile}
-                  disabled={false}
-                  validate={validate}
-                  setValidate={setValidate}
-                  submittedTime={submittedTime}
-                />
-              </Col>
-            </Row>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+            <InputTextCommon
+              label={"Email"}
+              attribute={"email"}
+              isRequired={false}
+              dataAttribute={dataProfile.email}
+              setData={setDataProfile}
+              disabled={true}
+              validate={validate}
+              setValidate={setValidate}
+              submittedTime={submittedTime}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+            <InputTextCommon
+              label={"Tên người dùng"}
+              attribute={"name"}
+              isRequired={true}
+              dataAttribute={dataProfile.name}
+              setData={setDataProfile}
+              disabled={false}
+              validate={validate}
+              setValidate={setValidate}
+              submittedTime={submittedTime}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+            <InputTextCommon
+              label={"Số điện thoại"}
+              attribute={"phoneNumber"}
+              isRequired={true}
+              dataAttribute={dataProfile.phoneNumber}
+              setData={setDataProfile}
+              disabled={false}
+              validate={validate}
+              setValidate={setValidate}
+              submittedTime={submittedTime}
+            />
           </Col>
         </Row>
       </div>
       <div className='container-btn main-page bg-white p-4 flex flex-col'>
-        <Row justify={"center"}>
-          <Col className='mx-1'>
-            <ButtonCommon
-              onClick={handleCancel}
-              classColor="black"
-              icon={null}
-              title={'Quay lại'}
-            />
-          </Col>
-          <Col className='mx-1'>
-            <ButtonCommon
-              onClick={onUpdateProfile}
-              classColor="green"
-              icon={null}
-              title={'Cập nhật'}
-            />
-          </Col>
-        </Row>
-      </div >
+        <div className='flex gap-2 justify-center'>
+          <ButtonCommon
+            onClick={handleCancel}
+            classColor="red"
+            icon={null}
+            title={'Quay lại'}
+          />
+          <ButtonCommon
+            onClick={onUpdateProfile}
+            classColor="green"
+            icon={null}
+            title={'Cập nhật'}
+          />
+        </div>
+      </div>
     </Modal >
   )
 }

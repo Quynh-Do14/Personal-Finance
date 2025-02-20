@@ -93,7 +93,7 @@ function UploadVideo(props: Props) {
     return (
         <div>
             <div className='mb-4 input-common'>
-                <div className='title mb-2'>
+                <div className='title mb-1'>
                     <span>
                         <span className='label'>{label}</span>
                         <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>

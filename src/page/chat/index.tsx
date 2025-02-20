@@ -4,8 +4,10 @@ import "../../assets/styles/page/chat.css"
 import { convertDate, convertDateShow } from "../../infrastructure/helper/helper";
 import BubbleCommon from "../../infrastructure/common/components/controls/Bubble";
 import TypingIndicator from "../../infrastructure/common/components/controls/Typing";
+import { log } from "console";
 
 type Props = {
+    titleChat: string
     isOpen: boolean,
     closeDrawer: () => void,
     loading: boolean,
@@ -17,6 +19,7 @@ type Props = {
 
 const ChatBoxCommon = (props: Props) => {
     const {
+        titleChat,
         isOpen,
         closeDrawer,
         loading = false,
@@ -39,7 +42,10 @@ const ChatBoxCommon = (props: Props) => {
         };
 
         chatBox.addEventListener("scroll", handleScroll);
-        return () => chatBox.removeEventListener("scroll", handleScroll);
+
+        return () => {
+            chatBox.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     const scrollToBottom = () => {
@@ -47,22 +53,26 @@ const ChatBoxCommon = (props: Props) => {
     };
 
     useEffect(() => {
-        scrollToBottom();
-    }, [isOpen, handleSendMessage]);
-    
+        if (isAtBottom) {
+            scrollToBottom();
+        }
+    }, [dataChatBox, isOpen]);
+
     const onChangeText = (e: any) => {
         setMessages(e.target.value)
     }
     return (
         <Drawer
-            title="Trò chuyện với Bot"
             placement="right"
             onClose={closeDrawer}
             open={isOpen}
+            headerStyle={{
+                display: "none"
+            }}
         >
-            <div className="chat-box-container flex flex-col justify-between h-full relative">
+            <div className="chat-box-container" >
                 <BubbleCommon />
-                <div className="chat-box flex flex-col gap-2 overflow-auto p-2" ref={chatBoxRef}>
+                <div className="chat-box" ref={chatBoxRef}>
                     {dataChatBox.map((message, index) => (
                         <div
                             key={index}
@@ -124,9 +134,11 @@ const ChatBoxCommon = (props: Props) => {
                     }
 
                 </div>
-                <button className="scroll-button" onClick={scrollToBottom}>
-                    <i className="fa fa-arrow-down" aria-hidden="true"></i>
-                </button>
+                {isAtBottom && (
+                    <button className="scroll-button" onClick={scrollToBottom}>
+                        <i className="fa fa-arrow-down" aria-hidden="true"></i>
+                    </button>
+                )}
                 <div className="flex-none p-4 border-t">
                     <div className="flex items-center space-x-2">
                         <input

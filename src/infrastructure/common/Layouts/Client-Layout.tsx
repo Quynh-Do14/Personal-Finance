@@ -1,31 +1,36 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "../../../assets/styles/components/MainLayout.css";
 import FooterClient from "./Footer";
 import HeaderClient from "./Header";
 const LayoutClient = ({ ...props }: any) => {
 
+    const scrollRef = useRef<HTMLDivElement>(null);
     const [scrollDirection, setScrollDirection] = useState<boolean>(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
-    useEffect(() => {
-        let lastY = window.scrollY;
-
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastY && currentScrollY > 50) {
-                setScrollDirection(true);
-            } else if (currentScrollY < lastY) {
+    const handleScroll = useCallback(() => {
+        if (scrollRef.current) {
+            const currentScrollY = scrollRef.current.scrollTop;
+            if (currentScrollY > lastScrollY) {
                 setScrollDirection(false);
+            } else if (currentScrollY < lastScrollY) {
+                setScrollDirection(true);
             }
-            lastY = currentScrollY;
-        };
+            setLastScrollY(currentScrollY);
 
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-    console.log("scrollDirection", scrollDirection);
+        }
+    }, [lastScrollY]);
+
+    useEffect(() => {
+        const element = scrollRef.current;
+        if (element) {
+            element.addEventListener('scroll', handleScroll);
+
+            return () => {
+                element.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, [lastScrollY]);
 
     return (
         <div className="main-layout-client">
@@ -33,7 +38,7 @@ const LayoutClient = ({ ...props }: any) => {
                 scrollDirection={scrollDirection}
             />
             {/* <div className="overlay"></div> */}
-            <div className="content-layout-client bg-[#FFF] flex flex-col scroll-auto">
+            <div ref={scrollRef} className="content-layout-client">
                 <div>
                     {props.children}
                 </div>

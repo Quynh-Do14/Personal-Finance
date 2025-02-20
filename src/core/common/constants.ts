@@ -74,28 +74,26 @@ export default class Constants {
         ]
     }
 
-    static TabInfoTeacher = class {
+    static TimeFilter = class {
         static List = [
-            { label: "", value: 1 },
-            { label: "", value: 2 },
-            { label: "", value: 3 },
+            { label: "Ngày", value: "daily" },
+            { label: "Tuần", value: "weekly" },
+            { label: "Tháng", value: "monthly" },
+            { label: "Lựa chọn thời gian", value: "" },
+
         ]
     }
 
-    static Gender = class {
-        static MALE = class {
-            static value = true;
-            static label = "Nam";
-            static position = "Thầy";
-        }
-        static FEMALE = class {
-            static value = false;
-            static label = "Nữ";
-            static position = "Cô";
-        }
+    static BotChatList = class {
         static List = [
-            { label: "Nam", value: true },
-            { label: "Nữ", value: false },
+            { label: "Nghiêm túc", value: 1 },
+            { label: "Thân thiện", value: 2 },
+            { label: "Vui vẻ", value: 3 },
+            { label: "Nghiêm khắc", value: 4 },
+            { label: "Trầm tĩnh", value: 5 },
+            { label: "Năng động", value: 6 },
         ]
     }
+
+
 };

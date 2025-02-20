@@ -3,6 +3,7 @@ import "../../assets/styles/page/chat.css"
 import { useState } from "react";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 type Props = {
+    titleChat: string
     isOpenChatBox: boolean
     setIsOpenChatBox: Function
     dataChatBox: Array<any>
@@ -15,6 +16,7 @@ type Props = {
 
 const ChatButton = (props: Props) => {
     const {
+        titleChat,
         isOpenChatBox,
         setIsOpenChatBox,
         dataChatBox,
@@ -33,6 +35,7 @@ const ChatButton = (props: Props) => {
                 <i className="fa fa-commenting" aria-hidden="true"></i>
             </div>
             <ChatBoxCommon
+                titleChat={titleChat}
                 isOpen={isOpenChatBox}
                 closeDrawer={() => setIsOpenChatBox(false)}
                 loading={loading}

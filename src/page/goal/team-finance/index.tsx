@@ -334,6 +334,7 @@ const TeamFinancePage = () => {
                             <Pie data={selectedTab === "spend" ? spendData : incomeData} />
                         </div>
                         <ChatButton
+                            titleChat={detailGoal.name}
                             isOpenChatBox={isOpenChatBox}
                             setIsOpenChatBox={setIsOpenChatBox}
                             dataChatBox={dataChatBox}

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
 import '../../assets/styles/page/personalFinance.css'
+import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -127,10 +128,13 @@ const GoalSpendingPage = () => {
                     </div>
 
                     {/* Nút thêm mục tiêu mới */}
-                    <div className="flex justify-center mt-6" onClick={onOpenModalCreate}>
-                        <button className="bg-[#40bb15] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#41bb15e1]">
-                            + Thêm mục tiêu mới
-                        </button>
+                    <div className="mt-6">
+                        <ButtonCommon
+                            classColor={'green'}
+                            onClick={onOpenModalCreate}
+                            isFullWidth={true}
+                            title={'Thêm mục tiêu'}
+                        />
                     </div>
                 </div>
             </div>

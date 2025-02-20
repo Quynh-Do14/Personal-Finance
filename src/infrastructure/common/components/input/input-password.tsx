@@ -15,6 +15,7 @@ type Props = {
     setValidate: Function,
     submittedTime: any,
     data?: any
+    onEnterPress?: () => void,
 }
 const InputPasswordCommon = (props: Props) => {
     const {
@@ -27,7 +28,8 @@ const InputPasswordCommon = (props: Props) => {
         validate,
         setValidate,
         submittedTime,
-        data
+        data,
+        onEnterPress
     } = props;
     const [value, setValue] = useState<string>("");
 
@@ -56,10 +58,17 @@ const InputPasswordCommon = (props: Props) => {
             onBlur(true);
         }
     }, [submittedTime]);
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter' && onEnterPress) {
+            onEnterPress(); // Gọi props onEnterPress khi nhấn Enter
+        }
+    };
+
     return (
         <div>
             <div className='mb-4 input-common'>
-                <div className='title mb-2'>
+                <div className='title mb-1'>
                     <span>
                         <span className='label'>{label}</span>
                         <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>
@@ -74,6 +83,7 @@ const InputPasswordCommon = (props: Props) => {
                         disabled={disabled}
                         placeholder={`Nhập ${labelLower}`}
                         className={`${validate[attribute]?.isError ? "input-error" : ""}`}
+                        onKeyDown={handleKeyDown}
                     />
                     <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
                 </div>

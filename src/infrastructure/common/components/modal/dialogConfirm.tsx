@@ -24,14 +24,14 @@ const DialogConfirmCommon = (props: Props) => {
                 onCancel={() => handleCancel()}
             >
                 <div className='modal-common'>
-                    <div className='title py-2'>{title}</div>
-                    <div className='message py-2'>{message}</div>
+                    <div className='title'>{title}</div>
+                    <div className='message'>{message}</div>
                     <Row justify={"center"} className='py-4'>
                         <Col>
-                            <Button className={"btn-Cancel mx-2"} type='text' key="f-2" onClick={() => handleCancel()}>{titleCancel}</Button>
+                            <button className={"btn-Cancel mx-2"} key="f-2" onClick={() => handleCancel()}>{titleCancel}</button>
                         </Col>
                         <Col>
-                            <Button disabled={isLoading} type='text' className={"btn-ok mx-2"} key="f-1" onClick={() => handleOk()}>{titleOk}</Button>
+                            <button disabled={isLoading} className={"btn-ok mx-2"} key="f-1" onClick={() => handleOk()}>{titleOk}</button>
                         </Col>
                     </Row>
                 </div>

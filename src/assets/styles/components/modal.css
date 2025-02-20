@@ -1,31 +1,40 @@
 .modal-common .btn-ok {
-    border-radius: 4px;
-    background: #2a70b8;
-    color: #FFF;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.15px;
-    height: 44px;
-    transition: .3s;
-    -webkit-transition: .3s;
+  border-radius: 4px;
+  background: #40bb15;
+  color: #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  height: 44px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  width: 120px;
 }
 
 .modal-common .btn-Cancel {
-    border-radius: 4px;
-    background: #fc2339;
-    color: #FFF;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.15px;
-    height: 44px;
-    transition: .3s;
-    -webkit-transition: .3s;
+  border-radius: 4px;
+  background: #ff364a;
+  color: #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  height: 44px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  width: 120px;
+}
+
+.modal-common .btn-Cancel:hover,
+.modal-common .btn-ok:hover {
+  color: #787878;
+  background: #fff;
+  border: 1px solid #787878;
 }
 
 /* .modal-common .btn-Cancel:hover,
@@ -35,24 +44,22 @@
 } */
 
 .modal-common .title {
-    color: #e90303;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 48px;
-    letter-spacing: 0.5px;
-    text-align: center;
-    border-bottom: 2px solid #d5dfea;
-    text-transform: uppercase;
+  color: #787878;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .modal-common .message {
-    color: #e90303;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 48px;
-    letter-spacing: 0.5px;
-    text-align: center;
-    border-bottom: 2px solid #d5dfea;
+  color: #787878;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
