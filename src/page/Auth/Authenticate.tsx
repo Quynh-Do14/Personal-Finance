@@ -16,7 +16,7 @@ const Authenticate: React.FC = () => {
 
     if (isMatch) {
       const authCode = isMatch[1];
-      axios.post(`http://localhost:8080/auth/oauth2/authentication?code=${authCode}`, {
+      axios.post(`https://idaimmo.io.vn/api/v1/auth/oauth2/authentication?code=${authCode}`, {
         code: authCode
       }).then((response) => {
         console.log("response: ", response);
@@ -37,7 +37,7 @@ const Authenticate: React.FC = () => {
 
   return (
     <div>
-      <h1>Đây là authenticate</h1>
+      <h1>Vui lòng chờ</h1>
     </div>
   )
 }
