@@ -8,6 +8,7 @@ export class Endpoint {
         static ChangePassword = "/profile/change-password"
         static RefreshToken = "/auth/refresh-token"
         static SelectBot = "/auth/user/change-bot"
+        static Verify = "/auth/verify"
     }
     static Goal = class {
         static Personal = class {

@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import HomePage from './page/home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRoutes } from './infrastructure/router';
 import { PrivateRoute } from './infrastructure/router/private-router';
+import Authenticate from './page/Auth/Authenticate';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
                   } />
               )
             }
-            else {
+            else {              
               return (
                 <Route
                   key={index}
@@ -33,6 +33,7 @@ function App() {
               )
             }
           })}
+          <Route path="/authenticate" element={<Authenticate />} />
         </Routes>
       </BrowserRouter>
     </div>

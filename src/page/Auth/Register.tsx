@@ -6,6 +6,7 @@ import { useState } from 'react';
 import authService from '../../infrastructure/repositories/auth/service/auth.service';
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
 import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
+import { toast, ToastContainer } from 'react-toastify';
 
 type Props = {
 
@@ -20,8 +21,6 @@ const RegisterModal = (props: Props) => {
 
     const [_data, _setData] = useState<any>({});
     const dataLogin = _data;
-
-    const navigate = useNavigate();
 
     const setDataLogin = (data: any) => {
         Object.assign(dataLogin, { ...data });
@@ -68,6 +67,9 @@ const RegisterModal = (props: Props) => {
                 ).then((response) => {
                     if (response) {
                         handleCancel();
+                        toast.success("Đăng ký thành công, vui lòng kiểm tra email (bao gồm spam) để kích hoạt tài khoản", {
+                            position: "top-right", autoClose: 3000
+                        });
                     }
                 });
             } catch (error) {
@@ -182,6 +184,7 @@ const RegisterModal = (props: Props) => {
                     </Col>
                 </Row>
             </div>
+            <ToastContainer />
         </Modal>
     )
 }

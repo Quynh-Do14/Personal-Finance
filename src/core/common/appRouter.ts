@@ -4,6 +4,8 @@ export const ROUTE_PATH = {
 
     LOGIN: `${PREFIX}/login`,
     REGISTER: `${PREFIX}/register`,
+    VERIFY_EMAIL: `${PREFIX}/auth/verify`,
+    
     ///Client
     HOME_PAGE: `${PREFIX}/`,
     CHAT_BOX_PAGE: `${PREFIX}/chat-box`,
@@ -14,9 +16,6 @@ export const ROUTE_PATH = {
     GOAL_SPENDING_PAGE: `${PREFIX}/goal-spending`,
     GOAL_SPENDING_TEAM_PAGE: `${PREFIX}/goal-spending-team/:id`,
     TEAM_PAGE: `${PREFIX}/team`,
-
-
-    VERIFY_EMAIL: `${PREFIX}/verify`,
 
     SELECT_CHAT_BOT: `${PREFIX}/select-bot`,
 

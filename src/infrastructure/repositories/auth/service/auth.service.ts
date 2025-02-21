@@ -120,25 +120,21 @@ class AuthService {
         }
     }
 
-    // async verifyEmail(token, setLoading, callBack) {
-    //     setLoading(true)
-    //     try {
-    //         return await RequestService.post(`${apiRoutes.common.auth.verify_email}/${token}`).then(
-    //             (response) => {
-    //                 if (response) {
-    //                     SuccessMessage("Xác thực Email thành công")
-    //                     return response;
-    //                 }
-    //             });
-    //     }
-    //     catch (error) {
-    //         FailMessage("Xác thực không thành công", "")
-    //         console.error(error)
-    //     } finally {
-    //         setLoading(false);
-    //         callBack()
-    //     }
-    // }
+    async verifyEmail(code: string) {
+        try {
+            return await RequestService.get(`${Endpoint.Auth.Verify}?code=${code}`).then(
+                (response) => {
+                    if (response) {
+                        SuccessMessage("Xác thực Email thành công", "")
+                        return response;
+                    }
+                });
+        }
+        catch (error) {
+            FailMessage("Xác thực không thành công", "")
+            console.error(error)
+        }
+    }
 
     // async forgotPassword(email, setLoading) {
     //     setLoading(true)

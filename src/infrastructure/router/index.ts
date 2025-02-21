@@ -6,7 +6,7 @@ import PersonalFinancePage from "../../page/goal/personal-finance";
 import ReportPage from "../../page/report";
 import TeamPage from "../../page/team";
 import TeamFinancePage from "../../page/goal/team-finance";
-import VerifyEmailPage from "../../page/Auth/VeriftEmail";
+import VerifyEmailPage from "../../page/Auth/VerifyEmail";
 import SelectBotPage from "../../page/chat/selectBot";
 
 export const privateRoutes = [
@@ -46,11 +46,11 @@ export const privateRoutes = [
         component: TeamPage,
         private: false,
     },
-    // {
-    //     path: ROUTE_PATH.VERIFY_EMAIL,
-    //     component: VerifyEmailPage,
-    //     private: false,
-    // },
+    {
+        path: ROUTE_PATH.VERIFY_EMAIL,
+        component: VerifyEmailPage,
+        private: false,
+    },
     {
         path: ROUTE_PATH.SELECT_CHAT_BOT,
         component: SelectBotPage,

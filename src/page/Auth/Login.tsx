@@ -76,6 +76,20 @@ const LoginModal = (props: Props) => {
         };
     }
 
+    const onLoginWithGoogle = () => {
+        const callbackUrl = "https://idaimmo.io.vn/authenticate";
+        const authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+        const googleClientId = "432693947240-jj62nbj08naf6aene6dfri19hh7sntae.apps.googleusercontent.com";
+
+        const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+            callbackUrl
+        )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+
+        console.log(targetUrl);
+
+        window.location.href = targetUrl;
+    };
+
     const handleRegister = () => {
         setIsRegisterClick(true);
     };
@@ -131,12 +145,21 @@ const LoginModal = (props: Props) => {
                             isFullWidth={true}
                         />
                     </Col>
+                    <Col span={24}>
+                        <ButtonCommon
+                            onClick={onLoginWithGoogle} // Hàm xử lý đăng nhập Google
+                            title={'Đăng nhập với Google'}
+                            classColor={'red'} // Đổi màu để dễ nhận biết
+                            isFullWidth={true}
+                        />
+                    </Col>
                 </Row>
                 <div className="flex justify-between gap-[10rem] py-2 text-[#787878]">
                     <Link to={""} className="">Quên mật khẩu?</Link>
                     <Link onClick={handleRegister} className="cursor-pointer" to={''}>Chưa có tài khoản</Link>
                 </div>
             </div>
+
         </Modal>
     )
 }
