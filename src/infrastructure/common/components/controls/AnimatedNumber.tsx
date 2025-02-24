@@ -18,7 +18,7 @@ const AnimatedNumber: React.FC<{ value: number }> = ({ value }) => {
         return () => clearInterval(interval);
     }, [value]);
 
-    return <span className="animated-number">{displayValue.toLocaleString()} ₫</span>;
+    return <span className="animated-number">{displayValue.toLocaleString()}</span>;
 };
 
 export default AnimatedNumber;

@@ -11,7 +11,7 @@ function RoundChartMiniCommon(props: Props) {
       <div
         className='w-[140px] h-[140px] rounded-full bg-[#FFF] relative border-[#FFF] border-[2px]'
         style={{
-          background: `conic-gradient(#40BB15 ${percentage}%, #FFF ${percentage}% 100%)`
+          background: `conic-gradient(#1d9b5e ${percentage}%, #FFF ${percentage}% 100%)`
         }}
       >
         <div className='absolute inset-0 flex items-center justify-center'>

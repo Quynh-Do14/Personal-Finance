@@ -20,9 +20,10 @@ import AnimatedButton from '../components/button/animationButton';
 import { FullPageLoading } from '../components/controls/loading';
 type Props = {
     scrollDirection: boolean
+    lastScrollY: Number
 }
 const HeaderClient = (props: Props) => {
-    const { scrollDirection } = props;
+    const { scrollDirection, lastScrollY } = props;
     const navigate = useNavigate();
     const location = useLocation();
     const [dataProfile, setDataProfile] = useState<any>({});
@@ -124,10 +125,12 @@ const HeaderClient = (props: Props) => {
                 </Menu.Item>
 
                 <Menu.Item className='info-admin' >
-                    <a href={ROUTE_PATH.SELECT_CHAT_BOT} className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
-                        <i className="fa fa-list" aria-hidden="true"></i>
-                        Thay đổi Bot Chat
-                    </a>
+                    <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
+                        <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
+                            <i className="fa fa-list" aria-hidden="true"></i>
+                            Thay đổi Bot Chat
+                        </a>
+                    </div>
                 </Menu.Item>
                 <Menu.Item className='info-admin' onClick={openModalChangePassword}>
                     <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
@@ -166,14 +169,21 @@ const HeaderClient = (props: Props) => {
         }
     }
     return (
-        <div className={`header-common header-layout-client ${scrollDirection ? 'down' : 'up'}`}>
+        <div className={`header-common header-layout-client ${scrollDirection ? 'down' : 'up'} ${lastScrollY == 0 ? "bg-change-none" : "bg-change"}`}>
             <nav className="flex items-center justify-between">
                 <img className='cursor-pointer' width={80} height={50} src={logo} alt='' />
-                <nav className="flex space-x-8">
-                    <a href="/">Trang chủ</a>
-                    <a href="/goal-spending">Tài chính</a>
-                    <a href="/team">Quỹ nhóm</a>
-                    <a href="/contact">Liên hệ</a>
+                <nav className="menu">
+                    {
+                        Constants.MenuClient.List.map((item, index) => {
+                            return (
+                                <a
+                                    href={item.link}
+                                    key={index}
+                                    className={`${conditionActive(item.link)}`}
+                                >{item.label}</a>
+                            )
+                        })
+                    }
                 </nav>
                 <div className="flex space-x-4">
                     <div>

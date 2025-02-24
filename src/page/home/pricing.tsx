@@ -45,11 +45,11 @@ const PricingComponent = () => {
     ];
 
     return (
-        <div className="pricing-container bg-[#FFF] padding-common">
+        <div className="pricing-container">
             <div className="mx-auto text-center">
                 <div className="flex flex-col gap-2 mb-10">
-                    <h2 className="text-[40px] font-bold text-[#252B42]">Pricing</h2>
-                    <p className="text-[16px] text-[#737373]">
+                    <h2>Bảng giá dịch vụ</h2>
+                    <p>
                         Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics
                     </p>
                 </div>
@@ -61,20 +61,20 @@ const PricingComponent = () => {
                         >
                             <div
                                 key={index}
-                                className={`box px-10 py-12 rounded-lg border-[1px] border-[#40bb15] shadow-md`}
+                                className={`box`}
                             >
                                 <h3 className="text-xl font-semibold mb-4">{plan.title}</h3>
                                 <p className="text-[32px] font-bold mb-4">
                                     <span className="text-[18px] font-medium">Organize across all apps by hand</span>
                                 </p>
-                                <p className="text-[32px] font-bold mb-4 text-[#40bb15]">
+                                <p className="text-[32px] font-bold mb-4">
                                     {plan.price} <span className="text-[18px] font-medium">$</span> <span className="text-[14px]">/Month</span>
                                 </p>
                                 <ul className="flex flex-col gap-4">
                                     {plan.features.map((feature, idx) => (
                                         <li
                                             key={idx}
-                                            className={`flex items-center font-semibold ${feature.available ? "text-[#40bb15]" : "text-[#252B42]"
+                                            className={`flex items-center font-semibold ${feature.available ? "text-[#1d9b5e]" : "text-[#252B42]"
                                                 }`}
                                         >
                                             <span className="mr-2">{feature.available ?
@@ -108,7 +108,7 @@ const PricingComponent = () => {
                                     ))}
                                     <li>
                                         <button
-                                            className={`py-2 px-4 rounded bg-[#40bb15] text-[#FFF] font-semibold w-full`}
+                                            className={`py-2 px-4 rounded bg-[#1d9b5e] text-[#FFF] font-semibold w-full`}
                                         >
                                             {plan.button}
                                         </button>

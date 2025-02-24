@@ -83,7 +83,7 @@ const ChatBoxCommon = (props: Props) => {
                                 className={`flex justify-end`}
                             >
                                 <div
-                                    className={`max-w-[90%] break-words px-4 py-2 rounded-[16px] bg-[#40bb15] text-white shadow-lg z-10`}
+                                    className={`max-w-[90%] break-words px-4 py-2 rounded-[16px] bg-[#1d9b5e] text-white shadow-lg z-10`}
                                 >
                                     {message.userMessage}
                                     <div className="text-[10px] text-right mt-1">{convertDateShow(message.createdAt)} </div>
@@ -113,7 +113,7 @@ const ChatBoxCommon = (props: Props) => {
                                     className={`flex justify-end`}
                                 >
                                     <div
-                                        className={`max-w-[90%] break-words px-4 py-2 rounded-lg bg-[#40bb15] text-white`}
+                                        className={`max-w-[90%] break-words px-4 py-2 rounded-lg bg-[#1d9b5e] text-white`}
                                     >
                                         {messages}
                                     </div>
@@ -144,13 +144,13 @@ const ChatBoxCommon = (props: Props) => {
                         <input
                             type="text"
                             placeholder="Nhập tin nhắn của bạn..."
-                            className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#40bb15]"
+                            className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1d9b5e]"
                             value={messages}
                             onChange={onChangeText}
                             onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                         />
                         <button
-                            className="bg-[#40bb15] text-white px-4 py-2 rounded-lg hover:bg-[#40bb15]"
+                            className="bg-[#1d9b5e] text-white px-4 py-2 rounded-lg hover:bg-[#1d9b5e]"
                             onClick={handleSendMessage}
                         >
                             <i className="fa fa-paper-plane" aria-hidden="true"></i>

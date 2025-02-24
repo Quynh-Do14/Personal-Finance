@@ -48,7 +48,7 @@
 .personal-finance-container .overview .content {
   z-index: 10;
   position: relative;
-  background: linear-gradient(-45deg, #40bb15, #32a8a8, #1e8449, #0e6655);
+  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
 }
@@ -56,7 +56,7 @@
 .personal-finance-container .overview .content {
   z-index: 10;
   position: relative;
-  background: linear-gradient(-45deg, #40bb15, #32a8a8, #1e8449, #0e6655);
+  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
 }

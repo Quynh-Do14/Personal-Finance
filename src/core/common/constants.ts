@@ -18,6 +18,18 @@ export default class Constants {
                 label: "Trang chủ",
                 link: ROUTE_PATH.HOME_PAGE,
             },
+            {
+                label: "Tài chính",
+                link: ROUTE_PATH.GOAL_SPENDING_PAGE,
+            },
+            {
+                label: "Quỹ nhóm",
+                link: ROUTE_PATH.TEAM_PAGE,
+            },
+            {
+                label: "Liên hệ",
+                link: ROUTE_PATH.CONTACT,
+            },
         ]
     };
     static TOKEN = "token";
@@ -59,21 +71,6 @@ export default class Constants {
         static Id = ":id"
     }
 
-    static TabCourse = class {
-        static List = [
-            { label: "Mô tả khóa học", value: 1 },
-            { label: "Giáo viên giảng dạy", value: 2 },
-            { label: "Kết quả đạt được", value: 3 },
-            { label: "Đối tượng học sinh", value: 4 },
-        ]
-    }
-    static TabLesson = class {
-        static List = [
-            { label: "Mô tả bài giảng", value: 1 },
-            { label: "Tài liệu bài giảng", value: 2 },
-        ]
-    }
-
     static TimeFilter = class {
         static List = [
             { label: "Ngày", value: "daily" },
@@ -94,6 +91,58 @@ export default class Constants {
             { label: "Năng động", value: 6 },
         ]
     }
-
-
+    static FigureUI = class {
+        static List = [
+            { label: "Thành viên", value: 500, percent: false },
+            { label: "Hài lòng", value: 95, percent: true },
+            { label: "Đánh giá tích cực", value: 92, percent: true },
+        ]
+    }
+    static Services = class {
+        static List = [
+            {
+                title: "Tài chính cá nhân",
+                description: "The quick fox jumps over the lazy dog",
+                path: ROUTE_PATH.GOAL_SPENDING_PAGE
+            },
+            {
+                title: "Lập nhóm tiết kiệm",
+                description: "The quick fox jumps over the lazy dog",
+                path: ROUTE_PATH.TEAM_PAGE
+            },
+            {
+                title: "Phân tích tài chính",
+                description: "The quick fox jumps over the lazy dog",
+            },
+        ]
+    }
+    static Slogan = class {
+        static List = [
+            {
+                title: "Tài Chính Thông Minh - Tương Lai Vững Chắc",
+                description: "Quản lý hiệu quả, đầu tư thông minh, hướng đến sự thịnh vượng bền vững",
+                timeout: 5400
+            },
+            {
+                title: "Kiến Tạo Giấc Mơ, Vững Bước Tài Chính",
+                description: "Kiểm soát tài chính cá nhân để tạo dựng một tương lai thành công",
+                timeout: 6900
+            },
+            {
+                title: "Quản Lý Hiệu Quả - Đầu Tư Thịnh Vượng",
+                description: "Giúp bạn lập kế hoạch tài chính và đạt được mục tiêu nhanh hơn",
+                timeout: 8200
+            },
+            {
+                title: "Chủ Động Tài Chính, Làm Chủ Cuộc Sống",
+                description: "Hành trình xây dựng tự do tài chính bắt đầu từ hôm nay",
+                timeout: 13000
+            },
+            {
+                title: "Từ Tiết Kiệm Đến Thịnh Vượng",
+                description: "Tối ưu tài chính cá nhân để tận hưởng cuộc sống trọn vẹn hơn",
+                timeout: 14500
+            },
+        ]
+    }
 };

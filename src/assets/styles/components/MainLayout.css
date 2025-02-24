@@ -38,7 +38,7 @@
 }
 
 .main-layout-client .header-common .user-name {
-  color: #40bb15;
+  color: #1d9b5e;
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
@@ -194,12 +194,24 @@
 
 .main-layout-client .header-common {
   width: 100%;
-  /* color: #f4f6f7; */
-  background-color: #fff;
+  background-color: transparent;
   padding: 8px 32px;
   z-index: 18;
   width: 100%;
   position: absolute;
+}
+.main-layout-client .header-common.bg-change {
+  background-color: #1a2d27ec;
+}
+.main-layout-client .header-common.bg-change-none {
+  background-color: transparent;
+}
+.main-layout-client .header-common.up {
+  animation: upBg 0.6s both ease-in-out 1;
+}
+
+.main-layout-client .header-common.down {
+  animation: downBg 0.5s both ease-in-out 1;
 }
 
 @keyframes upBg {
@@ -221,13 +233,28 @@
     top: 0;
   }
 }
-
-.main-layout-client .header-common.up {
-  animation: upBg 0.6s both ease-in-out 1;
+.main-layout-client .header-common nav .menu {
+  border: 1px solid #616d71;
+  background: #3d555a83;
+  border-radius: 28px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.main-layout-client .header-common.down {
-  animation: downBg 0.5s both ease-in-out 1;
+.main-layout-client .header-common nav .menu a {
+  color: #e4e4e4;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 20px;
+}
+
+.main-layout-client .header-common nav .menu a.active {
+  border: 1px solid #616d71;
+  background: #3d555a;
+  border-radius: 26px;
+  padding: 8px 20px;
 }
 
 .main-layout-client .container-layout-client {
@@ -246,11 +273,6 @@
 
 .main-layout-client .header-common ul li.active {
   border: 2px solid #edeef3;
-}
-.main-layout-client .header-common a {
-  color: #787878;
-  font-size: 16px;
-  font-weight: 600;
 }
 
 .main-layout-client .header-common .avatar-user {
@@ -280,7 +302,7 @@
 .main-layout-client .header-common .grad {
   height: inherit;
   width: inherit;
-  background: linear-gradient(180deg, #40bb15 80%, #db21a0);
+  background: linear-gradient(180deg, #1d9b5e 80%, #db21a0);
   position: absolute;
   border-radius: 50%;
 }
@@ -314,6 +336,26 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.content-layout-client .footer-container {
+  background-color: #0f2028;
+  background: linear-gradient(-45deg, #0f2028, #192931, #364d58, #44687b);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+  color: #FFF;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 

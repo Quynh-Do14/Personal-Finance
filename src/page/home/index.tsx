@@ -5,6 +5,12 @@ import ServiceComponent from './service'
 import TagComponent from './tag'
 import PricingComponent from './pricing'
 import AnimatedButton from '../../infrastructure/common/components/button/animationButton'
+import { Col, Row } from 'antd'
+import AnimatedNumber from '../../infrastructure/common/components/controls/AnimatedNumber'
+import Constants from '../../core/common/constants'
+import logo from '../../assets/images/logo-mini.png'
+import TagFlipComponent from '../../infrastructure/common/components/controls/TagFlip'
+import SpendingComponent from './spending'
 const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
@@ -44,33 +50,91 @@ const HomePage = () => {
                 <div className="banner">
                     <div className='overlay'></div>
                     <div className="layout text-center bg-cover bg-center py-20">
-                        <div className='flex flex-col gap-6'>
-                            <h1 className="wave-text top">
-                                FATS - Financial Analysis Technology Service
-                            </h1>
-                            <p className="neon-text top">
-                                {displayedText}
-                            </p>
-                            <div className="btn flex justify-center space-x-4">
-                                <AnimatedButton
-                                    classColor={'green'}
-                                    label={'Khám phá ngay'}
-                                    onClick={() => { }}
-                                />
-                                <AnimatedButton
-                                    classColor={'white'}
-                                    label={'Xem thêm'}
-                                    onClick={() => { }}
-                                />
-                            </div>
-                        </div>
+                        <Row gutter={[40, 20]}>
+                            <Col span={12}>
+                                <div className='left-content flex flex-col gap-6 items-start'>
+                                    <div className="top">
+                                        <h1>
+                                            FATS - Financial Analysis Technology Service
+                                        </h1>
+                                    </div>
+                                    <p className="neon-text top">
+                                        {displayedText}
+                                    </p>
+                                    <div className="btn flex justify-center space-x-4">
+                                        <AnimatedButton
+                                            classColor={'green'}
+                                            label={'Khám phá ngay'}
+                                            onClick={() => { }}
+                                        />
+                                        <AnimatedButton
+                                            classColor={'white'}
+                                            label={'Xem thêm'}
+                                            onClick={() => { }}
+                                        />
+                                    </div>
+                                    <div className='figure'>
+                                        {/* {
+                                            Constants.FigureUI.List.map((item, index) => {
+                                                return (
+                                                    <div key={index} className='figure-content'>
+                                                        <div className='number'>
+                                                            <AnimatedNumber value={item.value} />
+                                                            {item.percent ? "%" : "+"}
+                                                        </div>
+                                                        <p>{item.label} </p>
+                                                    </div>
+                                                )
+                                            })
+                                        } */}
+                                        <div className='figure-content'>
+                                            <div className='number'>
+                                                <AnimatedNumber value={500} />+
+                                            </div>
+                                            <p>Thành viên</p>
+                                        </div>
+                                        <div className='figure-content'>
+                                            <div className='line'></div>
+                                        </div>
+                                        <div className='figure-content'>
+                                            <div className='number'>
+                                                <AnimatedNumber value={95} />%
+                                            </div>
+                                            <p>Độ hài lòng</p>
+                                        </div>
+                                        <div className='figure-content'>
+                                            <div className='line'></div>
+                                        </div>
+                                        <div className='figure-content'>
+                                            <div className='number'>
+                                                <AnimatedNumber value={92} />%
+                                            </div>
+                                            <p>Đánh giá tích cực</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col span={12}>
+                                <div className='right-content top'>
+                                    {Constants.Slogan.List.map((service, index) => (
+                                        <TagFlipComponent
+                                            timeout={service.timeout}
+                                            title={service.title}
+                                            description={service.description}
+                                            index={index}
+                                        />
+                                    ))}
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
-                    <TagComponent />
+                    {/* <TagComponent /> */}
                 </div>
                 <ServiceComponent />
                 <PricingComponent />
+                <SpendingComponent />
             </div>
-        </LayoutClient>
+        </LayoutClient >
     )
 }
 

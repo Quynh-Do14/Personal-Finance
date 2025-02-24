@@ -115,7 +115,7 @@ const GoalSpendingTeamPage = () => {
                                     <div className="w-full md:w-1/2 mt-4 md:mt-0 md:ml-4">
                                         <div className="relative w-full h-4 bg-[#ffffff] rounded-full overflow-hidden">
                                             <div
-                                                className="absolute top-0 left-0 h-full bg-[#40bb15]"
+                                                className="absolute top-0 left-0 h-full bg-[#1d9b5e]"
                                                 style={{ width: `${percentage}%` }}
                                             ></div>
                                         </div>

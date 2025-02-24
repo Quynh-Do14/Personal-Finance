@@ -90,7 +90,7 @@ const TeamPage = () => {
                     <div className="flex justify-between align-middle">
                         <h1 className="text-2xl font-bold text-center text-gray-800">Danh sách nhóm</h1>
                         <div className="flex justify-center" onClick={onOpenModalCreate}>
-                            <button className="bg-[#40bb15] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#41bb15e1]">
+                            <button className="bg-[#1d9b5e] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#41bb15e1]">
                                 + Thêm nhóm mới
                             </button>
                         </div>

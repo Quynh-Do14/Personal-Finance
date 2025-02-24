@@ -180,6 +180,7 @@ const RegisterModal = (props: Props) => {
                             onClick={onRegisterAsync}
                             title={'Đăng ký'}
                             classColor={'green'}
+                            isFullWidth={true}
                         />
                     </Col>
                 </Row>

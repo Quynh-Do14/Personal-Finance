@@ -36,6 +36,7 @@ const LayoutClient = ({ ...props }: any) => {
         <div className="main-layout-client">
             <HeaderClient
                 scrollDirection={scrollDirection}
+                lastScrollY={lastScrollY}
             />
             {/* <div className="overlay"></div> */}
             <div ref={scrollRef} className="content-layout-client">

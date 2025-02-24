@@ -28,10 +28,6 @@ const ManageLayout = ({ ...props }: any) => {
     // const [, setDataPosition] = useRecoilState(PositionState);
     const [dataProfile, setDataProfile] = useState<any>({});
     // const [, setProfileState] = useRecoilState(ProfileState);
-    const [, setTeacherState] = useRecoilState(TeacherState);
-    const [, setDisciplineState] = useRecoilState(DisciplineState);
-    const [, setCategoryState] = useRecoilState(CategoryState);
-    const [, setCourseState] = useRecoilState(CourseState);
 
     const navigate = useNavigate();
     const location = useLocation();

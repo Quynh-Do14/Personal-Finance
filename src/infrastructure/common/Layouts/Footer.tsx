@@ -3,7 +3,7 @@ import "../../../assets/styles/components/MainLayout.css";
 
 const FooterClient = () => {
     return (
-        <footer className="padding-common bg-gradient-to-r from-blue-800 to-pink-600 text-white">
+        <footer className="footer-container padding-common">
             <div className="mx-auto grid grid-cols-1 md:grid-cols-5 gap-6">
                 <div>
                     <h4 className="font-bold mb-4">Company Info</h4>

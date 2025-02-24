@@ -5,7 +5,7 @@ export const ROUTE_PATH = {
     LOGIN: `${PREFIX}/login`,
     REGISTER: `${PREFIX}/register`,
     VERIFY_EMAIL: `${PREFIX}/auth/verify`,
-    
+
     ///Client
     HOME_PAGE: `${PREFIX}/`,
     CHAT_BOX_PAGE: `${PREFIX}/chat-box`,
@@ -18,6 +18,8 @@ export const ROUTE_PATH = {
     TEAM_PAGE: `${PREFIX}/team`,
 
     SELECT_CHAT_BOT: `${PREFIX}/select-bot`,
+
+    CONTACT: `${PREFIX}/contact`,
 
     ///Management
     MANAGE_LAYOUT: `${PREFIX}/manage-layout`,

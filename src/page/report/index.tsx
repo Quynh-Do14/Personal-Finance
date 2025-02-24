@@ -92,7 +92,7 @@ const ReportPage = () => {
                         <h2 className="text-xl font-semibold text-[#464c56] mb-4">Tổng quan thu chi</h2>
 
                         <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="bg-[#41bb1529] p-4 rounded-lg text-[#40bb15]">
+                            <div className="bg-[#41bb1529] p-4 rounded-lg text-[#1d9b5e]">
                                 <h3 className="font-semibold">Tổng thu</h3>
                                 <p className="text-2xl font-bold">${income}</p>
                             </div>

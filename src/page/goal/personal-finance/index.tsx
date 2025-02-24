@@ -257,7 +257,6 @@ const PersonalFinancePage = () => {
             setDataTable(incomeDataTable);
         }
     }, [selectedTab, incomeDataTable, spendDataTable]);
-    console.log("spendStatistics", spendStatistics, incomeStatistics);
 
     return (
         <LayoutClient>
@@ -291,7 +290,7 @@ const PersonalFinancePage = () => {
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-[#212121] font-medium">Tổng chi tiêu hôm nay</p>
-                                    <p className={`${dailySpend >= 0 ? "text-[#40BB15]" : "text-[#e05349]"} text-2xl font-bold`}>
+                                    <p className={`${dailySpend >= 0 ? "text-[#1d9b5e]" : "text-[#e05349]"} text-2xl font-bold`}>
                                         {dailySpend >= 0 ? <i className="fa fa-caret-up" aria-hidden="true"></i> : <i className="fa fa-caret-down" aria-hidden="true"></i>}
                                         {dailySpend && <AnimatedNumber value={dailySpend} />}
                                     </p>
@@ -308,7 +307,7 @@ const PersonalFinancePage = () => {
                                     <p className=" font-semibold">Chi phí</p>
                                     <p className="text-xl font-bold"><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
                                 </div>
-                                <div className="text-right text-[#40BB15]">
+                                <div className="text-right text-[#1d9b5e]">
                                     <p className="font-semibold">Thu nhập</p>
                                     <p className="text-xl font-bold"><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
                                 </div>
@@ -351,7 +350,7 @@ const PersonalFinancePage = () => {
                                 ?
                                 <Row gutter={[40, 20]}>
                                     <Col md={24} lg={8} className="w-full">
-                                        <Pie data={selectedTab === "spend" ? spendData : incomeData}/>
+                                        <Pie data={selectedTab === "spend" ? spendData : incomeData} />
                                     </Col>
                                     <Col md={24} lg={16} className="overflow-x-auto">
                                         <table className="w-full text-left text-sm font-light text-[#FFF]">
@@ -370,7 +369,7 @@ const PersonalFinancePage = () => {
                                                             (
                                                                 <tr
                                                                     key={index}
-                                                                    className={`${index % 2 === 0 ? "bg-[#40BB15]" : "bg-[#41bb15ba]"} hover:bg-[#41bb158c]`}
+                                                                    className={`${index % 2 === 0 ? "bg-[#1d9b5e]" : "bg-[#41bb15ba]"} hover:bg-[#41bb158c]`}
                                                                 >
                                                                     <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{selectedTab === "spend" ? item?.spendingType?.name : item?.inComeType?.name}</td>
                                                                     <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{formatCurrencyVND(item.amount)}</td>

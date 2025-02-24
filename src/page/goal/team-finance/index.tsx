@@ -260,7 +260,7 @@ const TeamFinancePage = () => {
                     <div className="bg-white flex flex-col gap-6">
                         {/* Tổng số dư */}
                         <div className="flex flex-col gap-2 items-center justify-center">
-                            <p className="text-[#40BB15] font-semibold text-[28px]">{detailGoal?.name}</p>
+                            <p className="text-[#1d9b5e] font-semibold text-[28px]">{detailGoal?.name}</p>
                             <p className="text-[24px] font-semibold">Mục tiêu: {formatCurrencyVND(detailGoal?.goalAmount)}</p>
                         </div>
 
@@ -314,14 +314,14 @@ const TeamFinancePage = () => {
                         {/* Tabs chi phí / thu nhập */}
                         <div className="flex justify-center space-x-4 mb-6">
                             <button
-                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "spend" ? "bg-[#40BB15] text-white" : "bg-[#cfcfcf] text-[#303030]"
+                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "spend" ? "bg-[#1d9b5e] text-white" : "bg-[#cfcfcf] text-[#303030]"
                                     }`}
                                 onClick={() => setSelectedTab("spend")}
                             >
                                 Chi phí
                             </button>
                             <button
-                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "income" ? "bg-[#40BB15] text-white" : "bg-[#cfcfcf] text-[#303030]"
+                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "income" ? "bg-[#1d9b5e] text-white" : "bg-[#cfcfcf] text-[#303030]"
                                     }`}
                                 onClick={() => setSelectedTab("income")}
                             >
