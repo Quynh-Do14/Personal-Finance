@@ -295,7 +295,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-.homepage-container .service h2 {
+.homepage-container .service .title h2 {
   text-align: center;
   font-size: 48px;
   line-height: 60px;
@@ -306,7 +306,7 @@
   text-transform: uppercase;
 }
 
-.homepage-container .service p {
+.homepage-container .service .title p {
   text-align: center;
   font-size: 20px;
   line-height: 24px;
@@ -349,7 +349,13 @@
 .homepage-container .service .tag:hover::before {
   width: 100%;
 }
-
+.homepage-container .service .tag:hover .icon {
+  border: 1px solid #fff;
+}
+.homepage-container .service .tag:hover {
+  color: #fff;
+  scale: 1.02;
+}
 .homepage-container .service .tag .icon {
   background: #1d9b5e;
   border-radius: 50%;

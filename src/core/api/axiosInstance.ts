@@ -74,7 +74,7 @@ const refreshToken = async (originalRequest: any) => {
 
         return axios(originalRequest);
     } catch (error) {
-        window.location.href = ROUTE_PATH.LOGIN;
+        window.location.href = ROUTE_PATH.HOME_PAGE;
         localStorage.removeItem('token');
         notification.error({
             message: 'Thông báo',

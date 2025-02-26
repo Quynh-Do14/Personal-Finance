@@ -26,11 +26,11 @@ class SpendService {
         }
     };
 
-    async TeamStatisticalByGoal(goalId: string, teamId: string, endDate: string, startDate: string, timeRange: string, setLoading: Function) {
+    async TeamStatisticalByGoal(goalId: string, endDate: string, startDate: string, timeRange: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Spend.Team.GetStatisticalGoal}/${goalId}/${teamId}`, {
+                .get(`${Endpoint.Spend.Team.GetStatisticalGoal}/${goalId}`, {
                     endDate,
                     startDate,
                     timeRange

@@ -1,12 +1,15 @@
 import { Col, Modal, Row } from 'antd'
 import InputTextCommon from '../../infrastructure/common/components/input/input-text';
-import InputNumberCommon from '../../infrastructure/common/components/input/input-number';
 import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 import "../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
 import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
+import InputSelectCommon from '../../infrastructure/common/components/input/select-common';
+import Constants from '../../core/common/constants';
 
 type Props = {
+    selectedId: any
+    selectedTab: 'spend' | 'income'
     handleOk: () => void,
     handleCancel: Function,
     visible: boolean,
@@ -15,9 +18,12 @@ type Props = {
     validate: any,
     setValidate: Function,
     submittedTime: any,
+    onDeleteCategoryAsync: () => void,
 }
-const ModalCreateTeam = (props: Props) => {
+const ModalCreateCategory = (props: Props) => {
     const {
+        selectedId,
+        selectedTab,
         handleOk,
         handleCancel,
         visible,
@@ -25,7 +31,8 @@ const ModalCreateTeam = (props: Props) => {
         setData,
         validate,
         setValidate,
-        submittedTime
+        submittedTime,
+        onDeleteCategoryAsync
     } = props;
 
     return (
@@ -40,28 +47,25 @@ const ModalCreateTeam = (props: Props) => {
             closeIcon={<CloseOutlined />}
         >
             <div>
-                <div className='text-[18px] text-[#1e2330] font-semibold text-center mb'>Thêm nhóm mới</div>
-                <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
-                    <Col xs={12} sm={12} lg={12}>
-                        <div className='rounded-[15px] bg-[#f3f3f1] border-[1px] border-blue-100 h-full min-w-[110px] min-h-[200px] relative'>
-                            <UploadImageAvatar
-                                label={'Ảnh'}
-                                attribute={'image'}
-                                isRequired={true}
-                                setData={setData}
-                                dataAttribute={data.image}
-                                validate={validate}
-                                setValidate={setValidate}
-                                submittedTime={submittedTime}
-                            />
+                {
+                    selectedId
+                        ?
+                        <div className='text-[18px] text-[#1e2330] font-semibold text-center mb-5'>
+                            {selectedTab == 'spend' ? "Cập nhật danh mục chi phí" : "Cập nhật danh mục thu nhập"}
                         </div>
-                    </Col>
-                    <Col md={24} lg={12}>
+                        :
+                        <div className='text-[18px] text-[#1e2330] font-semibold text-center mb-5'>
+                            {selectedTab == 'spend' ? "Thêm danh mục chi phí" : "Thêm danh mục thu nhập"}
+                        </div>
+                }
+                <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
+
+                    <Col md={24} lg={24}>
                         <div className='flex flex-col justify-between h-full'>
                             <Row gutter={[15, 15]}>
                                 <Col span={24}>
                                     <InputTextCommon
-                                        label={'Tên nhóm'}
+                                        label={'Tên danh mục'}
                                         attribute={'name'}
                                         isRequired={true}
                                         setData={setData}
@@ -79,10 +83,22 @@ const ModalCreateTeam = (props: Props) => {
                         <ButtonCommon
                             classColor={'green'}
                             onClick={handleOk}
-                            title={'Thêm nhóm mới'}
                             isFullWidth={true}
+                            title={selectedId ? "Cập nhật danh mục" : "Thêm danh mục"}
                         />
                     </Col>
+                    {
+                        selectedId
+                        &&
+                        <Col span={24}>
+                            <ButtonCommon
+                                classColor={'white'}
+                                onClick={onDeleteCategoryAsync}
+                                isFullWidth={true}
+                                title={"Xóa danh mục"}
+                            />
+                        </Col>
+                    }
                 </Row>
 
             </div>
@@ -91,4 +107,4 @@ const ModalCreateTeam = (props: Props) => {
     )
 }
 
-export default ModalCreateTeam
+export default ModalCreateCategory

@@ -1,0 +1,100 @@
+.banner-common .layout {
+  text-align: center;
+  background: url('../../images/banner.png') no-repeat center/cover;
+  height: 460px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-common .layout h1 {
+  text-align: left;
+  font-size: 54px;
+  line-height: 60px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02) rotate(2deg);
+  }
+}
+
+.banner-common .layout .neon-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px #1d9b5e, 0 0 10px #1d9b5e, 0 0 20px #1d9b5e,
+    0 0 40px #1d9b5e;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blinkCursor 0.8s infinite;
+  height: 32px;
+}
+
+.banner-common .right-content {
+  background: linear-gradient(#bebebe39, #bebebe39),
+    url('../../images/dotted-map.png') no-repeat center/cover;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid #bebebe85;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 32px;
+  position: relative;
+}
+
+@media only screen and (min-width: 1600px) {
+  .banner-common .layout {
+    padding: 80px 300px 40px;
+  }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1599px) {
+  .banner-common .layout {
+    padding: 80px 200px 40px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .banner-common .layout {
+    padding: 80px 150px 40px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .banner-common .layout {
+    padding: 80px 100px 40px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .banner-common .layout {
+    padding: 80px 60px 40px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .banner-common .layout {
+    padding: 80px 30px 40px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .banner-common .layout {
+    padding: 20px 20px;
+  }
+}

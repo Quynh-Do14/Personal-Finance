@@ -77,9 +77,9 @@ const LoginModal = (props: Props) => {
     }
 
     const onLoginWithGoogle = () => {
-        const callbackUrl = "https://idaimmo.io.vn/authenticate";
-        const authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
-        const googleClientId = "432693947240-jj62nbj08naf6aene6dfri19hh7sntae.apps.googleusercontent.com";
+        const callbackUrl = `${process.env.REACT_APP_REDIRECT_URL}`;
+        const authUrl = process.env.REACT_APP_PUBLIC_URL_AUTH_URI;
+        const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
         const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
             callbackUrl
@@ -147,10 +147,13 @@ const LoginModal = (props: Props) => {
                     </Col>
                     <Col span={24}>
                         <ButtonCommon
-                            onClick={onLoginWithGoogle} // Hàm xử lý đăng nhập Google
+                            onClick={onLoginWithGoogle}
                             title={'Đăng nhập với Google'}
-                            classColor={'red'} // Đổi màu để dễ nhận biết
+                            classColor={'white'}
                             isFullWidth={true}
+                            icon={
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className=" " role="img" aria-hidden="true" aria-labelledby=" "><path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.05H12v3.87h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.89-1.73 2.98-4.3 2.98-7.34Z"></path><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.42l-3.23-2.51c-.9.6-2.04.95-3.39.95-2.6 0-4.8-1.76-5.6-4.12H3.06v2.6A10 10 0 0 0 12 22Z"></path><path fill="#FBBC05" d="M6.4 13.9a6.01 6.01 0 0 1 0-3.8V7.5H3.06a10 10 0 0 0 0 9l3.34-2.6Z"></path><path fill="#EA4335" d="M12 5.98c1.47 0 2.79.5 3.82 1.5L18.7 4.6A10 10 0 0 0 3.06 7.5l3.34 2.6c.8-2.36 3-4.12 5.6-4.12Z"></path></svg>
+                            }
                         />
                     </Col>
                 </Row>

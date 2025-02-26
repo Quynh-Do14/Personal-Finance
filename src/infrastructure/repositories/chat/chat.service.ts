@@ -66,11 +66,11 @@ class ChatService {
     };
 
 
-    async GetChatTeam(idTeam: string, idGoal: string, setLoading: Function) {
+    async GetChatTeam(idGoal: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Chat.Team.Get}/${idTeam}/${idGoal}`)
+                .get(`${Endpoint.Chat.Team.Get}/${idGoal}`)
                 .then(response => {
                     if (response) {
                         return response
@@ -85,11 +85,11 @@ class ChatService {
         }
     };
 
-    async AddChatTeam(idTeam: string, idGoal: string, data: object, onBack: Function, setLoading: Function) {
+    async AddChatTeam(idGoal: string, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .post(`${Endpoint.Chat.Team.Add}/${idTeam}/${idGoal}`,
+                .post(`${Endpoint.Chat.Team.Add}/${idGoal}`,
                     data
                 )
                 .then(response => {

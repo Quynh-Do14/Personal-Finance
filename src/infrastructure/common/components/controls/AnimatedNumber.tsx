@@ -14,7 +14,7 @@ const AnimatedNumber: React.FC<{ value: number }> = ({ value }) => {
             } else {
                 setDisplayValue(start);
             }
-        }, 20);
+        }, 30);
         return () => clearInterval(interval);
     }, [value]);
 

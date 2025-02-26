@@ -27,7 +27,7 @@ const InputNumberCommon = (props: Props) => {
         dataAttribute,
         disabled = false,
     } = props;
-    const [value, setValue] = useState<number>(0);
+    const [value, setValue] = useState<number|null>(null);
 
     const onChange = (val: any) => {
         setValue(val || null);
@@ -55,6 +55,16 @@ const InputNumberCommon = (props: Props) => {
         }
     }, [submittedTime]);
 
+    const formatterNumber = (val: number | string | undefined) => {
+        if (!val) return "";
+        return `${val}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    };
+
+    const parserNumber = (val: string | undefined) => {
+        if (!val) return "";
+        return parseFloat(val.replace(/\./g, "").replace(",", "."));
+    };
+
     return (
         <div>
             <div className='mb-4 input-common'>
@@ -73,6 +83,8 @@ const InputNumberCommon = (props: Props) => {
                         onChange={onChange}
                         onBlur={() => onBlur(false)}
                         placeholder={`Nhập ${label}`}
+                        formatter={formatterNumber}
+                        parser={parserNumber}
                     />
                     <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
                 </div>

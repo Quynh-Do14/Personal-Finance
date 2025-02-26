@@ -24,7 +24,7 @@ class TeamService {
         }
     };
 
-    async GetTeamMember(id: string, setLoading: Function) {
+    async GetTeamMember(id: number, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService

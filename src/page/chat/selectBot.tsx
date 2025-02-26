@@ -10,6 +10,7 @@ import authService from '../../infrastructure/repositories/auth/service/auth.ser
 import { useNavigate } from 'react-router-dom';
 import { FullPageLoading } from '../../infrastructure/common/components/controls/loading';
 import { ROUTE_PATH } from '../../core/common/appRouter';
+import BannerCommon from '../../infrastructure/common/components/banner/BannerCommon';
 const SelectBotPage = () => {
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
@@ -39,7 +40,7 @@ const SelectBotPage = () => {
             <div className="select-bot-container">
                 <BubbleCommon />
                 <div className="padding-common">
-                    <div className='bg-[#FFFFFF60] rounded-[8px] px-2 py-8'>
+                    <div className='bg-[#FFFFFF60] rounded-[8px] px-10 py-8'>
                         <h2 className="header">Bạn muốn BotChat có tính cách như thế nào?</h2>
                         <Row gutter={[20, 20]} className="options">
                             {
@@ -57,13 +58,14 @@ const SelectBotPage = () => {
                                     )
                                 })
                             }
+                            <Col span={24}>
+                                <ButtonCommon classColor={'white'}
+                                    isFullWidth={true}
+                                    onClick={onChangeBotAsync}
+                                    title={'Xác nhận'}
+                                />
+                            </Col>
                         </Row>
-                        <div className="footer">
-                            <ButtonCommon classColor={'red'}
-                                onClick={onChangeBotAsync}
-                                title={'Xác nhận'}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>

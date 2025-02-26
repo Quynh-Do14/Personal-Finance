@@ -42,7 +42,7 @@ const ModalCreateGoal = (props: Props) => {
         >
             <div>
                 <div className='text-[18px] text-[#1e2330] font-semibold text-center mb-5'>Thêm mục tiêu mới</div>
-                <Row gutter={[30, 30]} justify={"center"} className='mb-7 sm:p-4 p-0'>
+                <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
 
                     <Col md={24} lg={24}>
                         <div className='flex flex-col justify-between h-full'>
@@ -102,13 +102,16 @@ const ModalCreateGoal = (props: Props) => {
                             </Row>
                         </div>
                     </Col>
+                    <Col span={24}>
+                        <ButtonCommon
+                            classColor={'green'}
+                            onClick={handleOk}
+                            isFullWidth={true}
+                            title={'Thêm mục tiêu'}
+                        />
+                    </Col>
                 </Row>
-                <ButtonCommon
-                    classColor={'green'}
-                    onClick={handleOk}
-                    isFullWidth={true}
-                    title={'Thêm mục tiêu'}
-                />
+
             </div>
 
         </Modal>

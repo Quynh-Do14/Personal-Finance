@@ -3,7 +3,7 @@ import { FailMessage, SuccessMessage } from "../../common/components/toast/notif
 import { RequestService } from "../../utils/response";
 
 class GoalService {
-    async GoalTeam(id: string, setLoading: Function) {
+    async GoalTeam(id: number, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
@@ -39,7 +39,7 @@ class GoalService {
             setLoading(false);
         }
     };
-    async AddGoalTeam(id: string, data: object, onBack: Function, setLoading: Function) {
+    async AddGoalTeam(id: number, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
@@ -83,7 +83,7 @@ class GoalService {
             setLoading(false);
         }
     };
-    async GoalPersonalById(id: string, setLoading: Function) {
+    async GoalPersonalById(id: number, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService

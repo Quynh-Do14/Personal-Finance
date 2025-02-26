@@ -17,18 +17,22 @@ export default class Constants {
             {
                 label: "Trang chủ",
                 link: ROUTE_PATH.HOME_PAGE,
+                private: false
             },
             {
                 label: "Tài chính",
                 link: ROUTE_PATH.GOAL_SPENDING_PAGE,
+                private: true
             },
             {
                 label: "Quỹ nhóm",
                 link: ROUTE_PATH.TEAM_PAGE,
+                private: true
             },
             {
                 label: "Liên hệ",
                 link: ROUTE_PATH.CONTACT,
+                private: false
             },
         ]
     };
@@ -143,6 +147,33 @@ export default class Constants {
                 description: "Tối ưu tài chính cá nhân để tận hưởng cuộc sống trọn vẹn hơn",
                 timeout: 14500
             },
+        ]
+    }
+    static RandomColor = class {
+        static List = [
+            {
+                background: "#d8f8eb",
+                line: "#15b785",
+            },
+
+            {
+                background: "#ffe3dd",
+                line: "#e7745c",
+            },
+            {
+                background: "#e5daff",
+                line: "#7e4df4",
+            },
+            {
+                background: "#dee7ff",
+                line: "#4e70c3",
+            },
+        ]
+    }
+    static CategoryType = class {
+        static List = [
+            { label: "Chi phí", value: 1 },
+            { label: "Thu nhập", value: 2 },
         ]
     }
 };

@@ -1,6 +1,6 @@
 import "../../../../assets/styles/components/button.css"
 type Props = {
-    classColor: "green" | "red",
+    classColor: "green" | "red" | "white",
     onClick: () => void,
     icon?: any,
     title: string,
@@ -21,7 +21,12 @@ export const ButtonCommon = (props: Props) => {
                 width: isFullWidth ? "100%" : 120
             }}
             onClick={onClick}>
-            {title}
-        </button>
+            {
+                icon && <span>{icon} </span>
+            }
+            <span>
+                {title}
+            </span>
+        </button >
     )
 }

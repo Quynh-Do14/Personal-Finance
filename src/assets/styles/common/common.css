@@ -159,8 +159,8 @@
 .upload-common
   .ant-upload-wrapper.ant-upload-picture-circle-wrapper
   .ant-upload.ant-upload-select {
-  width: 180px;
-  height: 180px;
+  /* width: 180px;
+  height: 180px; */
 }
 
 .text-truncate {

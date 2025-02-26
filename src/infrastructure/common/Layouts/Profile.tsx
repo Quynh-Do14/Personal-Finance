@@ -8,8 +8,9 @@ import { ButtonCommon } from '../components/button/button-common';
 import { useRecoilState } from 'recoil';
 import { ProfileState } from '../../../core/atoms/profile/profileState';
 import InputDateCommon from '../components/input/input-date';
-import { convertDateOnly } from '../../helper/helper';
+import { configImageURL, convertDateOnly } from '../../helper/helper';
 import { isTokenStoraged } from '../../utils/storage';
+import UploadAvatar from '../components/input/upload-avatar';
 
 type Props = {
   // handleOk: Function,
@@ -76,7 +77,9 @@ const ProfileModal = (props: Props) => {
   useEffect(() => {
     if (detailProfile) {
       setDataProfile({
-        avatar: detailProfile.avatarCode,
+        avatar: configImageURL(detailProfile.avatarCode),
+        email: detailProfile.email,
+        username: detailProfile.username,
         name: detailProfile.name,
         phoneNumber: detailProfile.phoneNumber,
       });
@@ -88,7 +91,7 @@ const ProfileModal = (props: Props) => {
     if (isValidData()) {
       await authService.updateProfile(
         {
-          avatar: dataProfile.email,
+          avatar: dataProfile.avatar,
           email: dataProfile.email,
           username: dataProfile.username,
           name: dataProfile.name,
@@ -116,9 +119,26 @@ const ProfileModal = (props: Props) => {
       onCancel={() => handleCancel()}
       width={"70%"}
     >
-      <div className='flex flex-col gap-4'>
-        <div className="">
-          <p className="text-center font-bold text-[2rem] text-[#787878]">Đăng nhập</p>
+      <div className='flex flex-col gap-4 p-6'>
+        <p className="text-center font-bold text-[2rem] text-[#787878]">Thông tin cá nhân</p>
+
+        <div className='flex items-center gap-4'>
+          <UploadAvatar
+            label={"Ảnh đại diện"}
+            attribute={"avatar"}
+            setData={setDataProfile}
+            dataAttribute={dataProfile.avatar}
+            listType={"picture-circle"}
+            shape={"circle"}
+          />
+          <div className="flex flex-col gap-1 items-start">
+            <div className='text-[16px] text-[#6b7280] font-semibold text-truncate'>
+              {dataProfile.name}
+            </div>
+            <div className='text-[14px] text-[#6b7280] font-normal underline text-truncate'>
+              {dataProfile.email}
+            </div>
+          </div>
         </div>
         <Row gutter={[30, 0]}>
           <Col xs={24} sm={24} md={24} lg={12} xl={12}>
@@ -174,8 +194,6 @@ const ProfileModal = (props: Props) => {
             />
           </Col>
         </Row>
-      </div>
-      <div className='container-btn main-page bg-white p-4 flex flex-col'>
         <div className='flex gap-2 justify-center'>
           <ButtonCommon
             onClick={handleCancel}

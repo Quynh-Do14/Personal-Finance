@@ -2,7 +2,6 @@ import { Upload } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { configImageURL, validateFields } from '../../../helper/helper';
-import { MessageError } from '../controls/MessageError';
 
 type Props = {
     label: string,

@@ -1,0 +1,81 @@
+.team-container {
+  position: relative;
+  background: #f0f3f8;
+}
+
+.team-container .content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  height: 100%;
+}
+.team-container .content .box {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 12px;
+  box-shadow: 5px 5px 10px -10px #7c0fd1;
+  background: #ffffff;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.team-container .box:hover .img-bg {
+  scale: 1.1;
+  transition: 0.5s;
+}
+.team-container .box .text {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+.team-container .box .text p {
+  color: #282828;
+  font-size: 16px;
+  font-weight: 600;
+}
+.team-container .box .text p:nth-child(1)::after {
+  color: #ff3f3fd4;
+}
+
+.team-container .box .text p:nth-child(1)::after {
+  content: '';
+  background: #ff3f3fd4;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+}
+
+.team-container .box:hover .text p:nth-child(1)::after {
+  content: '';
+  background: #7c0fd1;
+  height: 2px;
+  transition: 0.5s;
+  animation: underline 0.4s both ease-in-out 1;
+}
+
+@keyframes underline {
+  0% {
+    width: 0%;
+  }
+
+  80% {
+    width: 115%;
+  }
+
+  90% {
+    width: 110%;
+  }
+
+  100% {
+    width: 105%;
+  }
+}

@@ -15,8 +15,8 @@ const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
-    const speed = isDeleting ? 50 : 100; // Tốc độ gõ và xóa chữ
-    const delay = 1000; // Thời gian chờ trước khi xóa hoặc gõ lại
+    const speed = isDeleting ? 50 : 100; 
+    const delay = 1000; 
 
     useEffect(() => {
         let index = displayedText.length;

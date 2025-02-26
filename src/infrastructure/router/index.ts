@@ -24,27 +24,27 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.PERSONAL_FINANCE_PAGE,
         component: PersonalFinancePage,
-        private: false,
+        private: true,
     },
     {
         path: ROUTE_PATH.TEAM_FINANCE_PAGE,
         component: TeamFinancePage,
-        private: false,
+        private: true,
     },
     {
         path: ROUTE_PATH.GOAL_SPENDING_PAGE,
         component: GoalSpendingPage,
-        private: false,
+        private: true,
     },
     {
         path: ROUTE_PATH.GOAL_SPENDING_TEAM_PAGE,
         component: GoalSpendingTeamPage,
-        private: false,
+        private: true,
     },
     {
         path: ROUTE_PATH.TEAM_PAGE,
         component: TeamPage,
-        private: false,
+        private: true,
     },
     {
         path: ROUTE_PATH.VERIFY_EMAIL,
@@ -54,6 +54,6 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.SELECT_CHAT_BOT,
         component: SelectBotPage,
-        private: false,
+        private: true,
     },
 ]

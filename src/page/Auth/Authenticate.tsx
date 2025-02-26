@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-const Authenticate: React.FC = () => {
+const Authenticate = () => {
   const navigate = useNavigate();
-  const [isLoggedin, setIsLoggedin] = React.useState(false);
-
-  React.useEffect(() => {
+  const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
+  const baseURL = process.env.REACT_APP_BASE_URL
+  useEffect(() => {
     console.log("window.location.href: ", window.location.href);
-    
+
     const accessTokenRegex = /code=([^&]+)/;
     const isMatch = window.location.href.match(accessTokenRegex);
 
@@ -16,7 +16,7 @@ const Authenticate: React.FC = () => {
 
     if (isMatch) {
       const authCode = isMatch[1];
-      axios.post(`https://idaimmo.io.vn/api/v1/auth/oauth2/authentication?code=${authCode}`, {
+      axios.post(`${baseURL}/auth/oauth2/authentication?code=${authCode}`, {
         code: authCode
       }).then((response) => {
         console.log("response: ", response);
@@ -29,7 +29,7 @@ const Authenticate: React.FC = () => {
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLoggedin) {
       navigate("/");
     }

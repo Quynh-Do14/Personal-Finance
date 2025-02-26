@@ -48,4 +48,37 @@ export class Endpoint {
             static GetStatisticalGoal = "/spends/team/statistical"
         }
     }
+    static SpendingType = class {
+        static Team = class {
+            static Get = "/types/team/all"
+            static GetById = "/types/team"
+            static Add = "/types/team/create"
+            static Update = "/types/team/update"
+            static Delete = "/types/team/delete"
+        }
+        static User = class {
+            static Get = "/types/user/all"
+            static GetById = "/types/user"
+            static Add = "/types/user/create"
+            static Update = "/types/user/update"
+            static Delete = "/types/user/delete"
+        }
+    }
+
+    static IncomeType = class {
+        static Team = class {
+            static Get = "/income-types/team/all"
+            static GetById = "/income-types/team"
+            static Add = "/income-types/team/create"
+            static Update = "/income-types/team/update"
+            static Delete = "/income-types/team/delete"
+        }
+        static User = class {
+            static Get = "/income-types/user/all"
+            static GetById = "/income-types/user"
+            static Add = "/income-types/user/create"
+            static Update = "/income-types/user/update"
+            static Delete = "/income-types/user/delete"
+        }
+    }
 }

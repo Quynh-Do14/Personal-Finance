@@ -1,93 +1,139 @@
 .personal-finance-container {
   position: relative;
+  background: #f6f6f6;
 }
-
-.personal-finance-container .box {
-  background: #63c1ff;
-  z-index: 1;
+.personal-finance-container .category {
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+}
+.personal-finance-container .category .category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d7d7d785;
+  box-shadow: 5px 5px 10px -10px #7c0fd1;
+  transition: 0.3s;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
 }
 
-.personal-finance-container .box:hover p {
-  animation: boxText 0.5s both ease-out 1;
+@keyframes underline {
+  0% {
+    width: 0%;
+  }
+
+  80% {
+    width: 115%;
+  }
+
+  90% {
+    width: 110%;
+  }
+
+  100% {
+    width: 105%;
+  }
 }
 
-.personal-finance-container .box p {
-  color: #ffffff;
+.personal-finance-container .category .category-item:hover {
+  scale: 1.05;
 }
 
-.personal-finance-container .box::before {
+.personal-finance-container .category .category-item::after {
   content: '';
-  background: #e0cdff;
+  background: #ff3f3fd4;
   position: absolute;
+  bottom: 0;
   left: 0;
-  top: 0;
-  height: 100%;
-  width: 0%;
-  z-index: -1;
-  transition: width 0.5s ease-out;
-}
-
-.personal-finance-container .box:hover::before {
+  height: 2px;
   width: 100%;
 }
 
-@keyframes boxText {
-  0% {
-    color: #ffffff;
-  }
-  100% {
-    color: #1d1d1d;
-  }
+.personal-finance-container .category .category-item:hover::after {
+  content: '';
+  background: #7c0fd1;
+  height: 2px;
+  transition: 0.5s;
+  animation: underline 0.4s both ease-in-out 1;
 }
-.personal-finance-container .overview {
+
+.personal-finance-container .category .category-item .category-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.personal-finance-container .category .category-item .category-name .icon {
+  border: 1px dotted #80808085;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 8px;
+}
+.personal-finance-container .category .category-item .category-name .icon i {
+  color: #1d9b5e;
+  font-size: 16px;
+}
+.personal-finance-container .category .category-item .category-name p {
+  font-size: 14px;
+  color: #1d1d1d;
+  font-weight: 600;
+}
+
+.personal-finance-container .target {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 20px;
+  height: 100%;
+}
+.personal-finance-container .target .box:hover {
+  scale: 1.04;
+  transition: 0.5s;
+}
+.personal-finance-container .target .box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  box-shadow: 5px 5px 10px -10px #7c0fd1;
+  background: #d8f8eb;
+  z-index: 1;
   position: relative;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
-.personal-finance-container .overview .content {
-  z-index: 10;
-  position: relative;
-  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
-  background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
-}
-
-.personal-finance-container .overview .content {
-  z-index: 10;
-  position: relative;
-  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
-  background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.personal-finance-container .overview img {
+.personal-finance-container .target .box::after {
+  content: '';
+  background: #ff3f3fd4;
   position: absolute;
-  right: 0;
-  z-index: 9;
-  animation: robot 6s both ease-out infinite;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
 }
 
-@keyframes robot {
-  0% {
-    bottom: 0;
-  }
-  50% {
-    bottom: 100px;
-  }
-  100% {
-    bottom: 0;
-  }
+.personal-finance-container .target .box:hover::after {
+  content: '';
+  background: #7c0fd1;
+  height: 2px;
+  transition: 0.5s;
+  animation: underline 0.4s both ease-in-out 1;
 }

@@ -6,7 +6,7 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
-import "../../../assets/styles/page/personalFinance.css"
+import "../../../assets/styles/page/goal.css"
 import ChatButton from "../../chat/buttonChat";
 import LayoutClient from "../../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../../infrastructure/repositories/goal/goal.service";
@@ -19,6 +19,14 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import spendService from "../../../infrastructure/repositories/spend/spend.service";
 import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
+import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
+import { ButtonCommon } from "../../../infrastructure/common/components/button/button-common";
+import { Col, Row } from "antd";
+import happy from "../../../assets/images/happy.gif";
+import sad from "../../../assets/images/sad.gif";
+import robot from "../../../assets/images/robot.gif";
+import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const TeamFinancePage = () => {
@@ -39,11 +47,13 @@ const TeamFinancePage = () => {
     const [startDate, setStartDate] = useState<string>("");
     const [timeRange, setTimeRange] = useState<string>("daily");
     const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
+    const [spendDataTable, setSpendDataTable] = useState<any[]>([]);
+    const [dataTable, setDataTable] = useState<any[]>([]);
     const [spendData, setSpendData] = useState({
         labels: [],
         datasets: [{ data: [], backgroundColor: ["#FF6384"] }],
     });
-
+    const [incomeDataTable, setIncomeDataTable] = useState<any[]>([]);
     const [incomeData, setIncomeData] = useState({
         labels: [],
         datasets: [{ data: [], backgroundColor: ["#36A2EB"] }],
@@ -52,7 +62,7 @@ const TeamFinancePage = () => {
     // const onGetDetailGoalAsync = async () => {
     //     try {
     //         await goalService.GoalPersonalById(
-    //             String(id),
+    //             Number(id),
     //             () => { }
     //         ).then((res) => {
     //             setDetailGoal(res);
@@ -67,7 +77,6 @@ const TeamFinancePage = () => {
         try {
             await chatService.GetChatTeam(
                 String(id),
-                String(1),
                 () => { }
             ).then((res) => {
                 setDataChatBox(res);
@@ -82,7 +91,6 @@ const TeamFinancePage = () => {
         try {
             await spendService.TeamStatisticalByGoal(
                 String(id),
-                String(1),
                 "",
                 "",
                 "daily",
@@ -106,7 +114,6 @@ const TeamFinancePage = () => {
         try {
             const res = await spendService.TeamStatisticalByGoal(
                 String(id),
-                String(1),
                 startDate,
                 endDate,
                 timeRange,
@@ -122,7 +129,7 @@ const TeamFinancePage = () => {
             const labels = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.spendingType?.name || "Unknown");
             const dataValues = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.amount || 0);
             const colors = generateColors(labels.length);
-
+            setSpendDataTable(res.spendStatistics.spendingTypeAndAmounts);
             setSpendStatistics(res.spendStatistics);
             setSpendData({
                 labels: labels,
@@ -145,7 +152,6 @@ const TeamFinancePage = () => {
         try {
             const res = await spendService.TeamStatisticalByGoal(
                 String(id),
-                String(1),
                 startDate,
                 endDate,
                 timeRange,
@@ -161,7 +167,7 @@ const TeamFinancePage = () => {
             const labels = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.inComeType?.name || "Unknown");
             const dataValues = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.amount || 0);
             const colors = generateColors(labels.length);
-
+            setIncomeDataTable(res.incomeStatistics.inComeTypeAndAmounts);
             setIncomeStatistics(res.incomeStatistics);
             setIncomeData({
                 labels: labels,
@@ -227,7 +233,6 @@ const TeamFinancePage = () => {
     const handleSendMessage = async () => {
         try {
             await chatService.AddChatTeam(
-                String(1),
                 String(id),
                 {
                     question: messages
@@ -248,102 +253,158 @@ const TeamFinancePage = () => {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        if (selectedTab === "spend") {
+            setDataTable(spendDataTable);
+        }
+        else {
+            setDataTable(incomeDataTable);
+        }
+    }, [selectedTab, incomeDataTable, spendDataTable]);
+
     return (
         <LayoutClient>
-            <div className="personal-finance-container">
-                <div className="banner">
-                    <div className='overlay'></div>
-                    <div className="layout text-center bg-cover bg-center py-20">
-                    </div>
-                </div>
-                <div className="personal-finance-container padding-common">
-                    <div className="bg-white flex flex-col gap-6">
-                        {/* Tổng số dư */}
-                        <div className="flex flex-col gap-2 items-center justify-center">
-                            <p className="text-[#1d9b5e] font-semibold text-[28px]">{detailGoal?.name}</p>
-                            <p className="text-[24px] font-semibold">Mục tiêu: {formatCurrencyVND(detailGoal?.goalAmount)}</p>
-                        </div>
-
-                        {/* Danh sách ví */}
-                        <div className="flex items-center justify-between bg-[#f1f1f1] p-4 rounded-lg shadow">
+            <BannerCommon />
+            <div className="goal-container padding-common">
+                <div className="bg-white flex flex-col gap-6">
+                    {/* Danh sách ví */}
+                    <div className="overview">
+                        <div className="content flex items-center justify-between p-4 rounded-lg shadow">
                             <div className="flex flex-col gap-2">
-                                <p className="text-[20px] font-semibold text-[#212121]">{detailGoal?.user?.username} </p>
-                                <p className="text-[16Fpx] text-[#303030]">Mục tiêu đã đạt được: {formatCurrencyVND(detailGoal?.currentAmount)}</p>
-                                <p className="text-[16Fpx] text-[#303030]">Thời hạn: {detailGoal?.startDate} - {detailGoal?.endDate} </p>
+                                <p className="text-[24px] font-semibold text-[#ffffff]">{detailGoal.name} - {detailGoal.user?.username} </p>
+                                <p className="text-[16px] font-light text-[#ffffff]">Mục tiêu: {formatCurrencyVND(detailGoal.goalAmount)}</p>
+                                <p className="text-[16px] font-light text-[#ffffff]">Số tiền đã đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
+                                <p className="text-[16px] font-light text-[#ffffff]">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
                             </div>
                             <RoundChartMiniCommon
-                                completed={Number(((detailGoal?.currentAmount / detailGoal?.goalAmount) * 100).toFixed(2))}
+                                completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
                                 total={100}
                             />
                         </div>
+                        <img src={robot} alt="" width={160} />
+                    </div>
 
-                        {/* Thẻ số dư */}
-                        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow ">
+                    {/* Thẻ số dư */}
+                    <div className="flex flex-col gap-4 justify-between bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow">
+                        <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-[#212121] font-medium">Tổng chi tiêu hôm nay</p>
-                                <p className="text-red-500 text-2xl font-bold">VND {formatCurrencyVND(dailySpend)} 😟</p>
+                                <p className={`${dailySpend >= 0 ? "text-[#1d9b5e]" : "text-[#e05349]"} text-2xl font-bold`}>
+                                    {dailySpend >= 0 ? <i className="fa fa-caret-up" aria-hidden="true"></i> : <i className="fa fa-caret-down" aria-hidden="true"></i>}
+                                    {dailySpend && <AnimatedNumber value={dailySpend} />}
+                                </p>
                             </div>
-                            <div className="text-gray-500 text-2xl">ℹ️</div>
+                            <div >{dailySpend >= 0 ?
+                                <img src={happy} alt="" width={80} />
+                                :
+                                <img src={sad} alt="" width={80} />
+                            } </div>
                         </div>
 
-                        {/* Bộ lọc thời gian */}
-                        <TimeFilter
-                            setTimeRange={setTimeRange}
-                            startDate={startDate}
-                            endDate={endDate}
-                            setStartDate={setStartDate}
-                            setEndDate={setEndDate}
-                            fetchData={() => {
-                                onGetSpendPersonalByGoalStatistical();
-                                onGetIncomePersonalByGoalStatistical();
-                            }}
+                        <div className="flex items-center justify-between">
+                            <div className="text-left text-[#e05349]">
+                                <p className=" font-semibold">Chi phí</p>
+                                <p className="text-xl font-bold"><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
+                            </div>
+                            <div className="text-right text-[#1d9b5e]">
+                                <p className="font-semibold">Thu nhập</p>
+                                <p className="text-xl font-bold"><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Bộ lọc thời gian */}
+                    <TimeFilter
+                        setTimeRange={setTimeRange}
+                        startDate={startDate}
+                        endDate={endDate}
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        fetchData={() => {
+                            onGetSpendPersonalByGoalStatistical();
+                            onGetIncomePersonalByGoalStatistical();
+                        }}
+                    />
+
+                    {/* Thông tin thu chi */}
+                    <div className="flex items-center justify-between ">
+                        <div className="text-center">
+                            <p className="text-red-500 font-semibold">Chi phí</p>
+                            <p className="text-[#212121] text-xl font-bold">VND {formatCurrencyVND(spendStatistics.totalSpend)}</p>
+                        </div>
+                        <div className="text-center">
+                            <p className="text-green-500 font-semibold">Thu nhập</p>
+                            <p className="text-[#212121] text-xl font-bold">VND {formatCurrencyVND(incomeStatistics.totalInCome)}</p>
+                        </div>
+                    </div>
+
+                    {/* Tabs chi phí / thu nhập */}
+                    <div className="flex justify-center gap-4 mb-6">
+                        <ButtonCommon
+                            classColor={selectedTab === "spend" ? "green" : "white"}
+                            onClick={() => setSelectedTab("spend")}
+                            title={"Chi phí"}
                         />
-
-                        {/* Thông tin thu chi */}
-                        <div className="flex items-center justify-between ">
-                            <div className="text-center">
-                                <p className="text-red-500 font-semibold">Chi phí</p>
-                                <p className="text-[#212121] text-xl font-bold">VND {formatCurrencyVND(spendStatistics.totalSpend)}</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="text-green-500 font-semibold">Thu nhập</p>
-                                <p className="text-[#212121] text-xl font-bold">VND {formatCurrencyVND(incomeStatistics.totalInCome)}</p>
-                            </div>
-                        </div>
-
-                        {/* Tabs chi phí / thu nhập */}
-                        <div className="flex justify-center space-x-4 mb-6">
-                            <button
-                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "spend" ? "bg-[#1d9b5e] text-white" : "bg-[#cfcfcf] text-[#303030]"
-                                    }`}
-                                onClick={() => setSelectedTab("spend")}
-                            >
-                                Chi phí
-                            </button>
-                            <button
-                                className={`px-6 py-3 rounded-lg font-semibold ${selectedTab === "income" ? "bg-[#1d9b5e] text-white" : "bg-[#cfcfcf] text-[#303030]"
-                                    }`}
-                                onClick={() => setSelectedTab("income")}
-                            >
-                                Thu nhập
-                            </button>
-                        </div>
-
-                        {/* Biểu đồ tròn */}
-                        <div className="w-72 h-72">
-                            <Pie data={selectedTab === "spend" ? spendData : incomeData} />
-                        </div>
-                        <ChatButton
-                            titleChat={detailGoal.name}
-                            isOpenChatBox={isOpenChatBox}
-                            setIsOpenChatBox={setIsOpenChatBox}
-                            dataChatBox={dataChatBox}
-                            handleSendMessage={handleSendMessage}
-                            messages={messages}
-                            setMessages={setMessages}
-                            loading={loadingBot}
+                        <ButtonCommon
+                            classColor={selectedTab === "income" ? "green" : "white"}
+                            onClick={() => setSelectedTab("income")}
+                            title={"Thu nhập"}
                         />
                     </div>
+                    {/* Thông tin thu chi */}
+
+
+                    {/* Biểu đồ tròn */}
+                    {
+                        dataTable.length
+                            ?
+                            <Row gutter={[40, 20]}>
+                                <Col md={24} lg={8} className="w-full">
+                                    <Pie data={selectedTab === "spend" ? spendData : incomeData} />
+                                </Col>
+                                <Col md={24} lg={16} className="overflow-x-auto">
+                                    <table className="w-full text-left text-sm font-light text-[#FFF]">
+                                        <thead className="bg-[#41bb15ba] text-[#FFF]">
+                                            <tr className="text-[16px]">
+                                                <th className="px-6 py-4">Danh mục</th>
+                                                <th className="px-6 py-4">Chi tiêu</th>
+                                                <th className="px-6 py-4">Tỉ lệ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                dataTable.map((item, index) => {
+                                                    const percent = item.amount / (selectedTab === "spend" ? spendStatistics.totalSpend : incomeStatistics.totalInCome)
+                                                    return (
+                                                        (
+                                                            <tr
+                                                                key={index}
+                                                                className={`${index % 2 === 0 ? "bg-[#1d9b5e]" : "bg-[#41bb15ba]"} hover:bg-[#41bb158c]`}
+                                                            >
+                                                                <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{selectedTab === "spend" ? item?.spendingType?.name : item?.inComeType?.name}</td>
+                                                                <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{formatCurrencyVND(item.amount)}</td>
+                                                                <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{Number(percent * 100).toFixed(2)}%</td>
+                                                            </tr>
+                                                        )
+                                                    )
+                                                })}
+                                        </tbody>
+                                    </table>
+                                </Col>
+                            </Row>
+                            :
+                            <div className="text-center font-semibold text-md text-[#242424]">Chưa có dữ liệu chi tiêu !!!</div>
+                    }
+                    <ChatButton
+                        titleChat={detailGoal.name}
+                        isOpenChatBox={isOpenChatBox}
+                        setIsOpenChatBox={setIsOpenChatBox}
+                        dataChatBox={dataChatBox}
+                        handleSendMessage={handleSendMessage}
+                        messages={messages}
+                        setMessages={setMessages}
+                        loading={loadingBot}
+                    />
                 </div>
             </div>
             <FullPageLoading isLoading={false} />

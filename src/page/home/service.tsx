@@ -12,9 +12,9 @@ const services = [
 
 const ServiceComponent = () => {
     return (
-        <div className="service mt-[80px]">
+        <div className="service">
             <div className="mx-auto text-center">
-                <div className="flex flex-col gap-2 mb-10">
+                <div className="title flex flex-col gap-2 mb-10">
                     <h2>Better Strategy</h2>
                     <p>
                         Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics

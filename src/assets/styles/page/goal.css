@@ -1,0 +1,50 @@
+.goal-container .overview {
+  position: relative;
+}
+
+.goal-container .overview .content {
+  z-index: 10;
+  position: relative;
+  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+.goal-container .overview .content {
+  z-index: 10;
+  position: relative;
+  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.goal-container .overview img {
+  position: absolute;
+  right: 0;
+  z-index: 9;
+  animation: robot 6s both ease-out infinite;
+}
+
+@keyframes robot {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 100px;
+  }
+  100% {
+    bottom: 0;
+  }
+}

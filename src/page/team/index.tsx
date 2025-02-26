@@ -7,7 +7,9 @@ import { Col, Row } from "antd";
 import ModalCreateTeam from "./modalCreate";
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import { Link } from "react-router-dom";
-
+import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
+import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
+import "../../assets/styles/page/team.css"
 const TeamPage = () => {
     const [listTeam, setListTeam] = useState<Array<any>>([]);
     const [loading, setLoading] = useState(false);
@@ -80,55 +82,49 @@ const TeamPage = () => {
     }
     return (
         <LayoutClient>
-            <div className="personal-finance-container">
-                <div className="banner">
-                    <div className='overlay'></div>
-                    <div className="layout text-center bg-cover bg-center py-20">
-                    </div>
-                </div>
-                <div className="flex flex-col gap-6 padding-common">
-                    <div className="flex justify-between align-middle">
-                        <h1 className="text-2xl font-bold text-center text-gray-800">Danh sách nhóm</h1>
-                        <div className="flex justify-center" onClick={onOpenModalCreate}>
-                            <button className="bg-[#1d9b5e] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#41bb15e1]">
-                                + Thêm nhóm mới
-                            </button>
-                        </div>
-                    </div>
-
+            <BannerCommon />
+            <div className="team-container padding-common">
+                <div className="content">
+                    <h2 className="text-xl font-bold text-center text-gray-800">Danh sách các quỹ nhóm</h2>
                     {/* Danh sách mục tiêu */}
-                    <Row gutter={[40, 20]}>
+                    <Row gutter={[20, 20]}>
                         {listTeam.map((item, index) => {
                             return (
                                 <Col
                                     key={index}
-                                    span={12}
+                                    span={8}
                                 >
                                     <Link to={`/goal-spending-team/${item.id}`}>
-                                        <Row
-                                            gutter={[20, 20]}
-                                            className="p-4 bg-gray-100 rounded-lg shadow"
-                                        >
-                                            {/* Thông tin mục tiêu */}
-                                            <Col span={6}>
-                                                <img src={configImageURL(item.imageCode)} style={{ width: "100%", height: 100 }} alt="" />
-                                            </Col>
-                                            <Col span={18}>
-                                                <div className="flex flex-col gap-2">
-                                                    <p className="text-[20px] font-semibold text-[#1d1d1d] text-truncate">{item.name}</p>
-                                                    <p className="text-[14px] text-[#242424]">Ngày tạo: {item.createdAt}</p>
-                                                    <p className="text-[14px] text-[#242424]">Trưởng nhóm: {item.teamLeader.name}</p>
-                                                </div>
-                                            </Col>
-                                            {/* Thanh tiến trình */}
-                                        </Row>
+                                        <div className="box">
+                                            <div
+                                            className="img-bg"
+                                                style={{
+                                                    backgroundImage: `url(${configImageURL(item.imageCode)})`,
+                                                    backgroundSize: "cover",
+                                                    backgroundRepeat: "no-repeat",
+                                                    backgroundPosition: "center",
+                                                    width: "100%",
+                                                    height: "25vh"
+                                                }}>
+                                            </div>
+                                            <div className="text">
+                                                <p className="text-truncate">{item.name}</p>
+                                                <p>Trưởng nhóm: {item.teamLeader.name}</p>
+                                            </div>
+                                        </div>
+
                                     </Link>
                                 </Col>
 
                             );
                         })}
                     </Row>
-
+                    <ButtonCommon
+                        classColor={"green"}
+                        onClick={onOpenModalCreate}
+                        title={"Thêm nhóm mới"}
+                        isFullWidth={true}
+                    />
                     {/* Nút thêm mục tiêu mới */}
                     <ModalCreateTeam
                         handleOk={onCreateTeamAsync}

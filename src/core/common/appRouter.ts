@@ -9,7 +9,7 @@ export const ROUTE_PATH = {
     ///Client
     HOME_PAGE: `${PREFIX}/`,
     CHAT_BOX_PAGE: `${PREFIX}/chat-box`,
-    PERSONAL_FINANCE_PAGE: `${PREFIX}/personal-finance/:id`,
+    PERSONAL_FINANCE_PAGE: `${PREFIX}/goal-spending/personal-finance/:id`,
     TEAM_FINANCE_PAGE: `${PREFIX}/team-finance/:id`,
 
     REPORT_PAGE: `${PREFIX}/report`,

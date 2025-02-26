@@ -27,7 +27,6 @@ const HeaderClient = (props: Props) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [dataProfile, setDataProfile] = useState<any>({});
-    const [imageUrl, setImageUrl] = useState<any>(null);
     const [isOpenModalLogout, setIsOpenModalLogout] = useState<boolean>(false);
     const [isOpenModalProfile, setIsOpenModalProfile] = useState<boolean>(false);
     const [isOpenModalChangePassword, setIsOpenModalChangePassword] = useState<boolean>(false);
@@ -149,25 +148,25 @@ const HeaderClient = (props: Props) => {
     };
 
     const conditionActive = (link: string) => {
-        if (location.pathname !== ROUTE_PATH.HOME_PAGE) {
-            if (location.pathname.includes(link)) {
-                return "active"
-            }
-            else {
-                return ""
-            }
+        // if (location.pathname !== ROUTE_PATH.HOME_PAGE) {
+        //     if (location.pathname.includes(link)) {
+        //         return "active"
+        //     }
+        //     else {
+        //         return ""
+        //     }
+        // }
+        // else if (location.pathname === ROUTE_PATH.HOME_PAGE) {
+        if (location.pathname === link) {
+            return "active"
         }
-        else if (location.pathname === ROUTE_PATH.HOME_PAGE) {
-            if (location.pathname === link) {
-                return "active"
-            }
-            return ""
-        }
-
-        else {
-            return ""
-        }
+        return ""
+        // }
+        // else {
+        //     return ""
+        // }
     }
+
     return (
         <div className={`header-common header-layout-client ${scrollDirection ? 'down' : 'up'} ${lastScrollY == 0 ? "bg-change-none" : "bg-change"}`}>
             <nav className="flex items-center justify-between">
@@ -175,13 +174,35 @@ const HeaderClient = (props: Props) => {
                 <nav className="menu">
                     {
                         Constants.MenuClient.List.map((item, index) => {
-                            return (
-                                <a
-                                    href={item.link}
-                                    key={index}
-                                    className={`${conditionActive(item.link)}`}
-                                >{item.label}</a>
-                            )
+                            if (!item.private) {
+                                return (
+                                    <a
+                                        href={item.link}
+                                        key={index}
+                                        className={`${conditionActive(item.link)}`}
+                                    >{item.label}</a>
+                                )
+                            }
+                            else {
+                                if (!token) {
+                                    return (
+                                        <a
+                                            onClick={() => setIsLoginClick(!isLoginClick)}
+                                            key={index}
+                                            className={`${conditionActive(item.link)} cursor-pointer`}
+                                        >{item.label}</a>
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <a
+                                            href={item.link}
+                                            key={index}
+                                            className={`${conditionActive(item.link)}`}
+                                        >{item.label}</a>
+                                    )
+                                }
+                            }
                         })
                     }
                 </nav>
@@ -203,7 +224,7 @@ const HeaderClient = (props: Props) => {
                                             <Space>
                                                 <div className="avatar-user">
                                                     <div className="grad spin"></div>
-                                                    <img src={imageUrl ? imageUrl : avatar} className="avatar-img border-radius" alt='' />
+                                                    <img src={dataProfile.avatarCode ? configImageURL(dataProfile.avatarCode) : avatar} className="avatar-img border-radius" alt='' />
                                                 </div>
 
                                             </Space>
