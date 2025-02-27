@@ -67,8 +67,9 @@ const ChatBoxCommon = (props: Props) => {
             onClose={closeDrawer}
             open={isOpen}
             headerStyle={{
-                display: "none"
+                background: "#1d9b5e",
             }}
+            closeIcon={<i className="fa fa-arrow-left text-[#FFF] text-[20px]" aria-hidden="true"></i>}
         >
             <div className="chat-box-container" >
                 <BubbleCommon />

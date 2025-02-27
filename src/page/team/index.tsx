@@ -92,12 +92,12 @@ const TeamPage = () => {
                             return (
                                 <Col
                                     key={index}
-                                    span={8}
+                                    xs={24} sm={12} lg={8}
                                 >
                                     <Link to={`/goal-spending-team/${item.id}`}>
                                         <div className="box">
                                             <div
-                                            className="img-bg"
+                                                className="img-bg"
                                                 style={{
                                                     backgroundImage: `url(${configImageURL(item.imageCode)})`,
                                                     backgroundSize: "cover",

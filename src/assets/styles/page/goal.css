@@ -1,3 +1,8 @@
+.goal-container {
+  width: 100%;
+  position: relative;
+}
+
 .goal-container .overview {
   position: relative;
 }
@@ -6,14 +11,16 @@
   z-index: 10;
   position: relative;
   background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px -10px #7c0fd1;
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
-}
-
-.goal-container .overview .content {
   z-index: 10;
-  position: relative;
-  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
 }
@@ -46,5 +53,87 @@
   }
   100% {
     bottom: 0;
+  }
+}
+.goal-container .overview .content p {
+  color: #fff;
+  font-weight: 600;
+}
+.goal-container .overview .content p.title {
+  font-size: 22px;
+}
+.goal-container .overview .content p.sub {
+  font-size: 14px;
+}
+
+.goal-container .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(-45deg, #ebf8ff, #f8fafc);
+  box-shadow: 5px 5px 10px -10px #7c0fd1;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+  animation: gradientAnimation 8s ease infinite;
+}
+.goal-container .info .title {
+  color: #212121;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.goal-container .info .sum {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.goal-container .info .more {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.goal-container .info .more p {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.goal-container .static table {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+}
+.goal-container .static table tr {
+  font-size: 16px;
+}
+
+.goal-container .static table tr th {
+  white-space: nowrap;
+}
+
+.goal-container .static table tr td {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@media only screen and (max-width: 576px) {
+  .goal-container .info .sum {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .goal-container .info .more p {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
   }
 }

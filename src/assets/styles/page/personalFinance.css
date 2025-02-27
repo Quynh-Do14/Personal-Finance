@@ -118,6 +118,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 4px;
+  height: 100%;
 }
 
 .personal-finance-container .target .box::after {

@@ -114,13 +114,14 @@ const ProfileModal = (props: Props) => {
       key={"f-0"}
       centered
       visible={visible}
-      closable={false}
+      closable={true}
       footer={false}
       onCancel={() => handleCancel()}
-      width={"70%"}
+      className='custom-modal'
+      closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
     >
-      <div className='flex flex-col gap-4 p-6'>
-        <p className="text-center font-bold text-[2rem] text-[#787878]">Thông tin cá nhân</p>
+      <div className='flex flex-col gap-2 p-3'>
+        <p className="text-center font-bold text-[28px] text-[#787878]">Thông tin cá nhân</p>
 
         <div className='flex items-center gap-4'>
           <UploadAvatar

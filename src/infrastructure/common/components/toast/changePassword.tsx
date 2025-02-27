@@ -73,14 +73,15 @@ const ChangePasswordModal = (props: Props) => {
             key={"f-0"}
             centered
             visible={visible}
-            closable={false}
+            closable={true}
             footer={false}
             onCancel={() => handleCancel()}
-            width={"50%"}
+            className='custom-modal'
+            closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
         >
-            <div className='flex flex-col gap-4'>
+            <div className='flex flex-col gap-2'>
                 <div className="">
-                    <p className="text-center font-bold text-[2rem] text-[#787878]">Thay đổi mật khẩu</p>
+                    <p className="text-center font-bold text-[28px] text-[#787878]">Thay đổi mật khẩu</p>
                 </div>
                 <Row gutter={[10, 10]}>
 

@@ -15,7 +15,13 @@ type Props = {
     setIsRegisterClick?: any
 }
 const LoginModal = (props: Props) => {
-    const { isLoginClick, setIsLoginClick, setLoading, setDataLogined, setIsRegisterClick } = props;
+    const {
+        isLoginClick,
+        setIsLoginClick,
+        setLoading,
+        setDataLogined,
+        setIsRegisterClick
+    } = props;
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
 
@@ -102,12 +108,12 @@ const LoginModal = (props: Props) => {
             onCancel={handleCancel}
             centered
         >
-            <div className='flex flex-col gap-4'>
+            <div className='flex flex-col gap-2'>
                 <div className="flex justify-center mt-8">
                     <img src={""} alt="" />
                 </div>
                 <div className="">
-                    <p className="text-center font-bold text-[2rem] text-[#787878]">Đăng nhập</p>
+                    <p className="text-center font-bold text-[28px] text-[#787878]">Đăng nhập</p>
                 </div>
                 <Row gutter={[10, 10]}>
                     <Col span={24}>
@@ -157,7 +163,7 @@ const LoginModal = (props: Props) => {
                         />
                     </Col>
                 </Row>
-                <div className="flex justify-between gap-[10rem] py-2 text-[#787878]">
+                <div className="flex justify-between flex-wrap py-2 text-[#787878]">
                     <Link to={""} className="">Quên mật khẩu?</Link>
                     <Link onClick={handleRegister} className="cursor-pointer" to={''}>Chưa có tài khoản</Link>
                 </div>

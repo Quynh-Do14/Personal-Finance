@@ -1,4 +1,4 @@
-import { CalendarOutlined, ContainerOutlined, DatabaseOutlined, EnvironmentOutlined, MessageOutlined, ProjectOutlined, ScheduleOutlined, TableOutlined, TagOutlined, TagsOutlined, UserOutlined } from "@ant-design/icons";
+import Icon, { CalendarOutlined, ContainerOutlined, DatabaseOutlined, EnvironmentOutlined, MessageOutlined, ProjectOutlined, ScheduleOutlined, TableOutlined, TagOutlined, TagsOutlined, UserOutlined } from "@ant-design/icons";
 import { ROUTE_PATH } from "./appRouter";
 
 export default class Constants {
@@ -17,22 +17,26 @@ export default class Constants {
             {
                 label: "Trang chủ",
                 link: ROUTE_PATH.HOME_PAGE,
-                private: false
+                private: false,
+                icon: "fa fa-home"
             },
             {
                 label: "Tài chính",
                 link: ROUTE_PATH.GOAL_SPENDING_PAGE,
-                private: true
+                private: true,
+                icon: "fa fa-money",
             },
             {
                 label: "Quỹ nhóm",
                 link: ROUTE_PATH.TEAM_PAGE,
-                private: true
+                private: true,
+                icon: "fa fa-users"
             },
             {
                 label: "Liên hệ",
                 link: ROUTE_PATH.CONTACT,
-                private: false
+                private: false,
+                icon: "fa fa-envelope"
             },
         ]
     };
@@ -174,6 +178,12 @@ export default class Constants {
         static List = [
             { label: "Chi phí", value: 1 },
             { label: "Thu nhập", value: 2 },
+        ]
+    }
+    static MenuTabFinance = class {
+        static List = [
+            { label: "Danh mục", value: 1 },
+            { label: "Thành viên", value: 2 },
         ]
     }
 };

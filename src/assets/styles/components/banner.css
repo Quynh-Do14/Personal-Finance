@@ -1,7 +1,6 @@
 .banner-common .layout {
   text-align: center;
   background: url('../../images/banner.png') no-repeat center/cover;
-  height: 460px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -79,11 +78,22 @@
   .banner-common .layout {
     padding: 80px 100px 40px;
   }
+  .homepage-container .banner .layout {
+    height: 460px;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
   .banner-common .layout {
     padding: 80px 60px 40px;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .banner-common .right-content {
+    display: none;
+  }
+  .homepage-container .banner .layout {
+    height: 100%;
   }
 }
 
@@ -96,5 +106,11 @@
 @media only screen and (max-width: 576px) {
   .banner-common .layout {
     padding: 20px 20px;
+  }
+  .banner-common .layout h1 {
+    font-size: 40px;
+  }
+  .banner-common .layout .neon-text {
+    font-size: 12px;
   }
 }

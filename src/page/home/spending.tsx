@@ -5,10 +5,10 @@ const SpendingComponent = () => {
     return (
         <div className="spending">
             <Row gutter={[40, 20]}>
-                <Col span={12}>
+                <Col xs={24} md={24} lg={12}>
                     <div className='left-content'></div>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} md={24} lg={12}>
                     <div className='right-content'>
                         <h2>FATS - Financial Analysis Technology Service</h2>
                         <p>Quản lý tài chính thông minh, tối ưu ngân sách, hướng tới tự do tài chính.</p>

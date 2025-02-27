@@ -11,7 +11,6 @@
 .homepage-container .banner .layout {
   text-align: center;
   background: url('../../images/banner.png') no-repeat center/cover;
-  height: 700px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -239,6 +238,7 @@
   border: 1px solid #bebebe85;
   gap: 12px;
   padding: 12px 32px;
+  height: 100%;
 }
 
 .homepage-container .spending .right-content {
@@ -457,7 +457,11 @@
     padding: 60px 150px;
   }
 }
-
+@media only screen and (min-width: 1201px) {
+  .homepage-container .banner .layout {
+    height: 700px;
+  }
+}
 @media only screen and (max-width: 1200px) {
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
@@ -477,7 +481,22 @@
     padding: 60px 60px;
   }
 }
-
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+  .homepage-container .banner .layout {
+    height: 800px;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .homepage-container .banner .layout {
+    height: 100%;
+  }
+  .homepage-container .banner .right-content {
+    display: none;
+  }
+  .homepage-container .spending .left-content {
+    height: 300px;
+  }
+}
 @media only screen and (max-width: 768px) {
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
@@ -485,6 +504,10 @@
   .homepage-container .service,
   .homepage-container .pricing-container {
     padding: 60px 30px;
+  }
+  .homepage-container .spending .right-content h2 {
+    font-size: 32px;
+    line-height: 40px;
   }
 }
 
@@ -494,6 +517,18 @@
   .homepage-container .spending,
   .homepage-container .service,
   .homepage-container .pricing-container {
-    padding: 20px 20px;
+    padding: 40px 20px;
+  }
+  .homepage-container .banner .layout h1 {
+    font-size: 40px;
+  }
+  .homepage-container .banner .layout .neon-text {
+    font-size: 12px;
+  }
+  .homepage-container .service .title h2,
+  .homepage-container .pricing-container h2,
+  .homepage-container .banner .figure .figure-content .number {
+    font-size: 32px;
+    line-height: 40px;
   }
 }

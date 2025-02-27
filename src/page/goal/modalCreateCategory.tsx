@@ -59,8 +59,7 @@ const ModalCreateCategory = (props: Props) => {
                         </div>
                 }
                 <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
-
-                    <Col md={24} lg={24}>
+                    <Col span={24}>
                         <div className='flex flex-col justify-between h-full'>
                             <Row gutter={[15, 15]}>
                                 <Col span={24}>

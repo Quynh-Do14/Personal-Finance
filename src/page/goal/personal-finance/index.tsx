@@ -27,6 +27,8 @@ import { Col, Row } from "antd";
 import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
 import { ButtonCommon } from "../../../infrastructure/common/components/button/button-common";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
+import StaticComponent from "../common/static";
+import { ButtonSimpleCommon } from "../../../infrastructure/common/components/button/buttom-simple-common";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -263,15 +265,15 @@ const PersonalFinancePage = () => {
         <LayoutClient>
             <BannerCommon />
             <div className="goal-container padding-common">
-                <div className="bg-[#FFF] flex flex-col gap-6">
+                <div className="bg-[#FFF] flex flex-col gap-6 overflow-hidden">
                     {/* Danh sách ví */}
                     <div className="overview">
-                        <div className="content flex items-center justify-between p-4 rounded-lg shadow">
+                        <div className="content">
                             <div className="flex flex-col gap-2">
-                                <p className="text-[24px] font-semibold text-[#ffffff]">{detailGoal.name} - {detailGoal.user?.username} </p>
-                                <p className="text-[16px] font-light text-[#ffffff]">Mục tiêu: {formatCurrencyVND(detailGoal.goalAmount)}</p>
-                                <p className="text-[16px] font-light text-[#ffffff]">Số tiền đã đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
-                                <p className="text-[16px] font-light text-[#ffffff]">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
+                                <p className="title">{detailGoal.name} </p>
+                                <p className="sub">Mục tiêu: {formatCurrencyVND(detailGoal.goalAmount)}</p>
+                                <p className="sub">Số tiền đã đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
+                                <p className="sub">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
                             </div>
                             <RoundChartMiniCommon
                                 completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
@@ -282,11 +284,11 @@ const PersonalFinancePage = () => {
                     </div>
 
                     {/* Thẻ số dư */}
-                    <div className="flex flex-col gap-4 justify-between bg-gradient-to-r from-blue-100 to-blue-50 p-6 rounded-lg shadow">
+                    <div className="info">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-[#212121] font-medium">Tổng chi tiêu hôm nay</p>
-                                <p className={`${dailySpend >= 0 ? "text-[#1d9b5e]" : "text-[#e05349]"} text-2xl font-bold`}>
+                                <p className="title">Tổng chi tiêu hôm nay</p>
+                                <p className={`${dailySpend >= 0 ? "text-[#1d9b5e]" : "text-[#e05349]"} sum`}>
                                     {dailySpend >= 0 ? <i className="fa fa-caret-up" aria-hidden="true"></i> : <i className="fa fa-caret-down" aria-hidden="true"></i>}
                                     {dailySpend && <AnimatedNumber value={dailySpend} />}
                                 </p>
@@ -298,14 +300,14 @@ const PersonalFinancePage = () => {
                             } </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className="more">
                             <div className="text-left text-[#e05349]">
-                                <p className=" font-semibold">Chi phí</p>
-                                <p className="text-xl font-bold"><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
+                                <p className="">Chi phí</p>
+                                <p className=""><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
                             </div>
                             <div className="text-right text-[#1d9b5e]">
-                                <p className="font-semibold">Thu nhập</p>
-                                <p className="text-xl font-bold"><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
+                                <p className="">Thu nhập</p>
+                                <p className=""><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
                             </div>
                         </div>
                     </div>
@@ -326,12 +328,12 @@ const PersonalFinancePage = () => {
 
                     {/* Tabs chi phí / thu nhập */}
                     <div className="flex justify-center gap-4 mb-6">
-                        <ButtonCommon
+                        <ButtonSimpleCommon
                             classColor={selectedTab === "spend" ? "green" : "white"}
                             onClick={() => setSelectedTab("spend")}
                             title={"Chi phí"}
                         />
-                        <ButtonCommon
+                        <ButtonSimpleCommon
                             classColor={selectedTab === "income" ? "green" : "white"}
                             onClick={() => setSelectedTab("income")}
                             title={"Thu nhập"}
@@ -339,48 +341,14 @@ const PersonalFinancePage = () => {
                     </div>
                     {/* Thông tin thu chi */}
 
-
-                    {/* Biểu đồ tròn */}
-                    {
-                        dataTable.length
-                            ?
-                            <Row gutter={[40, 20]}>
-                                <Col md={24} lg={8} className="w-full">
-                                    <Pie data={selectedTab === "spend" ? spendData : incomeData} />
-                                </Col>
-                                <Col md={24} lg={16} className="overflow-x-auto">
-                                    <table className="w-full text-left text-sm font-light text-[#FFF]">
-                                        <thead className="bg-[#41bb15ba] text-[#FFF]">
-                                            <tr className="text-[16px]">
-                                                <th className="px-6 py-4">Danh mục</th>
-                                                <th className="px-6 py-4">Chi tiêu</th>
-                                                <th className="px-6 py-4">Tỉ lệ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                dataTable.map((item, index) => {
-                                                    const percent = item.amount / (selectedTab === "spend" ? spendStatistics.totalSpend : incomeStatistics.totalInCome)
-                                                    return (
-                                                        (
-                                                            <tr
-                                                                key={index}
-                                                                className={`${index % 2 === 0 ? "bg-[#1d9b5e]" : "bg-[#41bb15ba]"} hover:bg-[#41bb158c]`}
-                                                            >
-                                                                <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{selectedTab === "spend" ? item?.spendingType?.name : item?.inComeType?.name}</td>
-                                                                <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{formatCurrencyVND(item.amount)}</td>
-                                                                <td className="px-6 py-4 text-[14px] font-semibold text-[#FFF]">{Number(percent * 100).toFixed(2)}%</td>
-                                                            </tr>
-                                                        )
-                                                    )
-                                                })}
-                                        </tbody>
-                                    </table>
-                                </Col>
-                            </Row>
-                            :
-                            <div className="text-center font-semibold text-md text-[#242424]">Chưa có dữ liệu chi tiêu !!!</div>
-                    }
+                    <StaticComponent
+                        selectedTab={selectedTab}
+                        dataTable={dataTable}
+                        spendData={spendData}
+                        incomeData={incomeData}
+                        spendStatistics={spendStatistics}
+                        incomeStatistics={incomeStatistics}
+                    />
 
                     <ChatButton
                         titleChat={detailGoal.name}

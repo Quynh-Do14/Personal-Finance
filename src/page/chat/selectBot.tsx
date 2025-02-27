@@ -46,7 +46,7 @@ const SelectBotPage = () => {
                             {
                                 Constants.BotChatList.List.map((item, index) => {
                                     return (
-                                        <Col span={8}>
+                                        <Col xs={24} sm={12} md={8} key={index}>
                                             <div
                                                 className={`option ${selectedOption === item.value ? 'selected' : ''}`}
                                                 onClick={() => handleOptionClick(item.value)}

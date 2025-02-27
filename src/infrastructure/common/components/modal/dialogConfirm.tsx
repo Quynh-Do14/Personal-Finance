@@ -1,5 +1,6 @@
-import { Button, Col, Modal, Row } from 'antd';
+import { Col, Modal, Row } from 'antd';
 import "../../../../assets/styles/components/modal.css"
+import { ButtonSimpleCommon } from '../button/buttom-simple-common';
 type Props = {
     title: string,
     message: string,
@@ -19,19 +20,29 @@ const DialogConfirmCommon = (props: Props) => {
                 key={"f-0"}
                 centered
                 visible={visible}
-                closable={false}
+                closable={true}
                 footer={false}
                 onCancel={() => handleCancel()}
+                closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
             >
                 <div className='modal-common'>
                     <div className='title'>{title}</div>
                     <div className='message'>{message}</div>
-                    <Row justify={"center"} className='py-4'>
+                    <Row justify={"center"} gutter={[20, 20]} className='py-4'>
                         <Col>
-                            <button className={"btn-Cancel mx-2"} key="f-2" onClick={() => handleCancel()}>{titleCancel}</button>
+                            <ButtonSimpleCommon
+                                classColor={'red'}
+                                onClick={() => handleCancel()}
+                                title={titleCancel}
+                            />
                         </Col>
                         <Col>
-                            <button disabled={isLoading} className={"btn-ok mx-2"} key="f-1" onClick={() => handleOk()}>{titleOk}</button>
+                            <ButtonSimpleCommon
+                                disabled={isLoading}
+                                classColor={'green'}
+                                onClick={() => handleOk()}
+                                title={titleOk}
+                            />
                         </Col>
                     </Row>
                 </div>

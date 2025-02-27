@@ -124,3 +124,38 @@
   width: 100%;
   scale: 1.02;
 }
+
+.button-simple-common {
+  border-radius: 4px;
+
+  color: #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  height: 44px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  width: 120px;
+}
+
+.button-simple-common.red {
+  background: #ff364a;
+}
+.button-simple-common.green {
+  background: #1d9b5e;
+}
+.button-simple-common:hover {
+  scale: 1.05;
+}
+
+.button-simple-common.white {
+  background: #ffffff;
+  color: #1d9b5e;
+  border: 1px solid #1d9b5e;
+}
+.button-simple-common.white:hover {
+  color: #1d9b5e;
+}

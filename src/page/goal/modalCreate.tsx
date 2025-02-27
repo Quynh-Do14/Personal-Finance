@@ -44,12 +44,12 @@ const ModalCreateGoal = (props: Props) => {
                 <div className='text-[18px] text-[#1e2330] font-semibold text-center mb-5'>Thêm mục tiêu mới</div>
                 <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
 
-                    <Col md={24} lg={24}>
+                    <Col span={24}>
                         <div className='flex flex-col justify-between h-full'>
                             <Row gutter={[15, 15]}>
                                 <Col span={24}>
                                     <InputTextCommon
-                                        label={'Tên nhóm'}
+                                        label={'Tên mục tiêu'}
                                         attribute={'name'}
                                         isRequired={true}
                                         setData={setData}

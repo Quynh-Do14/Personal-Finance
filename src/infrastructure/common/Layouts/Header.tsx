@@ -2,7 +2,7 @@ import { Col, Dropdown, Menu, Row, Space } from 'antd'
 import "../../../assets/styles/components/MainLayout.css";
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Constants from '../../../core/common/constants'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../core/common/appRouter';
 import { isTokenStoraged } from '../../utils/storage';
 import authService from '../../repositories/auth/service/auth.service';
@@ -20,24 +20,40 @@ import AnimatedButton from '../components/button/animationButton';
 import { FullPageLoading } from '../components/controls/loading';
 type Props = {
     scrollDirection: boolean
-    lastScrollY: Number
+    lastScrollY: number
+    isLoginClick: boolean,
+    setIsLoginClick: Function,
+    isOpenModalLogout: boolean,
+    setIsOpenModalLogout: Function,
+    isOpenModalProfile: boolean,
+    setIsOpenModalProfile: Function,
+    isOpenModalChangePassword: boolean,
+    setIsOpenModalChangePassword: Function,
+
 }
 const HeaderClient = (props: Props) => {
-    const { scrollDirection, lastScrollY } = props;
+    const {
+        scrollDirection,
+        lastScrollY,
+        isLoginClick,
+        setIsLoginClick,
+        isOpenModalLogout,
+        setIsOpenModalLogout,
+        isOpenModalProfile,
+        setIsOpenModalProfile,
+        isOpenModalChangePassword,
+        setIsOpenModalChangePassword,
+    } = props;
     const navigate = useNavigate();
     const location = useLocation();
     const [dataProfile, setDataProfile] = useState<any>({});
-    const [isOpenModalLogout, setIsOpenModalLogout] = useState<boolean>(false);
-    const [isOpenModalProfile, setIsOpenModalProfile] = useState<boolean>(false);
-    const [isOpenModalChangePassword, setIsOpenModalChangePassword] = useState<boolean>(false);
 
-    const [isLoginClick, setIsLoginClick] = useState<boolean>(false);
     const [dataLogined, setDataLogined] = useState<boolean>(false)
     const [isRegister, setIsRegisterClick] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-    // const [, setProfileState] = useRecoilState(ProfileState);
+    const [, setProfileState] = useRecoilState(ProfileState);
     const token = isTokenStoraged();
     const getProfileUser = async () => {
         if (token) {
@@ -47,11 +63,11 @@ const HeaderClient = (props: Props) => {
                 ).then((response) => {
                     if (response) {
                         setDataProfile(response)
-                        // setProfileState(
-                        //     {
-                        //         user: response,
-                        //     }
-                        // )
+                        setProfileState(
+                            {
+                                user: response,
+                            }
+                        )
                     }
                 })
             } catch (error) {
@@ -126,7 +142,7 @@ const HeaderClient = (props: Props) => {
                 <Menu.Item className='info-admin' >
                     <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
                         <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
-                            <i className="fa fa-list" aria-hidden="true"></i>
+                            <i className="fa fa-retweet" aria-hidden="true"></i>
                             Thay đổi Bot Chat
                         </a>
                     </div>
@@ -170,7 +186,9 @@ const HeaderClient = (props: Props) => {
     return (
         <div className={`header-common header-layout-client ${scrollDirection ? 'down' : 'up'} ${lastScrollY == 0 ? "bg-change-none" : "bg-change"}`}>
             <nav className="flex items-center justify-between">
-                <img className='cursor-pointer' width={80} height={50} src={logo} alt='' />
+                <Link to={ROUTE_PATH.HOME_PAGE}>
+                    <img className='cursor-pointer' width={80} height={50} src={logo} alt='' />
+                </Link>
                 <nav className="menu">
                     {
                         Constants.MenuClient.List.map((item, index) => {

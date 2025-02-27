@@ -40,7 +40,7 @@ const BannerCommon = () => {
             <div className='overlay'></div>
             <div className="layout text-center bg-cover bg-center py-20">
                 <Row gutter={[40, 20]}>
-                    <Col span={12}>
+                    <Col xs={24} md={24} lg={12}>
                         <div className='left-content flex flex-col gap-6 items-start'>
                             <div className="top">
                                 <h1>

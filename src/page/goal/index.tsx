@@ -15,6 +15,7 @@ import ModalCreateCategory from "./modalCreateCategory";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import { ROUTE_PATH } from "../../core/common/appRouter";
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
+import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -128,7 +129,6 @@ const GoalSpendingPage = () => {
             WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
         };
     }
-
 
     // Danh mục
     const onGetSpendingTypeAsync = async () => {
@@ -337,17 +337,17 @@ const GoalSpendingPage = () => {
                 <BannerCommon />
                 <div className="padding-common">
                     <Row gutter={[20, 20]}>
-                        <Col span={6}>
+                        <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
                             <div className="category">
                                 <div className="flex flex-col gap-4">
                                     <h2 className="text-xl font-bold text-left text-gray-800">Danh sách danh mục</h2>
                                     <div className="flex justify-center gap-4">
-                                        <ButtonCommon
+                                        <ButtonSimpleCommon
                                             classColor={selectedTab === "spend" ? "green" : "white"}
                                             onClick={() => setSelectedTab("spend")}
                                             title={"Chi phí"}
                                         />
-                                        <ButtonCommon
+                                        <ButtonSimpleCommon
                                             classColor={selectedTab === "income" ? "green" : "white"}
                                             onClick={() => setSelectedTab("income")}
                                             title={"Thu nhập"}
@@ -377,7 +377,7 @@ const GoalSpendingPage = () => {
                                 />
                             </div>
                         </Col>
-                        <Col span={18}>
+                        <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
                             <div className="target">
                                 <Row gutter={[20, 20]} >
                                     <Col span={24}>
@@ -386,7 +386,7 @@ const GoalSpendingPage = () => {
                                     {newlistGoal.map((goal, index) => {
                                         const percentage = Math.min((goal.currentAmount / goal.goalAmount) * 100, 100);
                                         return (
-                                            <Col span={12}>
+                                            <Col xs={24} sm={12} md={24} lg={12}>
                                                 <Link to={`/goal-spending/personal-finance/${goal.id}`}
                                                     key={index}
                                                     className="box"

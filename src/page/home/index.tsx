@@ -15,8 +15,8 @@ const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
-    const speed = isDeleting ? 50 : 100; 
-    const delay = 1000; 
+    const speed = isDeleting ? 50 : 100;
+    const delay = 1000;
 
     useEffect(() => {
         let index = displayedText.length;
@@ -51,7 +51,7 @@ const HomePage = () => {
                     <div className='overlay'></div>
                     <div className="layout text-center bg-cover bg-center py-20">
                         <Row gutter={[40, 20]}>
-                            <Col span={12}>
+                            <Col xs={24} md={24} lg={12}>
                                 <div className='left-content flex flex-col gap-6 items-start'>
                                     <div className="top">
                                         <h1>
@@ -61,7 +61,7 @@ const HomePage = () => {
                                     <p className="neon-text top">
                                         {displayedText}
                                     </p>
-                                    <div className="btn flex justify-center space-x-4">
+                                    <div className="btn flex justify-center gap-2 flex-wrap">
                                         <AnimatedButton
                                             classColor={'green'}
                                             label={'Khám phá ngay'}
@@ -114,7 +114,7 @@ const HomePage = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col span={12}>
+                            <Col xs={24} md={24} lg={12}>
                                 <div className='right-content top'>
                                     {Constants.Slogan.List.map((service, index) => (
                                         <TagFlipComponent
