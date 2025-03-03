@@ -241,6 +241,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  height: 60px;
 }
 
 .main-layout-client .header-common nav .menu a {

@@ -400,7 +400,7 @@ const GoalSpendingTeamPage = () => {
                                             {
                                                 listType.map((item, index) => {
                                                     return (
-                                                        <div className="category-item" key={index}>
+                                                        <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
                                                             <div className="category-name">
                                                                 <div className="icon">
                                                                     <i className="fa fa-car" aria-hidden="true"></i>
