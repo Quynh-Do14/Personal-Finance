@@ -9,9 +9,37 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.personal-finance-container .category .content {
+  height: 100%;
+}
+
+.personal-finance-container .category .content .box {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 16px;
   height: 100%;
+}
+.personal-finance-container .category .content .box.show {
+  opacity: 1;
+  animation: showMenu 0.4s both ease-in-out 1;
+}
+.personal-finance-container .category .content .box.un-show {
+  opacity: 0;
+  display: none;
+}
+
+@keyframes showMenu {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 .personal-finance-container .category .category-item {
   display: flex;

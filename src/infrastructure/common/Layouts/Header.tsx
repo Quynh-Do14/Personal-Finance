@@ -164,24 +164,16 @@ const HeaderClient = (props: Props) => {
     };
 
     const conditionActive = (link: string) => {
-        // if (location.pathname !== ROUTE_PATH.HOME_PAGE) {
-        //     if (location.pathname.includes(link)) {
-        //         return "active"
-        //     }
-        //     else {
-        //         return ""
-        //     }
-        // }
-        // else if (location.pathname === ROUTE_PATH.HOME_PAGE) {
-        if (location.pathname === link) {
-            return "active"
+        if (location.pathname === ROUTE_PATH.HOME_PAGE) {
+            return link === ROUTE_PATH.HOME_PAGE ? "active" : "";
         }
-        return ""
-        // }
-        // else {
-        //     return ""
-        // }
-    }
+
+        if (link === ROUTE_PATH.HOME_PAGE) {
+            return "";
+        }
+
+        return location.pathname.includes(link) ? "active" : "";
+    };
 
     return (
         <div className={`header-common header-layout-client ${scrollDirection ? 'down' : 'up'} ${lastScrollY == 0 ? "bg-change-none" : "bg-change"}`}>
