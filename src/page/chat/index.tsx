@@ -74,11 +74,13 @@ const ChatBoxCommon = (props: Props) => {
             onClose={closeDrawer}
             open={isOpen}
             headerStyle={{
-                background: "#1d9b5e",
+                display: 'none'
             }}
-            closeIcon={<i className="fa fa-arrow-left text-[#FFF] text-[20px]" aria-hidden="true"></i>}
         >
             <div className="chat-box-container" >
+                <div className="header">
+                    <i onClick={closeDrawer} className="fa fa-arrow-left text-[#FFF] text-[20px] cursor-pointer" aria-hidden="true"></i>
+                </div>
                 <BubbleCommon />
                 <div className="chat-box" ref={chatBoxRef}>
                     {dataChatBox.map((message, index) => (

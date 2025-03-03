@@ -94,7 +94,7 @@ const TeamPage = () => {
                                     key={index}
                                     xs={24} sm={12} lg={8}
                                 >
-                                    <Link to={`/goal-spending-team/${item.id}`}>
+                                    <Link to={`/team/spending-team/${item.id}`}>
                                         <div className="box">
                                             <div
                                                 className="img-bg"

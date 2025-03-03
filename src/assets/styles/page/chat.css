@@ -3,8 +3,8 @@
   bottom: 10%;
   right: 5%;
   background-color: #1d9b5e;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   color: white;
   border-radius: 50%;
   padding: 10px;
@@ -26,6 +26,7 @@
   flex-direction: column;
   overflow: hidden;
   background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
+  border: 1px solid #1d9b5e;
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
 }
@@ -41,7 +42,11 @@
     background-position: 0% 50%;
   }
 }
-
+.chat-box-container .header {
+  height: 40px;
+  padding: 8px 12px;
+  box-shadow: 5px 5px 10px -10px #7c0fd1;
+}
 .chat-box-container .chat-box {
   flex: 1;
   padding: 15px;
