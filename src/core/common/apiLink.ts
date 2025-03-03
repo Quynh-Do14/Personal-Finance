@@ -26,6 +26,7 @@ export class Endpoint {
         static Create = "/teams/user/create"
         static Join = "/members/t/join"
         static Member = "/teams/users"
+        static AddMember = "/members/add-member"
         static Leave = "/members/user/leave"
     }
     static Chat = class {
@@ -36,7 +37,7 @@ export class Endpoint {
         }
         static Team = class {
             static Get = "/chat-logs/team/all"
-            static Add = "/ai/chat/spend"
+            static Add = "/ai/chat/team/spend"
         }
     }
 

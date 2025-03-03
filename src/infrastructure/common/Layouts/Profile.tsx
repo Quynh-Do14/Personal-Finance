@@ -28,7 +28,7 @@ const ProfileModal = (props: Props) => {
   const navigate = useNavigate();
   const token = isTokenStoraged();
 
-  // const [, setDetailState] = useRecoilState(ProfileState);
+  const [, setDetailState] = useRecoilState(ProfileState);
 
   const [_data, _setData] = useState<any>({});
   const dataProfile = _data;
@@ -58,9 +58,9 @@ const ProfileModal = (props: Props) => {
           setLoading
         ).then((response) => {
           setDetailProfile(response)
-          // setDetailState({
-          //   user: response
-          // })
+          setDetailState({
+            user: response
+          })
         })
       }
       catch (error) {

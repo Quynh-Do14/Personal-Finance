@@ -214,7 +214,7 @@ const PersonalFinancePage = () => {
             onConnect: (frame) => {
                 // Lắng nghe thông báo từ đích riêng của user
                 stompClient.subscribe('/user/queue/chat', () => {
-                    onGetDetailGoalAsync();
+                    // onGetDetailGoalAsync();
                     onGetChatBoxAsync();
                     onGetSpendPersonalByGoalStatisticalDaily();
                     onGetSpendPersonalByGoalStatistical();

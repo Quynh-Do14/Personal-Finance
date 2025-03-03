@@ -49,12 +49,19 @@ const TeamFinancePage = () => {
     const [startDate, setStartDate] = useState<string>("");
     const [timeRange, setTimeRange] = useState<string>("daily");
     const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
-    const [spendDataTable, setSpendDataTable] = useState<any[]>([]);
+    const [selectedType, setSelectedType] = useState<"type" | "">("type");
+
     const [dataTable, setDataTable] = useState<any[]>([]);
+    const [dataTableMember, setDataTableMember] = useState<any[]>([]);
+    const [spendDataTable, setSpendDataTable] = useState<any[]>([]);
+
+    const [spendMemberDataTable, setSpendMemberDataTable] = useState<any[]>([]);
     const [spendData, setSpendData] = useState({
         labels: [],
         datasets: [{ data: [], backgroundColor: ["#FF6384"] }],
     });
+
+    const [incomeMemberDataTable, setIncomeMemberDataTable] = useState<any[]>([]);
     const [incomeDataTable, setIncomeDataTable] = useState<any[]>([]);
     const [incomeData, setIncomeData] = useState({
         labels: [],
@@ -63,7 +70,7 @@ const TeamFinancePage = () => {
 
     // const onGetDetailGoalAsync = async () => {
     //     try {
-    //         await goalService.GoalPersonalById(
+    //         await goalService.GoalTeamById(
     //             Number(id),
     //             () => { }
     //         ).then((res) => {
@@ -89,10 +96,11 @@ const TeamFinancePage = () => {
         }
     };
 
-    const onGetSpendPersonalByGoalStatisticalDaily = async () => {
+    const onGetSpendTeamByGoalStatisticalDaily = async () => {
         try {
             await spendService.TeamStatisticalByGoal(
                 String(id),
+                "",
                 "",
                 "",
                 "daily",
@@ -111,11 +119,12 @@ const TeamFinancePage = () => {
         return Array.from({ length }, (_, i) => colors[i % colors.length]); // Lặp lại màu nếu thiếu
     };
 
-    const onGetSpendPersonalByGoalStatistical = async () => {
+    const onGetSpendTeamByGoalStatistical = async () => {
         setLoading(true);
         try {
             const res = await spendService.TeamStatisticalByGoal(
                 String(id),
+                selectedType,
                 startDate,
                 endDate,
                 timeRange,
@@ -149,11 +158,12 @@ const TeamFinancePage = () => {
         }
     };
 
-    const onGetIncomePersonalByGoalStatistical = async () => {
+    const onGetIncomeTeamByGoalStatistical = async () => {
         setLoading(true);
         try {
             const res = await spendService.TeamStatisticalByGoal(
                 String(id),
+                selectedType,
                 startDate,
                 endDate,
                 timeRange,
@@ -190,9 +200,9 @@ const TeamFinancePage = () => {
     useEffect(() => {
         // onGetDetailGoalAsync().then(_ => { });
         onGetChatBoxAsync().then(_ => { });
-        onGetSpendPersonalByGoalStatisticalDaily().then(_ => { });
-        onGetSpendPersonalByGoalStatistical().then(_ => { });
-        onGetIncomePersonalByGoalStatistical().then(_ => { });
+        onGetSpendTeamByGoalStatisticalDaily().then(_ => { });
+        onGetSpendTeamByGoalStatistical().then(_ => { });
+        onGetIncomeTeamByGoalStatistical().then(_ => { });
     }, [timeRange]);
 
     useEffect(() => {
@@ -218,9 +228,9 @@ const TeamFinancePage = () => {
                 stompClient.subscribe('/user/queue/chat', () => {
                     // onGetDetailGoalAsync();
                     onGetChatBoxAsync();
-                    onGetSpendPersonalByGoalStatisticalDaily();
-                    onGetSpendPersonalByGoalStatistical();
-                    onGetIncomePersonalByGoalStatistical();
+                    onGetSpendTeamByGoalStatisticalDaily();
+                    onGetSpendTeamByGoalStatistical();
+                    onGetIncomeTeamByGoalStatistical();
                 });
             },
         });
@@ -244,10 +254,10 @@ const TeamFinancePage = () => {
                     //     setMessages("");
                     //     await onGetChatBoxAsync();
                     // }, 10);
+                    await onGetChatBoxAsync();
                     setMessages("");
                 },
-                // setLoadingBot
-                () => { }
+                setLoadingBot
             ).then(() => {
             });
         }
@@ -324,8 +334,8 @@ const TeamFinancePage = () => {
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         fetchData={() => {
-                            onGetSpendPersonalByGoalStatistical();
-                            onGetIncomePersonalByGoalStatistical();
+                            onGetSpendTeamByGoalStatistical();
+                            onGetIncomeTeamByGoalStatistical();
                         }}
                     />
 

@@ -42,7 +42,27 @@ class TeamService {
             setLoading(false);
         }
     };
-
+    async AddMember(teamId: number, userName: string, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .put(`${Endpoint.Team.AddMember}/${teamId}/${userName}`)
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Thêm thành viên thành công", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error) {
+            FailMessage("Thêm thành viên không thành công", "Vui lòng kiểm tra thông tin")
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
     async CreateTeam(data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {

@@ -13,11 +13,15 @@ const SelectFilterCommon = (props: Props) => {
     } = props;
     return (
         <div className='select-filter'>
-            <div className='title mb-1'>
-                <span>
-                    <span className='label'>{label}</span>
-                </span>
-            </div>
+            {
+                label
+                &&
+                <div className='title mb-1'>
+                    <span>
+                        <span className='label'>{label}</span>
+                    </span>
+                </div>
+            }
             <select
                 onChange={onChange}
             >

@@ -61,6 +61,13 @@ const ChatBoxCommon = (props: Props) => {
     const onChangeText = (e: any) => {
         setMessages(e.target.value)
     }
+
+    const sendMessage = () => {
+        handleSendMessage();
+        setTimeout(() => {
+            scrollToBottom(); // Cuộn xuống sau khi tin nhắn được cập nhật
+        }, 100);
+    };
     return (
         <Drawer
             placement="right"
@@ -148,11 +155,11 @@ const ChatBoxCommon = (props: Props) => {
                             className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1d9b5e]"
                             value={messages}
                             onChange={onChangeText}
-                            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                            onKeyPress={(e) => e.key === "Enter" && sendMessage()}
                         />
                         <button
                             className="bg-[#1d9b5e] text-white px-4 py-2 rounded-lg hover:bg-[#1d9b5e]"
-                            onClick={handleSendMessage}
+                            onClick={sendMessage}
                         >
                             <i className="fa fa-paper-plane" aria-hidden="true"></i>
                         </button>

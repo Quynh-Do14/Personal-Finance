@@ -17,6 +17,8 @@ import spendingTypeService from "../../infrastructure/repositories/type/spending
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import teamService from "../../infrastructure/repositories/team/team.service";
 import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
+import SelectFilterCommon from "../../infrastructure/common/components/input/select-filter";
+import ModalAddMember from "./modalAddMember";
 
 const GoalSpendingTeamPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -25,6 +27,7 @@ const GoalSpendingTeamPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
     const [isOpenModalCreateCategory, setIsOpenModalCreateCategory] = useState<boolean>(false);
+    const [isOpenModalAddMember, setIsOpenModalAddMember] = useState<boolean>(false);
 
     const [listSpendingType, setListSpendingType] = useState<Array<any>>([]);
     const [listIncomeType, setListIncomeType] = useState<Array<any>>([]);
@@ -34,6 +37,7 @@ const GoalSpendingTeamPage = () => {
     const [listType, setListType] = useState<Array<any>>([]);
     const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
     const [selectedId, setSelectedId] = useState<any>({});
+    const [selectedMenu, setSelectedMenu] = useState<1 | 2>(1);
 
     const { id } = useParams();
 
@@ -325,6 +329,15 @@ const GoalSpendingTeamPage = () => {
             console.error(error);
         }
     }
+
+    const onOpenModalAddMember = () => {
+        setIsOpenModalAddMember(!isOpenModalAddMember)
+    }
+
+    const onCloseModalAddMember = () => {
+        setIsOpenModalAddMember(false)
+    }
+
     //Member
 
     useEffect(() => {
@@ -362,82 +375,78 @@ const GoalSpendingTeamPage = () => {
                 <div className="padding-common">
                     <Row gutter={[20, 20]}>
                         <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
+
                             <div className="category">
-                                <div className="flex flex-col gap-4">
-                                    <h2 className="text-xl font-bold text-left text-gray-800">Danh sách danh mục</h2>
-                                    <div className="flex justify-center gap-4">
-                                        <ButtonSimpleCommon
-                                            classColor={selectedTab === "spend" ? "green" : "white"}
-                                            onClick={() => setSelectedTab("spend")}
-                                            title={"Chi phí"}
-                                        />
-                                        <ButtonSimpleCommon
-                                            classColor={selectedTab === "income" ? "green" : "white"}
-                                            onClick={() => setSelectedTab("income")}
-                                            title={"Thu nhập"}
+                                <SelectFilterCommon
+                                    label={""}
+                                    listDataOfItem={Constants.MenuTabFinance.List}
+                                    onChange={(e: any) => setSelectedMenu(e.target.value)}
+                                />
+                                <div className="content">
+                                    <div className={`${selectedMenu == 1 ? "show" : "un-show"} box`}>
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex justify-center gap-4">
+                                                <ButtonSimpleCommon
+                                                    classColor={selectedTab === "spend" ? "green" : "white"}
+                                                    onClick={() => setSelectedTab("spend")}
+                                                    title={"Chi phí"}
+                                                />
+                                                <ButtonSimpleCommon
+                                                    classColor={selectedTab === "income" ? "green" : "white"}
+                                                    onClick={() => setSelectedTab("income")}
+                                                    title={"Thu nhập"}
+                                                />
+                                            </div>
+                                            {
+                                                listType.map((item, index) => {
+                                                    return (
+                                                        <div className="category-item" key={index}>
+                                                            <div className="category-name">
+                                                                <div className="icon">
+                                                                    <i className="fa fa-car" aria-hidden="true"></i>
+                                                                </div>
+                                                                <p>{item.name} </p>
+                                                            </div>
+                                                            <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <ButtonCommon
+                                            classColor={'green'}
+                                            onClick={() => onOpenModalCreateCategory(null)}
+                                            isFullWidth={true}
+                                            title={'Thêm danh mục'}
                                         />
                                     </div>
-                                    {
-                                        listType.map((item, index) => {
-                                            return (
-                                                <div className="category-item" key={index}>
-                                                    <div className="category-name">
-                                                        <div className="icon">
-                                                            <i className="fa fa-car" aria-hidden="true"></i>
+                                    <div className={`${selectedMenu == 2 ? "show" : "un-show"} box`}>
+                                        <div className="flex flex-col gap-2">
+                                            {
+                                                listMember.map((item, index) => {
+                                                    return (
+                                                        <div className="category-item" key={index}>
+                                                            <div className="category-name">
+                                                                <div className="icon">
+                                                                    <i className="fa fa-users" aria-hidden="true"></i>
+                                                                </div>
+                                                                <p>{item.name} </p>
+                                                            </div>
+                                                            <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                         </div>
-                                                        <p>{item.name} </p>
-                                                    </div>
-                                                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                </div>
-                                            )
-                                        })
-                                    }
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <ButtonCommon
+                                            classColor={'green'}
+                                            onClick={onOpenModalAddMember}
+                                            isFullWidth={true}
+                                            title={'Thêm thành viên'}
+                                        />
+                                    </div>
                                 </div>
-                                <ButtonCommon
-                                    classColor={'green'}
-                                    onClick={() => onOpenModalCreateCategory(null)}
-                                    isFullWidth={true}
-                                    title={'Thêm danh mục'}
-                                />
                             </div>
-                            {/* <div className="category">
-                                <div className="flex flex-col gap-4">
-                                    <h2 className="text-xl font-bold text-left text-gray-800">Danh sách thành viên</h2>
-                                    <div className="flex justify-center gap-4">
-                                        <ButtonSimpleCommon
-                                            classColor={selectedTab === "spend" ? "green" : "white"}
-                                            onClick={() => setSelectedTab("spend")}
-                                            title={"Chi phí"}
-                                        />
-                                        <ButtonSimpleCommon
-                                            classColor={selectedTab === "income" ? "green" : "white"}
-                                            onClick={() => setSelectedTab("income")}
-                                            title={"Thu nhập"}
-                                        />
-                                    </div>
-                                    {
-                                        listMember.map((item, index) => {
-                                            return (
-                                                <div className="category-item" key={index}>
-                                                    <div className="category-name">
-                                                        <div className="icon">
-                                                            <i className="fa fa-users" aria-hidden="true"></i>
-                                                        </div>
-                                                        <p>{item.name} </p>
-                                                    </div>
-                                                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <ButtonCommon
-                                    classColor={'green'}
-                                    onClick={() => onOpenModalCreateCategory(null)}
-                                    isFullWidth={true}
-                                    title={'Thêm thành viên'}
-                                />
-                            </div> */}
                         </Col>
                         <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
                             <div className="target">
@@ -511,6 +520,15 @@ const GoalSpendingTeamPage = () => {
                 setValidate={setValidateCategory}
                 submittedTime={submittedTimeCategory}
                 onDeleteCategoryAsync={onDeleteCategoryAsync}
+            />
+            <ModalAddMember
+                selectedId={selectedId}
+                handleCancel={onCloseModalAddMember}
+                visible={isOpenModalAddMember}
+                onDeleteCategoryAsync={() => { }}
+                onGetListMemberAsync={onGetListMemberAsync}
+                setLoading={setLoading}
+                idTeam={Number(id)}
             />
             <ModalCreateGoal
                 handleOk={onCreateGoalAsync}
