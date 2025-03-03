@@ -110,6 +110,21 @@
   border-radius: 50%;
   padding: 8px;
 }
+.personal-finance-container .category .category-item .category-name .img {
+  border: 1px dotted #80808085;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+}
+
+.personal-finance-container .category .category-item .category-name .img img {
+  width: 60px;
+  height: inherit;
+  border-radius: 50%;
+}
 .personal-finance-container .category .category-item .category-name .icon i {
   color: #1d9b5e;
   font-size: 16px;

@@ -4,11 +4,12 @@ import {
     InfoCircleOutlined,
 } from '@ant-design/icons';
 
-export const SuccessMessage = (message: string, description: string) => {
+export const SuccessMessage = (message: string, description: string, duration?: number) => {
     notification.success({
         message: <div className="text-[#3bc955]">{message}</div>,
         description: <div className="text-[#3bc955]">{description}</div>,
         icon: <CheckCircleOutlined className="text-[#3bc955] text-[24px]" />,
+        duration: duration
     });
 }
 

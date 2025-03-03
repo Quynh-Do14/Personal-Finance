@@ -3,7 +3,7 @@ import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link, useParams } from "react-router-dom";
-import { convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
+import { configImageURL, convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
 import '../../assets/styles/page/personalFinance.css'
 import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
@@ -427,9 +427,17 @@ const GoalSpendingTeamPage = () => {
                                                     return (
                                                         <div className="category-item" key={index}>
                                                             <div className="category-name">
-                                                                <div className="icon">
-                                                                    <i className="fa fa-users" aria-hidden="true"></i>
-                                                                </div>
+                                                                {
+                                                                    item.avatarCode
+                                                                        ?
+                                                                        <div className="img">
+                                                                            <img src={configImageURL(item.avatarCode)} alt="" />
+                                                                        </div>
+                                                                        :
+                                                                        <div className="icon">
+                                                                            <i className="fa fa-users" aria-hidden="true"></i>
+                                                                        </div>
+                                                                }
                                                                 <p>{item.name} </p>
                                                             </div>
                                                             <i className="fa fa-ellipsis-v" aria-hidden="true"></i>

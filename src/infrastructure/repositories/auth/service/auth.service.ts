@@ -84,14 +84,15 @@ class AuthService {
         }
     }
 
-    async register(data: object, setLoading: Function) {
+    async register(data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService.post(Endpoint.Auth.Register, {
                 ...data
             }).then(response => {
-                setLoading(false)
-                SuccessMessage("Đăng kí thành công", "")
+                setLoading(false);
+                onBack();
+                // SuccessMessage("Đăng kí thành công", "Vui lòng kiểm tra Email để xác thực tài khoản", 10000)
                 return response;
             });
         } catch (error: any) {
@@ -125,13 +126,13 @@ class AuthService {
             return await RequestService.get(`${Endpoint.Auth.Verify}?code=${code}`).then(
                 (response) => {
                     if (response) {
-                        SuccessMessage("Xác thực Email thành công", "")
+                        // SuccessMessage("Xác thực Email thành công", "")
                         return response;
                     }
                 });
         }
         catch (error) {
-            FailMessage("Xác thực không thành công", "")
+            // FailMessage("Xác thực không thành công", "")
             console.error(error)
         }
     }

@@ -1,7 +1,5 @@
 import ChatBoxCommon from ".";
 import "../../assets/styles/page/chat.css"
-import { useState } from "react";
-import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 type Props = {
     titleChat: string
     isOpenChatBox: boolean
@@ -32,8 +30,12 @@ const ChatButton = (props: Props) => {
     return (
         <div className="chat-container">
             <div className="btn-chat" onClick={handleCartClick}>
-                <i className="fa fa-commenting" aria-hidden="true"></i>
+                <div className="relative">
+                    <i className="fa fa-commenting text-[24px]" aria-hidden="true"></i>
+                    <div className="message">Trò chuyện với ChatBot</div>
+                </div>
             </div>
+
             <ChatBoxCommon
                 titleChat={titleChat}
                 isOpen={isOpenChatBox}

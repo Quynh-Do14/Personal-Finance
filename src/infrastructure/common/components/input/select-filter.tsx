@@ -33,6 +33,7 @@ const SelectFilterCommon = (props: Props) => {
                     })
                 }
             </select>
+            {/* <i className="fa fa-caret-down" aria-hidden="true"></i> */}
         </div>
     )
 }
