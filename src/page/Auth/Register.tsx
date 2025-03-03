@@ -7,15 +7,18 @@ import authService from '../../infrastructure/repositories/auth/service/auth.ser
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
 import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 import { toast, ToastContainer } from 'react-toastify';
+import DialogNotificationCommon from '../../infrastructure/common/components/modal/dialogNotification';
 
 type Props = {
 
     setLoading: Function,
     isRegister: boolean,
-    setIsRegisterClick?: any
+    setIsRegisterClick?: any,
+    setIsOpenModalSuccesss: Function
 }
 const RegisterModal = (props: Props) => {
-    const { setLoading, isRegister, setIsRegisterClick } = props;
+    const { setLoading, isRegister, setIsRegisterClick, setIsOpenModalSuccesss } = props;
+
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
 
@@ -63,13 +66,14 @@ const RegisterModal = (props: Props) => {
                         phoneNumber: dataLogin.phoneNumber,
                         roles: "user"
                     },
+                    () => {
+                        setIsOpenModalSuccesss(true);
+                    },
                     setLoading
                 ).then((response) => {
                     if (response) {
                         handleCancel();
-                        toast.success("Đăng ký thành công, vui lòng kiểm tra email (bao gồm spam) để kích hoạt tài khoản", {
-                            position: "top-right", autoClose: 3000
-                        });
+
                     }
                 });
             } catch (error) {
@@ -185,7 +189,7 @@ const RegisterModal = (props: Props) => {
                     </Col>
                 </Row>
             </div>
-            <ToastContainer />
+
         </Modal>
     )
 }

@@ -124,7 +124,7 @@
 .select-filter .select:hover::after {
   color: #f39c12;
 }
-
+.select-filter 
 .date-filter .title .label {
   color: #787878;
   font-size: 15px;
@@ -209,7 +209,7 @@
 }
 
 .upload-common .main_image .close_btn i {
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
   border-radius: 50%;
   font-size: 20px;
   color: #cb4c51;

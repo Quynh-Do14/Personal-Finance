@@ -40,10 +40,10 @@ const InputTextCommon = (props: Props) => {
         let checkValidate
         if (isRequired) {
             validateFields(isImplicitChange, attribute, !value, setValidate, validate, !value ? `Vui lòng nhập ${labelLower}` : "");
-            if (attribute.includes("username")) {
-                checkValidate = validateName(value);
-                validateFields(isImplicitChange, attribute, !checkValidate, setValidate, validate, !checkValidate ? value ? `Vui lòng nhập ${labelLower} với hơn 6 kí tự` : `Vui lòng nhập ${labelLower}` : "");
-            }
+            // if (attribute.includes("username")) {
+            //     checkValidate = validateName(value);
+            //     validateFields(isImplicitChange, attribute, !checkValidate, setValidate, validate, !checkValidate ? value ? `Vui lòng nhập ${labelLower} với hơn 6 kí tự` : `Vui lòng nhập ${labelLower}` : "");
+            // }
             if (attribute.includes("email")) {
                 checkValidate = validateEmail(value);
                 validateFields(isImplicitChange, attribute, !checkValidate, setValidate, validate, !checkValidate ? value ? `Vui lòng nhập đúng định dạng ${labelLower}` : `Vui lòng nhập ${labelLower}` : "");

@@ -17,7 +17,11 @@
   z-index: 11;
   border: 1px #fff solid;
 }
-
+.chat-container .message {
+  position: fixed;
+  bottom: 10%;
+  right: 7%;
+}
 .chat-box-container {
   height: 100%;
   border-radius: 10px;

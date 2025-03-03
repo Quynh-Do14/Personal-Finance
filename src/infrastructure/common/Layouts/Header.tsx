@@ -18,6 +18,7 @@ import avatar from '../../../assets/images/no-avatar.png';
 import logo from '../../../assets/images/logo.png';
 import AnimatedButton from '../components/button/animationButton';
 import { FullPageLoading } from '../components/controls/loading';
+import DialogNotificationCommon from '../components/modal/dialogNotification';
 type Props = {
     scrollDirection: boolean
     lastScrollY: number
@@ -52,6 +53,7 @@ const HeaderClient = (props: Props) => {
     const [isRegister, setIsRegisterClick] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const [isOpenModalSuccesss, setIsOpenModalSuccesss] = useState<boolean>(false);
 
     const [, setProfileState] = useRecoilState(ProfileState);
     const token = isTokenStoraged();
@@ -265,6 +267,14 @@ const HeaderClient = (props: Props) => {
                 setLoading={setLoading}
                 isRegister={isRegister}
                 setIsRegisterClick={setIsRegisterClick}
+                setIsOpenModalSuccesss={setIsOpenModalSuccesss}
+            />
+            <DialogNotificationCommon
+                title={'Đăng kí tài khoản thành công'}
+                message={'Đăng ký thành công, vui lòng kiểm tra email (bao gồm spam) để kích hoạt tài khoản'}
+                titleCancel={'Đóng'}
+                handleCancel={() => setIsOpenModalSuccesss(false)}
+                visible={isOpenModalSuccesss}
             />
             <DialogConfirmCommon
                 message={"Bạn có muốn đăng xuất khỏi hệ thống"}
