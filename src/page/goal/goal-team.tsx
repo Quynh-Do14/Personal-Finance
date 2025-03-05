@@ -212,6 +212,7 @@ const GoalSpendingTeamPage = () => {
                         Number(id),
                         {
                             name: dataRequestCategory.name,
+                            iconId: 1
                         },
                         () => {
                             onGetIncomeTypeAsync().then(_ => { });
@@ -241,6 +242,7 @@ const GoalSpendingTeamPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
+                            iconId: 1
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });

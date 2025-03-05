@@ -205,6 +205,7 @@ const GoalSpendingPage = () => {
                         await incomeTypeService.CreateUser(
                             {
                                 name: dataRequestCategory.name,
+                                iconId: 1
                             },
                             () => {
                                 onGetIncomeTypeAsync().then(_ => { });
@@ -234,6 +235,7 @@ const GoalSpendingPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
+                            iconId: 1
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
