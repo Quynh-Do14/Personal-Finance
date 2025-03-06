@@ -30,10 +30,7 @@ const ChatButton = (props: Props) => {
     return (
         <div className="chat-container">
             <div className="btn-chat" onClick={handleCartClick}>
-                <div className="relative">
                     <i className="fa fa-commenting text-[24px]" aria-hidden="true"></i>
-                    <div className="message">Trò chuyện với ChatBot</div>
-                </div>
             </div>
 
             <ChatBoxCommon

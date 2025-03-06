@@ -41,13 +41,11 @@ const InputPasswordCommon = (props: Props) => {
     };
     let labelLower = label?.toLowerCase();
     const onBlur = (isImplicitChange = false) => {
-        let checkValidate
         if (isRequired) {
-            checkValidate = validatePassword6Word(value);
-            validateFields(isImplicitChange, attribute, !checkValidate, setValidate, validate, !checkValidate ? value ? `Vui lòng nhập ${labelLower} với hơn 6 kí tự` : `Vui lòng nhập ${labelLower}` : "");
+            validateFields(isImplicitChange, attribute, !value, setValidate, validate, !value ? `Vui lòng nhập ${labelLower}` : "");
+
         }
     };
-
     useEffect(() => {
         setValue(dataAttribute || '');
 

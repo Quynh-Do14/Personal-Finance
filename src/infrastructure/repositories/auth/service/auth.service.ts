@@ -26,7 +26,7 @@ class AuthService {
                 });
         } catch (error: any) {
             console.error(error)
-            FailMessage("Đăng nhập không thành công", messageConfig(error.response.data.message))
+            FailMessage("Đăng nhập không thành công", error.response.data.message)
         } finally {
             setLoading(false);
         }
@@ -96,7 +96,7 @@ class AuthService {
                 return response;
             });
         } catch (error: any) {
-            FailMessage("Đăng nhập không thành công", messageConfig(error.response.data.message))
+            FailMessage("Đăng nhập không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -114,7 +114,7 @@ class AuthService {
                 return response;
             });
         } catch (error: any) {
-            FailMessage("Thay đổi mật khẩu không thành công", messageConfig(error.response.data.message))
+            FailMessage("Thay đổi mật khẩu không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
