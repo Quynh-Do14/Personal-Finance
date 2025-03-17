@@ -348,6 +348,24 @@
   color: #fff;
 }
 
+.content-layout-client .footer-container h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.content-layout-client .footer-container h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.content-layout-client .footer-container ul li {
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.content-layout-client .footer-container ul li:hover {
+  color: #1d9b5e;
+}
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;

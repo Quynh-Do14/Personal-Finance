@@ -20,6 +20,12 @@ export const ROUTE_PATH = {
 
     CONTACT: `${PREFIX}/contact`,
 
+    USE_PRIVATE_POLICY: `${PREFIX}/user-private-policy`,
+    REFUND_POLICY: `${PREFIX}/refund-policy`,
+    PAYMENT_POLICY: `${PREFIX}/payment-policy`,
+    SERVICE_STANDARD: `${PREFIX}/service-standard`,
+    TERM_OF_SERVICE: `${PREFIX}/term-of-service`,
+
     ///Management
     MANAGE_LAYOUT: `${PREFIX}/manage-layout`,
 
