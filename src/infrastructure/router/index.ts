@@ -8,6 +8,11 @@ import TeamPage from "../../page/team";
 import TeamFinancePage from "../../page/goal/team-finance";
 import VerifyEmailPage from "../../page/Auth/VerifyEmail";
 import SelectBotPage from "../../page/chat/selectBot";
+import UserPrivatePolicy from "../../page/policy/user-private";
+import PaymentPolicy from "../../page/policy/payment-policy";
+import ServiceStandard from "../../page/policy/service-standard";
+import TermOfServicePolicy from "../../page/policy/term-of-service";
+import RefundPolicy from "../../page/policy/refund-policy";
 
 export const privateRoutes = [
 
@@ -56,4 +61,30 @@ export const privateRoutes = [
         component: SelectBotPage,
         private: true,
     },
+    {
+        path: ROUTE_PATH.USE_PRIVATE_POLICY,
+        component: UserPrivatePolicy,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.PAYMENT_POLICY,
+        component: PaymentPolicy,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.REFUND_POLICY,
+        component: RefundPolicy,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.SERVICE_STANDARD,
+        component: ServiceStandard,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.TERM_OF_SERVICE,
+        component: TermOfServicePolicy,
+        private: false,
+    },
+
 ]
