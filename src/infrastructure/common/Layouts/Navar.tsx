@@ -120,7 +120,7 @@ const NavbarComponent = (props: Props) => {
                 {
                     token ?
                         <div className="profile">
-                            <img src={profileState.avatarCode ? configImageURL(profileState.avatarCode) : avatar} className="avatar" alt='' />
+                            <img src={profileState?.avatarCode ? configImageURL(profileState?.avatarCode) : avatar} className="avatar" alt='' />
                             <div>
                                 <p className="name">{profileState.name}</p>
                                 <p className="phone">{profileState.email}</p>

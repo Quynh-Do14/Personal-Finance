@@ -57,8 +57,8 @@ const ServiceStandard = () => {
                             <h2 className="text-xl font-semibold mb-2">6. Kênh Liên hệ</h2>
                             <p>Để được tư vấn và hỗ trợ, khách hàng vui lòng liên hệ qua:</p>
                             <ul className="list-disc ml-6 space-y-2">
-                                <li><strong>Hotline:</strong> (+84) 37 894 3226</li>
-                                <li><strong>Email:</strong> <a href="mailto:admin@fats.vn" className="text-blue-600">admin@fats.vn</a></li>
+                                <li><strong>Hotline:</strong> (028) 987 654 - 0943803333</li>
+                                <li><strong>Email:</strong> <a href="mailto:lienhe@fats.vn" className="text-blue-600">lienhe@fats.vn</a></li>
                                 <li><strong>Website:</strong> <a href="https://hotrodoan.vn" className="text-blue-600">hotrodoan.vn</a></li>
                             </ul>
                             <p>

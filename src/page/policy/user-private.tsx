@@ -80,7 +80,7 @@ const UserPrivatePolicy = () => {
                                 <li>Xóa dữ liệu tài chính khi không còn sử dụng dịch vụ.</li>
                             </ul>
                             <p>
-                                Để thực hiện các quyền trên, vui lòng đăng nhập vào tài khoản hoặc liên hệ chúng tôi qua email <a href="mailto:admin@fats.vn" className="text-blue-600">admin@fats.vn</a> hoặc hotline <span className="font-semibold">(+84) 37 894 3226</span>.
+                                Để thực hiện các quyền trên, vui lòng đăng nhập vào tài khoản hoặc liên hệ chúng tôi qua email <a href="mailto:lienhe@fats.vn" className="text-blue-600">lienhe@fats.vn</a> hoặc hotline <span className="font-semibold">(028) 987 654 - 0943803333</span>.
                             </p>
                         </section>
 
@@ -93,8 +93,8 @@ const UserPrivatePolicy = () => {
                                 Nếu bạn có bất kỳ khiếu nại nào liên quan đến quyền riêng tư hoặc bảo mật tài chính, chúng tôi cam kết giải quyết trong thời gian sớm nhất.
                             </p>
                             <ul className="list-disc ml-6 space-y-2">
-                                <li><strong>Hotline:</strong> (+84) 37 894 3226</li>
-                                <li><strong>Email:</strong> <a href="mailto:admin@fats.vn" className="text-blue-600">admin@fats.vn</a></li>
+                                <li><strong>Hotline:</strong> (028) 987 654 - 0943803333</li>
+                                <li><strong>Email:</strong> <a href="mailto:lienhe@fats.vn" className="text-blue-600">lienhe@fats.vn</a></li>
                                 <li><strong>Địa chỉ:</strong> L17-11, tầng 17, toà nhà Vincom, 72 Lê Thánh Tôn, Bến Nghé, Quận 1, TP HCM, Việt Nam.</li>
                             </ul>
                             <p>

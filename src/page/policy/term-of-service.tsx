@@ -1,4 +1,3 @@
-import React from "react";
 import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import "../../assets/styles/page/policy.css";
 const TermOfServicePolicy = () => {
@@ -101,8 +100,8 @@ const TermOfServicePolicy = () => {
                                 Nếu có bất kỳ câu hỏi nào về điều khoản sử dụng dịch vụ, vui lòng liên hệ qua:
                             </p>
                             <ul className="list-disc ml-6 space-y-2">
-                                <li><strong>Hotline:</strong> (+84) 37 894 3226</li>
-                                <li><strong>Email:</strong> <a href="mailto:admin@fats.vn" className="text-blue-600">admin@fats.vn</a></li>
+                                <li><strong>Hotline:</strong> (028) 987 654 - 0943803333</li>
+                                <li><strong>Email:</strong> <a href="mailto:lienhe@fats.vn" className="text-blue-600">lienhe@fats.vn</a></li>
                             </ul>
                             <p>
                                 Chúng tôi luôn sẵn sàng hỗ trợ và đảm bảo sự hài lòng của khách hàng khi sử dụng dịch vụ.

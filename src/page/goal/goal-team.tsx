@@ -432,10 +432,10 @@ const GoalSpendingTeamPage = () => {
                                                         <div className="category-item" key={index}>
                                                             <div className="category-name">
                                                                 {
-                                                                    item.avatarCode
+                                                                    item?.avatarCode
                                                                         ?
                                                                         <div className="img">
-                                                                            <img src={configImageURL(item.avatarCode)} alt="" />
+                                                                            <img src={configImageURL(item?.avatarCode)} alt="" />
                                                                         </div>
                                                                         :
                                                                         <div className="icon">

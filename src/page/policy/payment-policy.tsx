@@ -62,8 +62,8 @@ const PaymentPolicy = () => {
                             </h2>
                             <p>Nếu khách hàng có bất kỳ câu hỏi nào về chính sách thanh toán, vui lòng liên hệ:</p>
                             <ul className="list-disc ml-6 space-y-2">
-                                <li><strong>Hotline:</strong> (+84) 37 894 3226</li>
-                                <li><strong>Email:</strong> <a href="mailto:admin@fats.vn" className="text-blue-600">admin@fats.vn</a></li>
+                                <li><strong>Hotline:</strong> (028) 987 654 - 0943803333</li>
+                                <li><strong>Email:</strong> <a href="mailto:lienhe@fats.vn" className="text-blue-600">lienhe@fats.vn</a></li>
                             </ul>
                             <p>
                                 <span className="font-semibold">Lưu ý:</span> Khách hàng cần kiểm tra kỹ thông tin trước khi hoàn tất thanh toán và lưu giữ chứng từ để đảm bảo quyền lợi của mình trong quá trình sử dụng dịch vụ của FATS.

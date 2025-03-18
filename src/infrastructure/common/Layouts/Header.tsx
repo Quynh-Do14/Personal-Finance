@@ -1,6 +1,6 @@
 import { Col, Dropdown, Menu, Row, Space } from 'antd'
 import "../../../assets/styles/components/MainLayout.css";
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Constants from '../../../core/common/constants'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../core/common/appRouter';
@@ -236,7 +236,7 @@ const HeaderClient = (props: Props) => {
                                             <Space>
                                                 <div className="avatar-user">
                                                     <div className="grad spin"></div>
-                                                    <img src={dataProfile.avatarCode ? configImageURL(dataProfile.avatarCode) : avatar} className="avatar-img border-radius" alt='' />
+                                                    <img src={dataProfile?.avatarCode ? configImageURL(dataProfile?.avatarCode) : avatar} className="avatar-img border-radius" alt='' />
                                                 </div>
 
                                             </Space>
@@ -245,11 +245,13 @@ const HeaderClient = (props: Props) => {
                                 </Col>
                             </Row>
                         ) : (
-                            <AnimatedButton
-                                classColor={'green'}
-                                label={'Đăng nhập'}
-                                onClick={() => setIsLoginClick(!isLoginClick)}
-                            />
+                            <div className='flex items-center gap-2'>
+                                <AnimatedButton
+                                    classColor={'green'}
+                                    label={'Đăng Nhập'}
+                                    onClick={() => setIsLoginClick(!isLoginClick)}
+                                />
+                            </div>
                         )}
                     </div>
 
