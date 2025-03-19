@@ -9,6 +9,7 @@ import AnimatedNumber from '../../infrastructure/common/components/controls/Anim
 import Constants from '../../core/common/constants'
 import TagFlipComponent from '../../infrastructure/common/components/controls/TagFlip'
 import SpendingComponent from './spending'
+import SloganComponent from './slogan'
 const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
@@ -128,7 +129,8 @@ const HomePage = () => {
                     </div>
                     {/* <TagComponent /> */}
                 </div>
-                <ServiceComponent />
+                <SloganComponent />
+                {/* <ServiceComponent /> */}
                 <PricingComponent />
                 <SpendingComponent />
             </div>

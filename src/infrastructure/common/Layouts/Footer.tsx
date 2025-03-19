@@ -6,7 +6,7 @@ const FooterClient = () => {
     return (
         <footer className="footer-container padding-common">
             <Row gutter={[20, 20]}>
-                <Col span={8}>
+                <Col sm={24} md={12} lg={8}>
                     <img src={logo} alt="" />
                     <div className="link-container">
                         <div className="flex flex-col gap-4">
@@ -28,7 +28,7 @@ const FooterClient = () => {
                         </div>
                     </div>
                 </Col>
-                <Col span={4}>
+                <Col sm={24} md={12} lg={4}>
                     <h2>VỀ FATS</h2>
                     <ul className="flex flex-col gap-4">
                         <li><a href="#">Giới thiệu</a></li>
@@ -38,7 +38,7 @@ const FooterClient = () => {
                         <li><a href="#">Sitemap</a></li>
                     </ul>
                 </Col>
-                <Col span={6}>
+                <Col sm={24} md={12} lg={6}>
                     <h2>CHÍNH SÁCH HỖ TRỢ</h2>
                     <ul className="flex flex-col gap-4">
                         <li><a href={ROUTE_PATH.USE_PRIVATE_POLICY}>Chính sách về quyền riêng tư</a></li>
@@ -48,7 +48,7 @@ const FooterClient = () => {
                         <li><a href={ROUTE_PATH.PAYMENT_POLICY}>Chính sách thanh toán</a></li>
                     </ul>
                 </Col>
-                <Col span={6}>
+                <Col sm={24} md={12} lg={6}>
                     <h2>THÔNG TIN LIÊN HỆ</h2>
                     <div className="flex flex-col gap-4">
                         <p>

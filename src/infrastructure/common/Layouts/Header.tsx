@@ -227,7 +227,7 @@ const HeaderClient = (props: Props) => {
                                         {dataProfile?.name}
                                     </div>
                                     <div className='role'>
-                                        {dataProfile.username}
+                                        {dataProfile.email}
                                     </div>
                                 </Col>
                                 <Col>
