@@ -159,3 +159,30 @@
 .button-simple-common.white:hover {
   color: #1d9b5e;
 }
+
+.btn-design {
+  border-radius: 50px;
+  background: #003333;
+  padding: 5px 15px;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  height: 50px;
+  transition: transform 0.5s ease-out;
+}
+.btn-design.green {
+  background: #003333;
+  color: #fff;
+}
+.btn-design.transparent {
+  background: transparent;
+  color: #003333;
+  border: 1px solid #003333;
+}
+
+.btn-design:hover {
+  width: 100%;
+  transform: scale(1.02);
+}

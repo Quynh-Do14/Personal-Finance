@@ -49,7 +49,7 @@ const PersonalFinancePage = () => {
     const [endDate, setEndDate] = useState<string>("");
     const [startDate, setStartDate] = useState<string>("");
     const [timeRange, setTimeRange] = useState<string>("daily");
-    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
+    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("income");
     const [spendDataTable, setSpendDataTable] = useState<any[]>([]);
     const [dataTable, setDataTable] = useState<any[]>([]);
     const [spendData, setSpendData] = useState({

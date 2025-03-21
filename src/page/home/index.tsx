@@ -10,6 +10,7 @@ import Constants from '../../core/common/constants'
 import TagFlipComponent from '../../infrastructure/common/components/controls/TagFlip'
 import SpendingComponent from './spending'
 import SloganComponent from './slogan'
+import IntroductionComponent from './introduction'
 const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
@@ -46,7 +47,7 @@ const HomePage = () => {
     return (
         <LayoutClient>
             <div className="homepage-container">
-                <div className="banner">
+                {/* <div className="banner">
                     <div className='overlay'></div>
                     <div className="layout text-center bg-cover bg-center py-20">
                         <Row gutter={[40, 20]}>
@@ -73,19 +74,6 @@ const HomePage = () => {
                                         />
                                     </div>
                                     <div className='figure'>
-                                        {/* {
-                                            Constants.FigureUI.List.map((item, index) => {
-                                                return (
-                                                    <div key={index} className='figure-content'>
-                                                        <div className='number'>
-                                                            <AnimatedNumber value={item.value} />
-                                                            {item.percent ? "%" : "+"}
-                                                        </div>
-                                                        <p>{item.label} </p>
-                                                    </div>
-                                                )
-                                            })
-                                        } */}
                                         <div className='figure-content'>
                                             <div className='number'>
                                                 <AnimatedNumber value={500} />+
@@ -127,8 +115,8 @@ const HomePage = () => {
                             </Col>
                         </Row>
                     </div>
-                    {/* <TagComponent /> */}
-                </div>
+                </div> */}
+                <IntroductionComponent />
                 <SloganComponent />
                 {/* <ServiceComponent /> */}
                 <PricingComponent />

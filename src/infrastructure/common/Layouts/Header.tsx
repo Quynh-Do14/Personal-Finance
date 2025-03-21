@@ -19,6 +19,7 @@ import logo from '../../../assets/images/logo.png';
 import AnimatedButton from '../components/button/animationButton';
 import { FullPageLoading } from '../components/controls/loading';
 import DialogNotificationCommon from '../components/modal/dialogNotification';
+import { ButtonDesign } from '../components/button/buttonDesign';
 type Props = {
     scrollDirection: boolean
     lastScrollY: number
@@ -246,10 +247,17 @@ const HeaderClient = (props: Props) => {
                             </Row>
                         ) : (
                             <div className='flex items-center gap-2'>
-                                <AnimatedButton
-                                    classColor={'green'}
-                                    label={'Đăng Nhập'}
+                                <ButtonDesign
+                                    width={120}
+                                    classColor={'transparent'}
+                                    title={'Đăng Nhập'}
                                     onClick={() => setIsLoginClick(!isLoginClick)}
+                                />
+                                <ButtonDesign
+                                    width={120}
+                                    classColor={'green'}
+                                    title={'Đăng Kí'}
+                                    onClick={() => setIsRegisterClick(!isRegister)}
                                 />
                             </div>
                         )}

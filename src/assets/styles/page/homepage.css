@@ -366,8 +366,61 @@
   justify-content: center;
 }
 
+.homepage-container .introduction {
+  background: linear-gradient(222.64deg, #d9eae5, #e6f0f5 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.homepage-container .introduction .title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.homepage-container .introduction .title h2 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 60px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+  color: #101010;
+}
+
+.homepage-container .introduction .title h3 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 60px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+  color: #101010;
+}
+.homepage-container .introduction .title .sub {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.homepage-container .introduction .title h2,
+.homepage-container .introduction .title h3 {
+  width: 100%;
+  max-width: 900px;
+}
+.homepage-container .introduction .title .sub {
+  width: 100%;
+  max-width: 800px;
+}
+
+.homepage-container .introduction img {
+  margin-top: 50px;
+}
+
 .homepage-container .pricing-container {
-  background: linear-gradient(222.64deg, #99cc990d 1.44%, #e6f0f5 64.57%);
+  background: linear-gradient(222.64deg, #d9eae5, #e6f0f5 100%);
   display: flex;
   flex-direction: column;
   gap: 80px;
@@ -375,6 +428,7 @@
 .homepage-container .pricing-container .title {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 30px;
 }
 .homepage-container .pricing-container .title h2 {
@@ -403,6 +457,17 @@
   letter-spacing: 0%;
   text-align: center;
 }
+
+.homepage-container .pricing-container .title h2,
+.homepage-container .pricing-container .title h3 {
+  width: 100%;
+  max-width: 900px;
+}
+.homepage-container .pricing-container .title .sub {
+  width: 100%;
+  max-width: 800px;
+}
+
 .homepage-container .pricing-container .box {
   height: 100%;
   position: relative;
@@ -428,7 +493,13 @@
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  background: linear-gradient(135deg, #bfdedb, #e6f0eb, #bfdedb);
+  background: linear-gradient(
+    140.24deg,
+    #99cccc 15.06%,
+    rgba(153, 204, 153, 0) 43.7%,
+    rgba(153, 204, 204, 0) 58.02%,
+    #99cc99 86.66%
+  );
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: -1;
@@ -439,11 +510,11 @@
 }
 
 .homepage-container .pricing-container .box:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 3px 0px #00333326;
 }
 
 .homepage-container .pricing-container .box:hover button {
-  background: linear-gradient(90deg, #8cc499, #157499);
+  background: linear-gradient(252.31deg, #006699 9.19%, #99cc99 90.81%);
   color: #fff;
   transition: background 0.5s ease, color 0.5s ease;
 }
@@ -483,7 +554,7 @@
   color: #101010;
 }
 .homepage-container .pricing-container .box:hover .show-more {
-  color: #157499;
+  color: #006699;
 }
 
 .homepage-container .pricing-container .box .show-more {
@@ -496,6 +567,7 @@
   text-align: right;
   transition: color 0.5s ease;
 }
+
 .homepage-container .slogan {
   background: #003333;
   display: flex;
@@ -561,6 +633,9 @@
   text-align: justify;
 }
 @media only screen and (min-width: 1600px) {
+  .homepage-container .introduction {
+    padding: 160px 300px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
@@ -572,6 +647,9 @@
 }
 
 @media only screen and (min-width: 1400px) and (max-width: 1599px) {
+  .homepage-container .introduction {
+    padding: 160px 200px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
@@ -583,6 +661,9 @@
 }
 
 @media only screen and (max-width: 1400px) {
+  .homepage-container .introduction {
+    padding: 160px 150px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
@@ -598,6 +679,9 @@
   }
 }
 @media only screen and (max-width: 1200px) {
+  .homepage-container .introduction {
+    padding: 160px 100px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
@@ -609,6 +693,9 @@
 }
 
 @media only screen and (max-width: 1024px) {
+  .homepage-container .introduction {
+    padding: 160px 60px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
@@ -635,6 +722,9 @@
   }
 }
 @media only screen and (max-width: 768px) {
+  .homepage-container .introduction {
+    padding: 160px 30px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
@@ -650,6 +740,9 @@
 }
 
 @media only screen and (max-width: 576px) {
+  .homepage-container .introduction {
+    padding: 120px 20px 0;
+  }
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,

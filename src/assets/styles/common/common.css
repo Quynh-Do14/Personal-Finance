@@ -199,6 +199,9 @@
 .ant-modal.custom-modal {
   width: 70% !important;
 }
+.ant-modal.custom-modal-select {
+  width: 50% !important;
+}
 
 .ant-drawer-content-wrapper {
   width: 40% !important;
@@ -208,7 +211,9 @@
   .ant-modal.custom-modal {
     width: 90% !important;
   }
-
+  .ant-modal.custom-modal-select {
+    width: 80% !important;
+  }
   .ant-drawer-content-wrapper {
     width: 50% !important;
   }
@@ -218,7 +223,9 @@
   .ant-modal.custom-modal {
     width: 100% !important;
   }
-
+  .ant-modal.custom-modal-select {
+    width: 90% !important;
+  }
   .ant-drawer-content-wrapper {
     width: 100% !important;
   }

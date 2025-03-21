@@ -3,7 +3,7 @@ import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link } from "react-router-dom";
-import { convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
+import { configImageURL, convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
 import '../../assets/styles/page/personalFinance.css'
 import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
@@ -13,9 +13,9 @@ import spendingTypeService from "../../infrastructure/repositories/type/spending
 import incomeTypeService from "../../infrastructure/repositories/type/income-type.service";
 import ModalCreateCategory from "./modalCreateCategory";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
-import { ROUTE_PATH } from "../../core/common/appRouter";
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
+import DrawerSelectCategory from "./common/drawerSelectCategory";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -26,11 +26,13 @@ const GoalSpendingPage = () => {
 
     const [listType, setListType] = useState<Array<any>>([]);
 
-    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
+    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("income");
     const [selectedId, setSelectedId] = useState<any>({});
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
     const [isOpenModalCreateCategory, setIsOpenModalCreateCategory] = useState<boolean>(false);
+    const [isOpenDrawerCategory, setIsOpenDrawerCategory] = useState<boolean>(false);
+
     //
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
@@ -164,16 +166,21 @@ const GoalSpendingPage = () => {
         setIsOpenModalCreateCategory(!isOpenModalCreateCategory);
     };
 
+
     const onCloseModalCreateCategory = () => {
         setIsOpenModalCreateCategory(false);
     };
 
+    const onCloseDrawerCategory = () => {
+        setIsOpenDrawerCategory(false);
+    }
     /////
 
     useEffect(() => {
         if (selectedId) {
             setDataRequestCategory({
-                name: selectedId.name
+                name: selectedId.name,
+                imageCode: selectedId.imageCode
             })
         };
     }, [selectedId]);
@@ -186,11 +193,16 @@ const GoalSpendingPage = () => {
                     await spendingTypeService.CreateUser(
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
                             onCloseModalCreateCategory();
+                            setDataRequestCategory({
+                                name: "",
+                                iconId: "",
+                                imageCode: ""
+                            })
                         },
                         setLoading
                     ).then(() => { })
@@ -206,11 +218,16 @@ const GoalSpendingPage = () => {
                         await incomeTypeService.CreateUser(
                             {
                                 name: dataRequestCategory.name,
-                                iconId: 1
+                                iconId: dataRequestCategory.iconId
                             },
                             () => {
                                 onGetIncomeTypeAsync().then(_ => { });
                                 onCloseModalCreateCategory();
+                                setDataRequestCategory({
+                                    name: "",
+                                    iconId: "",
+                                    imageCode: ""
+                                })
                             },
                             setLoading
                         ).then(() => { })
@@ -236,7 +253,7 @@ const GoalSpendingPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
@@ -258,7 +275,7 @@ const GoalSpendingPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetIncomeTypeAsync().then(_ => { });
@@ -347,14 +364,14 @@ const GoalSpendingPage = () => {
                                     <h2 className="text-xl font-bold text-left text-gray-800">Danh sách danh mục</h2>
                                     <div className="flex justify-center gap-4">
                                         <ButtonSimpleCommon
-                                            classColor={selectedTab === "spend" ? "green" : "white"}
-                                            onClick={() => setSelectedTab("spend")}
-                                            title={"Chi phí"}
-                                        />
-                                        <ButtonSimpleCommon
                                             classColor={selectedTab === "income" ? "green" : "white"}
                                             onClick={() => setSelectedTab("income")}
                                             title={"Thu nhập"}
+                                        />
+                                        <ButtonSimpleCommon
+                                            classColor={selectedTab === "spend" ? "green" : "white"}
+                                            onClick={() => setSelectedTab("spend")}
+                                            title={"Chi phí"}
                                         />
                                     </div>
                                     {
@@ -362,9 +379,7 @@ const GoalSpendingPage = () => {
                                             return (
                                                 <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
                                                     <div className="category-name">
-                                                        <div className="icon">
-                                                            <i className="fa fa-car" aria-hidden="true"></i>
-                                                        </div>
+                                                        <img src={configImageURL(item.imageCode)} alt="" width={40} />
                                                         <p>{item.name} </p>
                                                     </div>
                                                     <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -452,6 +467,7 @@ const GoalSpendingPage = () => {
                 setValidate={setValidateCategory}
                 submittedTime={submittedTimeCategory}
                 onDeleteCategoryAsync={onDeleteCategoryAsync}
+                setIsOpenDrawerCategory={setIsOpenDrawerCategory}
             />
             <ModalCreateGoal
                 handleOk={onCreateGoalAsync}
@@ -462,6 +478,12 @@ const GoalSpendingPage = () => {
                 validate={validate}
                 setValidate={setValidate}
                 submittedTime={submittedTime}
+            />
+            <DrawerSelectCategory
+                visible={isOpenDrawerCategory}
+                data={dataRequestCategory}
+                setData={setDataRequestCategory}
+                handleCancel={onCloseDrawerCategory}
             />
             <FullPageLoading isLoading={loading} />
         </LayoutClient >

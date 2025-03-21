@@ -111,3 +111,34 @@
     transform: scale(1);
   }
 }
+
+.title-component {
+  border: 1px solid #006699;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.title-component .title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  text-align: center;
+  padding: 4px 10px;
+  text-transform: capitalize;
+}
+.title-component .title.black {
+  color: #101010;
+}
+.title-component .title.white {
+  color: #ffffff;
+}
+.title-component .image {
+  margin: 0 !important;
+  width: 36px;
+  height: auto;
+  padding: 5px;
+  border-radius: 0 5px 5px 0;
+  background: linear-gradient(252.31deg, #99cc99 9.19%, #99cccc 90.81%);
+}

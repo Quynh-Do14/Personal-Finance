@@ -176,8 +176,8 @@ export default class Constants {
     }
     static CategoryType = class {
         static List = [
-            { label: "Chi phí", value: 1 },
-            { label: "Thu nhập", value: 2 },
+            { label: "Thu nhập", value: 1 },
+            { label: "Chi phí", value: 2 },
         ]
     }
     static MenuTabFinance = class {

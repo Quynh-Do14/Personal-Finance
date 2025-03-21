@@ -48,7 +48,7 @@ const TeamFinancePage = () => {
     const [endDate, setEndDate] = useState<string>("");
     const [startDate, setStartDate] = useState<string>("");
     const [timeRange, setTimeRange] = useState<string>("daily");
-    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
+    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("income");
     const [selectedType, setSelectedType] = useState<"type" | "">("type");
 
     const [dataTable, setDataTable] = useState<any[]>([]);
@@ -342,14 +342,14 @@ const TeamFinancePage = () => {
                     {/* Tabs chi phí / thu nhập */}
                     <div className="flex justify-center gap-4 mb-6">
                         <ButtonSimpleCommon
-                            classColor={selectedTab === "spend" ? "green" : "white"}
-                            onClick={() => setSelectedTab("spend")}
-                            title={"Chi phí"}
-                        />
-                        <ButtonSimpleCommon
                             classColor={selectedTab === "income" ? "green" : "white"}
                             onClick={() => setSelectedTab("income")}
                             title={"Thu nhập"}
+                        />
+                        <ButtonSimpleCommon
+                            classColor={selectedTab === "spend" ? "green" : "white"}
+                            onClick={() => setSelectedTab("spend")}
+                            title={"Chi phí"}
                         />
                     </div>
                     {/* Thông tin thu chi */}

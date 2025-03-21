@@ -82,4 +82,13 @@ export class Endpoint {
             static Delete = "/income-types/user/delete"
         }
     }
+    static Icon = class {
+        static Get = "/icons/public/all"
+        static Create = "/icons/admin/create"
+        static Delete = "/icons/admin/delete"
+    }
+    static Subscription = class {
+        static Get = "/subscriptions/private/histories"
+        static Create = "subscriptions/private/subscribe"
+    }
 }

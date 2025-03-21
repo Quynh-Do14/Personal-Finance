@@ -70,7 +70,7 @@ class SpendingTypeService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.SpendingType.Team.GetById}/${idTeam}/${id}`,
+                .put(`${Endpoint.SpendingType.Team.Update}/${idTeam}/${id}`,
                     { ...data }
                 )
                 .then(response => {
@@ -93,7 +93,7 @@ class SpendingTypeService {
         setLoading(true)
         try {
             return await RequestService
-                .delete(`${Endpoint.SpendingType.Team.GetById}/${idTeam}/${id}`
+                .delete(`${Endpoint.SpendingType.Team.Delete}/${idTeam}/${id}`
                 )
                 .then(response => {
                     if (response) {

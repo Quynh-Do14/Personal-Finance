@@ -3,10 +3,8 @@ import InputTextCommon from '../../infrastructure/common/components/input/input-
 import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 import "../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
-import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
-import InputSelectCommon from '../../infrastructure/common/components/input/select-common';
-import Constants from '../../core/common/constants';
-
+import category from '../../assets/images/category/another.png'
+import { configImageURL } from '../../infrastructure/helper/helper';
 type Props = {
     selectedId: any
     selectedTab: 'spend' | 'income'
@@ -19,6 +17,7 @@ type Props = {
     setValidate: Function,
     submittedTime: any,
     onDeleteCategoryAsync: () => void,
+    setIsOpenDrawerCategory: Function
 }
 const ModalCreateCategory = (props: Props) => {
     const {
@@ -32,7 +31,8 @@ const ModalCreateCategory = (props: Props) => {
         validate,
         setValidate,
         submittedTime,
-        onDeleteCategoryAsync
+        onDeleteCategoryAsync,
+        setIsOpenDrawerCategory
     } = props;
 
     return (
@@ -59,7 +59,15 @@ const ModalCreateCategory = (props: Props) => {
                         </div>
                 }
                 <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
-                    <Col span={24}>
+                    <Col xs={6} sm={4} md={3} lg={2}>
+                        <img
+                            src={data?.imageCode ? configImageURL(data?.imageCode) : category}
+                            alt=""
+                            onClick={() => setIsOpenDrawerCategory(true)}
+                            className='cursor-pointer'
+                        />
+                    </Col>
+                    <Col xs={18} sm={20} md={21} lg={22}>
                         <div className='flex flex-col justify-between h-full'>
                             <Row gutter={[15, 15]}>
                                 <Col span={24}>

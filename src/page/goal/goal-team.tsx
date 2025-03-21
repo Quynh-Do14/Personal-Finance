@@ -19,6 +19,7 @@ import teamService from "../../infrastructure/repositories/team/team.service";
 import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
 import SelectFilterCommon from "../../infrastructure/common/components/input/select-filter";
 import ModalAddMember from "./modalAddMember";
+import DrawerSelectCategory from "./common/drawerSelectCategory";
 
 const GoalSpendingTeamPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -28,6 +29,7 @@ const GoalSpendingTeamPage = () => {
     const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
     const [isOpenModalCreateCategory, setIsOpenModalCreateCategory] = useState<boolean>(false);
     const [isOpenModalAddMember, setIsOpenModalAddMember] = useState<boolean>(false);
+    const [isOpenDrawerCategory, setIsOpenDrawerCategory] = useState<boolean>(false);
 
     const [listSpendingType, setListSpendingType] = useState<Array<any>>([]);
     const [listIncomeType, setListIncomeType] = useState<Array<any>>([]);
@@ -35,7 +37,7 @@ const GoalSpendingTeamPage = () => {
     const [listMember, setListMember] = useState<Array<any>>([]);
 
     const [listType, setListType] = useState<Array<any>>([]);
-    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("spend");
+    const [selectedTab, setSelectedTab] = useState<"spend" | "income">("income");
     const [selectedId, setSelectedId] = useState<any>({});
     const [selectedMenu, setSelectedMenu] = useState<1 | 2>(1);
 
@@ -175,6 +177,9 @@ const GoalSpendingTeamPage = () => {
         setIsOpenModalCreateCategory(false);
     };
 
+    const onCloseDrawerCategory = () => {
+        setIsOpenDrawerCategory(false);
+    }
     /////
 
     useEffect(() => {
@@ -194,7 +199,7 @@ const GoalSpendingTeamPage = () => {
                         Number(id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
@@ -213,7 +218,7 @@ const GoalSpendingTeamPage = () => {
                         Number(id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetIncomeTypeAsync().then(_ => { });
@@ -243,7 +248,7 @@ const GoalSpendingTeamPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
@@ -266,7 +271,7 @@ const GoalSpendingTeamPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: 1
+                            iconId: dataRequestCategory.iconId
                         },
                         () => {
                             onGetIncomeTypeAsync().then(_ => { });
@@ -391,14 +396,14 @@ const GoalSpendingTeamPage = () => {
                                         <div className="flex flex-col gap-2">
                                             <div className="flex justify-center gap-4">
                                                 <ButtonSimpleCommon
-                                                    classColor={selectedTab === "spend" ? "green" : "white"}
-                                                    onClick={() => setSelectedTab("spend")}
-                                                    title={"Chi phí"}
-                                                />
-                                                <ButtonSimpleCommon
                                                     classColor={selectedTab === "income" ? "green" : "white"}
                                                     onClick={() => setSelectedTab("income")}
                                                     title={"Thu nhập"}
+                                                />
+                                                <ButtonSimpleCommon
+                                                    classColor={selectedTab === "spend" ? "green" : "white"}
+                                                    onClick={() => setSelectedTab("spend")}
+                                                    title={"Chi phí"}
                                                 />
                                             </div>
                                             {
@@ -406,9 +411,7 @@ const GoalSpendingTeamPage = () => {
                                                     return (
                                                         <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
                                                             <div className="category-name">
-                                                                <div className="icon">
-                                                                    <i className="fa fa-car" aria-hidden="true"></i>
-                                                                </div>
+                                                                <img src={configImageURL(item.imageCode)} alt="" width={40} />
                                                                 <p>{item.name} </p>
                                                             </div>
                                                             <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -532,6 +535,7 @@ const GoalSpendingTeamPage = () => {
                 setValidate={setValidateCategory}
                 submittedTime={submittedTimeCategory}
                 onDeleteCategoryAsync={onDeleteCategoryAsync}
+                setIsOpenDrawerCategory={setIsOpenDrawerCategory}
             />
             <ModalAddMember
                 selectedId={selectedId}
@@ -551,6 +555,12 @@ const GoalSpendingTeamPage = () => {
                 validate={validate}
                 setValidate={setValidate}
                 submittedTime={submittedTime}
+            />
+            <DrawerSelectCategory
+                visible={isOpenDrawerCategory}
+                data={dataRequestCategory}
+                setData={setDataRequestCategory}
+                handleCancel={onCloseDrawerCategory}
             />
             <FullPageLoading isLoading={loading} />
         </LayoutClient >

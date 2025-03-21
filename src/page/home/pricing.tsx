@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
+import TitleComponent from "../../infrastructure/common/components/controls/TitleComponent";
 
 const PricingComponent = () => {
     const plans = [
@@ -45,6 +46,10 @@ const PricingComponent = () => {
     return (
         <div className="pricing-container">
             <div className="title">
+                <TitleComponent
+                    title={'Nâng Tầm Quản Lý'}
+                    color={'black'}
+                />
                 <div>
                     <h2>Dịch vụ tài chính</h2>
                     <h3>toàn diện - Hiệu quả - chính xác</h3>
@@ -83,6 +88,9 @@ const PricingComponent = () => {
                     </Col>
                 ))}
             </Row>
+            <div className="title">
+                <h2>Lý do nên chọn FATS</h2>
+            </div>
         </div>
     );
 };
