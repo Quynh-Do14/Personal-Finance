@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import '../../../../assets/styles/components/banner.css'
-import { Col, Row } from 'antd';
 import TitleComponent from '../controls/TitleComponent';
 type Props = {
     title: string

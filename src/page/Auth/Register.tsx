@@ -8,6 +8,7 @@ import { WarningMessage } from '../../infrastructure/common/components/toast/not
 import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 import { toast, ToastContainer } from 'react-toastify';
 import DialogNotificationCommon from '../../infrastructure/common/components/modal/dialogNotification';
+import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
 
@@ -93,14 +94,14 @@ const RegisterModal = (props: Props) => {
             onCancel={handleCancel}
             centered
         >
-            <div className='flex flex-col gap-2'>
-                <div className="flex justify-center mt-8">
+            <div className='flex flex-col gap-4'>
+                {/* <div className="flex justify-center mt-8">
                     <img src={""} alt="" />
-                </div>
+                </div> */}
                 <div className="">
                     <p className="text-center font-bold text-[28px] text-[#787878]">Đăng ký</p>
                 </div>
-                <Row gutter={[10, 10]}>
+                <Row gutter={[30, 10]}>
                     <Col span={24}>
                         <InputTextCommon
                             label={"Tên đăng nhập"}
@@ -180,11 +181,10 @@ const RegisterModal = (props: Props) => {
                         />
                     </Col>
                     <Col span={24}>
-                        <ButtonCommon
+                        <ButtonDesign
                             onClick={onRegisterAsync}
                             title={'Đăng ký'}
                             classColor={'green'}
-                            isFullWidth={true}
                         />
                     </Col>
                 </Row>

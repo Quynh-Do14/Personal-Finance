@@ -11,6 +11,7 @@ import { configImageURL } from '../../helper/helper';
 import avatar from '../../../assets/images/no-avatar.png';
 import AnimatedButton from '../components/button/animationButton';
 import authService from '../../repositories/auth/service/auth.service';
+import { ButtonDesign } from '../components/button/buttonDesign';
 
 type Props = {
     isOpen: boolean,
@@ -112,7 +113,7 @@ const NavbarComponent = (props: Props) => {
             onClose={closeDrawer}
             open={isOpen}
             headerStyle={{
-                background: "#1d9b5e",
+                background: "linear-gradient(to left, #99cc99, #99cccc)",
             }}
             closeIcon={<i className="fa fa-arrow-left text-[#FFF] text-[20px]" aria-hidden="true"></i>}
         >
@@ -128,9 +129,9 @@ const NavbarComponent = (props: Props) => {
                         </div>
                         :
                         <div className="profile">
-                            <AnimatedButton
+                            <ButtonDesign
                                 classColor={'green'}
-                                label={'Đăng nhập'}
+                                title={'Đăng nhập'}
                                 onClick={() => setIsLoginClick(!isLoginClick)}
                             />
                         </div>

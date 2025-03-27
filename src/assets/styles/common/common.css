@@ -234,3 +234,26 @@
 .ant-drawer-body {
   padding: 4px 6px !important;
 }
+
+.divider-modal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.divider-modal .line {
+  flex: 1;
+  height: 1px;
+  background-color: #999;
+}
+
+.divider-modal .divider-text {
+  font-weight: 500;
+  color: #666666;
+  font-size: 16px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+}

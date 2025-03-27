@@ -406,7 +406,7 @@
 .main-layout-client .header-mobile {
   position: fixed;
   width: 100%;
-  background: #1d9b5e;
+  background: linear-gradient(to left, #99cc99, #99cccc);
   box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.15);
   z-index: 11;
   display: flex;
