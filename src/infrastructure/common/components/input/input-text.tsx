@@ -69,20 +69,16 @@ const InputTextCommon = (props: Props) => {
             onBlur(true);
         }
     }, [submittedTime]);
-    console.log('validate', validate);
 
     return (
         <div>
-            <div className='mb-4 input-common'>
-                <div className='title mb-1'>
-                    <span>
-                        <span className='label'>{label}</span>
-                        <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>
-                    </span>
-                </div>
+            <div className='input-text-common'>
+                <label className='title' htmlFor={`${attribute}-input`}>
+                    {label}
+                </label>
                 <div>
-                    <Input
-                        size={"middle"}
+                    <input
+                        id={`${attribute}-input`}
                         value={value ? value : ""}
                         onChange={onChange}
                         onBlur={() => onBlur(false)}

@@ -263,7 +263,7 @@ const PersonalFinancePage = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon />
+            <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
             <div className="goal-container padding-common">
                 <div className="bg-[#FFF] flex flex-col gap-6 overflow-hidden">
                     {/* Danh sách ví */}

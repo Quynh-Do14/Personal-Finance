@@ -1,6 +1,6 @@
 import React from 'react'
 import AnimatedButton from '../../infrastructure/common/components/button/animationButton'
-import introduction from "../../assets/images/introduction.png"
+import introduction from "../../assets/images/banner4.gif"
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign'
 import TitleComponent from '../../infrastructure/common/components/controls/TitleComponent'
 const IntroductionComponent = () => {

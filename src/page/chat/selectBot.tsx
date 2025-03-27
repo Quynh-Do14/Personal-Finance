@@ -10,7 +10,6 @@ import authService from '../../infrastructure/repositories/auth/service/auth.ser
 import { useNavigate } from 'react-router-dom';
 import { FullPageLoading } from '../../infrastructure/common/components/controls/loading';
 import { ROUTE_PATH } from '../../core/common/appRouter';
-import BannerCommon from '../../infrastructure/common/components/banner/BannerCommon';
 const SelectBotPage = () => {
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);

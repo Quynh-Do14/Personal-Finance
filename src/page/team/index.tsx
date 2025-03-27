@@ -82,7 +82,7 @@ const TeamPage = () => {
     }
     return (
         <LayoutClient>
-            <BannerCommon />
+            <BannerCommon title={"Quỹ nhóm"} sub={"Tài chính"} />
             <div className="team-container padding-common">
                 <div className="content">
                     <h2 className="text-xl font-bold text-center text-gray-800">Danh sách các quỹ nhóm</h2>

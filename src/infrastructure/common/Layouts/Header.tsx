@@ -251,13 +251,13 @@ const HeaderClient = (props: Props) => {
                                     width={120}
                                     classColor={'transparent'}
                                     title={'Đăng Nhập'}
-                                    onClick={() => setIsLoginClick(!isLoginClick)}
+                                    onClick={() => navigate(ROUTE_PATH.LOGIN)}
                                 />
                                 <ButtonDesign
                                     width={120}
                                     classColor={'green'}
                                     title={'Đăng Kí'}
-                                    onClick={() => setIsRegisterClick(!isRegister)}
+                                    onClick={() => navigate(ROUTE_PATH.REGISTER)}
                                 />
                             </div>
                         )}

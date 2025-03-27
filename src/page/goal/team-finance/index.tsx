@@ -277,7 +277,7 @@ const TeamFinancePage = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon />
+            <BannerCommon title={"Quỹ nhóm"} sub={"Tài chính"} />
             <div className="goal-container padding-common">
                 <div className="bg-[#FFF] flex flex-col gap-6 overflow-hidden">
                     {/* Danh sách ví */}

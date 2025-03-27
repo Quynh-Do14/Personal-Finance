@@ -417,6 +417,9 @@
 
 .homepage-container .introduction img {
   margin-top: 50px;
+  height: 520;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 .homepage-container .pricing-container {

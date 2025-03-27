@@ -32,6 +32,7 @@ const InputPasswordCommon = (props: Props) => {
         onEnterPress
     } = props;
     const [value, setValue] = useState<string>("");
+    const [show, setShow] = useState<boolean>(false);
 
     const onChange = (e: any) => {
         setValue(e.target.value || "");
@@ -65,24 +66,28 @@ const InputPasswordCommon = (props: Props) => {
 
     return (
         <div>
-            <div className='mb-4 input-common'>
-                <div className='title mb-1'>
-                    <span>
-                        <span className='label'>{label}</span>
-                        <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>
-                    </span>
-                </div>
+            <div className='input-text-common'>
+                <label className='title' htmlFor={`${attribute}-input`}>
+                    {label}
+                </label>
                 <div>
-                    <Input.Password
-                        size={"middle"}
-                        value={value ? value : ""}
-                        onChange={onChange}
-                        onBlur={() => onBlur(false)}
-                        disabled={disabled}
-                        placeholder={`Nhập ${labelLower}`}
-                        className={`${validate[attribute]?.isError ? "input-error" : ""}`}
-                        onKeyDown={handleKeyDown}
-                    />
+                    <div className='relative'>
+                        <input
+                            type={show ? "text" : "password"}
+                            id={`${attribute}-input`}
+                            value={value ? value : ""}
+                            onChange={onChange}
+                            onBlur={() => onBlur(false)}
+                            disabled={disabled}
+                            placeholder={`Nhập ${labelLower}`}
+                            className={`${validate[attribute]?.isError ? "input-error" : ""}`}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <i
+                            onClick={() => setShow(!show)}
+                            className={show ? "fa fa-eye" : "fa fa-eye-slash"} aria-hidden="true"></i>
+                    </div>
+
                     <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
                 </div>
             </div>

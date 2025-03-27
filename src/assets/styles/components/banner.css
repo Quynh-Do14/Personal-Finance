@@ -3,20 +3,20 @@
   background: url('../../images/banner.png') no-repeat center/cover;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  gap: 30px;
   align-items: center;
 }
 
 .banner-common .layout h1 {
-  text-align: left;
-  font-size: 54px;
-  line-height: 60px;
   font-weight: 700;
-  color: #ffffff;
-  font-family: 'Arial', sans-serif;
-  font-family: 'Arial', sans-serif;
-  text-transform: uppercase;
-  animation: pulse 2s infinite;
+  font-size: 50px;
+  line-height: 60px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+  color: #fff;
 }
 @keyframes pulse {
   0%,
@@ -58,25 +58,25 @@
 
 @media only screen and (min-width: 1600px) {
   .banner-common .layout {
-    padding: 80px 300px 40px;
+    padding: 160px 300px 80px;
   }
 }
 
 @media only screen and (min-width: 1400px) and (max-width: 1599px) {
   .banner-common .layout {
-    padding: 80px 200px 40px;
+    padding: 160px 200px 80px;
   }
 }
 
 @media only screen and (max-width: 1400px) {
   .banner-common .layout {
-    padding: 80px 150px 40px;
+    padding: 160px 150px 80px;
   }
 }
 
 @media only screen and (max-width: 1200px) {
   .banner-common .layout {
-    padding: 80px 100px 40px;
+    padding: 160px 100px 80px;
   }
   .homepage-container .banner .layout {
     height: 460px;
@@ -85,7 +85,7 @@
 
 @media only screen and (max-width: 1024px) {
   .banner-common .layout {
-    padding: 80px 60px 40px;
+    padding: 160px 60px 80px;
   }
 }
 @media only screen and (max-width: 992px) {
@@ -99,18 +99,18 @@
 
 @media only screen and (max-width: 768px) {
   .banner-common .layout {
-    padding: 80px 30px 40px;
+    padding: 160px 30px 80px;
   }
 }
 
 @media only screen and (max-width: 576px) {
-  .banner-common .layout {
-    padding: 20px 20px;
-  }
   .banner-common .layout h1 {
     font-size: 40px;
   }
   .banner-common .layout .neon-text {
     font-size: 12px;
+  }
+  .banner-common .layout {
+    padding: 130px 20px 50px;
   }
 }

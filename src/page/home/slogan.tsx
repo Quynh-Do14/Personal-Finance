@@ -1,8 +1,8 @@
 import { Col, Row } from "antd"
 import "../../assets/styles/page/homepage.css"
-import slogan1 from "../../assets/images/slogan1.png"
-import slogan2 from "../../assets/images/slogan2.png"
-import slogan3 from "../../assets/images/slogan3.png"
+import slogan1 from "../../assets/images/banner1.gif"
+import slogan2 from "../../assets/images/banner2.gif"
+import slogan3 from "../../assets/images/banner3.gif"
 
 const slogan = [
     {
@@ -59,13 +59,13 @@ const SloganComponent = () => {
             </Row>
             <Row className="part-2" gutter={[20, 20]}>
                 <Col lg={8} md={12} sm={12} xs={24}>
-                    <img src={slogan1} alt="" />
+                    <img src={slogan1} alt="" className="rounded-[15px]" />
                 </Col>
                 <Col lg={8} md={12} sm={12} xs={24}>
-                    <img src={slogan2} alt="" />
+                    <img src={slogan2} alt="" className="rounded-[15px]" />
                 </Col>
                 <Col lg={8} md={12} sm={12} xs={24}>
-                    <img src={slogan3} alt="" />
+                    <img src={slogan3} alt="" className="rounded-[15px]" />
                 </Col>
             </Row>
         </div>

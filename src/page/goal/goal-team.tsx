@@ -380,7 +380,7 @@ const GoalSpendingTeamPage = () => {
     return (
         <LayoutClient>
             <div className="personal-finance-container">
-                <BannerCommon />
+                <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
                 <div className="padding-common">
                     <Row gutter={[20, 20]}>
                         <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
