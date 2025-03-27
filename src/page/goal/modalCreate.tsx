@@ -6,6 +6,7 @@ import "../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
 import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
 import InputDateCommon from '../../infrastructure/common/components/input/input-date';
+import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
     handleOk: () => void,
@@ -103,10 +104,9 @@ const ModalCreateGoal = (props: Props) => {
                         </div>
                     </Col>
                     <Col span={24}>
-                        <ButtonCommon
+                        <ButtonDesign
                             classColor={'green'}
                             onClick={handleOk}
-                            isFullWidth={true}
                             title={'Thêm mục tiêu'}
                         />
                     </Col>

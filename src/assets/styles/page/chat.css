@@ -1,10 +1,19 @@
+.chat-box-container {
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+}
+
 .chat-container .btn-chat {
   position: fixed;
   bottom: 10%;
   right: 5%;
-  background-color: #1d9b5e;
-  width: 80px;
-  height: 80px;
+  background-color: #003333;
+  width: 84px;
+  height: 84px;
   color: white;
   border-radius: 50%;
   padding: 10px;
@@ -15,41 +24,57 @@
   justify-content: center;
   align-items: center;
   z-index: 11;
-  border: 1px #fff solid;
+  border: 3px #fff solid;
+  transition: 0.3s;
+}
+.chat-container .btn-chat:hover {
+  background-color: #036161;
 }
 .chat-container .message {
   position: fixed;
   bottom: 10%;
   right: 7%;
 }
-.chat-box-container {
-  height: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+.chat-box-container .header {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
-  border: 1px solid #1d9b5e;
-  background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
+  align-items: center;
+  gap: 20px;
+  height: 60px;
+  padding: 8px 12px;
+  box-shadow: 5px 5px 10px -10px #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
 }
 
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.chat-box-container .header .status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.chat-box-container .header {
-  height: 40px;
-  padding: 8px 12px;
-  box-shadow: 5px 5px 10px -10px #7c0fd1;
+
+.chat-box-container .header .title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #003333;
+}
+
+.chat-box-container .header .status-line {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.chat-box-container .header .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #3bb78f, #003333);
+}
+
+.chat-box-container .header .status-text {
+  font-size: 14px;
+  color: #99cc99;
 }
 .chat-box-container .chat-box {
   flex: 1;
@@ -61,17 +86,51 @@
   height: 100vh;
 }
 
+.chat-box-container .chat-box .human-chat {
+  background: #003333;
+  max-width: 90%;
+  gap: 10px;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  overflow-wrap: break-word;
+  z-index: 10;
+  padding: 16px;
+
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.chat-box-container .chat-box .ai-chat {
+  background: #ededed;
+  max-width: 90%;
+  gap: 10px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  overflow-wrap: break-word;
+  z-index: 10;
+  padding: 16px;
+
+  color: #666666;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
 .chat-box-container .scroll-button {
   position: absolute;
-  bottom: 50px;
+  bottom: 80px;
   left: 50%;
-  background: #1d9b5e;
+  background: #003333;
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(64, 187, 21, 0.5);
   transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 11;
 }
@@ -79,7 +138,29 @@
 .chat-box-container .scroll-button:hover {
   transform: translateY(-3px);
 }
+.chat-box-container .input-chat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0 22px;
+  gap: 10px;
+  border-radius: 30px;
+  background: #ffffff;
+  box-shadow: 5px 4px 20px 0px #00000021;
+  margin: 12px 15px 20px;
+}
+.chat-box-container .input-chat input {
+  border: none;
+}
+.chat-box-container .input-chat input:focus {
+  outline: none;
+}
 
+.chat-box-container .input-chat i {
+  color: #003333;
+  font-size: 20px;
+}
 .title-chat {
   font-size: 20px;
 }
@@ -149,6 +230,7 @@
   color: #181818;
   text-align: center;
 }
+
 .select-bot-container .options {
   margin-bottom: 20px;
 }

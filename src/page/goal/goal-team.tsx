@@ -20,6 +20,7 @@ import { ButtonSimpleCommon } from "../../infrastructure/common/components/butto
 import SelectFilterCommon from "../../infrastructure/common/components/input/select-filter";
 import ModalAddMember from "./modalAddMember";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
+import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
 
 const GoalSpendingTeamPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -395,13 +396,13 @@ const GoalSpendingTeamPage = () => {
                                     <div className={`${selectedMenu == 1 ? "show" : "un-show"} box`}>
                                         <div className="flex flex-col gap-2">
                                             <div className="flex justify-center gap-4">
-                                                <ButtonSimpleCommon
-                                                    classColor={selectedTab === "income" ? "green" : "white"}
+                                                <ButtonDesign
+                                                    classColor={selectedTab === "income" ? "green" : "transparent"}
                                                     onClick={() => setSelectedTab("income")}
                                                     title={"Thu nhập"}
                                                 />
-                                                <ButtonSimpleCommon
-                                                    classColor={selectedTab === "spend" ? "green" : "white"}
+                                                <ButtonDesign
+                                                    classColor={selectedTab === "spend" ? "green" : "transparent"}
                                                     onClick={() => setSelectedTab("spend")}
                                                     title={"Chi phí"}
                                                 />
@@ -420,10 +421,9 @@ const GoalSpendingTeamPage = () => {
                                                 })
                                             }
                                         </div>
-                                        <ButtonCommon
+                                        <ButtonDesign
                                             classColor={'green'}
                                             onClick={() => onOpenModalCreateCategory(null)}
-                                            isFullWidth={true}
                                             title={'Thêm danh mục'}
                                         />
                                     </div>
@@ -453,10 +453,9 @@ const GoalSpendingTeamPage = () => {
                                                 })
                                             }
                                         </div>
-                                        <ButtonCommon
+                                        <ButtonDesign
                                             classColor={'green'}
                                             onClick={onOpenModalAddMember}
-                                            isFullWidth={true}
                                             title={'Thêm thành viên'}
                                         />
                                     </div>
@@ -511,10 +510,9 @@ const GoalSpendingTeamPage = () => {
                                         );
                                     })}
                                 </Row>
-                                <ButtonCommon
+                                <ButtonDesign
                                     classColor={'green'}
                                     onClick={onOpenModalCreate}
-                                    isFullWidth={true}
                                     title={'Thêm mục tiêu'}
                                 />
                             </div>

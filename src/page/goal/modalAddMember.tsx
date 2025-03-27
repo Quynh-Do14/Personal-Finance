@@ -9,6 +9,7 @@ import Constants from '../../core/common/constants';
 import teamService from '../../infrastructure/repositories/team/team.service';
 import { useState } from 'react';
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
+import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
     selectedId: any
@@ -109,10 +110,9 @@ const ModalAddMember = (props: Props) => {
                         </div>
                     </Col>
                     <Col span={24}>
-                        <ButtonCommon
+                        <ButtonDesign
                             classColor={'green'}
                             onClick={onAddMemberAsync}
-                            isFullWidth={true}
                             title={"Thêm thành viên"}
                         />
                     </Col>

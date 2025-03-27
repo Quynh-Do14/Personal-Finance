@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import "../../assets/styles/page/team.css"
+import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
 const TeamPage = () => {
     const [listTeam, setListTeam] = useState<Array<any>>([]);
     const [loading, setLoading] = useState(false);
@@ -119,11 +120,10 @@ const TeamPage = () => {
                             );
                         })}
                     </Row>
-                    <ButtonCommon
+                    <ButtonDesign
                         classColor={"green"}
                         onClick={onOpenModalCreate}
                         title={"Thêm nhóm mới"}
-                        isFullWidth={true}
                     />
                     {/* Nút thêm mục tiêu mới */}
                     <ModalCreateTeam

@@ -13,7 +13,7 @@ import goalService from "../../../infrastructure/repositories/goal/goal.service"
 import { useParams } from "react-router-dom";
 import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
-import { formatCurrencyVND } from "../../../infrastructure/helper/helper";
+import { convertDateOnlyShow, formatCurrencyVND } from "../../../infrastructure/helper/helper";
 import RoundChartMiniCommon from "../../../infrastructure/common/components/mini-chart/round-chart";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
@@ -29,6 +29,7 @@ import { ButtonCommon } from "../../../infrastructure/common/components/button/b
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import StaticComponent from "../common/static";
 import { ButtonSimpleCommon } from "../../../infrastructure/common/components/button/buttom-simple-common";
+import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -117,8 +118,8 @@ const PersonalFinancePage = () => {
         try {
             const res = await spendService.PersonalStatisticalByGoal(
                 String(id),
-                startDate,
                 endDate,
+                startDate,
                 timeRange,
                 () => { }
             );
@@ -154,8 +155,8 @@ const PersonalFinancePage = () => {
         try {
             const res = await spendService.PersonalStatisticalByGoal(
                 String(id),
-                startDate,
                 endDate,
+                startDate,
                 timeRange,
                 () => { }
             );
@@ -265,15 +266,14 @@ const PersonalFinancePage = () => {
         <LayoutClient>
             <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
             <div className="goal-container padding-common">
-                <div className="bg-[#FFF] flex flex-col gap-6 overflow-hidden">
-                    {/* Danh sách ví */}
+                <div className="flex flex-col gap-6 overflow-hidden">
                     <div className="overview">
                         <div className="content">
                             <div className="flex flex-col gap-2">
                                 <p className="title">{detailGoal.name} </p>
                                 <p className="sub">Mục tiêu: {formatCurrencyVND(detailGoal.goalAmount)}</p>
                                 <p className="sub">Số tiền đã đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
-                                <p className="sub">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
+                                <p className="sub">Thời hạn: {convertDateOnlyShow(detailGoal.startDate)} - {convertDateOnlyShow(detailGoal.endDate)} </p>
                             </div>
                             <RoundChartMiniCommon
                                 completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
@@ -283,7 +283,6 @@ const PersonalFinancePage = () => {
                         <img src={robot} alt="" width={160} />
                     </div>
 
-                    {/* Thẻ số dư */}
                     <div className="info">
                         <div className="flex items-center justify-between">
                             <div>
@@ -328,15 +327,17 @@ const PersonalFinancePage = () => {
 
                     {/* Tabs chi phí / thu nhập */}
                     <div className="flex justify-center gap-4 mb-6">
-                        <ButtonSimpleCommon
-                            classColor={selectedTab === "spend" ? "green" : "white"}
-                            onClick={() => setSelectedTab("spend")}
-                            title={"Chi phí"}
-                        />
-                        <ButtonSimpleCommon
-                            classColor={selectedTab === "income" ? "green" : "white"}
+                        <ButtonDesign
+                            classColor={selectedTab === "income" ? "green" : "transparent"}
                             onClick={() => setSelectedTab("income")}
                             title={"Thu nhập"}
+                            width={160}
+                        />
+                        <ButtonDesign
+                            classColor={selectedTab === "spend" ? "green" : "transparent"}
+                            onClick={() => setSelectedTab("spend")}
+                            title={"Chi phí"}
+                            width={160}
                         />
                     </div>
                     {/* Thông tin thu chi */}

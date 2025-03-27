@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { Col, DatePicker, Row } from 'antd';
-import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { DatePicker } from 'antd';
 import { MessageError } from '../controls/MessageError';
-import { validateFields } from '../../../helper/helper';
 import dayjs, { Dayjs } from 'dayjs';
 type Props = {
     label: string,
@@ -78,13 +76,10 @@ const InputDateCommon = (props: Props) => {
 
 
     return (
-        <div className='mb-4 input-common'>
-            <div className='title mb-1'>
-                <span>
-                    <span className='label'>{label}</span>
-                    <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>
-                </span>
-            </div>
+        <div className='input-text-common'>
+            <label className='title' htmlFor={`${attribute}-input`}>
+                {label}
+            </label>
             <div>
                 <DatePicker
                     allowClear={false}
@@ -103,7 +98,7 @@ const InputDateCommon = (props: Props) => {
 
                 <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
             </div>
-        </div>
+        </div >
     );
 
 };

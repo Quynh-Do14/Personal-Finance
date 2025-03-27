@@ -179,9 +179,9 @@
   flex-direction: row;
   background: #fff;
   position: relative;
-  overflow: hidden;
-  font-family: 'Mulish', sans-serif;
+   font-family: 'Mulish', sans-serif;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .main-layout-client .header-common {
@@ -299,7 +299,7 @@
 .main-layout-client .header-common .grad {
   height: inherit;
   width: inherit;
-  background: linear-gradient(180deg, #1d9b5e 80%, #db21a0);
+  background: linear-gradient(180deg, #003333 80%, #f47acd);
   position: absolute;
   border-radius: 50%;
 }

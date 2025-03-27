@@ -16,7 +16,6 @@ import LoginModal from '../../../page/Auth/Login';
 import RegisterModal from '../../../page/Auth/Register';
 import avatar from '../../../assets/images/no-avatar.png';
 import logo from '../../../assets/images/logo.png';
-import AnimatedButton from '../components/button/animationButton';
 import { FullPageLoading } from '../components/controls/loading';
 import DialogNotificationCommon from '../components/modal/dialogNotification';
 import { ButtonDesign } from '../components/button/buttonDesign';

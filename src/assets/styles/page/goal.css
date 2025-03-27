@@ -1,4 +1,5 @@
 .goal-container {
+  background: #ffffff;
   width: 100%;
   position: relative;
 }
@@ -10,13 +11,16 @@
 .goal-container .overview .content {
   z-index: 10;
   position: relative;
-  background: linear-gradient(-45deg, #1d9b5e, #32a8a8, #1e8449, #0e6655);
+  background: linear-gradient(-45deg, #02b7b7, #009696, #006565, #003333);
+  /* background: #003333; */
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
   padding: 16px;
-  border-radius: 8px;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
   box-shadow: 5px 5px 10px -10px #7c0fd1;
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
@@ -71,14 +75,15 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
-  background: linear-gradient(-45deg, #ebf8ff, #f8fafc);
+  background: #ededed;
   box-shadow: 5px 5px 10px -10px #7c0fd1;
   padding: 1.5rem;
-  border-radius: 0.5rem;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
   animation: gradientAnimation 8s ease infinite;
 }
 .goal-container .info .title {

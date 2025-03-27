@@ -5,6 +5,7 @@ import "../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
 import category from '../../assets/images/category/another.png'
 import { configImageURL } from '../../infrastructure/helper/helper';
+import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 type Props = {
     selectedId: any
     selectedTab: 'spend' | 'income'
@@ -58,7 +59,7 @@ const ModalCreateCategory = (props: Props) => {
                             {selectedTab == 'spend' ? "Thêm danh mục chi phí" : "Thêm danh mục thu nhập"}
                         </div>
                 }
-                <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
+                <Row gutter={[30, 30]} justify={"center"} align={"bottom"} className='sm:p-4 p-0'>
                     <Col xs={6} sm={4} md={3} lg={2}>
                         <img
                             src={data?.imageCode ? configImageURL(data?.imageCode) : category}
@@ -87,10 +88,9 @@ const ModalCreateCategory = (props: Props) => {
                         </div>
                     </Col>
                     <Col span={24}>
-                        <ButtonCommon
+                        <ButtonDesign
                             classColor={'green'}
                             onClick={handleOk}
-                            isFullWidth={true}
                             title={selectedId ? "Cập nhật danh mục" : "Thêm danh mục"}
                         />
                     </Col>
@@ -98,10 +98,9 @@ const ModalCreateCategory = (props: Props) => {
                         selectedId
                         &&
                         <Col span={24}>
-                            <ButtonCommon
-                                classColor={'white'}
+                            <ButtonDesign
+                                classColor={'transparent'}
                                 onClick={onDeleteCategoryAsync}
-                                isFullWidth={true}
                                 title={"Xóa danh mục"}
                             />
                         </Col>

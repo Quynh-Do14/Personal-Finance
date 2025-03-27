@@ -1,8 +1,9 @@
-import { InputHTMLAttributes, useState } from "react";
+import { useState } from "react";
 import SelectFilterCommon from "../input/select-filter";
 import Constants from "../../../../core/common/constants";
 import InputDateFilterCommon from "../input/input-date-filter";
-import { ButtonCommon } from "../button/button-common";
+
+import { ButtonDesign } from "../button/buttonDesign";
 
 // Interface cho TimeFilter
 interface TimeFilterProps {
@@ -22,10 +23,8 @@ const TimeFilter: React.FC<TimeFilterProps> = ({ setTimeRange, startDate, endDat
         setTimeRange(value);
         setIsCustom(value === ""); // Kiểm tra nếu chọn "Lựa chọn thời gian"
     };
-
     return (
-        <div>
-            {/* Dropdown chọn khoảng thời gian */}
+        <div className="flex flex-col gap-4 w-full">
             <div className="relative">
                 <SelectFilterCommon
                     label={"Lọc theo thời gian"}
@@ -34,9 +33,8 @@ const TimeFilter: React.FC<TimeFilterProps> = ({ setTimeRange, startDate, endDat
                 />
             </div>
 
-            {/* Chọn khoảng thời gian nếu chọn "Lựa chọn thời gian" */}
             {isCustom && (
-                <div className="flex gap-4 mt-4 items-end">
+                <div className="flex flex-wrap gap-4 items-end">
                     <InputDateFilterCommon
                         label={"Thời gian bắt đầu"}
                         value={startDate}
@@ -47,10 +45,11 @@ const TimeFilter: React.FC<TimeFilterProps> = ({ setTimeRange, startDate, endDat
                         value={endDate}
                         onChange={setEndDate}
                     />
-                    <ButtonCommon
+                    <ButtonDesign
                         title="Lọc"
                         classColor="green"
                         onClick={fetchData}
+                        width={120}
                     />
                 </div>
             )}

@@ -27,71 +27,69 @@ const InputNumberCommon = (props: Props) => {
         dataAttribute,
         disabled = false,
     } = props;
-    const [value, setValue] = useState<number|null>(null);
 
-    const onChange = (val: any) => {
-        setValue(val || null);
+    const [value, setValue] = useState<string>("");
+
+    const formatNumber = (val: string | number): string => {
+        const num = typeof val === "string" ? val.replace(/\D/g, "") : val.toString();
+        return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    const parseNumber = (val: string): number | null => {
+        const parsed = val.replace(/,/g, '');
+        return parsed ? parseInt(parsed) : null;
+    };
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value;
+        const numericValue = rawValue.replace(/[^0-9]/g, ''); // Only digits
+        const formatted = formatNumber(numericValue);
+        setValue(formatted);
         setData({
-            [attribute]: val || null
+            [attribute]: parseNumber(formatted)
         });
-    }
-    let labelLower = label.toLowerCase();
+    };
+
     const onBlur = (isImplicitChange = false) => {
         if (isRequired) {
-            validateFields(isImplicitChange, attribute, !value, setValidate, validate, !value ? `Vui lòng nhập ${labelLower}` : "");
-
+            const isEmpty = !parseNumber(value);
+            validateFields(isImplicitChange, attribute, isEmpty, setValidate, validate, isEmpty ? `Vui lòng nhập ${label.toLowerCase()}` : "");
         }
     };
 
     useEffect(() => {
-        setValue(dataAttribute || '');
-
+        const formatted = formatNumber(dataAttribute || '');
+        setValue(formatted);
     }, [dataAttribute]);
 
     useEffect(() => {
-
         if (submittedTime != null) {
             onBlur(true);
         }
     }, [submittedTime]);
 
-    const formatterNumber = (val: number | string | undefined) => {
-        if (!val) return "";
-        return `${val}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    };
-
-    const parserNumber = (val: string | undefined) => {
-        if (!val) return "";
-        return parseFloat(val.replace(/\./g, "").replace(",", "."));
-    };
-
     return (
         <div>
-            <div className='mb-4 input-common'>
-                <div className='title mb-1'>
-                    <span>
-                        <span className='label'>{label}</span>
-                        <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>
-                    </span>
-                </div>
+            <div className='input-text-common'>
+                <label className='title' htmlFor={`${attribute}-input`}>
+                    {label}
+                </label>
                 <div>
-                    <InputNumber
-                        min={0}
-                        className={`${validate[attribute]?.isError ? "input-error" : ""} w-full`}
-                        disabled={disabled}
+                    <input
+                        type='text'
+                        inputMode='numeric'
+                        id={`${attribute}-input`}
                         value={value}
                         onChange={onChange}
                         onBlur={() => onBlur(false)}
-                        placeholder={`Nhập ${label}`}
-                        formatter={formatterNumber}
-                        parser={parserNumber}
+                        disabled={disabled}
+                        placeholder={`Nhập ${label.toLowerCase()}`}
+                        className={`${validate[attribute]?.isError ? "input-error" : ""}`}
                     />
                     <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
                 </div>
             </div>
         </div>
-
     )
-
-}
-export default InputNumberCommon;
+};
+export default InputNumberCommon

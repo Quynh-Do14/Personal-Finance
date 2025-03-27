@@ -83,12 +83,13 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
+  background: #ededed;
 }
 
 .typing-indicator .dot {
   width: 8px;
   height: 8px;
-  background-color: #4caf50;
+  background-color: #003333;
   border-radius: 50%;
   animation: typing 1.5s infinite;
 }

@@ -213,7 +213,8 @@
   font-size: 20px;
   color: #cb4c51;
 }
-
+.input-text-common .ant-picker.ant-picker-middle.input-date-common,
+.input-text-common select,
 .input-text-common input {
   width: 100%;
   font-weight: 400;
@@ -224,20 +225,22 @@
   background: #eff5f9;
   color: #666666;
 
-  height: 56px;
+  height: 54px;
   padding-top: 15px;
   padding-right: 20px;
   padding-bottom: 15px;
   padding-left: 20px;
   border-radius: 5px;
   border: 1px solid transparent;
-  margin-bottom: 4px;
 }
-
 .input-text-common input::placeholder {
   color: #9ca3af;
 }
-
+.input-text-common .input-error,
+.input-text-common .ant-picker.ant-picker-middle.input-date-common.input-error {
+  border: #f61a1a solid 1px !important;
+}
+.input-text-common select:focus,
 .input-text-common input:focus {
   outline: none;
   border: none;
@@ -246,7 +249,7 @@
 
 .input-text-common .title {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 30px;
   letter-spacing: 0%;
   color: #101010;
@@ -259,4 +262,7 @@
   font-size: 24px;
   right: 15px;
   top: 16px;
+}
+
+.input-text-common .ant-picker.ant-picker-middle.input-date-common.input-error {
 }

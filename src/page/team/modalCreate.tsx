@@ -5,6 +5,7 @@ import { ButtonCommon } from '../../infrastructure/common/components/button/butt
 import "../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
 import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
+import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
     handleOk: () => void,
@@ -76,11 +77,10 @@ const ModalCreateTeam = (props: Props) => {
                         </div>
                     </Col>
                     <Col span={24}>
-                        <ButtonCommon
+                        <ButtonDesign
                             classColor={'green'}
                             onClick={handleOk}
                             title={'Thêm nhóm mới'}
-                            isFullWidth={true}
                         />
                     </Col>
                 </Row>

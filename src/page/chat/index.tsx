@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Drawer } from "antd";
+import { Drawer, Tooltip } from "antd";
 import "../../assets/styles/page/chat.css"
 import { convertDate, convertDateShow } from "../../infrastructure/helper/helper";
-import BubbleCommon from "../../infrastructure/common/components/controls/Bubble";
 import TypingIndicator from "../../infrastructure/common/components/controls/Typing";
-import { log } from "console";
-
+import gptIcon from "../../assets/images/gpt-icon.png"
 type Props = {
     titleChat: string
     isOpen: boolean,
@@ -79,36 +77,33 @@ const ChatBoxCommon = (props: Props) => {
         >
             <div className="chat-box-container" >
                 <div className="header">
-                    <i onClick={closeDrawer} className="fa fa-arrow-left text-[#FFF] text-[20px] cursor-pointer" aria-hidden="true"></i>
+                    <i onClick={closeDrawer} className="fa fa-arrow-left text-[#999] text-[20px] cursor-pointer" aria-hidden="true"></i>
+                    <img src={gptIcon} alt="" />
+                    <div className="status-container">
+                        <div className="title">ChatGPT</div>
+                        <div className="status-line">
+                            <span className="dot" />
+                            <span className="status-text">Online</span>
+                        </div>
+                    </div>
                 </div>
-                <BubbleCommon />
+                {/* <BubbleCommon /> */}
                 <div className="chat-box" ref={chatBoxRef}>
                     {dataChatBox.map((message, index) => (
-                        <div
-                            key={index}
-                            className="flex flex-col gap-2"
-                        >
-
-                            <div
-                                className={`flex justify-end`}
-                            >
-                                <div
-                                    className={`max-w-[90%] break-words px-4 py-2 rounded-[16px] bg-[#1d9b5e] text-white shadow-lg z-10`}
-                                >
-                                    {message.userMessage}
-                                    <div className="text-[10px] text-right mt-1">{convertDateShow(message.createdAt)} </div>
-                                </div>
+                        <div key={index} className="flex flex-col gap-2">
+                            <div className={`flex justify-end`}>
+                                <Tooltip title={convertDateShow(message.createdAt)} color="#003333">
+                                    <div className="human-chat">
+                                        {message.userMessage}
+                                    </div>
+                                </Tooltip>
                             </div>
-                            <div
-                                key={index}
-                                className={`flex justify-start`}
-                            >
-                                <div
-                                    className={`max-w-[90%] break-words px-4 py-2 rounded-[16px] bg-[#eeeeee] text-[#242424] shadow-lg z-10`}
-                                >
-                                    {message.botMessage}
-                                    <div className="text-[10px] text-left mt-1">{convertDateShow(message.createdAt)} </div>
-                                </div>
+                            <div key={index} className={`flex justify-start`}>
+                                <Tooltip title={convertDateShow(message.createdAt)} color="#666666">
+                                    <div className="ai-chat">
+                                        {message.botMessage}
+                                    </div>
+                                </Tooltip>
                             </div>
                         </div>
                     ))}
@@ -123,7 +118,7 @@ const ChatBoxCommon = (props: Props) => {
                                     className={`flex justify-end`}
                                 >
                                     <div
-                                        className={`max-w-[90%] break-words px-4 py-2 rounded-lg bg-[#1d9b5e] text-white`}
+                                        className="human-chat"
                                     >
                                         {messages}
                                     </div>
@@ -133,7 +128,7 @@ const ChatBoxCommon = (props: Props) => {
                                     className={`flex justify-start`}
                                 >
                                     <div
-                                        className={`max-w-[90%] break-words px-4 py-2 rounded-lg bg-gray-300 text-black`}
+                                        className="ai-chat"
                                     >
                                         <TypingIndicator />
                                     </div>
@@ -142,30 +137,23 @@ const ChatBoxCommon = (props: Props) => {
                             :
                             null
                     }
-
                 </div>
-                {isAtBottom && (
+                {!isAtBottom && (
                     <button className="scroll-button" onClick={scrollToBottom}>
                         <i className="fa fa-arrow-down" aria-hidden="true"></i>
                     </button>
                 )}
-                <div className="flex-none p-4 border-t">
-                    <div className="flex items-center space-x-2">
-                        <input
-                            type="text"
-                            placeholder="Nhập tin nhắn của bạn..."
-                            className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1d9b5e]"
-                            value={messages}
-                            onChange={onChangeText}
-                            onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                        />
-                        <button
-                            className="bg-[#1d9b5e] text-white px-4 py-2 rounded-lg hover:bg-[#1d9b5e]"
-                            onClick={sendMessage}
-                        >
-                            <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                        </button>
-                    </div>
+                <div className="input-chat">
+                    <input
+                        type="text"
+                        placeholder="Nhập tin nhắn của bạn..."
+                        value={messages}
+                        onChange={onChangeText}
+                        onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+                    />
+                    <button onClick={sendMessage}>
+                        <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
 

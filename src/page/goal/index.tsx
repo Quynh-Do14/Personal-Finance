@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { configImageURL, convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
 import '../../assets/styles/page/personalFinance.css'
-import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
 import { Col, Row } from "antd";
 import Constants from "../../core/common/constants";
 import spendingTypeService from "../../infrastructure/repositories/type/spending-type.service";
@@ -16,6 +15,7 @@ import BannerCommon from "../../infrastructure/common/components/banner/BannerCo
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
+import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -363,13 +363,13 @@ const GoalSpendingPage = () => {
                                 <div className="flex flex-col gap-4">
                                     <h2 className="text-xl font-bold text-left text-gray-800">Danh sách danh mục</h2>
                                     <div className="flex justify-center gap-4">
-                                        <ButtonSimpleCommon
-                                            classColor={selectedTab === "income" ? "green" : "white"}
+                                        <ButtonDesign
+                                            classColor={selectedTab === "income" ? "green" : "transparent"}
                                             onClick={() => setSelectedTab("income")}
                                             title={"Thu nhập"}
                                         />
-                                        <ButtonSimpleCommon
-                                            classColor={selectedTab === "spend" ? "green" : "white"}
+                                        <ButtonDesign
+                                            classColor={selectedTab === "spend" ? "green" : "transparent"}
                                             onClick={() => setSelectedTab("spend")}
                                             title={"Chi phí"}
                                         />
@@ -388,10 +388,9 @@ const GoalSpendingPage = () => {
                                         })
                                     }
                                 </div>
-                                <ButtonCommon
+                                <ButtonDesign
                                     classColor={'green'}
                                     onClick={() => onOpenModalCreateCategory(null)}
-                                    isFullWidth={true}
                                     title={'Thêm danh mục'}
                                 />
                             </div>
@@ -444,10 +443,9 @@ const GoalSpendingPage = () => {
                                         );
                                     })}
                                 </Row>
-                                <ButtonCommon
+                                <ButtonDesign
                                     classColor={'green'}
                                     onClick={onOpenModalCreate}
-                                    isFullWidth={true}
                                     title={'Thêm mục tiêu'}
                                 />
                             </div>
