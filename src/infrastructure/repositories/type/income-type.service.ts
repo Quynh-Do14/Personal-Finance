@@ -59,8 +59,8 @@ class IncomeTypeService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -82,8 +82,8 @@ class IncomeTypeService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Cập nhật không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Cập nhật không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -104,8 +104,8 @@ class IncomeTypeService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Xóa không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Xóa không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -170,8 +170,8 @@ class IncomeTypeService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -193,8 +193,8 @@ class IncomeTypeService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Cập nhật không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Cập nhật không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -215,8 +215,8 @@ class IncomeTypeService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Xóa không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Xóa không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);

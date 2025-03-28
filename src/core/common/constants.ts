@@ -38,12 +38,6 @@ export default class Constants {
                 private: true,
                 icon: "fa fa-users"
             },
-            {
-                label: "Liên hệ",
-                link: ROUTE_PATH.CONTACT,
-                private: false,
-                icon: "fa fa-envelope"
-            },
         ]
     };
     static TOKEN = "token";

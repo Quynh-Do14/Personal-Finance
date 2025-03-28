@@ -1,6 +1,7 @@
 import { Col, Modal, Row } from 'antd';
 import "../../../../assets/styles/components/modal.css"
 import { ButtonSimpleCommon } from '../button/buttom-simple-common';
+import { ButtonDesign } from '../button/buttonDesign';
 type Props = {
     title: string,
     message: string,
@@ -26,7 +27,7 @@ const DialogNotificationCommon = (props: Props) => {
                 <div className='modal-common flex flex-col gap-6 justify-center items-center'>
                     <div className='title'>{title}</div>
                     <div className='message'>{message}</div>
-                    <ButtonSimpleCommon
+                    <ButtonDesign
                         disabled={isLoading}
                         classColor={'green'}
                         onClick={handleCancel}

@@ -17,7 +17,7 @@ class TeamService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
+        } catch (error: any) {
             console.error(error)
         } finally {
             setLoading(false);
@@ -36,7 +36,7 @@ class TeamService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
+        } catch (error: any) {
             console.error(error)
         } finally {
             setLoading(false);
@@ -56,8 +56,8 @@ class TeamService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm thành viên không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm thành viên không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -79,8 +79,8 @@ class TeamService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -100,8 +100,8 @@ class TeamService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -121,8 +121,8 @@ class TeamService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);

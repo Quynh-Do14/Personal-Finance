@@ -5,6 +5,7 @@ type Props = {
     icon?: any,
     title: string,
     width?: number
+    disabled?: boolean
 }
 export const ButtonDesign = (props: Props) => {
     const {
@@ -12,7 +13,8 @@ export const ButtonDesign = (props: Props) => {
         onClick,
         icon,
         title,
-        width = false
+        width = false,
+        disabled = false
     } = props;
     return (
         <button
@@ -20,6 +22,7 @@ export const ButtonDesign = (props: Props) => {
             style={{
                 width: width ? width : "100%"
             }}
+            disabled={disabled}
             onClick={onClick}>
             {
                 icon && <span>{icon} </span>

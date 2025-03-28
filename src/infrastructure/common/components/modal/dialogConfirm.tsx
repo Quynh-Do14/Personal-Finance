@@ -1,6 +1,6 @@
 import { Col, Modal, Row } from 'antd';
 import "../../../../assets/styles/components/modal.css"
-import { ButtonSimpleCommon } from '../button/buttom-simple-common';
+import { ButtonDesign } from '../button/buttonDesign';
 type Props = {
     title: string,
     message: string,
@@ -28,23 +28,22 @@ const DialogConfirmCommon = (props: Props) => {
                 <div className='modal-common'>
                     <div className='title'>{title}</div>
                     <div className='message'>{message}</div>
-                    <Row justify={"center"} gutter={[20, 20]} className='py-4'>
-                        <Col>
-                            <ButtonSimpleCommon
-                                classColor={'red'}
-                                onClick={() => handleCancel()}
-                                title={titleCancel}
-                            />
-                        </Col>
-                        <Col>
-                            <ButtonSimpleCommon
-                                disabled={isLoading}
-                                classColor={'green'}
-                                onClick={() => handleOk()}
-                                title={titleOk}
-                            />
-                        </Col>
-                    </Row>
+                    <div className='flex gap-2 justify-center'>
+                        <ButtonDesign
+                            classColor={'transparent'}
+                            onClick={() => handleCancel()}
+                            title={titleCancel}
+                            width={120}
+                        />
+
+                        <ButtonDesign
+                            disabled={isLoading}
+                            classColor={'green'}
+                            onClick={() => handleOk()}
+                            title={titleOk}
+                            width={120}
+                        />
+                    </div>
                 </div>
             </Modal>
         </div>

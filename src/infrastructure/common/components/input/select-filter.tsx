@@ -18,9 +18,7 @@ const SelectFilterCommon = (props: Props) => {
                 &&
                 <div className='title'>{label}</div>
             }
-            <select
-                onChange={onChange}
-            >
+            <select onChange={onChange}>
                 {
                     listDataOfItem && listDataOfItem.length && listDataOfItem.map((item, index) => {
                         return (
@@ -29,7 +27,6 @@ const SelectFilterCommon = (props: Props) => {
                     })
                 }
             </select>
-            {/* <i className="fa fa-caret-down" aria-hidden="true"></i> */}
         </div>
     )
 }

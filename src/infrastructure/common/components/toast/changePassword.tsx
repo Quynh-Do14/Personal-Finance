@@ -6,6 +6,7 @@ import { WarningMessage } from './notificationToast'
 import InputPasswordCommon from '../input/input-password'
 import { useNavigate } from 'react-router-dom'
 import { ROUTE_PATH } from '../../../../core/common/appRouter'
+import { ButtonDesign } from '../button/buttonDesign'
 type Props = {
     // handleOk: Function,
     handleCancel: () => void,
@@ -79,12 +80,11 @@ const ChangePasswordModal = (props: Props) => {
             className='custom-modal'
             closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
         >
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-4'>
                 <div className="">
                     <p className="text-center font-bold text-[28px] text-[#787878]">Thay đổi mật khẩu</p>
                 </div>
                 <Row gutter={[10, 10]}>
-
                     <Col span={24}>
                         <InputPasswordCommon
                             label={"Mật khẩu hiện tại"}
@@ -127,21 +127,22 @@ const ChangePasswordModal = (props: Props) => {
                         />
                     </Col>
                 </Row>
+                    <div className='flex gap-2 justify-center'>
+                        <ButtonDesign
+                            onClick={handleCancel}
+                            classColor="transparent"
+                            width={120}
+                            title={'Quay lại'}
+                        />
+                        <ButtonDesign
+                            onClick={onUpdateProfile}
+                            classColor="green"
+                            width={120}
+                            title={'Cập nhật'}
+                        />
+                    </div>
             </div>
-            <div className='container-btn main-page bg-white p-4 flex flex-col'>
-                <div className='flex gap-2 justify-center'>
-                    <ButtonCommon
-                        onClick={handleCancel}
-                        classColor="red"
-                        title={'Quay lại'}
-                    />
-                    <ButtonCommon
-                        onClick={onUpdateProfile}
-                        classColor="green"
-                        title={'Cập nhật'}
-                    />
-                </div>
-            </div>
+
         </Modal>
     )
 }

@@ -65,44 +65,35 @@ const InputSelectCatrgoryCommon = (props: Props) => {
     }, [submittedTime]);
 
     return (
-        <div>
-            <div className='mb-4 input-common'>
-                <div className='title mb-1'>
-                    <span>
-                        <span className='label'>{label}</span>
-                        <span className='ml-1 is-required'>{isRequired ? "*" : ""} </span>
-                    </span>
-                </div>
-                <div>
-                    <Select
-                        showSearch
-                        allowClear={false}
-                        showArrow
-                        disabled={disabled}
-                        value={value}
-                        listHeight={120}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        placeholder={`Chọn ${label}`}
-                        getPopupContainer={trigger => trigger.parentNode}
-                        className={`${validate[attribute]?.isError ? "input-error" : ""} w-full text-left`}
-                    >
-                        {
-                            listDataOfItem && listDataOfItem.length && listDataOfItem.map((item, index) => {
-                                return (
-                                    <Select.Option
-                                        key={index}
-                                        value={item.value}
-                                        title={item.label}
-                                    >
-                                        {item.label}
-                                    </Select.Option>
-                                )
-                            })
-                        }
-                    </Select>
-                    <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
-                </div>
+        <div className='input-text-common'>
+            {
+                label
+                &&
+                <div className='title'>{label}</div>
+            }
+            <div>
+                <select
+                    disabled={disabled}
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    className={`${validate[attribute]?.isError ? "input-error" : ""} w-full text-left`}
+                >
+                    {
+                        listDataOfItem && listDataOfItem.length && listDataOfItem.map((item, index) => {
+                            return (
+                                <option
+                                    key={index}
+                                    value={item.value}
+                                    title={item.label}
+                                >
+                                    {item.label}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
+                <MessageError isError={validate[attribute]?.isError || false} message={validate[attribute]?.message || ""} />
             </div>
         </div>
     );

@@ -25,7 +25,7 @@ class GoalService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Goal.Team.Get}/${id}`)
+                .get(`${Endpoint.Goal.Team.GetById}/${id}`)
                 .then(response => {
                     if (response) {
                         return response
@@ -55,8 +55,8 @@ class GoalService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -117,8 +117,8 @@ class GoalService {
                     setLoading(false)
                     return response;
                 });
-        } catch (error) {
-            FailMessage("Thêm mới không thành công", "Vui lòng kiểm tra thông tin")
+        } catch (error: any) {
+            FailMessage("Thêm mới không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);

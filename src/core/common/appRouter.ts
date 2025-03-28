@@ -18,6 +18,7 @@ export const ROUTE_PATH = {
     GOAL_SPENDING_TEAM_PAGE: `${PREFIX}/team/spending-team/:id`,
     SELECT_CHAT_BOT: `${PREFIX}/select-bot`,
     BLOG: `${PREFIX}/blog`,
+    PAYMENT: `${PREFIX}/payment`,
 
     CONTACT: `${PREFIX}/contact`,
 

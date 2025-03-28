@@ -6,10 +6,11 @@ const baseURL = process.env.REACT_APP_BASE_URL
 const axiosInstance = axios.create({
     baseURL: baseURL,
     headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
     },
-    timeout: 10000,
-});
+    timeout: 15000,
+    withCredentials: true,
+});;
 
 const getToken = () => {
     const token = localStorage.getItem('token');

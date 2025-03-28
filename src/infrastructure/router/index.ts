@@ -16,6 +16,7 @@ import RefundPolicy from "../../page/policy/refund-policy";
 import LoginScreen from "../../page/Auth/LoginScreen";
 import RegisterScreen from "../../page/Auth/RegisterScreen";
 import BlogPage from "../../page/blog";
+import PaymentPage from "../../page/payment";
 
 export const privateRoutes = [
 
@@ -102,6 +103,12 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.TERM_OF_SERVICE,
         component: TermOfServicePolicy,
+        private: false,
+    },
+
+    {
+        path: ROUTE_PATH.PAYMENT,
+        component: PaymentPage,
         private: false,
     },
 

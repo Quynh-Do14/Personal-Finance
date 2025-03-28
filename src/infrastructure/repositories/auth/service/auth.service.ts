@@ -78,7 +78,7 @@ class AuthService {
                 });
         } catch (error: any) {
             console.error(error)
-            FailMessage("Cập nhật không thành công", "Vui lòng kiểm tra thông tin")
+            FailMessage("Cập nhật không thành công", error.response.data.message)
         } finally {
             setLoading(false);
         }
@@ -192,7 +192,7 @@ class AuthService {
                 });
         } catch (error: any) {
             console.error(error)
-            FailMessage("Cập nhật không thành công", "Vui lòng kiểm tra thông tin")
+            FailMessage("Cập nhật không thành công", error.response.data.message)
         } finally {
             setLoading(false);
         }

@@ -13,11 +13,12 @@ export class Endpoint {
     static Goal = class {
         static Personal = class {
             static Get = "/goals/user/all"
-            static GetById = "/goals/user"
+            static GetById = "/goals/detail"
             static Add = "/goals/user/create"
         }
         static Team = class {
             static Get = "/goals/user/team"
+            static GetById = "/goals/detail"
             static Add = "/goals/team/create"
         }
     }
