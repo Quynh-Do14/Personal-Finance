@@ -35,7 +35,7 @@ export default class Constants {
             {
                 label: "Tin tức",
                 link: ROUTE_PATH.BLOG,
-                private: true,
+                private: false,
                 icon: "fa fa-users"
             },
         ]

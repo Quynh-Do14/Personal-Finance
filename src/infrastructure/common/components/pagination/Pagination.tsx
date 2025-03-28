@@ -24,8 +24,8 @@ export const PaginationCommon = (props: Props) => {
     const dataPagination: any[] = isClient ? Constants.PaginationClientConfigs.PageSizeList : Constants.PaginationConfigs.PageSizeList;
 
     return (
-        <div className="w-full flex justify-between pt-4 pb-2 gap-2 container-pagination">
-            <Pagination current={currentPage} total={total} showSizeChanger={false} pageSize={pageSize} onChange={onChangePage} />
+        <div className="w-full flex justify-between pt-4 pb-2 gap-2 flex-wrap container-pagination">
+            <Pagination current={currentPage} total={total} showSizeChanger={false} pageSize={pageSize} onChange={onChangePage}/>
             <div className="flex align-center gap-2">
                 <div className="show-title mr-4">Số bản ghi mỗi trang</div>
                 <div className="select-page-size">

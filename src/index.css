@@ -2,4 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../public//font//SVN-Gilroy\ Medium.otf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
 

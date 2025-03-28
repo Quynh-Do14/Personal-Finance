@@ -1,5 +1,7 @@
 .blog {
-    font-family: SVN-Gilroy;
+    position: relative;
+    background: #e6f0f5;
+    overflow: hidden;
 }
 
 .blog .left .item-text {

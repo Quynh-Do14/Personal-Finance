@@ -1,5 +1,6 @@
 .container-pagination {
     border-top: solid #e9e9e9 1px;
+    overflow: hidden;
 }
 
 .container-pagination .btn-previous-next:hover {
