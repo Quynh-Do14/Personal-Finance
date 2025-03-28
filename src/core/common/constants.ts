@@ -33,6 +33,12 @@ export default class Constants {
                 icon: "fa fa-users"
             },
             {
+                label: "Tin tức",
+                link: ROUTE_PATH.BLOG,
+                private: true,
+                icon: "fa fa-users"
+            },
+            {
                 label: "Liên hệ",
                 link: ROUTE_PATH.CONTACT,
                 private: false,

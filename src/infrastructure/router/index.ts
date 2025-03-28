@@ -15,6 +15,7 @@ import TermOfServicePolicy from "../../page/policy/term-of-service";
 import RefundPolicy from "../../page/policy/refund-policy";
 import LoginScreen from "../../page/Auth/LoginScreen";
 import RegisterScreen from "../../page/Auth/RegisterScreen";
+import BlogPage from "../../page/blog";
 
 export const privateRoutes = [
 
@@ -62,6 +63,11 @@ export const privateRoutes = [
         path: ROUTE_PATH.TEAM_PAGE,
         component: TeamPage,
         private: true,
+    },
+    {
+        path: ROUTE_PATH.BLOG,
+        component: BlogPage,
+        private: false,
     },
     {
         path: ROUTE_PATH.VERIFY_EMAIL,
