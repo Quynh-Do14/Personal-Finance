@@ -1,5 +1,3 @@
-import React from 'react'
-import AnimatedButton from '../../infrastructure/common/components/button/animationButton'
 import introduction from "../../assets/images/banner4.gif"
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign'
 import TitleComponent from '../../infrastructure/common/components/controls/TitleComponent'
@@ -31,7 +29,7 @@ const IntroductionComponent = () => {
                     onClick={() => { }}
                 />
             </div>
-            <img src={introduction} alt="" />
+            <img src={introduction} alt="" className="img" />
         </div>
     )
 }

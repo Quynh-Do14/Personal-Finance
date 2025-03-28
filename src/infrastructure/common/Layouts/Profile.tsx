@@ -11,6 +11,7 @@ import InputDateCommon from '../components/input/input-date';
 import { configImageURL, convertDateOnly } from '../../helper/helper';
 import { isTokenStoraged } from '../../utils/storage';
 import UploadAvatar from '../components/input/upload-avatar';
+import { ButtonDesign } from '../components/button/buttonDesign';
 
 type Props = {
   // handleOk: Function,
@@ -120,7 +121,7 @@ const ProfileModal = (props: Props) => {
       className='custom-modal'
       closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
     >
-      <div className='flex flex-col gap-2 p-3'>
+      <div className='flex flex-col gap-4 p-3'>
         <p className="text-center font-bold text-[28px] text-[#787878]">Thông tin cá nhân</p>
 
         <div className='flex items-center gap-4'>
@@ -141,7 +142,7 @@ const ProfileModal = (props: Props) => {
             </div>
           </div>
         </div>
-        <Row gutter={[30, 0]}>
+        <Row gutter={[20, 20]}>
           <Col xs={24} sm={24} md={24} lg={12} xl={12}>
             <InputTextCommon
               label={"Tên đăng nhập"}
@@ -196,16 +197,16 @@ const ProfileModal = (props: Props) => {
           </Col>
         </Row>
         <div className='flex gap-2 justify-center'>
-          <ButtonCommon
+          <ButtonDesign
             onClick={handleCancel}
-            classColor="red"
-            icon={null}
+            classColor="transparent"
+            width={120}
             title={'Quay lại'}
           />
-          <ButtonCommon
+          <ButtonDesign
             onClick={onUpdateProfile}
             classColor="green"
-            icon={null}
+            width={120}
             title={'Cập nhật'}
           />
         </div>

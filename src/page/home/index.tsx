@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout'
 import "../../assets/styles/page/homepage.css"
-import ServiceComponent from './service'
 import PricingComponent from './pricing'
-import AnimatedButton from '../../infrastructure/common/components/button/animationButton'
-import { Col, Row } from 'antd'
-import AnimatedNumber from '../../infrastructure/common/components/controls/AnimatedNumber'
-import Constants from '../../core/common/constants'
-import TagFlipComponent from '../../infrastructure/common/components/controls/TagFlip'
 import SpendingComponent from './spending'
 import SloganComponent from './slogan'
 import IntroductionComponent from './introduction'

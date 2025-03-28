@@ -3,7 +3,7 @@ import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link } from "react-router-dom";
-import { configImageURL, convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
+import { configImageURL, convertDateOnly, convertDateOnlyShow, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
 import '../../assets/styles/page/personalFinance.css'
 import { Col, Row } from "antd";
@@ -13,7 +13,6 @@ import incomeTypeService from "../../infrastructure/repositories/type/income-typ
 import ModalCreateCategory from "./modalCreateCategory";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
-import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
 
@@ -421,7 +420,7 @@ const GoalSpendingPage = () => {
                                                             <p className="text-[20px] font-semibold">{goal.name}</p>
                                                         </div>
                                                         <p className="text-[14px]">Mục tiêu: {formatCurrencyVND(goal.currentAmount)} / {formatCurrencyVND(goal.goalAmount)}</p>
-                                                        <p className="text-[14px]">Thời gian: {goal.startDate} - {goal.endDate}</p>
+                                                        <p className="text-[14px]">Thời gian: {convertDateOnlyShow(goal.startDate)} - {convertDateOnlyShow(goal.endDate)}</p>
                                                     </div>
                                                     {/* Thanh tiến trình */}
                                                     <div className="w-full">

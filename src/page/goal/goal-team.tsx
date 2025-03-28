@@ -3,10 +3,9 @@ import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link, useParams } from "react-router-dom";
-import { configImageURL, convertDateOnly, formatCurrencyVND } from "../../infrastructure/helper/helper";
+import { configImageURL, convertDateOnly, convertDateOnlyShow, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modalCreate";
 import '../../assets/styles/page/personalFinance.css'
-import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
 import ModalCreateCategory from "./modalCreateCategory";
 import Constants from "../../core/common/constants";
 import { Col, Row } from "antd";
@@ -488,7 +487,7 @@ const GoalSpendingTeamPage = () => {
                                                             <p className="text-[20px] font-semibold">{goal.name}</p>
                                                         </div>
                                                         <p className="text-[14px]">Mục tiêu: {formatCurrencyVND(goal.currentAmount)} / {formatCurrencyVND(goal.goalAmount)}</p>
-                                                        <p className="text-[14px]">Thời gian: {goal.startDate} - {goal.endDate}</p>
+                                                        <p className="text-[14px]">Thời gian: {convertDateOnlyShow(goal.startDate)} - {convertDateOnlyShow(goal.endDate)}</p>
                                                     </div>
                                                     {/* Thanh tiến trình */}
                                                     <div className="w-full">
