@@ -13,7 +13,7 @@ import goalService from "../../../infrastructure/repositories/goal/goal.service"
 import { useParams } from "react-router-dom";
 import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
-import { formatCurrencyVND } from "../../../infrastructure/helper/helper";
+import { convertDateOnlyShow, formatCurrencyVND } from "../../../infrastructure/helper/helper";
 import RoundChartMiniCommon from "../../../infrastructure/common/components/mini-chart/round-chart";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
@@ -28,6 +28,7 @@ import robot from "../../../assets/images/robot.gif";
 import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
 import StaticComponent from "../common/static";
 import { ButtonSimpleCommon } from "../../../infrastructure/common/components/button/buttom-simple-common";
+import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -68,19 +69,19 @@ const TeamFinancePage = () => {
         datasets: [{ data: [], backgroundColor: ["#36A2EB"] }],
     });
 
-    // const onGetDetailGoalAsync = async () => {
-    //     try {
-    //         await goalService.GoalTeamById(
-    //             Number(id),
-    //             () => { }
-    //         ).then((res) => {
-    //             setDetailGoal(res);
-    //         })
-    //     }
-    //     catch (error) {
-    //         console.error(error);
-    //     }
-    // };
+    const onGetDetailGoalAsync = async () => {
+        try {
+            await goalService.GoalTeamById(
+                Number(id),
+                () => { }
+            ).then((res) => {
+                setDetailGoal(res);
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
 
     const onGetChatBoxAsync = async () => {
         try {
@@ -198,7 +199,7 @@ const TeamFinancePage = () => {
     };
 
     useEffect(() => {
-        // onGetDetailGoalAsync().then(_ => { });
+        onGetDetailGoalAsync().then(_ => { });
         onGetChatBoxAsync().then(_ => { });
         onGetSpendTeamByGoalStatisticalDaily().then(_ => { });
         onGetSpendTeamByGoalStatistical().then(_ => { });
@@ -226,7 +227,7 @@ const TeamFinancePage = () => {
 
                 // Lắng nghe thông báo từ đích riêng của user
                 stompClient.subscribe('/user/queue/chat', () => {
-                    // onGetDetailGoalAsync();
+                    onGetDetailGoalAsync();
                     onGetChatBoxAsync();
                     onGetSpendTeamByGoalStatisticalDaily();
                     onGetSpendTeamByGoalStatistical();
@@ -287,7 +288,7 @@ const TeamFinancePage = () => {
                                 <p className="title">{detailGoal.name} </p>
                                 <p className="sub">Mục tiêu: {formatCurrencyVND(detailGoal.goalAmount)}</p>
                                 <p className="sub">Số tiền đã đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
-                                <p className="sub">Thời hạn: {detailGoal.startDate} - {detailGoal.endDate} </p>
+                                <p className="sub">Thời hạn: {convertDateOnlyShow(detailGoal.startDate)} - {convertDateOnlyShow(detailGoal.endDate)} </p>
                             </div>
                             <RoundChartMiniCommon
                                 completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
@@ -341,15 +342,17 @@ const TeamFinancePage = () => {
 
                     {/* Tabs chi phí / thu nhập */}
                     <div className="flex justify-center gap-4 mb-6">
-                        <ButtonSimpleCommon
-                            classColor={selectedTab === "income" ? "green" : "white"}
+                        <ButtonDesign
+                            classColor={selectedTab === "income" ? "green" : "transparent"}
                             onClick={() => setSelectedTab("income")}
                             title={"Thu nhập"}
+                            width={160}
                         />
-                        <ButtonSimpleCommon
-                            classColor={selectedTab === "spend" ? "green" : "white"}
+                        <ButtonDesign
+                            classColor={selectedTab === "spend" ? "green" : "transparent"}
                             onClick={() => setSelectedTab("spend")}
                             title={"Chi phí"}
+                            width={160}
                         />
                     </div>
                     {/* Thông tin thu chi */}
