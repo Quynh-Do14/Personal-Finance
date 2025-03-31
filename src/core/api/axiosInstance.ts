@@ -10,7 +10,10 @@ const axiosInstance = axios.create({
     },
     timeout: 15000,
     withCredentials: true,
-});;
+    validateStatus: function (status) {
+        return status >= 200 && status < 500; // Đừng để axios tự throw với 401/403
+    }
+});
 
 const getToken = () => {
     const token = localStorage.getItem('token');
@@ -31,12 +34,8 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     async (error) => {
-        console.error(error);
-
         const originalRequest = error?.config;
 
         if (error?.response?.status === 401 && !originalRequest._retry) {

@@ -70,6 +70,7 @@ const TeamFinancePage = () => {
     });
 
     const onGetDetailGoalAsync = async () => {
+        console.log("vào");
         try {
             await goalService.GoalTeamById(
                 Number(id),
@@ -87,7 +88,9 @@ const TeamFinancePage = () => {
         try {
             await chatService.GetChatTeam(
                 String(id),
-                () => { }
+                () => {
+                    onGetDetailGoalAsync()
+                }
             ).then((res) => {
                 setDataChatBox(res);
             })
@@ -107,7 +110,7 @@ const TeamFinancePage = () => {
                 "daily",
                 setLoading
             ).then((res) => {
-                setDailySpend(res.spendStatistics.totalSpend);
+                setDailySpend(res.incomeStatistics.totalInCome - res.spendStatistics.totalSpend);
             })
         }
         catch (error) {
@@ -255,7 +258,6 @@ const TeamFinancePage = () => {
                     //     setMessages("");
                     //     await onGetChatBoxAsync();
                     // }, 10);
-                    await onGetChatBoxAsync();
                     setMessages("");
                 },
                 setLoadingBot
@@ -316,13 +318,13 @@ const TeamFinancePage = () => {
                         </div>
 
                         <div className="more">
-                            <div className="text-left text-[#e05349]">
-                                <p className="">Chi phí</p>
-                                <p className=""><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
-                            </div>
-                            <div className="text-right text-[#1d9b5e]">
+                            <div className="text-left text-[#1d9b5e]">
                                 <p className="">Thu nhập</p>
                                 <p className=""><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
+                            </div>
+                            <div className="text-right text-[#e05349]">
+                                <p className="">Chi phí</p>
+                                <p className=""><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
                             </div>
                         </div>
                     </div>

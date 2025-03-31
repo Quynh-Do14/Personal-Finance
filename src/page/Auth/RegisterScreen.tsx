@@ -10,12 +10,14 @@ import { FullPageLoading } from '../../infrastructure/common/components/controls
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign'
 import { ROUTE_PATH } from '../../core/common/appRouter'
 import BannerCommon from '../../infrastructure/common/components/banner/BannerCommon'
+import DialogNotificationCommon from '../../infrastructure/common/components/modal/dialogNotification'
 
 const RegisterScreen = () => {
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
     const [remember, setRemember] = useState<boolean>(true);
+    const [isOpenModalSuccesss, setIsOpenModalSuccesss] = useState<boolean>(false);
 
     const [_data, _setData] = useState<any>({});
     const dataLogin = _data;
@@ -55,13 +57,10 @@ const RegisterScreen = () => {
                         roles: "user"
                     },
                     () => {
+                        setIsOpenModalSuccesss(true);
                     },
                     setLoading
-                ).then((response) => {
-                    if (response) {
-                        navigate(ROUTE_PATH.LOGIN)
-                    }
-                });
+                ).then(() => { });
             } catch (error) {
                 console.error(error);
             }
@@ -69,6 +68,10 @@ const RegisterScreen = () => {
         else {
             WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
         };
+    }
+    const onCloseSuccessModal = () => {
+        setIsOpenModalSuccesss(false)
+        navigate(ROUTE_PATH.LOGIN)
     }
     return (
         <LayoutClient>
@@ -147,18 +150,6 @@ const RegisterScreen = () => {
                             setValidate={setValidate}
                             submittedTime={submittedTime}
                         />
-                        <div className="remember-forgot">
-                            <label className="custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    checked={remember}
-                                    onChange={() => setRemember(!remember)}
-                                />
-                                <span className="checkmark" />
-                                Ghi nhớ tài khoản
-                            </label>
-
-                        </div>
                         <ButtonDesign
                             classColor={'green'}
                             title={'Đăng kí'}
@@ -171,6 +162,13 @@ const RegisterScreen = () => {
                     </div>
                 </div>
             </div>
+            <DialogNotificationCommon
+                title={'Đăng kí tài khoản thành công'}
+                message={'Đăng ký thành công, vui lòng kiểm tra email (bao gồm spam) để kích hoạt tài khoản'}
+                titleCancel={'Đóng'}
+                handleCancel={onCloseSuccessModal}
+                visible={isOpenModalSuccesss}
+            />
             <FullPageLoading isLoading={loading} />
         </LayoutClient>
     )

@@ -635,6 +635,159 @@
   color: #fff;
   text-align: justify;
 }
+
+.homepage-container .customer {
+  background: #003333;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.homepage-container .customer .line {
+  height: 3px;
+  background: linear-gradient(90deg, #006699 0%, #99cc99 100%);
+}
+.homepage-container .customer .title h2 {
+  text-align: center;
+  font-size: 48px;
+  line-height: 60px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+}
+.homepage-container .customer .slider .slider-content {
+  display: flex !important;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+.homepage-container .customer .slider .name {
+  text-align: center;
+}
+.homepage-container .customer .slider .name div {
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 35px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #fff;
+}
+.homepage-container .customer .slider .name span {
+  font-family: SVN-Gilroy;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  color: #99cc99;
+}
+.homepage-container .customer .slider p {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 25px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 50px;
+}
+
+.homepage-container .customer .slider .slick-dots li button {
+  box-shadow: 1px 1px 5px 0px #00000059;
+  background: #ffffff59;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+.homepage-container .customer .slider .slick-dots li.slick-active button {
+  background: #99cccc;
+}
+.homepage-container .customer .slider .slick-dots li button:before {
+  color: transparent;
+}
+
+.homepage-container .post {
+  background: #e6f0f5;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.homepage-container .post .title h2 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 60px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+  color: #101010;
+}
+
+.homepage-container .post .slider .slider-content {
+  display: flex !important;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 20px;
+}
+.homepage-container .post .slider .slider-content img {
+  border-radius: 15px;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.homepage-container .post .slider .slider-content img:hover {
+  transform: scale(1.03);
+}
+.homepage-container .post .slider .slider-content .author {
+  color: #003333;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  padding: 5px 0;
+}
+
+.homepage-container .post .slider .slider-content .title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  text-align: justify;
+  vertical-align: middle;
+  color: #333333;
+  text-transform: capitalize;
+}
+
+.homepage-container .post .slider .slider-content .description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  color: #666666;
+}
+
+.homepage-container .post .slider .slider-content .see-move {
+  font-weight: 500;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  color: #666666;
+  text-align: right;
+  width: 100%;
+}
+
+.homepage-container .post .slider .slider-content .see-move:hover {
+  color: rgb(0, 140, 255) !important;
+}
+
 @media only screen and (min-width: 1600px) {
   .homepage-container .introduction {
     padding: 160px 300px 0;
@@ -642,6 +795,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {
@@ -656,6 +811,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {
@@ -670,6 +827,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {
@@ -688,6 +847,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {
@@ -702,6 +863,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {
@@ -720,7 +883,7 @@
   .homepage-container .banner .right-content {
     display: none;
   }
-  .homepage-container .spending .left-content {
+  .homepage-container .spending .homepage-container .customer .left-content {
     height: 300px;
   }
 }
@@ -731,6 +894,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {
@@ -749,6 +914,8 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .customer,
+  .homepage-container .post,
   .homepage-container .service,
   .homepage-container .slogan,
   .homepage-container .pricing-container {

@@ -5,6 +5,8 @@ import PricingComponent from './pricing'
 import SpendingComponent from './spending'
 import SloganComponent from './slogan'
 import IntroductionComponent from './introduction'
+import CustomerComponent from './customer'
+import PostComponent from './post'
 const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
@@ -114,7 +116,9 @@ const HomePage = () => {
                 <SloganComponent />
                 {/* <ServiceComponent /> */}
                 <PricingComponent />
-                <SpendingComponent />
+                <CustomerComponent />
+                <PostComponent />
+                {/* <SpendingComponent /> */}
             </div>
         </LayoutClient >
     )

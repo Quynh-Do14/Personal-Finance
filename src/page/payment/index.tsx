@@ -118,22 +118,9 @@ const PaymentPage = () => {
                             setValidate={setValidate}
                             submittedTime={submittedTime}
                         />
-                        <div className="remember-forgot">
-                            <label className="custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    checked={remember}
-                                    onChange={() => setRemember(!remember)}
-                                />
-                                <span className="checkmark" />
-                                Ghi nhớ tài khoản
-                            </label>
-
-                            <a href="/forgot-password" className="forgot-link">Quên mật khẩu</a>
-                        </div>
                         <ButtonDesign
                             classColor={'green'}
-                            title={'Đăng nhập'}
+                            title={'Thanh toán'}
                             onClick={onPaymentAsync}
                         />
 

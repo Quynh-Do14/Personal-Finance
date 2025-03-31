@@ -134,7 +134,7 @@ const ProfileModal = (props: Props) => {
             shape={"circle"}
           />
           <div className="flex flex-col gap-1 items-start">
-            <div className='text-[16px] text-[#6b7280] font-semibold text-truncate'>
+            <div className='text-[16px] text-[#8893a7] font-semibold text-truncate'>
               {dataProfile.name}
             </div>
             <div className='text-[14px] text-[#6b7280] font-normal underline text-truncate'>

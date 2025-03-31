@@ -22,13 +22,9 @@ import TimeFilter from "../../../infrastructure/common/components/time-filter/Ti
 import happy from "../../../assets/images/happy.gif";
 import sad from "../../../assets/images/sad.gif";
 import robot from "../../../assets/images/robot.gif";
-
-import { Col, Row } from "antd";
 import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
-import { ButtonCommon } from "../../../infrastructure/common/components/button/button-common";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import StaticComponent from "../common/static";
-import { ButtonSimpleCommon } from "../../../infrastructure/common/components/button/buttom-simple-common";
 import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -298,15 +294,14 @@ const PersonalFinancePage = () => {
                                 <img src={sad} alt="" width={80} />
                             } </div>
                         </div>
-
                         <div className="more">
-                            <div className="text-left text-[#e05349]">
-                                <p className="">Chi phí</p>
-                                <p className=""><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
-                            </div>
-                            <div className="text-right text-[#1d9b5e]">
+                            <div className="text-left text-[#1d9b5e]">
                                 <p className="">Thu nhập</p>
                                 <p className=""><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
+                            </div>
+                            <div className="text-right text-[#e05349]">
+                                <p className="">Chi phí</p>
+                                <p className=""><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
                             </div>
                         </div>
                     </div>
