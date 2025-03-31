@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import React from 'react'
-import { Pie } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
 import { formatCurrencyVND } from '../../../infrastructure/helper/helper';
 type Props = {
     selectedTab: "spend" | "income"
@@ -21,12 +21,13 @@ const StaticComponent = (props: Props) => {
     } = props;
     return (
         <div className='static'>
+
             {
                 dataTable.length
                     ?
                     <Row gutter={[40, 20]}>
                         <Col sm={24} md={18} lg={8} className="w-full">
-                            <Pie data={selectedTab === "spend" ? spendData : incomeData} />
+                            <Doughnut data={selectedTab === "spend" ? spendData : incomeData} />
                         </Col>
                         <Col sm={24} md={24} lg={16} className="overflow-x-auto w-full">
                             <table>

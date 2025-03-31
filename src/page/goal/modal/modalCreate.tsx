@@ -1,12 +1,12 @@
 import { Col, Modal, Row } from 'antd'
-import InputTextCommon from '../../infrastructure/common/components/input/input-text';
-import InputNumberCommon from '../../infrastructure/common/components/input/input-number';
-import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
-import "../../assets/styles/components/modal.css"
+import InputTextCommon from '../../../infrastructure/common/components/input/input-text';
+import InputNumberCommon from '../../../infrastructure/common/components/input/input-number';
+import { ButtonCommon } from '../../../infrastructure/common/components/button/button-common';
+import "../../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
-import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
-import InputDateCommon from '../../infrastructure/common/components/input/input-date';
-import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
+import UploadImageAvatar from '../../../infrastructure/common/components/input/upload-img-avatar';
+import InputDateCommon from '../../../infrastructure/common/components/input/input-date';
+import { ButtonDesign } from '../../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
     handleOk: () => void,

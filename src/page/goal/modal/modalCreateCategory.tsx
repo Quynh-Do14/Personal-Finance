@@ -1,11 +1,11 @@
 import { Col, Modal, Row } from 'antd'
-import InputTextCommon from '../../infrastructure/common/components/input/input-text';
-import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
-import "../../assets/styles/components/modal.css"
+import InputTextCommon from '../../../infrastructure/common/components/input/input-text';
+import { ButtonCommon } from '../../../infrastructure/common/components/button/button-common';
+import "../../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
-import category from '../../assets/images/category/another.png'
-import { configImageURL } from '../../infrastructure/helper/helper';
-import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
+import category from '../../../assets/images/category/another.png'
+import { configImageURL } from '../../../infrastructure/helper/helper';
+import { ButtonDesign } from '../../../infrastructure/common/components/button/buttonDesign';
 type Props = {
     selectedId: any
     selectedTab: 'spend' | 'income'

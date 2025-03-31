@@ -4,13 +4,13 @@ import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link } from "react-router-dom";
 import { configImageURL, convertDateOnly, convertDateOnlyShow, formatCurrencyVND } from "../../infrastructure/helper/helper";
-import ModalCreateGoal from "./modalCreate";
+import ModalCreateGoal from "./modal/modalCreate";
 import '../../assets/styles/page/personalFinance.css'
 import { Col, Row } from "antd";
 import Constants from "../../core/common/constants";
 import spendingTypeService from "../../infrastructure/repositories/type/spending-type.service";
 import incomeTypeService from "../../infrastructure/repositories/type/income-type.service";
-import ModalCreateCategory from "./modalCreateCategory";
+import ModalCreateCategory from "./modal/modalCreateCategory";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import DrawerSelectCategory from "./common/drawerSelectCategory";

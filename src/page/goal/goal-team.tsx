@@ -4,9 +4,9 @@ import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import { Link, useParams } from "react-router-dom";
 import { configImageURL, convertDateOnly, convertDateOnlyShow, formatCurrencyVND } from "../../infrastructure/helper/helper";
-import ModalCreateGoal from "./modalCreate";
+import ModalCreateGoal from "./modal/modalCreate";
 import '../../assets/styles/page/personalFinance.css'
-import ModalCreateCategory from "./modalCreateCategory";
+import ModalCreateCategory from "./modal/modalCreateCategory";
 import Constants from "../../core/common/constants";
 import { Col, Row } from "antd";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
@@ -17,7 +17,7 @@ import { WarningMessage } from "../../infrastructure/common/components/toast/not
 import teamService from "../../infrastructure/repositories/team/team.service";
 import { ButtonSimpleCommon } from "../../infrastructure/common/components/button/buttom-simple-common";
 import SelectFilterCommon from "../../infrastructure/common/components/input/select-filter";
-import ModalAddMember from "./modalAddMember";
+import ModalAddMember from "./modal/modalAddMember";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
 

@@ -1,15 +1,12 @@
 import { Col, Modal, Row } from 'antd'
-import InputTextCommon from '../../infrastructure/common/components/input/input-text';
-import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
-import "../../assets/styles/components/modal.css"
+import InputTextCommon from '../../../infrastructure/common/components/input/input-text';
+import { ButtonCommon } from '../../../infrastructure/common/components/button/button-common';
+import "../../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
-import UploadImageAvatar from '../../infrastructure/common/components/input/upload-img-avatar';
-import InputSelectCommon from '../../infrastructure/common/components/input/select-common';
-import Constants from '../../core/common/constants';
-import teamService from '../../infrastructure/repositories/team/team.service';
+import teamService from '../../../infrastructure/repositories/team/team.service';
 import { useState } from 'react';
-import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
-import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
+import { WarningMessage } from '../../../infrastructure/common/components/toast/notificationToast';
+import { ButtonDesign } from '../../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
     selectedId: any

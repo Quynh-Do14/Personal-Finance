@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { useEffect, useState } from "react";
 import {
     Chart as ChartJS,
     ArcElement,
@@ -13,19 +12,17 @@ import goalService from "../../../infrastructure/repositories/goal/goal.service"
 import { useParams } from "react-router-dom";
 import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
-import { convertDateOnlyShow, formatCurrencyVND } from "../../../infrastructure/helper/helper";
-import RoundChartMiniCommon from "../../../infrastructure/common/components/mini-chart/round-chart";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import spendService from "../../../infrastructure/repositories/spend/spend.service";
 import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
-import happy from "../../../assets/images/happy.gif";
-import sad from "../../../assets/images/sad.gif";
-import robot from "../../../assets/images/robot.gif";
-import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import StaticComponent from "../common/static";
 import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
+import InfoComponent from "../common/info";
+import OverviewComponent from "../common/overview";
+import { Col, Row } from "antd";
+import BarChartStatic from "../common/barChart";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -57,6 +54,10 @@ const PersonalFinancePage = () => {
     const [incomeData, setIncomeData] = useState({
         labels: [],
         datasets: [{ data: [], backgroundColor: ["#36A2EB"] }],
+    });
+    const [barChartData, setBarChartData] = useState<any>({
+        labels: [],
+        datasets: [{ data: [], backgroundColor: [] }],
     });
 
     const onGetDetailGoalAsync = async () => {
@@ -97,6 +98,16 @@ const PersonalFinancePage = () => {
                 () => { }
             ).then((res) => {
                 setDailySpend(res.incomeStatistics.totalInCome - res.spendStatistics.totalSpend);
+                setBarChartData({
+                    labels: ["Thu nhập", "Chi tiêu"],
+                    datasets: [{
+                        data: [
+                            res.incomeStatistics.totalInCome,
+                            res.spendStatistics.totalSpend
+                        ], 
+                        backgroundColor: ["#2483DD", "#E14C76"]
+                    }],
+                })
             })
         }
         catch (error) {
@@ -105,7 +116,13 @@ const PersonalFinancePage = () => {
     };
 
     const generateColors = (length: number) => {
-        const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
+        const colors = [
+            "#FFC371", // Cam nhẹ (tươi tắn)
+            "#A88BEB", // Tím pastel (hài hòa với hồng)
+            "#FF69B4", // Hồng tươi (hot pink)
+            "#F4EAD5",  // Be nhạt (làm nền cực dịu)
+            "#607D8B", // Xám xanh (trung tính)
+        ];
         return Array.from({ length }, (_, i) => colors[i % colors.length]); // Lặp lại màu nếu thiếu
     };
 
@@ -263,50 +280,26 @@ const PersonalFinancePage = () => {
             <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
-                    <div className="overview">
-                        <div className="content">
-                            <div className="flex flex-col gap-2">
-                                <p className="title">{detailGoal.name} </p>
-                                <p className="sub">Mục tiêu: {formatCurrencyVND(detailGoal.goalAmount)}</p>
-                                <p className="sub">Số tiền đã đã đạt được: {formatCurrencyVND(detailGoal.currentAmount)}</p>
-                                <p className="sub">Thời hạn: {convertDateOnlyShow(detailGoal.startDate)} - {convertDateOnlyShow(detailGoal.endDate)} </p>
+                    <Row gutter={[20, 20]}>
+                        <Col md={24} lg={12}>
+                            <div className="flex flex-col gap-5">
+                                <OverviewComponent
+                                    detailGoal={detailGoal}
+                                />
+                                <InfoComponent
+                                    dailySpend={dailySpend}
+                                    incomeStatistics={incomeStatistics}
+                                    spendStatistics={spendStatistics}
+                                    barChartData={barChartData}
+                                />
                             </div>
-                            <RoundChartMiniCommon
-                                completed={Number(((detailGoal.currentAmount / detailGoal.goalAmount) * 100).toFixed(2))}
-                                total={100}
+                        </Col>
+                        <Col md={24} lg={12}>
+                            <BarChartStatic
+                                barChartData={barChartData}
                             />
-                        </div>
-                        <img src={robot} alt="" width={160} />
-                    </div>
-
-                    <div className="info">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="title">Tổng chi tiêu hôm nay</p>
-                                <p className={`${dailySpend >= 0 ? "text-[#1d9b5e]" : "text-[#e05349]"} sum`}>
-                                    {dailySpend >= 0 ? <i className="fa fa-caret-up" aria-hidden="true"></i> : <i className="fa fa-caret-down" aria-hidden="true"></i>}
-                                    {dailySpend && <AnimatedNumber value={dailySpend} />}
-                                </p>
-                            </div>
-                            <div >{dailySpend >= 0 ?
-                                <img src={happy} alt="" width={80} />
-                                :
-                                <img src={sad} alt="" width={80} />
-                            } </div>
-                        </div>
-                        <div className="more">
-                            <div className="text-left text-[#1d9b5e]">
-                                <p className="">Thu nhập</p>
-                                <p className=""><i className="fa fa-caret-up" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
-                            </div>
-                            <div className="text-right text-[#e05349]">
-                                <p className="">Chi phí</p>
-                                <p className=""><i className="fa fa-caret-down" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        </Col>
+                    </Row>
                     {/* Bộ lọc thời gian */}
                     <TimeFilter
                         setTimeRange={setTimeRange}
@@ -358,7 +351,7 @@ const PersonalFinancePage = () => {
                     />
                 </div>
             </div>
-            <FullPageLoading isLoading={false} />
+            {/* <FullPageLoading isLoading={loading} /> */}
         </LayoutClient >
     );
 };
