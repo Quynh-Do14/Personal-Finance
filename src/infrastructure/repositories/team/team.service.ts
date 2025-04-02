@@ -42,11 +42,11 @@ class TeamService {
             setLoading(false);
         }
     };
-    async AddMember(teamId: number, userName: string, onBack: Function, setLoading: Function) {
+    async AddMember(teamId: number, data: any, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .put(`${Endpoint.Team.AddMember}/${teamId}/${userName}`)
+                .put(`${Endpoint.Team.AddMember}/${teamId}`, data)
                 .then(response => {
                     if (response) {
                         onBack()

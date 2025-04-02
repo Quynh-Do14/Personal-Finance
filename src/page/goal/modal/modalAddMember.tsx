@@ -56,7 +56,9 @@ const ModalAddMember = (props: Props) => {
             try {
                 await teamService.AddMember(
                     Number(idTeam),
-                    dataRequest.userName,
+                    {
+                        userKey: dataRequest.userName
+                    },
                     () => {
                         onGetListMemberAsync();
                         handleCancel();
