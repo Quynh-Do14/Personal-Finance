@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Checkbox, Input } from 'antd';
+import { useEffect, useState } from 'react';
+import { Checkbox } from 'antd';
 import "../../../../assets/styles/components/input.css"
-import { validateFields } from '../../../helper/helper';
-import { validateCMND, validateEmail, validatePhoneNumber } from '../../../helper/validate';
 import { MessageError } from '../controls/MessageError';
 type Props = {
     label: string,

@@ -1,46 +1,41 @@
 import { Endpoint } from "../../../core/common/apiLink";
-import { FailMessage, SuccessMessage } from "../../common/components/toast/notificationToast";
+import { FailMessage } from "../../common/components/toast/notificationToast";
 import { RequestService } from "../../utils/response";
 
-class SpendService {
-    async GetSpend(idGoal: string, params: object, setLoading: Function) {
+class PaymentService {
+    async Payment(params: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Spending.Get}/${idGoal}`, {
-                    ...params
-                })
+                .get(`${Endpoint.Subscription.Payment}?${params}`)
                 .then(response => {
                     if (response) {
-                        return response
-                    }
-                    setLoading(false)
-                    return response;
-                });
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setLoading(false);
-        }
-    };
-    async CreateSpend(idGoal: string, data: object, onBack: Function, setLoading: Function) {
-        setLoading(true)
-        try {
-            return await RequestService
-                .post(`${Endpoint.Spending.Create}/${idGoal}`,
-                    { ...data }
-                )
-                .then(response => {
-                    if (response) {
-                        onBack()
-                        SuccessMessage("Thêm mới thành công", "")
                         return response
                     }
                     setLoading(false)
                     return response;
                 });
         } catch (error: any) {
-            FailMessage("Thêm mới không thành công", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+    async Subscription(idPackage: string, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .post(`${Endpoint.Subscription.Create}/${idPackage}`
+                )
+                .then(response => {
+                    if (response) {
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Đăng kí gói không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -48,4 +43,4 @@ class SpendService {
     }
 }
 
-export default new SpendService();
+export default new PaymentService();

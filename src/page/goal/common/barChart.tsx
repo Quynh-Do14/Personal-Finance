@@ -19,6 +19,7 @@ const BarChartStatic = (props: Props) => {
                             display: false,
                         }
                     },
+
                     scales: {
                         y: {
                             display: false,

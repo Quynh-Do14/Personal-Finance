@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const Authenticate = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Authenticate = () => {
       }).then((response) => {
         console.log("response: ", response);
         const { refreshToken, accessToken } = response.data;
-        localStorage.setItem('token', JSON.stringify({ refreshToken, accessToken }));
+        Cookies.set('token', JSON.stringify({ refreshToken, accessToken }));
         setIsLoggedin(true);
       }).catch((error) => {
         console.log("error: ", error);

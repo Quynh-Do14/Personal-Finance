@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons'
 import "../../../../assets/styles/components/input.css"
 import { UploadListType } from 'antd/es/upload/interface'
+import { getBase64 } from '../../../helper/helper'
 
 type Props = {
   label: string
@@ -13,11 +14,6 @@ type Props = {
   shape: 'circle' | 'card'
 }
 
-const getBase64 = (img: any, callback: any) => {
-  const reader = new FileReader()
-  reader.addEventListener('load', () => callback(reader.result))
-  reader.readAsDataURL(img)
-}
 function UploadAvatar(props: Props) {
   const { label, dataAttribute, setData, attribute, listType, shape } = props
   const [value, setValue] = useState<string>('')

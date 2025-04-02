@@ -141,7 +141,7 @@ const GoalSpendingTeamPage = () => {
 
         try {
             await spendingTypeService.GetTeam(
-                Number(id),
+                String(id),
                 {},
                 () => { }
             ).then((res) => {
@@ -156,7 +156,7 @@ const GoalSpendingTeamPage = () => {
     const onGetIncomeTypeAsync = async () => {
         try {
             await incomeTypeService.GetTeam(
-                Number(id),
+                String(id),
                 {},
                 () => { }
             ).then((res) => {
@@ -305,7 +305,6 @@ const GoalSpendingTeamPage = () => {
             }
         }
         else if (selectedTab == "income") {
-
             try {
                 await incomeTypeService.DeleteTeam(
                     Number(id),
@@ -471,7 +470,7 @@ const GoalSpendingTeamPage = () => {
                                         const percentage = Math.min((goal.currentAmount / goal.goalAmount) * 100, 100);
                                         return (
                                             <Col xs={24} sm={12} md={24} lg={12}>
-                                                <Link to={`/team-finance/${goal.id}`}
+                                                <Link to={`/team-finance/${goal.id}?idTeam=${id}`}
                                                     key={index}
                                                     className="box"
                                                     style={{

@@ -15,8 +15,10 @@ type Props = {
     setValidate: Function,
     submittedTime: any,
     listDataOfItem: Array<any>,
+    nameOfValue?: string
+    nameOfLabel?: string
 }
-const InputSelectCatrgoryCommon = (props: Props) => {
+const InputSelectCategoryCommon = (props: Props) => {
     const {
         dataAttribute,
         setData,
@@ -27,15 +29,17 @@ const InputSelectCatrgoryCommon = (props: Props) => {
         validate,
         submittedTime,
         isRequired,
-        label
+        label,
+        nameOfValue = "value",
+        nameOfLabel = "label"
     } = props;
 
     const [value, setValue] = useState("");
 
-    const onChange = async (val: any) => {
-        setValue(val || "");
+    const onChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setValue(e.target.value || "");
         setData({
-            [attribute]: val
+            [attribute]: e.target.value
         });
     };
 
@@ -79,15 +83,20 @@ const InputSelectCatrgoryCommon = (props: Props) => {
                     onBlur={onBlur}
                     className={`${validate[attribute]?.isError ? "input-error" : ""} w-full text-left`}
                 >
+                    <option
+                        value={""}
+                    >
+                        Chọn {labelLower}
+                    </option>
                     {
                         listDataOfItem && listDataOfItem.length && listDataOfItem.map((item, index) => {
                             return (
                                 <option
                                     key={index}
-                                    value={item.value}
-                                    title={item.label}
+                                    value={item[nameOfValue]}
+                                    title={item[nameOfLabel]}
                                 >
-                                    {item.label}
+                                    {item[nameOfLabel]}
                                 </option>
                             )
                         })
@@ -98,4 +107,4 @@ const InputSelectCatrgoryCommon = (props: Props) => {
         </div>
     );
 }
-export default InputSelectCatrgoryCommon;
+export default InputSelectCategoryCommon;

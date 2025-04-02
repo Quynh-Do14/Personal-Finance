@@ -46,11 +46,13 @@ class ChatService {
             setLoading(false);
         }
     }
-    async GetBillPersonal(id: object, setLoading: Function) {
+    async GetBillPersonal(id: string, data: any, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Chat.Personal.GetBill}/${id}`)
+                .postForm(`${Endpoint.Chat.Personal.GetBill}/${id}`,
+                    data
+                )
                 .then(response => {
                     if (response) {
                         return response

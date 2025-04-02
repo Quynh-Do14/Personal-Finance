@@ -4,7 +4,7 @@ import { RequestService } from "../../utils/response";
 
 class IncomeTypeService {
     //Team
-    async GetTeam(idTeam: number, params: object, setLoading: Function) {
+    async GetTeam(idTeam: String, params: object, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
@@ -25,7 +25,7 @@ class IncomeTypeService {
         }
     };
 
-    async GetTeamById(idTeam: number, id: string, setLoading: Function) {
+    async GetTeamById(idTeam: String, id: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService

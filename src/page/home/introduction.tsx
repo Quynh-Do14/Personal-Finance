@@ -8,12 +8,12 @@ const IntroductionComponent = () => {
                 title={'AI & Tự Động Hóa'}
                 color={'black'}
             />
-            <div className="title">
+            <div className="title top">
                 <div>
                     <h2>Quản lý tài chính thông minh với AI</h2>
                     <h3>Đưa doanh nghiệp lên tầm cao mới</h3>
                 </div>
-                <p className="sub">Công cụ phân tích tài chính mạnh mẽ, ứng dụng AI để giúp doanh nghiệp của bạn tối ưu hóa chi phí, dự báo dòng tiền và ra quyết định chính xác hơn.</p>
+                <p className="sub top">Công cụ phân tích tài chính mạnh mẽ, ứng dụng AI để giúp doanh nghiệp của bạn tối ưu hóa chi phí, dự báo dòng tiền và ra quyết định chính xác hơn.</p>
             </div>
             <div className='flex gap-2 justify-center'>
                 <ButtonDesign
@@ -29,7 +29,7 @@ const IntroductionComponent = () => {
                     onClick={() => { }}
                 />
             </div>
-            <img src={introduction} alt="" className="img" />
+            <img src={introduction} alt="" className="img top" />
         </div>
     )
 }

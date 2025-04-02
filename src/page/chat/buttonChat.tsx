@@ -9,6 +9,9 @@ type Props = {
     messages: string
     setMessages: Function
     loading: boolean
+    idGoal: string
+    idTeam?: string
+    setLoading: Function
 }
 
 
@@ -21,7 +24,10 @@ const ChatButton = (props: Props) => {
         handleSendMessage,
         messages,
         setMessages,
-        loading
+        loading,
+        idGoal,
+        idTeam = "",
+        setLoading
     } = props;
 
     const handleCartClick = () => {
@@ -30,7 +36,7 @@ const ChatButton = (props: Props) => {
     return (
         <div className="chat-container">
             <div className="btn-chat" onClick={handleCartClick}>
-                    <i className="fa fa-commenting text-[24px]" aria-hidden="true"></i>
+                <i className="fa fa-commenting text-[24px]" aria-hidden="true"></i>
             </div>
 
             <ChatBoxCommon
@@ -42,6 +48,9 @@ const ChatButton = (props: Props) => {
                 handleSendMessage={handleSendMessage}
                 messages={messages}
                 setMessages={setMessages}
+                idGoal={String(idGoal)}
+                idTeam={String(idTeam)}
+                setLoading={setLoading}
             />
             {/* <FullPageLoading isLoading={loading} /> */}
         </div>

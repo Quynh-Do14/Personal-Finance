@@ -1,8 +1,9 @@
+import Cookies from "js-cookie";
 import { Endpoint } from "../../../../core/common/apiLink";
 import { FailMessage, SuccessMessage } from "../../../common/components/toast/notificationToast";
 import { messageConfig } from "../../../helper/message";
 import { RequestService } from "../../../utils/response";
-import { saveToken } from "../../../utils/storage";
+import { clearToken, saveToken } from "../../../utils/storage";
 
 class AuthService {
     async login(data: any, setLoading: Function) {
@@ -34,7 +35,7 @@ class AuthService {
     async logout(setLoading: Function) {
         setLoading(true)
         try {
-            localStorage.clear();
+            clearToken()
             SuccessMessage("Đăng xuất thành công", "")
         } catch (error) {
             console.error(error)

@@ -378,6 +378,9 @@
   align-items: center;
   gap: 30px;
 }
+.homepage-container .introduction .title.top {
+  animation: topTo 1s 0.75s both ease-out 1;
+}
 .homepage-container .introduction .title h2 {
   font-weight: 700;
   font-size: 48px;
@@ -404,7 +407,9 @@
   letter-spacing: 0%;
   text-align: center;
 }
-
+.homepage-container .introduction .title .sub.top {
+  animation: topTo 1s 1.5s both ease-out 1;
+}
 .homepage-container .introduction .title h2,
 .homepage-container .introduction .title h3 {
   width: 100%;
@@ -420,6 +425,20 @@
   height: 520;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+}
+.homepage-container .introduction img.img.top {
+  animation: topTo 1s 2.5s both ease-out 1;
+}
+@keyframes topTo {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }
 
 .homepage-container .pricing-container {

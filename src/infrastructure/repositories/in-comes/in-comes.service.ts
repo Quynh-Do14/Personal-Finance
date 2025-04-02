@@ -2,12 +2,12 @@ import { Endpoint } from "../../../core/common/apiLink";
 import { FailMessage, SuccessMessage } from "../../common/components/toast/notificationToast";
 import { RequestService } from "../../utils/response";
 
-class SpendService {
-    async GetSpend(idGoal: string, params: object, setLoading: Function) {
+class IncomeService {
+    async GetIncome(idGoal: string, params: object, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Spending.Get}/${idGoal}`, {
+                .get(`${Endpoint.Income.Get}/${idGoal}`, {
                     ...params
                 })
                 .then(response => {
@@ -23,11 +23,11 @@ class SpendService {
             setLoading(false);
         }
     };
-    async CreateSpend(idGoal: string, data: object, onBack: Function, setLoading: Function) {
+    async CreateIncome(idGoal: string, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .post(`${Endpoint.Spending.Create}/${idGoal}`,
+                .post(`${Endpoint.Income.Create}/${idGoal}`,
                     { ...data }
                 )
                 .then(response => {
@@ -48,4 +48,4 @@ class SpendService {
     }
 }
 
-export default new SpendService();
+export default new IncomeService();

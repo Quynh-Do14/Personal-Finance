@@ -34,7 +34,7 @@ const InputPasswordCommon = (props: Props) => {
     const [value, setValue] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
 
-    const onChange = (e: any) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value || "");
         setData({
             [attribute]: e.target.value || ''

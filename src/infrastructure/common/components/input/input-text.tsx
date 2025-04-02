@@ -29,7 +29,7 @@ const InputTextCommon = (props: Props) => {
     } = props;
     const [value, setValue] = useState<string>("");
 
-    const onChange = (e: any) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value || "");
         setData({
             [attribute]: e.target.value || ''

@@ -10,11 +10,9 @@ import ChatButton from "../../chat/buttonChat";
 import LayoutClient from "../../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../../infrastructure/repositories/goal/goal.service";
 import { useParams } from "react-router-dom";
-import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import spendService from "../../../infrastructure/repositories/spend/spend.service";
 import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import StaticComponent from "../common/static";
@@ -23,20 +21,24 @@ import InfoComponent from "../common/info";
 import OverviewComponent from "../common/overview";
 import { Col, Row } from "antd";
 import BarChartStatic from "../common/barChart";
+import { getTokenStoraged } from "../../../infrastructure/utils/storage";
+import staticService from "../../../infrastructure/repositories/static/static.service";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PersonalFinancePage = () => {
-    const tokenString = localStorage.getItem('token');
+    const tokenString = getTokenStoraged();
 
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const [loadingBot, setLoadingBot] = useState(false);
 
     const [isOpenChatBox, setIsOpenChatBox] = useState<boolean>(false);
+
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
     const [messages, setMessages] = useState<string>("");
+
     const [dailySpend, setDailySpend] = useState<any>();
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
@@ -90,7 +92,7 @@ const PersonalFinancePage = () => {
 
     const onGetSpendPersonalByGoalStatisticalDaily = async () => {
         try {
-            await spendService.PersonalStatisticalByGoal(
+            await staticService.PersonalStatisticalByGoal(
                 String(id),
                 "",
                 "",
@@ -104,8 +106,9 @@ const PersonalFinancePage = () => {
                         data: [
                             res.incomeStatistics.totalInCome,
                             res.spendStatistics.totalSpend
-                        ], 
-                        backgroundColor: ["#2483DD", "#E14C76"]
+                        ],
+                        backgroundColor: ["#2483DD", "#E14C76"],
+                        borderRadius: 8
                     }],
                 })
             })
@@ -129,7 +132,7 @@ const PersonalFinancePage = () => {
     const onGetSpendPersonalByGoalStatistical = async () => {
         setLoading(true);
         try {
-            const res = await spendService.PersonalStatisticalByGoal(
+            const res = await staticService.PersonalStatisticalByGoal(
                 String(id),
                 endDate,
                 startDate,
@@ -166,7 +169,7 @@ const PersonalFinancePage = () => {
     const onGetIncomePersonalByGoalStatistical = async () => {
         setLoading(true);
         try {
-            const res = await spendService.PersonalStatisticalByGoal(
+            const res = await staticService.PersonalStatisticalByGoal(
                 String(id),
                 endDate,
                 startDate,
@@ -228,7 +231,7 @@ const PersonalFinancePage = () => {
             onConnect: (frame) => {
                 // Lắng nghe thông báo từ đích riêng của user
                 stompClient.subscribe('/user/queue/chat', () => {
-                    // onGetDetailGoalAsync();
+                    onGetDetailGoalAsync();
                     onGetChatBoxAsync();
                     onGetSpendPersonalByGoalStatisticalDaily();
                     onGetSpendPersonalByGoalStatistical();
@@ -274,6 +277,7 @@ const PersonalFinancePage = () => {
             setDataTable(incomeDataTable);
         }
     }, [selectedTab, incomeDataTable, spendDataTable]);
+
 
     return (
         <LayoutClient>
@@ -347,7 +351,9 @@ const PersonalFinancePage = () => {
                         handleSendMessage={handleSendMessage}
                         messages={messages}
                         setMessages={setMessages}
+                        idGoal={String(id)}
                         loading={loadingBot}
+                        setLoading={setLoadingBot}
                     />
                 </div>
             </div>

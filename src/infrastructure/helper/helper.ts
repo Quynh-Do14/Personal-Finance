@@ -73,3 +73,9 @@ export const formatCurrencyVND = (amount: any) => {
     let formattedAmount = String(amount).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     return `${formattedAmount} ₫`;
 }
+
+export const getBase64 = (img: any, callback: any) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+};

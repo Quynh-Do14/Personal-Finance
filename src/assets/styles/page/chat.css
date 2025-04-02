@@ -27,6 +27,7 @@
   border: 3px #fff solid;
   transition: 0.3s;
 }
+
 .chat-container .btn-chat:hover {
   background-color: #036161;
 }
@@ -77,13 +78,12 @@
   color: #99cc99;
 }
 .chat-box-container .chat-box {
-  flex: 1;
   padding: 15px;
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: 100vh;
+  height: calc(100vh - 60px);
 }
 
 .chat-box-container .chat-box .human-chat {
@@ -103,7 +103,11 @@
   line-height: 24px;
   letter-spacing: 0%;
 }
-
+.chat-box-container .chat-box .human-chat-img {
+  background: #003333;
+  max-width: 50%;
+  gap: 10px;
+}
 .chat-box-container .chat-box .ai-chat {
   background: #ededed;
   max-width: 90%;
@@ -124,11 +128,12 @@
 .chat-box-container .scroll-button {
   position: absolute;
   bottom: 80px;
-  left: 50%;
+  right: 22px;
   background: #003333;
+  border: 1px solid #fff;
   color: white;
   padding: 10px 15px;
-  border: none;
+  /* border: none; */
   border-radius: 50%;
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -144,7 +149,7 @@
   align-items: center;
   height: 50px;
   padding: 0 22px;
-  gap: 10px;
+  gap: 12px;
   border-radius: 30px;
   background: #ffffff;
   box-shadow: 5px 4px 20px 0px #00000021;
@@ -164,6 +169,20 @@
 }
 .title-chat {
   font-size: 20px;
+}
+.chat-box-container .input-chat .upload-img-bill input[type='file'] {
+  display: none;
+}
+.chat-box-container .input-chat .upload-img-bill label {
+  cursor: pointer;
+}
+
+.chat-box-container .form-expense {
+  padding: 15px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 @media only screen and (min-width: 1600px) {

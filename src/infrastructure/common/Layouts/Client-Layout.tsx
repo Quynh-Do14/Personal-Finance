@@ -3,6 +3,7 @@ import "../../../assets/styles/components/MainLayout.css";
 import FooterClient from "./Footer";
 import HeaderClient from "./Header";
 import HeaderMobileComponent from "./Header-Mobile";
+
 const LayoutClient = ({ ...props }: any) => {
     const [isLoginClick, setIsLoginClick] = useState<boolean>(false);
     const [isOpenModalLogout, setIsOpenModalLogout] = useState<boolean>(false);
@@ -37,7 +38,6 @@ const LayoutClient = ({ ...props }: any) => {
             };
         }
     }, [lastScrollY]);
-
     return (
         <div className="main-layout-client">
             <HeaderMobileComponent

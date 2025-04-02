@@ -1,10 +1,13 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import TitleComponent from "../../infrastructure/common/components/controls/TitleComponent";
+import paymentService from "../../infrastructure/repositories/payment/payment.service";
+import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 
 const PricingComponent = () => {
     const plans = [
         {
+            id: 1,
             title: "Quản Lý Dòng Tiền",
             sub: "Cash Flow Management",
             price: "1.499.000vnđ",
@@ -18,6 +21,7 @@ const PricingComponent = () => {
             highlighted: false,
         },
         {
+            id: 2,
             title: "Lập Kế Hoạch Ngắn Hạn",
             sub: "Short-term Planning",
             price: "1.499.000vnđ",
@@ -30,6 +34,7 @@ const PricingComponent = () => {
             highlighted: true,
         },
         {
+            id: 3,
             title: "Lập Kế Hoạch Dài Hạn",
             sub: "Long-term Planning",
             price: "2.499.000vnđ",
@@ -42,7 +47,20 @@ const PricingComponent = () => {
             highlighted: false,
         },
     ];
-
+    const [loading, setLoading] = useState<boolean>(false)
+    const onPaymentAsync = async (idPackgae: string) => {
+        try {
+            await paymentService.Subscription(
+                idPackgae,
+                setLoading
+            ).then((res) => {
+                window.open(res.vnpayUrl, '_blank');
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className="pricing-container">
             <div className="title">
@@ -68,7 +86,7 @@ const PricingComponent = () => {
                                     {plan.price}<span className="text-[18px] font-normal text-[#666666]"> / tháng</span>
                                 </p>
                             </div>
-                            <button>Liên Hệ Tư Vấn Ngay</button>
+                            <button onClick={() => onPaymentAsync(String(plan.id))}>Liên Hệ Tư Vấn Ngay</button>
                             <ul className="flex flex-col gap-4">
                                 <li>Dịch vụ bao gồm</li>
                                 {plan.features.map((feature, idx) => (
@@ -91,6 +109,7 @@ const PricingComponent = () => {
             <div className="title">
                 <h2>Lý do nên chọn FATS</h2>
             </div>
+            <FullPageLoading isLoading={loading} />
         </div>
     );
 };

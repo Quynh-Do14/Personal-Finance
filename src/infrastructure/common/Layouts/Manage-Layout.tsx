@@ -11,11 +11,7 @@ import DialogConfirmCommon from '../components/modal/dialogConfirm';
 import Constants from '../../../core/common/constants';
 import { BreadcrumbCommon } from './Breadcumb';
 import logo from '../../../assets/images/logo.jpg';
-import { TeacherState } from '../../../core/atoms/teacher/teacherState';
-import { DisciplineState } from '../../../core/atoms/discipline/disciplineState';
-import { CategoryState } from '../../../core/atoms/category/categoryState';
 import { isTokenStoraged } from '../../utils/storage';
-import { CourseState } from '../../../core/atoms/course/courseState';
 
 const { Header, Content, Sider } = Layout;
 

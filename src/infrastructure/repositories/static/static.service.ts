@@ -2,13 +2,15 @@ import { Endpoint } from "../../../core/common/apiLink";
 import { FailMessage, SuccessMessage } from "../../common/components/toast/notificationToast";
 import { RequestService } from "../../utils/response";
 
-class SpendService {
-    async GetSpend(idGoal: string, params: object, setLoading: Function) {
+class StaticService {
+    async PersonalStatisticalByGoal(goalId: string, endDate: string, startDate: string, timeRange: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Spending.Get}/${idGoal}`, {
-                    ...params
+                .get(`${Endpoint.Static.Personal.GetStatisticalGoal}/${goalId}`, {
+                    endDate,
+                    startDate,
+                    timeRange
                 })
                 .then(response => {
                     if (response) {
@@ -23,29 +25,29 @@ class SpendService {
             setLoading(false);
         }
     };
-    async CreateSpend(idGoal: string, data: object, onBack: Function, setLoading: Function) {
+
+    async TeamStatisticalByGoal(goalId: string, type: "type" | "", endDate: string, startDate: string, timeRange: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .post(`${Endpoint.Spending.Create}/${idGoal}`,
-                    { ...data }
-                )
+                .get(`${Endpoint.Static.Team.GetStatisticalGoal}/${goalId}`, {
+                    endDate,
+                    startDate,
+                    timeRange
+                })
                 .then(response => {
                     if (response) {
-                        onBack()
-                        SuccessMessage("Thêm mới thành công", "")
                         return response
                     }
                     setLoading(false)
                     return response;
                 });
-        } catch (error: any) {
-            FailMessage("Thêm mới không thành công", error.response.data.message)
+        } catch (error) {
             console.error(error)
         } finally {
             setLoading(false);
         }
-    }
+    };
 }
 
-export default new SpendService();
+export default new StaticService();

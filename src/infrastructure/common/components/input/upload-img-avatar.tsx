@@ -1,7 +1,7 @@
 import { Upload } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { configImageURL, validateFields } from '../../../helper/helper';
+import { configImageURL, getBase64, validateFields } from '../../../helper/helper';
 
 type Props = {
     label: string,
@@ -14,11 +14,6 @@ type Props = {
     submittedTime: any,
 }
 
-const getBase64 = (img: any, callback: any) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-};
 function UploadImageAvatar(props: Props) {
     const {
         label,

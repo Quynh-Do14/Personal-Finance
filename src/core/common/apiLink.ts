@@ -39,10 +39,19 @@ export class Endpoint {
         static Team = class {
             static Get = "/chat-logs/team/all"
             static Add = "/ai/chat/team/spend"
+            static GetBill = "/ai/bill/info"
         }
     }
+    static Income = class {
+        static Get = "/incomes/user/get"
+        static Create = "/incomes/user/create"
+    }
 
-    static Spend = class {
+    static Spending = class {
+        static Get = "/spends/user/get"
+        static Create = "/spends/user/create"
+    }
+    static Static = class {
         static Personal = class {
             static GetStatisticalGoal = "/spends/user/statistical"
         }
@@ -89,6 +98,7 @@ export class Endpoint {
         static Delete = "/icons/admin/delete"
     }
     static Subscription = class {
+        static Payment = "/payment"
         static Get = "/subscriptions/private/histories"
         static Create = "subscriptions/private/subscribe"
     }

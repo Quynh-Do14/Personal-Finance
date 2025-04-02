@@ -199,7 +199,8 @@ const HeaderClient = (props: Props) => {
                                 if (!token) {
                                     return (
                                         <a
-                                            onClick={() => setIsLoginClick(!isLoginClick)}
+                                            href={ROUTE_PATH.LOGIN}
+                                            // onClick={() => setIsLoginClick(!isLoginClick)}
                                             key={index}
                                             className={`${conditionActive(item.link)} cursor-pointer`}
                                         >{item.label}</a>

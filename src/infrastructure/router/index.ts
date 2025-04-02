@@ -17,6 +17,7 @@ import LoginScreen from "../../page/Auth/LoginScreen";
 import RegisterScreen from "../../page/Auth/RegisterScreen";
 import BlogPage from "../../page/blog";
 import PaymentPage from "../../page/payment";
+import PaymentResultPage from "../../page/payment/payment-result";
 
 export const privateRoutes = [
 
@@ -105,11 +106,14 @@ export const privateRoutes = [
         component: TermOfServicePolicy,
         private: false,
     },
-
     {
-        path: ROUTE_PATH.PAYMENT,
+        path: ROUTE_PATH.PAYMENT_INFO,
         component: PaymentPage,
         private: false,
     },
-
+    {
+        path: ROUTE_PATH.PAYMENT_RESULT,
+        component: PaymentResultPage,
+        private: false,
+    },
 ]

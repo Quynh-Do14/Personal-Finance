@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     ArcElement,
@@ -10,35 +9,31 @@ import "../../../assets/styles/page/goal.css"
 import ChatButton from "../../chat/buttonChat";
 import LayoutClient from "../../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../../infrastructure/repositories/goal/goal.service";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
-import { convertDateOnlyShow, formatCurrencyVND } from "../../../infrastructure/helper/helper";
-import RoundChartMiniCommon from "../../../infrastructure/common/components/mini-chart/round-chart";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import spendService from "../../../infrastructure/repositories/spend/spend.service";
 import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
-import { ButtonCommon } from "../../../infrastructure/common/components/button/button-common";
 import { Col, Row } from "antd";
-import happy from "../../../assets/images/happy.gif";
-import sad from "../../../assets/images/sad.gif";
-import robot from "../../../assets/images/robot.gif";
-import AnimatedNumber from "../../../infrastructure/common/components/controls/AnimatedNumber";
 import StaticComponent from "../common/static";
-import { ButtonSimpleCommon } from "../../../infrastructure/common/components/button/buttom-simple-common";
 import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
 import InfoComponent from "../common/info";
 import OverviewComponent from "../common/overview";
 import BarChartStatic from "../common/barChart";
+import { getTokenStoraged } from "../../../infrastructure/utils/storage";
+import staticService from "../../../infrastructure/repositories/static/static.service";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const TeamFinancePage = () => {
-    const tokenString = localStorage.getItem('token');
+    const tokenString = getTokenStoraged();
 
     const { id } = useParams();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const idTeam = queryParams.get("idTeam");
     const [loading, setLoading] = useState(false);
     const [loadingBot, setLoadingBot] = useState(false);
 
@@ -46,6 +41,7 @@ const TeamFinancePage = () => {
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
     const [messages, setMessages] = useState<string>("");
+    const [imageBill, setImageBill] = useState<any>();
     const [dailySpend, setDailySpend] = useState<any>();
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
@@ -108,7 +104,7 @@ const TeamFinancePage = () => {
 
     const onGetSpendTeamByGoalStatisticalDaily = async () => {
         try {
-            await spendService.TeamStatisticalByGoal(
+            await staticService.TeamStatisticalByGoal(
                 String(id),
                 "",
                 "",
@@ -148,7 +144,7 @@ const TeamFinancePage = () => {
     const onGetSpendTeamByGoalStatistical = async () => {
         setLoading(true);
         try {
-            const res = await spendService.TeamStatisticalByGoal(
+            const res = await staticService.TeamStatisticalByGoal(
                 String(id),
                 selectedType,
                 startDate,
@@ -187,7 +183,7 @@ const TeamFinancePage = () => {
     const onGetIncomeTeamByGoalStatistical = async () => {
         setLoading(true);
         try {
-            const res = await spendService.TeamStatisticalByGoal(
+            const res = await staticService.TeamStatisticalByGoal(
                 String(id),
                 selectedType,
                 startDate,
@@ -300,6 +296,21 @@ const TeamFinancePage = () => {
         }
     }, [selectedTab, incomeDataTable, spendDataTable]);
 
+    const upLoadBillAsync = async () => {
+        try {
+            await chatService.GetBillPersonal(
+                String(id),
+                {
+                    question: messages
+                },
+                () => { },
+            ).then(() => {
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <LayoutClient>
             <BannerCommon title={"Quỹ nhóm"} sub={"Tài chính"} />
@@ -372,7 +383,10 @@ const TeamFinancePage = () => {
                         handleSendMessage={handleSendMessage}
                         messages={messages}
                         setMessages={setMessages}
+                        idGoal={String(id)}
+                        idTeam={String(idTeam)}
                         loading={loadingBot}
+                        setLoading={setLoadingBot}
                     />
                 </div>
             </div>
