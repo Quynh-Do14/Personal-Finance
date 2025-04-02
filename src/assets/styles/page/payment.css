@@ -200,7 +200,7 @@
   font-family: Arial, sans-serif;
 }
 
-.payment-status {
+.payment-status-container .payment-status {
   text-align: center;
   padding: 30px;
   border-radius: 8px;
@@ -209,27 +209,27 @@
   width: 300px;
 }
 
-.payment-status.success {
+.payment-status-container .payment-status.success {
   border: 2px solid #009999;
   background-color: #e6f7e6;
 }
 
-.payment-status.failure {
+.payment-status-container .payment-status.failure {
   border: 2px solid #f0273b;
   background-color: #f8d7da;
 }
 
-.status-icon {
+.payment-status-container .status-icon {
   font-size: 40px;
   margin-bottom: 15px;
 }
 
-h2 {
+.payment-status-container h2 {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-button {
+.payment-status-container button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -238,18 +238,18 @@ button {
   width: 100%;
 }
 
-.action-btn {
+.payment-status-container .action-btn {
   font-weight: bold;
   padding: 12px;
   border-radius: 4px;
 }
 
-.success-btn {
+.payment-status-container .success-btn {
   background-color: #009999;
   color: white;
 }
 
-.failure-btn {
+.payment-status-container .failure-btn {
   background-color: #f0273b;
   color: white;
 }
