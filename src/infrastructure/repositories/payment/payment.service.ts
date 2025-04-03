@@ -7,7 +7,7 @@ class PaymentService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Subscription.Payment}?${params}`)
+                .get(`${Endpoint.Subscription.Payment}${params}`)
                 .then(response => {
                     if (response) {
                         return response
