@@ -67,9 +67,9 @@ axiosInstance.interceptors.response.use(
                 try {
                     const token = getToken();
 
-                    const response = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`, {
-                        refreshToken: token?.refreshToken,
-                    });
+                    const response = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`,
+                        { refreshToken: token?.refreshToken },
+                        { validateStatus: () => true });
 
                     if (!response) {
                         throw new Error('Refresh token failed');
