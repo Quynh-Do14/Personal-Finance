@@ -85,7 +85,10 @@ axiosInstance.interceptors.response.use(
                         expires: 7,
                     });
 
+                    // Sau khi refresh token thành công, gọi lại các request trong hàng đợi
                     processQueue(null, accessToken);
+
+                    // Cập nhật Authorization cho request gốc
                     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
                     return axiosInstance(originalRequest);
                 } catch (error) {
@@ -102,7 +105,7 @@ axiosInstance.interceptors.response.use(
                 }
             }
 
-            // Thêm request vào hàng đợi nếu đang refresh token
+            // Nếu đang refresh token, thêm request vào hàng đợi
             return new Promise((resolve, reject) => {
                 failedQueue.push({
                     resolve: (token: string) => {

@@ -45,7 +45,7 @@ const ChatBoxCommon = (props: Props) => {
     const chatBoxRef = useRef<HTMLDivElement>(null);
     const [isAtBottom, setIsAtBottom] = useState(true);
     const [imageBill, setImageBill] = useState<any>();
-    const [valueFile, setValueFile] = useState<any>();
+    const [valueFile, setValueFile] = useState<File | null>(null);
     const [isChatContent, setIsChatContent] = useState<boolean>(true);
     const [listSpendingType, setListSpendingType] = useState<Array<any>>([]);
     const [listIncomeType, setListIncomeType] = useState<Array<any>>([]);
@@ -118,28 +118,34 @@ const ChatBoxCommon = (props: Props) => {
         }, 100);
     };
 
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const onUploadImageBillAsync = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
 
-    const onUploadImageBillAsync = async (event: any) => {
-        getBase64(event.target.files[0], (url: any) => {
-            setImageBill(url || '')
-            setValueFile(event.target.files[0])
+        getBase64(file, (url: any) => {
+            setImageBill(url || '');
+            setValueFile(file);
         });
+
         try {
             await chatService.GetBillPersonal(
                 String(idGoal),
-                {
-                    file: (event.target.files[0])
-                },
+                { file },
                 setLoading
-            ).then(() => {
-                setImageBill(null);
-                setValueFile("");
-            })
-        }
-        catch (error) {
+            );
+            setImageBill(null);
+            setValueFile(null);
+
+            // Reset input file
+            if (inputFileRef.current) {
+                inputFileRef.current.value = '';
+            }
+        } catch (error) {
             console.error(error);
         }
     };
+
 
     // Danh mục
     const onGetSpendingTypeAsync = async () => {
@@ -252,7 +258,6 @@ const ChatBoxCommon = (props: Props) => {
                 console.error(error);
             }
         }
-
     }
 
     return (
@@ -368,9 +373,8 @@ const ChatBoxCommon = (props: Props) => {
                                     <i className="fa fa-file-image-o" aria-hidden="true"></i>
                                 </label>
                                 <input
-                                    value={valueFile}
+                                    ref={inputFileRef}
                                     type="file"
-                                    name=""
                                     id="upload-bill"
                                     onChange={onUploadImageBillAsync}
                                 />
