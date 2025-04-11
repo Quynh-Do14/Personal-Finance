@@ -1,32 +1,16 @@
 .goal-container {
-  background: #ffffff;
+  background: linear-gradient(
+    222.64deg,
+    rgba(153, 204, 153, 0.4) 1.44%,
+    #e6f0f5 64.57%
+  );
+
   width: 100%;
   position: relative;
 }
 
 .goal-container .overview {
   position: relative;
-}
-
-.goal-container .overview .content {
-  z-index: 10;
-  position: relative;
-  background: linear-gradient(-45deg, #02b7b7, #009696, #006565, #003333);
-  /* background: #003333; */
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 16px;
-  border-top-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;
-  box-shadow: 5px 5px 10px -10px #7c0fd1;
-  background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
-  z-index: 10;
-  background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
 }
 
 @keyframes gradientAnimation {
@@ -59,37 +43,71 @@
     bottom: 0;
   }
 }
-.goal-container .overview .content p {
-  color: #fff;
-  font-weight: 600;
-}
-.goal-container .overview .content p.title {
-  font-size: 22px;
-}
-.goal-container .overview .content p.sub {
+.goal-container .overview .target .label {
+  font-weight: 400;
   font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #101010;
+}
+
+.goal-container .overview .target .value {
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 35px;
+  letter-spacing: 0%;
+  color: #101010;
+}
+
+.goal-container .overview .content {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+  background: linear-gradient(252.31deg, #006699 9.19%, #99cc99 90.81%);
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid #ffffff;
+  animation: gradientAnimation 8s ease infinite;
+  background-size: 400% 400%;
+}
+
+.goal-container .overview .content .label {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+
+  color: #ffffff;
+}
+.goal-container .overview .content .value {
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 35px;
+  letter-spacing: 0%;
+  color: #ffffff;
 }
 
 .goal-container .info {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
-  background: #ededed;
-  box-shadow: 5px 5px 10px -10px #7c0fd1;
-  padding: 1.5rem;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  background: linear-gradient(252.31deg, #ffffff 9.19%, #dffddf17 90.81%);
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
+  z-index: 10;
+  padding: 20px;
+  border-radius: 20px;
+  height: 180px;
+  border: 2px solid #99cc99;
 }
 .goal-container .info .title {
-  color: #212121;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  color: #101010;
 }
 
 .goal-container .info .sum {
@@ -143,33 +161,47 @@
   }
 }
 
+.goal-container .box-common {
+  background: var(--Black-5, #1010100d);
+  border-radius: 15px;
+  height: 100%;
+  padding: 20px;
+
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.goal-container .box-common .title-box {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 35px;
+  letter-spacing: 0%;
+  color: #101010;
+}
+.goal-container .box-common .is-done {
+  background: #003333;
+  border-radius: 50px;
+  padding-top: 5px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+}
 .goal-container .bar-chart {
   z-index: 10;
   position: relative;
-  background: #ededed;
-  /* background: #003333; */
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 16px;
-  border-top-right-radius: 25px;
+
+  /* border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
   box-shadow: 5px 5px 10px -10px #7c0fd1;
   background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
-  z-index: 10;
-  background-size: 400% 400%;
-  animation: gradientAnimation 8s ease infinite;
-  height: 100%;
-}
-
-.goal-container .bar-chart p {
-  font-size: 16px;
-  line-height: 28px;
-  font-weight: 600;
-  text-align: center;
-  width: 100%;
-  color: #003333;
+  animation: gradientAnimation 8s ease infinite; */
 }

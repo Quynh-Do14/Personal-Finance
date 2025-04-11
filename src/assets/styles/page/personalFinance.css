@@ -1,11 +1,15 @@
 .personal-finance-container {
   position: relative;
-  background: #e6f0f5;
+  background: linear-gradient(
+    222.64deg,
+    rgba(153, 204, 153, 0.4) 1.44%,
+    #e6f0f5 64.57%
+  );
 }
+
 .personal-finance-container .category {
-  background: #ffffff;
-  box-shadow: 0px 4px 10px rgba(67, 67, 67, 0.1);
-  border-radius: 8px;
+  background: #1010100d;
+  border-radius: 15px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -143,9 +147,8 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
-  background: #eff5f9;
-  box-shadow: 0px 4px 10px rgba(67, 67, 67, 0.1);
-  border-radius: 8px;
+  background: #1010100d;
+  border-radius: 15px;
   padding: 20px;
   height: 100%;
 }

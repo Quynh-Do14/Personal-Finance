@@ -17,12 +17,12 @@ import TimeFilter from "../../../infrastructure/common/components/time-filter/Ti
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import StaticComponent from "../common/static";
 import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
-import InfoComponent from "../common/info";
 import OverviewComponent from "../common/overview";
 import { Col, Row } from "antd";
 import BarChartStatic from "../common/barChart";
 import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
+import PieChart from "../common/pieChart";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -128,6 +128,7 @@ const PersonalFinancePage = () => {
         ];
         return Array.from({ length }, (_, i) => colors[i % colors.length]); // Lặp lại màu nếu thiếu
     };
+    console.log("timeRange", timeRange);
 
     const onGetSpendPersonalByGoalStatistical = async () => {
         setLoading(true);
@@ -285,64 +286,45 @@ const PersonalFinancePage = () => {
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>
-                        <Col md={24} lg={12}>
-                            <div className="flex flex-col gap-5">
-                                <OverviewComponent
-                                    detailGoal={detailGoal}
-                                />
-                                <InfoComponent
-                                    dailySpend={dailySpend}
-                                    incomeStatistics={incomeStatistics}
-                                    spendStatistics={spendStatistics}
-                                    barChartData={barChartData}
-                                />
-                            </div>
-                        </Col>
-                        <Col md={24} lg={12}>
+                        <Col sm={24} md={14} lg={16}>
                             <BarChartStatic
                                 barChartData={barChartData}
                             />
                         </Col>
+                        <Col sm={24} md={10} lg={8}>
+                            <OverviewComponent
+                                detailGoal={detailGoal}
+                                dailySpend={dailySpend}
+                                incomeStatistics={incomeStatistics}
+                                spendStatistics={spendStatistics}
+                                barChartData={barChartData}
+                            />
+                        </Col>
+                        <Col sm={24} md={14} lg={16}>
+                            <StaticComponent
+                                selectedTab={selectedTab}
+                                dataTable={dataTable}
+
+                                spendStatistics={spendStatistics}
+                                incomeStatistics={incomeStatistics}
+                                setTimeRange={setTimeRange}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
+                                startDate={startDate}
+                                endDate={endDate}
+                                onGetSpendPersonalByGoalStatistical={onGetSpendPersonalByGoalStatistical}
+                                onGetIncomePersonalByGoalStatistical={onGetIncomePersonalByGoalStatistical}
+                                setSelectedTab={setSelectedTab}
+                            />
+                        </Col>
+                        <Col sm={24} md={10} lg={8}>
+                            <PieChart
+                                selectedTab={selectedTab}
+                                spendData={spendData}
+                                incomeData={incomeData}
+                            />
+                        </Col>
                     </Row>
-                    {/* Bộ lọc thời gian */}
-                    <TimeFilter
-                        setTimeRange={setTimeRange}
-                        startDate={startDate}
-                        endDate={endDate}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        fetchData={() => {
-                            onGetSpendPersonalByGoalStatistical();
-                            onGetIncomePersonalByGoalStatistical();
-                        }}
-                    />
-
-                    {/* Tabs chi phí / thu nhập */}
-                    <div className="flex justify-center gap-4 mb-6">
-                        <ButtonDesign
-                            classColor={selectedTab === "income" ? "green" : "transparent"}
-                            onClick={() => setSelectedTab("income")}
-                            title={"Thu nhập"}
-                            width={160}
-                        />
-                        <ButtonDesign
-                            classColor={selectedTab === "spend" ? "green" : "transparent"}
-                            onClick={() => setSelectedTab("spend")}
-                            title={"Chi phí"}
-                            width={160}
-                        />
-                    </div>
-                    {/* Thông tin thu chi */}
-
-                    <StaticComponent
-                        selectedTab={selectedTab}
-                        dataTable={dataTable}
-                        spendData={spendData}
-                        incomeData={incomeData}
-                        spendStatistics={spendStatistics}
-                        incomeStatistics={incomeStatistics}
-                    />
-
                     <ChatButton
                         titleChat={detailGoal.name}
                         isOpenChatBox={isOpenChatBox}
