@@ -18,7 +18,7 @@ const PaymentResultPage = () => {
     const [respone, setRespone] = useState<any>({});
 
     const vnp_TransactionNo = queryParams.get("vnp_TransactionNo");
-    const vnp_TransactionStatus = queryParams.get("vnp_TransactionStatus");
+    // const vnp_TransactionStatus = queryParams.get("vnp_TransactionStatus");
     const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
     const vnp_OrderInfo = queryParams.get("vnp_OrderInfo");
     console.log("vnp_TransactionNo", vnp_TransactionNo);
@@ -50,14 +50,38 @@ const PaymentResultPage = () => {
     }
 
     useEffect(() => {
+        let isMounted = true;
         if (location.search) {
-            onPaymentAsync().then(() => { });
+            const fetchData = async () => {
+                try {
+                    setLoading(true);
+                    const res = await paymentService.Payment(location.search, setLoading);
+                    // Chỉ cập nhật state nếu component vẫn mounted
+                    if (isMounted) {
+                        setRespone(res);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    // Không cần xử lý lỗi ở đây vì đã có xử lý trong onPaymentAsync
+                } finally {
+                    if (isMounted) {
+                        setIsLoading(true);
+                        setLoading(false);
+                    }
+                }
+            };
+            
+            fetchData();
         }
-    }, [location.search])
+
+        return () => {
+            isMounted = false;
+        };
+    }, [])
 
     const condition = () => {
         if (respone) {
-            if (respone?.rspCode == "00") {
+            if (respone?.rspCode === "00") {
                 if (Number(vnp_ResponseCode) == 0) {
                     return (
                         <div className={`payment-status-container success`}>
@@ -85,7 +109,7 @@ const PaymentResultPage = () => {
                     )
                 }
             }
-            else if (respone?.rspCode == "01") {
+            else if (respone?.rspCode === "01") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
@@ -98,7 +122,7 @@ const PaymentResultPage = () => {
                     </div>
                 )
             }
-            else if (respone?.rspCode == "02") {
+            else if (respone?.rspCode === "02") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
@@ -111,7 +135,7 @@ const PaymentResultPage = () => {
                     </div>
                 )
             }
-            else if (respone?.rspCode == "04") {
+            else if (respone?.rspCode === "04") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
@@ -124,7 +148,7 @@ const PaymentResultPage = () => {
                     </div>
                 )
             }
-            else if (respone?.rspCode == "97") {
+            else if (respone?.rspCode === "97") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
