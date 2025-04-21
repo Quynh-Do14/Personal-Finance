@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import "../../assets/styles/page/payment.css"
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout';
 import { ROUTE_PATH } from '../../core/common/appRouter';
@@ -16,12 +16,15 @@ const PaymentResultPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [respone, setRespone] = useState<any>({});
-    const [hasProcessed, setHasProcessed] = useState<boolean>(false); // Thêm state để theo dõi việc xử lý
+    const [hasProcessed, setHasProcessed] = useState<boolean>(false);
     
     const vnp_TransactionNo = queryParams.get("vnp_TransactionNo");
     const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
     const vnp_OrderInfo = queryParams.get("vnp_OrderInfo");
-    
+    const vnp_TxnRef = queryParams.get("vnp_TxnRef");
+
+    const transactionId = `${vnp_TxnRef || ''}_${vnp_TransactionNo || ''}`;
+
     const decodeFromBase64 = (base64: string): string => {
         const binary = atob(base64);
         const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
@@ -32,41 +35,47 @@ const PaymentResultPage = () => {
     const decoded_vnp_OrderInfo = vnp_OrderInfo ? decodeFromBase64(String(vnp_OrderInfo)) : "";
 
     useEffect(() => {
-        let isMounted = true;
+        // Kiểm tra nếu không có thông tin giao dịch
+        if (!location.search || !transactionId) {
+            return;
+        }
+        
+        // Kiểm tra nếu đã xử lý giao dịch này (ngay cả khi reload)
+        const storedResponse = sessionStorage.getItem(`payment_${transactionId}`);
+        if (storedResponse) {
+            try {
+                const parsedResponse = JSON.parse(storedResponse);
+                setRespone(parsedResponse);
+                setHasProcessed(true);
+                setIsLoading(true);
+                return;
+            } catch (error) {
+                console.error("Error parsing stored response", error);
+                // Tiếp tục xử lý nếu không parse được response đã lưu
+            }
+        }
         
         const processPayment = async () => {
-            // Kiểm tra nếu đã xử lý hoặc không có location.search
-            if (hasProcessed || !location.search) {
-                return;
-            }
-            
             try {
                 setLoading(true);
                 const res = await paymentService.Payment(location.search, setLoading);
                 
-                if (isMounted) {
-                    setRespone(res);
-                    setHasProcessed(true); // Đánh dấu đã xử lý
-                }
+                // Lưu kết quả vào sessionStorage để tránh gọi lại khi reload
+                sessionStorage.setItem(`payment_${transactionId}`, JSON.stringify(res));
+                
+                setRespone(res);
+                setHasProcessed(true);
             } catch (error) {
                 console.error("Payment processing error:", error);
-                if (isMounted) {
-                    setHasProcessed(true); // Đánh dấu đã xử lý ngay cả khi lỗi
-                }
+                setHasProcessed(true);
             } finally {
-                if (isMounted) {
-                    setIsLoading(true);
-                    setLoading(false);
-                }
+                setIsLoading(true);
+                setLoading(false);
             }
         };
         
         processPayment();
-        
-        return () => {
-            isMounted = false;
-        };
-    }, [location.search, hasProcessed]);
+    }, [transactionId, location.search]);
 
     const condition = () => {
         if (respone) {
@@ -79,8 +88,7 @@ const PaymentResultPage = () => {
                                 <h2>{decoded_vnp_OrderInfo}</h2>
                                 <img src={succes} alt="" width={160} />
                                 <h2>Giao dịch của bạn thành công</h2>
-                                <a href={ROUTE_PATH.HOME_PAGE} className="action-btn success-btn">Trang chủ</a>
-                            </div>
+                                <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn success-btn">Trang chủ</Link>                            </div>
                         </div>
                     )
                 }
@@ -92,7 +100,7 @@ const PaymentResultPage = () => {
                                 <h2>{decoded_vnp_OrderInfo}</h2>
                                 <img src={failure} alt="" width={160} />
                                 <h2>Giao dịch của bạn không thể tiếp tục</h2>
-                                <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+                                <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
                             </div>
                         </div>
                     )
@@ -106,7 +114,7 @@ const PaymentResultPage = () => {
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
                             <h2>Không tìm thấy giao dịch</h2>
-                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+                            <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
                         </div>
                     </div>
                 )
@@ -119,7 +127,7 @@ const PaymentResultPage = () => {
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
                             <h2>Giao dịch đã được thanh toán</h2>
-                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+                            <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
                         </div>
                     </div>
                 )
@@ -132,7 +140,7 @@ const PaymentResultPage = () => {
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
                             <h2>Số tiền không hợp lệ</h2>
-                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+                            <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
                         </div>
                     </div>
                 )
@@ -145,7 +153,7 @@ const PaymentResultPage = () => {
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
                             <h2>Chữ kí không hợp lệ</h2>
-                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+                            <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
                         </div>
                     </div>
                 )
@@ -158,7 +166,7 @@ const PaymentResultPage = () => {
                     <h2>{decoded_vnp_OrderInfo}</h2>
                     <img src={failure} alt="" width={160} />
                     <h2>Giao dịch của bạn không thể tiếp tục</h2>
-                    <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+                    <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
                 </div>
             </div>
         )
