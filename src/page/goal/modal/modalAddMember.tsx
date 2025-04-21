@@ -1,6 +1,5 @@
 import { Col, Modal, Row } from 'antd'
 import InputTextCommon from '../../../infrastructure/common/components/input/input-text';
-import { ButtonCommon } from '../../../infrastructure/common/components/button/button-common';
 import "../../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
 import teamService from '../../../infrastructure/repositories/team/team.service';
@@ -119,10 +118,9 @@ const ModalAddMember = (props: Props) => {
                         selectedId
                         &&
                         <Col span={24}>
-                            <ButtonCommon
+                            <ButtonDesign
                                 classColor={'white'}
                                 onClick={onDeleteCategoryAsync}
-                                isFullWidth={true}
                                 title={"Xóa thành viên"}
                             />
                         </Col>

@@ -257,3 +257,23 @@
   letter-spacing: 0%;
   text-align: center;
 }
+
+.alert-common {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  min-height: 156px;
+  height: 100%;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.alert-common p {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  text-align: justify;
+  color: #ffffff;
+}

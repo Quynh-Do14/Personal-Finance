@@ -13,16 +13,15 @@ import { useParams } from "react-router-dom";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import StaticComponent from "../common/static";
-import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
 import OverviewComponent from "../common/overview";
 import { Col, Row } from "antd";
 import BarChartStatic from "../common/barChart";
 import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
+import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -42,6 +41,11 @@ const PersonalFinancePage = () => {
     const [dailySpend, setDailySpend] = useState<any>();
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
+    const [statisticsByTime, setStatisticsByTime] = useState<any>({
+        labels: [],
+        datasets: [{ data: [], backgroundColor: "" }],
+    });
+
     const [endDate, setEndDate] = useState<string>("");
     const [startDate, setStartDate] = useState<string>("");
     const [timeRange, setTimeRange] = useState<string>("daily");
@@ -128,7 +132,49 @@ const PersonalFinancePage = () => {
         ];
         return Array.from({ length }, (_, i) => colors[i % colors.length]); // Lặp lại màu nếu thiếu
     };
-    console.log("timeRange", timeRange);
+
+
+    const onGetStaticByTimeAsync = async () => {
+        try {
+            await staticService.getStatisticalByTime(
+                String(id),
+                "week",
+                setLoading
+            ).then((res) => {
+                const labels = res?.map((item: any) => item?.dayOfWeek);
+                const dataIncome = res?.map((item: any) => item.totalIncome || 0);
+                const dataSpend = res?.map((item: any) => item.totalSpend || 0);
+
+                setStatisticsByTime({
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Thu',
+                            data: dataIncome,
+                            backgroundColor: "#006699",
+                            barThickness: 20,
+                            borderRadius: 10,
+                            categoryPercentage: 0.5,
+                            barPercentage: 0.8,
+                        },
+                        {
+                            label: 'Chi',
+                            data: dataSpend,
+                            backgroundColor: "#006633",
+                            barThickness: 20,
+                            borderRadius: 10,
+                            categoryPercentage: 0.5,
+                            barPercentage: 0.8,
+                        },
+                    ],
+                });
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
 
     const onGetSpendPersonalByGoalStatistical = async () => {
         setLoading(true);
@@ -211,6 +257,7 @@ const PersonalFinancePage = () => {
         onGetSpendPersonalByGoalStatisticalDaily().then(_ => { });
         onGetSpendPersonalByGoalStatistical().then(_ => { });
         onGetIncomePersonalByGoalStatistical().then(_ => { });
+        onGetStaticByTimeAsync().then(_ => { });
     }, [timeRange]);
 
     useEffect(() => {
@@ -237,6 +284,7 @@ const PersonalFinancePage = () => {
                     onGetSpendPersonalByGoalStatisticalDaily();
                     onGetSpendPersonalByGoalStatistical();
                     onGetIncomePersonalByGoalStatistical();
+                    onGetStaticByTimeAsync().then(_ => { });
                 });
             },
         });
@@ -279,16 +327,18 @@ const PersonalFinancePage = () => {
         }
     }, [selectedTab, incomeDataTable, spendDataTable]);
 
-
     return (
         <LayoutClient>
             <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>
+                        <Col span={24}>
+                            <AlertBudget />
+                        </Col>
                         <Col sm={24} md={14} lg={16}>
                             <BarChartStatic
-                                barChartData={barChartData}
+                                statisticsByTime={statisticsByTime}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>

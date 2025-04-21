@@ -71,9 +71,6 @@ const LoginScreen = () => {
         const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
             callbackUrl
         )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
-
-        console.log(targetUrl);
-
         window.location.href = targetUrl;
     };
 
@@ -82,7 +79,6 @@ const LoginScreen = () => {
             <BannerCommon title={'Đăng Nhập'} sub={'Thành viên'} />
             <div className='auth-screen'>
                 <div className='content'>
-
                     <div>
                         <h2>Chào mừng trở lại !</h2>
                         <h3>Nhập thông tin để có quyền truy cập không giới hạn vào dữ liệu và thông tin</h3>
@@ -113,13 +109,13 @@ const LoginScreen = () => {
                         />
                         <div className="remember-forgot">
                             <label className="custom-checkbox">
-                                <input
+                                {/* <input
                                     type="checkbox"
                                     checked={remember}
                                     onChange={() => setRemember(!remember)}
                                 />
                                 <span className="checkmark" />
-                                Ghi nhớ tài khoản
+                                Ghi nhớ tài khoản */}
                             </label>
 
                             <a href="/forgot-password" className="forgot-link">Quên mật khẩu</a>

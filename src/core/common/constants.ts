@@ -1,4 +1,3 @@
-import Icon, { CalendarOutlined, ContainerOutlined, DatabaseOutlined, EnvironmentOutlined, MessageOutlined, ProjectOutlined, ScheduleOutlined, TableOutlined, TagOutlined, TagsOutlined, UserOutlined } from "@ant-design/icons";
 import { ROUTE_PATH } from "./appRouter";
 
 export default class Constants {
@@ -7,7 +6,7 @@ export default class Constants {
             {
                 label: "Quản lý danh mục",
                 link: ROUTE_PATH.HOME_PAGE,
-                icon: UserOutlined
+                icon: "fa fa-users"
             },
 
         ]
@@ -36,7 +35,7 @@ export default class Constants {
                 label: "Tin tức",
                 link: ROUTE_PATH.BLOG,
                 private: false,
-                icon: "fa fa-users"
+                icon: "fa fa-newspaper-o"
             },
         ]
     };
@@ -184,6 +183,13 @@ export default class Constants {
         static List = [
             { label: "Danh mục", value: 1 },
             { label: "Thành viên", value: 2 },
+        ]
+    }
+    static ProfileTab = class {
+        static List = [
+            { label: "Hồ sơ", value: 1 },
+            { label: "Botchat", value: 2 },
+            { label: "Ngân sách", value: 3 },
         ]
     }
 };

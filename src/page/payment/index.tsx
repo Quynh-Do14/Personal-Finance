@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import "../../assets/styles/page/payment.css"
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout'
 import InputTextCommon from '../../infrastructure/common/components/input/input-text'
@@ -7,21 +7,26 @@ import { FullPageLoading } from '../../infrastructure/common/components/controls
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign'
 import { ROUTE_PATH } from '../../core/common/appRouter'
 import BannerCommon from '../../infrastructure/common/components/banner/BannerCommon'
-import InputSelectCommon from '../../infrastructure/common/components/input/select-common'
+import paymentService from '../../infrastructure/repositories/payment/payment.service'
+import InputSelectCategoryCommon from '../../infrastructure/common/components/input/select-category-common'
+import { formatCurrencyVND } from '../../infrastructure/helper/helper'
+import { isTokenStoraged } from '../../infrastructure/utils/storage'
 const PaymentPage = () => {
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
     const [remember, setRemember] = useState<boolean>(true);
+    const [packageList, setPackageList] = useState<any[]>([]);
+    const storage = isTokenStoraged();
 
     const [_data, _setData] = useState<any>({});
-    const dataLogin = _data;
+    const dataRequest = _data;
 
     const navigate = useNavigate();
 
-    const setDataLogin = (data: any) => {
-        Object.assign(dataLogin, { ...data });
-        _setData({ ...dataLogin });
+    const setDataRequest = (data: any) => {
+        Object.assign(dataRequest, { ...data });
+        _setData({ ...dataRequest });
     };
 
     const isValidData = () => {
@@ -38,10 +43,40 @@ const PaymentPage = () => {
         return allRequestOK;
     };
     const onPaymentAsync = async () => {
-
+        try {
+            await paymentService.Subscription(
+                dataRequest.package,
+                setLoading
+            ).then((res) => {
+                window.open(res.vnpayUrl, '_blank');
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    const onGetAllPackage = async () => {
+        try {
+            await paymentService.Package(
+                setLoading
+            ).then((response) => {
+                const map = response?.map((item: any) => {
+                    const result = {
+                        ...item,
+                        name: `${item.name} - ${item.duration} - ${formatCurrencyVND(item.price)}`
+                    }
+                    return result;
+                })
+                setPackageList(map)
+            })
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-
+    useEffect(() => {
+        onGetAllPackage().then(() => { });
+    }, [])
     return (
         <LayoutClient>
             <BannerCommon title={'Thanh toán'} sub={'Dịch vụ tài chính'} />
@@ -53,30 +88,37 @@ const PaymentPage = () => {
                         <h3>Vui lòng điền tất cả thông tin cần thiết theo biểu mẫu dưới đây</h3>
                     </div>
                     <div className='flex flex-col gap-5'>
-                        <div className='method'>Hình thức thanh toán</div>
-                        <InputSelectCommon
+                        <div className='method'>Gói người dùng</div>
+                        <InputSelectCategoryCommon
                             label={""}
-                            attribute={"method"}
+                            attribute={"package"}
                             isRequired={true}
-                            dataAttribute={dataLogin.method}
-                            setData={setDataLogin}
+                            dataAttribute={dataRequest.package}
+                            setData={setDataRequest}
                             disabled={false}
                             validate={validate}
                             setValidate={setValidate}
                             submittedTime={submittedTime}
-                            listDataOfItem={[]}
+                            listDataOfItem={packageList}
+                            nameOfValue='id'
+                            nameOfLabel='name'
                         />
-                        <p className="signup-text">
-                            Bạn đã có tài khoản?
-                            <a href={ROUTE_PATH.REGISTER} className="gradient-link">Đăng nhập ngay</a>
-                        </p>
+                        {
+                            !storage
+                            &&
+                            <p className="signup-text">
+                                Bạn chưa có tài khoản?
+                                <a href={ROUTE_PATH.LOGIN} className="gradient-link">Đăng nhập ngay</a>
+                            </p>
+                        }
+
                         <div className='method'>Thông tin thanh toán</div>
                         <InputTextCommon
                             label={"Họ tên"}
                             attribute={"fullName"}
                             isRequired={true}
-                            dataAttribute={dataLogin.fullName}
-                            setData={setDataLogin}
+                            dataAttribute={dataRequest.fullName}
+                            setData={setDataRequest}
                             disabled={false}
                             validate={validate}
                             setValidate={setValidate}
@@ -86,8 +128,8 @@ const PaymentPage = () => {
                             label={"Email"}
                             attribute={"email"}
                             isRequired={true}
-                            dataAttribute={dataLogin.email}
-                            setData={setDataLogin}
+                            dataAttribute={dataRequest.email}
+                            setData={setDataRequest}
                             disabled={false}
                             validate={validate}
                             setValidate={setValidate}
@@ -97,8 +139,8 @@ const PaymentPage = () => {
                             label={"Điện thoại"}
                             attribute={"phone"}
                             isRequired={true}
-                            dataAttribute={dataLogin.phone}
-                            setData={setDataLogin}
+                            dataAttribute={dataRequest.phone}
+                            setData={setDataRequest}
                             disabled={false}
                             validate={validate}
                             setValidate={setValidate}
@@ -108,8 +150,8 @@ const PaymentPage = () => {
                             label={"Địa chỉ"}
                             attribute={"address"}
                             isRequired={true}
-                            dataAttribute={dataLogin.address}
-                            setData={setDataLogin}
+                            dataAttribute={dataRequest.address}
+                            setData={setDataRequest}
                             disabled={false}
                             validate={validate}
                             setValidate={setValidate}

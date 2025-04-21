@@ -20,6 +20,7 @@ export const ROUTE_PATH = {
     BLOG: `${PREFIX}/blog`,
     PAYMENT_INFO: `${PREFIX}/payment-info`,
     PAYMENT_RESULT: `${PREFIX}/payment`,
+    PROFILE: `${PREFIX}/profile`,
 
     CONTACT: `${PREFIX}/contact`,
 

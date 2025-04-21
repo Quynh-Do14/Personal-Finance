@@ -1,10 +1,12 @@
-import React from 'react';
 import './App.css';
-import HomePage from './page/home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRoutes } from './infrastructure/router';
 import { PrivateRoute } from './infrastructure/router/private-router';
 import Authenticate from './page/Auth/Authenticate';
+import { ROUTE_PATH } from './core/common/appRouter';
+import LoginScreen from './page/Auth/LoginScreen';
+import RegisterScreen from './page/Auth/RegisterScreen';
+import { PublicRoute } from './infrastructure/router/public-router';
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
                   } />
               )
             }
-            else {              
+            else {
               return (
                 <Route
                   key={index}
@@ -34,6 +36,8 @@ function App() {
             }
           })}
           <Route path="/authenticate" element={<Authenticate />} />
+          <Route path={ROUTE_PATH.LOGIN} element={<PublicRoute component={<LoginScreen />} />} />
+          <Route path={ROUTE_PATH.REGISTER} element={<PublicRoute component={<RegisterScreen />} />} />
         </Routes>
       </BrowserRouter>
     </div>

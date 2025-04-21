@@ -1,6 +1,5 @@
 import { Col, Modal, Row } from 'antd'
 import React, { useState } from 'react'
-import { ButtonCommon } from '../button/button-common'
 import authService from '../../../repositories/auth/service/auth.service'
 import { WarningMessage } from './notificationToast'
 import InputPasswordCommon from '../input/input-password'

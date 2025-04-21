@@ -5,7 +5,6 @@ import InputPasswordCommon from '../../infrastructure/common/components/input/in
 import { useState } from 'react';
 import authService from '../../infrastructure/repositories/auth/service/auth.service';
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
-import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {

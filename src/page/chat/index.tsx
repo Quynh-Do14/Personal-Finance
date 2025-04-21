@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Drawer, Image, Tooltip } from "antd";
 import "../../assets/styles/page/chat.css"
-import { configImageURL, convertDateShow, getBase64 } from "../../infrastructure/helper/helper";
+import { configImageURL, convertDateOnly, convertDateShow, getBase64 } from "../../infrastructure/helper/helper";
 import TypingIndicator from "../../infrastructure/common/components/controls/Typing";
 import gptIcon from "../../assets/images/gpt-icon.png"
 import chatService from "../../infrastructure/repositories/chat/chat.service";
@@ -14,6 +14,7 @@ import incomeTypeService from "../../infrastructure/repositories/type/income-typ
 import spendingTypeService from "../../infrastructure/repositories/type/spending-type.service";
 import inComesService from "../../infrastructure/repositories/in-comes/in-comes.service";
 import spendService from "../../infrastructure/repositories/spend/spend.service";
+import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 type Props = {
     titleChat: string
     isOpen: boolean,
@@ -221,43 +222,57 @@ const ChatBoxCommon = (props: Props) => {
     /////
 
     const onTransitAsync = async () => {
-        if (dataRequest.type == 1) {
-            try {
-                await inComesService.CreateIncome(
-                    String(idGoal),
-                    {
-                        inComeTypeId: dataRequest.typeId,
-                        amount: dataRequest.amount,
-                        occurrenceDate: dataRequest.occurrenceDate
-                    },
-                    () => { },
-                    () => { }
-                ).then((res) => {
-                    setListIncomeType(res.content);
-                })
-            }
-            catch (error) {
-                console.error(error);
-            }
-        } else {
-            try {
-                await spendService.CreateSpend(
-                    String(idGoal),
-                    {
-                        spendingTypeId: dataRequest.typeId,
-                        amount: dataRequest.amount,
-                        occurrenceDate: dataRequest.occurrenceDate
-                    },
-                    () => { },
-                    () => { }
-                ).then((res) => {
-                    setListIncomeType(res.content);
-                })
-            }
-            catch (error) {
-                console.error(error);
+        await setSubmittedTime(Date.now());
+        if (isValidData()) {
+            if (dataRequest.type == 1) {
+                try {
+                    await inComesService.CreateIncome(
+                        String(idGoal),
+                        {
+                            inComeTypeId: dataRequest.typeId,
+                            amount: dataRequest.amount,
+                            occurrenceDate: convertDateOnly(dataRequest.occurrenceDate)
+                        },
+                        () => { },
+                        () => {
+                            setDataRequest({
+                                amount: null,
+                            })
+                        }
+                    ).then((res) => {
+                        setListIncomeType(res.content);
+                    })
+                }
+                catch (error) {
+                    console.error(error);
+                }
+            } else {
+                try {
+                    await spendService.CreateSpend(
+                        String(idGoal),
+                        {
+                            spendingTypeId: dataRequest.typeId,
+                            amount: dataRequest.amount,
+                            occurrenceDate: convertDateOnly(dataRequest.occurrenceDate)
+                        },
+                        () => { },
+                        () => {
+                            setDataRequest({
+                                amount: null,
+                            })
+                        }
+                    ).then((res) => {
+                        setListIncomeType(res.content);
+                    })
+                }
+                catch (error) {
+                    console.error(error);
+                }
             }
         }
+        else {
+            WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
+        };
     }
 
     return (
@@ -283,9 +298,11 @@ const ChatBoxCommon = (props: Props) => {
                                     <span className="status-text">Online</span>
                                 </div>
                             </div>
-                            <i className="fa fa-refresh text-[#999] text-[20px] cursor-pointer" aria-hidden="true"
-                                onClick={() => { setIsChatContent(!isChatContent) }}
-                            ></i>
+                            <Tooltip title="Nhập chi tiêu">
+                                <i className="fa fa-refresh text-[#999] text-[20px] cursor-pointer rotate" aria-hidden="true"
+                                    onClick={() => { setIsChatContent(!isChatContent) }}
+                                ></i>
+                            </Tooltip>
                         </div>
                         <div className="chat-box" ref={chatBoxRef}>
                             {dataChatBox.map((message, index) => (
@@ -397,9 +414,11 @@ const ChatBoxCommon = (props: Props) => {
                                     <span className="status-text">Online</span>
                                 </div>
                             </div>
-                            <i className="fa fa-refresh text-[#999] text-[20px] cursor-pointer" aria-hidden="true"
-                                onClick={() => { setIsChatContent(!isChatContent) }}
-                            ></i>
+                            <Tooltip title="Quay lại chat">
+                                <i className="fa fa-refresh text-[#999] text-[20px] cursor-pointer rotate" aria-hidden="true"
+                                    onClick={() => { setIsChatContent(!isChatContent) }}
+                                ></i>
+                            </Tooltip>
                         </div>
                         <div className="form-expense">
                             <InputSelectCategoryCommon

@@ -54,33 +54,47 @@ const HeaderClient = (props: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const [isOpenModalSuccesss, setIsOpenModalSuccesss] = useState<boolean>(false);
+    const [token, setToken] = useState<boolean>(false);
+    const [isLoadingToken, setIsLoadingToken] = useState<boolean>(false);
 
     const [, setProfileState] = useRecoilState(ProfileState);
-    const token = isTokenStoraged();
-    const getProfileUser = async () => {
-        if (token) {
+
+    useEffect(() => {
+        const fetchToken = async () => {
             try {
-                await authService.profile(
-                    () => { }
-                ).then((response) => {
-                    if (response) {
-                        setDataProfile(response)
-                        setProfileState(
-                            {
-                                user: response,
-                            }
-                        )
-                    }
-                })
+                const tokenS = await isTokenStoraged();
+                setToken(tokenS);
             } catch (error) {
                 console.error(error);
+            } finally {
+                setIsLoadingToken(true);
             }
+        };
+
+        fetchToken();
+    }, []);
+    const getProfileUser = async () => {
+        const tokenS = await isTokenStoraged();
+        if (!tokenS) return;
+        try {
+            await authService.profile(
+                () => { }
+            ).then((response) => {
+                if (response) {
+                    setDataProfile(response)
+                    setProfileState(
+                        {
+                            user: response,
+                        }
+                    )
+                }
+            })
+        } catch (error) {
+            console.error(error);
         }
     }
     useEffect(() => {
-        if (token) {
-            getProfileUser().then(() => { })
-        }
+        getProfileUser().then(() => { })
     }, [dataLogined, token])
 
     const openModalLogout = () => {
@@ -134,10 +148,12 @@ const HeaderClient = (props: Props) => {
                         </div>
                     </Menu.Item>
                 }
-                <Menu.Item className='info-admin' onClick={openModalProfile}>
+                <Menu.Item className='info-admin'>
                     <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
-                        <i className='fa fa-user' aria-hidden='true'></i>
-                        Thông tin cá nhân
+                        <a href={ROUTE_PATH.PROFILE}>
+                            <i className='fa fa-user' aria-hidden='true'></i>
+                            Thông tin cá nhân
+                        </a>
                     </div>
                 </Menu.Item>
 
@@ -196,24 +212,29 @@ const HeaderClient = (props: Props) => {
                                 )
                             }
                             else {
-                                if (!token) {
-                                    return (
-                                        <a
-                                            href={ROUTE_PATH.LOGIN}
-                                            // onClick={() => setIsLoginClick(!isLoginClick)}
-                                            key={index}
-                                            className={`${conditionActive(item.link)} cursor-pointer`}
-                                        >{item.label}</a>
-                                    )
+                                if (isLoadingToken) {
+                                    if (token) {
+                                        return (
+                                            <a
+                                                href={item.link}
+                                                key={index}
+                                                className={`${conditionActive(item.link)}`}
+                                            >{item.label}</a>
+                                        )
+                                    }
+                                    else {
+                                        return (
+                                            <a
+                                                href={ROUTE_PATH.LOGIN}
+                                                // onClick={() => setIsLoginClick(!isLoginClick)}
+                                                key={index}
+                                                className={`${conditionActive(item.link)} cursor-pointer`}
+                                            >{item.label}</a>
+                                        )
+                                    }
                                 }
                                 else {
-                                    return (
-                                        <a
-                                            href={item.link}
-                                            key={index}
-                                            className={`${conditionActive(item.link)}`}
-                                        >{item.label}</a>
-                                    )
+                                    return null
                                 }
                             }
                         })
@@ -221,46 +242,55 @@ const HeaderClient = (props: Props) => {
                 </nav>
                 <div className="flex space-x-4">
                     <div>
-                        {token ? (
-                            <Row align={"middle"} >
-                                <Col className='mr-2 flex flex-col justify-center align-bottom'>
-                                    <div className='user-name'>
-                                        {dataProfile?.name}
-                                    </div>
-                                    <div className='role'>
-                                        {dataProfile.email}
-                                    </div>
-                                </Col>
-                                <Col>
-                                    <Dropdown overlay={listAction} trigger={['click']}>
-                                        <a onClick={(e) => e.preventDefault()}>
-                                            <Space>
-                                                <div className="avatar-user">
-                                                    <div className="grad spin"></div>
-                                                    <img src={dataProfile?.avatarCode ? configImageURL(dataProfile?.avatarCode) : avatar} className="avatar-img border-radius" alt='' />
-                                                </div>
+                        {
 
-                                            </Space>
-                                        </a>
-                                    </Dropdown>
-                                </Col>
-                            </Row>
-                        ) : (
-                            <div className='flex items-center gap-2'>
-                                <ButtonDesign
-                                    width={120}
-                                    classColor={'transparent'}
-                                    title={'Đăng Nhập'}
-                                    onClick={() => navigate(ROUTE_PATH.LOGIN)}
-                                />
-                                <ButtonDesign
-                                    width={120}
-                                    classColor={'green'}
-                                    title={'Đăng Kí'}
-                                    onClick={() => navigate(ROUTE_PATH.REGISTER)}
-                                />
-                            </div>
-                        )}
+                            isLoadingToken
+                                ?
+                                (
+                                    token ? (
+                                        <Row align={"middle"} >
+                                            <Col className='mr-2 flex flex-col justify-center align-bottom'>
+                                                <div className='user-name'>
+                                                    {dataProfile?.name}
+                                                </div>
+                                                <div className='role'>
+                                                    {dataProfile.email}
+                                                </div>
+                                            </Col>
+                                            <Col>
+                                                <Dropdown overlay={listAction} trigger={['click']}>
+                                                    <a onClick={(e) => e.preventDefault()}>
+                                                        <Space>
+                                                            <div className="avatar-user">
+                                                                <div className="grad spin"></div>
+                                                                <img src={dataProfile?.avatarCode ? configImageURL(dataProfile?.avatarCode) : avatar} className="avatar-img border-radius" alt='' />
+                                                            </div>
+
+                                                        </Space>
+                                                    </a>
+                                                </Dropdown>
+                                            </Col>
+                                        </Row>
+                                    ) : (
+                                        <div className='flex items-center gap-2'>
+                                            <ButtonDesign
+                                                width={120}
+                                                classColor={'transparent'}
+                                                title={'Đăng Nhập'}
+                                                onClick={() => navigate(ROUTE_PATH.LOGIN)}
+                                            />
+                                            <ButtonDesign
+                                                width={120}
+                                                classColor={'green'}
+                                                title={'Đăng Kí'}
+                                                onClick={() => navigate(ROUTE_PATH.REGISTER)}
+                                            />
+                                        </div>
+                                    )
+                                )
+                                :
+                                null
+                        }
                     </div>
 
 

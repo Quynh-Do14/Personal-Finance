@@ -1,8 +1,13 @@
 import { Col, Row } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import TitleComponent from "../../infrastructure/common/components/controls/TitleComponent";
 import paymentService from "../../infrastructure/repositories/payment/payment.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
+import selectFats1 from "../../assets/images/selectFats1.png";
+import selectFats2 from "../../assets/images/selectFats2.png";
+import selectFats3 from "../../assets/images/selectFats3.png";
+import selectFats4 from "../../assets/images/selectFats4.png";
+import { useNavigate } from "react-router-dom";
 
 const PricingComponent = () => {
     const plans = [
@@ -47,20 +52,34 @@ const PricingComponent = () => {
             highlighted: false,
         },
     ];
-    const [loading, setLoading] = useState<boolean>(false)
-    const onPaymentAsync = async (idPackgae: string) => {
-        try {
-            await paymentService.Subscription(
-                idPackgae,
-                setLoading
-            ).then((res) => {
-                window.open(res.vnpayUrl, '_blank');
-            })
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
+
+    const reason = [
+        {
+            img: selectFats1,
+            name: "Tối ưu",
+            number: "25",
+            content: "Chi phí vận hành cho doanh nghiệp"
+        },
+        {
+            img: selectFats2,
+            name: "Tiết kiệm",
+            number: "70",
+            content: "Thời gian xử lý sổ sách và báo cáo"
+        },
+        {
+            img: selectFats3,
+            name: "Tăng",
+            number: "65",
+            content: "Năng suất làm việc khi sử dụng dịch vụ"
+        },
+        {
+            img: selectFats4,
+            name: "Hơn",
+            number: "99",
+            content: "Đối tác và khách hàng hài lòng"
+        },
+    ]
+    const navigate = useNavigate();
     return (
         <div className="pricing-container">
             <div className="title">
@@ -86,7 +105,7 @@ const PricingComponent = () => {
                                     {plan.price}<span className="text-[18px] font-normal text-[#666666]"> / tháng</span>
                                 </p>
                             </div>
-                            <button onClick={() => onPaymentAsync(String(plan.id))}>Liên Hệ Tư Vấn Ngay</button>
+                            <button onClick={() => navigate("/payment-info")}>Liên Hệ Tư Vấn Ngay</button>
                             <ul className="flex flex-col gap-4">
                                 <li>Dịch vụ bao gồm</li>
                                 {plan.features.map((feature, idx) => (
@@ -109,7 +128,23 @@ const PricingComponent = () => {
             <div className="title">
                 <h2>Lý do nên chọn FATS</h2>
             </div>
-            <FullPageLoading isLoading={loading} />
+            <Row gutter={[40, 20]} className="reason">
+                {
+                    reason.map((item, index) => (
+                        <Col lg={6} md={12} sm={12} xs={24} key={index}>
+                            <div className="flex flex-col items-center">
+                                <img src={item.img} alt="" />
+                                <div className="label">
+                                    <span>{item.name}</span>
+                                    <div>{item.number}%</div>
+                                </div>
+                                <p>{item.content}</p>
+                            </div>
+                        </Col>
+                    ))
+                }
+
+            </Row>
         </div>
     );
 };

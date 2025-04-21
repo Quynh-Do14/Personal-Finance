@@ -1,7 +1,6 @@
 import { Col, Modal, Row } from 'antd'
 import InputTextCommon from '../../../infrastructure/common/components/input/input-text';
 import InputNumberCommon from '../../../infrastructure/common/components/input/input-number';
-import { ButtonCommon } from '../../../infrastructure/common/components/button/button-common';
 import "../../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
 import UploadImageAvatar from '../../../infrastructure/common/components/input/upload-img-avatar';

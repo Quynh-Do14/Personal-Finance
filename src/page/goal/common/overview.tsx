@@ -49,35 +49,35 @@ const OverviewComponent = (props: Props) => {
             </div>
             <div className='target'>
                 <div className="label">Số tiền mục tiêu</div>
-                <div className="value"> {formatCurrencyVND(detailGoal.goalAmount)}</div>
+                <div className="value"> <AnimatedNumber value={Number(detailGoal.goalAmount) || 0} />₫</div>
 
             </div>
             <Slider {...settings} className='slider'>
                 <div className='content'>
                     <div>
                         <div className="label">Số dư hiện tại</div>
-                        <div className="value"> {formatCurrencyVND(detailGoal.currentAmount)}</div>
+                        <div className="value"><AnimatedNumber value={Number(detailGoal.currentAmount) || 0} />₫</div>
                     </div>
                     <div className="label">Thời hạn: {convertDateOnlyShow(detailGoal.startDate)} - {convertDateOnlyShow(detailGoal.endDate)}</div>
                 </div>
-                <div className="info">
+                <div className={`${dailySpend >= 0 ? "green-bg" : "red-bg"} info`} >
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="title">Tổng chi tiêu hôm nay</p>
-                            <p className={`${dailySpend >= 0 ? "text-[#1d9b5e]" : "text-[#e05349]"} sum`}>
+                            <p className="sum">
                                 {dailySpend >= 0 ? <i className="fa fa-caret-up mr-2" aria-hidden="true"></i> : <i className="fa fa-caret-down" aria-hidden="true"></i>}
-                                {dailySpend && <AnimatedNumber value={dailySpend} />}
+                                {dailySpend && <AnimatedNumber value={dailySpend} />}₫
                             </p>
                         </div>
                     </div>
                     <div className="more">
-                        <div className="text-left text-[#1d9b5e]">
+                        <div>
                             <p className="">Thu nhập</p>
-                            <p className=""><i className="fa fa-caret-up mr-2" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}</p>
+                            <p className=""><i className="fa fa-caret-up mr-2" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}₫</p>
                         </div>
-                        <div className="text-right text-[#e05349]">
+                        <div>
                             <p className="">Chi phí</p>
-                            <p className=""><i className="fa fa-caret-down mr-2" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}</p>
+                            <p className=""><i className="fa fa-caret-down mr-2" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}₫</p>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 import { Col, Modal, Row } from 'antd';
 import "../../../../assets/styles/components/modal.css"
-import { ButtonSimpleCommon } from '../button/buttom-simple-common';
 import { ButtonDesign } from '../button/buttonDesign';
 type Props = {
     title: string,
@@ -21,8 +20,7 @@ const DialogNotificationCommon = (props: Props) => {
                 visible={visible}
                 closable={true}
                 footer={false}
-                onCancel={() => handleCancel()}
-                closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
+                // closeIcon={<i className="fa fa-times text-[20px]" aria-hidden="true"></i>}
             >
                 <div className='modal-common flex flex-col gap-6 justify-center items-center'>
                     <div className='title'>{title}</div>

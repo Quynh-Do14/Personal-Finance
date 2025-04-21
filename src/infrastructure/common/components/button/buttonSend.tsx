@@ -1,25 +1,28 @@
 import "../../../../assets/styles/components/button.css"
 type Props = {
-    classColor: "green" | "red" | "white",
+    classColor: "green" | "red" | "white" | "transparent",
     onClick: () => void,
     icon?: any,
     title: string,
-    isFullWidth?: boolean
+    width?: number
+    disabled?: boolean
 }
-export const ButtonCommon = (props: Props) => {
+export const ButtonSend = (props: Props) => {
     const {
         classColor,
         onClick,
         icon,
         title,
-        isFullWidth = false
+        width = false,
+        disabled = false
     } = props;
     return (
         <button
-            className={`btn-common ${classColor}`}
+            className={`btn-send ${classColor}`}
             style={{
-                width: isFullWidth ? "100%" : 120
+                width: width ? width : "100%"
             }}
+            disabled={disabled}
             onClick={onClick}>
             {
                 icon && <span>{icon} </span>

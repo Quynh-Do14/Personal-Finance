@@ -58,6 +58,9 @@ export class Endpoint {
         static Team = class {
             static GetStatisticalGoal = "/spends/team/statistical"
         }
+        static Common = class {
+            static GetByTime = "/spends/user/statistical/day-of-week"
+        }
     }
     static SpendingType = class {
         static Team = class {
@@ -101,5 +104,10 @@ export class Endpoint {
         static Payment = "/payment"
         static Get = "/subscriptions/private/histories"
         static Create = "subscriptions/private/subscribe"
+        static Package = "/subscriptions/public/plans"
+    }
+    static Budget = class {
+        static Get = "/budgets/private/my-budget"
+        static Update = "/budgets/private/update"
     }
 }

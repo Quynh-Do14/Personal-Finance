@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import { Bar } from 'react-chartjs-2'
 type Props = {
-    barChartData: any
+    statisticsByTime: any
 }
 const BarChartStatic = (props: Props) => {
     const {
-        // barChartData,
+        statisticsByTime,
     } = props;
 
     const barChartData = {
@@ -36,7 +36,7 @@ const BarChartStatic = (props: Props) => {
         <div className='bar-chart box-common'>
             <p className='title-box'>Biểu đồ thu chi</p>
             <Bar
-                data={barChartData}
+                data={statisticsByTime}
                 options={{
                     responsive: true,
                     plugins: {

@@ -190,3 +190,21 @@
   width: 100%;
   transform: scale(1.02);
 }
+
+.btn-send {
+  gap: 10px;
+  padding-top: 10px;
+  padding-right: 25px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  border-radius: 5px;
+}
+
+.btn-send.green {
+  background: linear-gradient(252.31deg, #99cc99 9.19%, #99cccc 90.81%);
+}
+
+.btn-send.white {
+  background: #fff;
+  border: 1px #99cc99 solid;
+}

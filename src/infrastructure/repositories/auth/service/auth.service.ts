@@ -1,7 +1,5 @@
-import Cookies from "js-cookie";
 import { Endpoint } from "../../../../core/common/apiLink";
 import { FailMessage, SuccessMessage } from "../../../common/components/toast/notificationToast";
-import { messageConfig } from "../../../helper/message";
 import { RequestService } from "../../../utils/response";
 import { clearToken, saveToken } from "../../../utils/storage";
 
