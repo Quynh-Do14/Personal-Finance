@@ -254,7 +254,7 @@ const GoalSpendingPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: dataRequestCategory.iconId
+                            iconId: dataRequestCategory.iconId || 1
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
@@ -276,7 +276,7 @@ const GoalSpendingPage = () => {
                         Number(selectedId.id),
                         {
                             name: dataRequestCategory.name,
-                            iconId: dataRequestCategory.iconId
+                            iconId: dataRequestCategory.iconId || 1
                         },
                         () => {
                             onGetIncomeTypeAsync().then(_ => { });
