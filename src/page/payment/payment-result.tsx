@@ -57,7 +57,7 @@ const PaymentResultPage = () => {
 
     const condition = () => {
         if (respone) {
-            if (respone?.RspCode == "00") {
+            if (respone?.rspCode == "00") {
                 if (Number(vnp_ResponseCode) == 0) {
                     return (
                         <div className={`payment-status-container success`}>
@@ -85,7 +85,7 @@ const PaymentResultPage = () => {
                     )
                 }
             }
-            else if (respone?.RspCode == "01") {
+            else if (respone?.rspCode == "01") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
@@ -98,7 +98,7 @@ const PaymentResultPage = () => {
                     </div>
                 )
             }
-            else if (respone?.RspCode == "02") {
+            else if (respone?.rspCode == "02") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
@@ -111,7 +111,7 @@ const PaymentResultPage = () => {
                     </div>
                 )
             }
-            else if (respone?.RspCode == "04") {
+            else if (respone?.rspCode == "04") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
@@ -124,7 +124,7 @@ const PaymentResultPage = () => {
                     </div>
                 )
             }
-            else if (respone?.RspCode == "97") {
+            else if (respone?.rspCode == "97") {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
