@@ -41,6 +41,25 @@ class PaymentService {
             setLoading(false);
         }
     }
+    async Package(setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .get(Endpoint.Subscription.Package
+                )
+                .then(response => {
+                    if (response) {
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
 }
 
 export default new PaymentService();

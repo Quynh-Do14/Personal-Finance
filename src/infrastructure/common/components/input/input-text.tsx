@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Input } from 'antd';
 import "../../../../assets/styles/components/input.css"
 import { validateFields } from '../../../helper/helper';
-import { validateCMND, validateEmail, validateName, validatePhoneNumber } from '../../../helper/validate';
+import { validateCMND, validateEmail, validatePhoneNumber } from '../../../helper/validate';
 import { MessageError } from '../controls/MessageError';
 type Props = {
     label: string,

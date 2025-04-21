@@ -589,6 +589,37 @@
   text-align: right;
   transition: color 0.5s ease;
 }
+.homepage-container .pricing-container .reason .label {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.homepage-container .pricing-container .reason .label span {
+  color: #101010;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: capitalize;
+}
+.homepage-container .pricing-container .reason .label div {
+  color: #006633;
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 60px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+}
+.homepage-container .pricing-container .reason p {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+}
 
 .homepage-container .slogan {
   background: #003333;

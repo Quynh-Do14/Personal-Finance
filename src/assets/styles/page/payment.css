@@ -164,6 +164,9 @@
 @media only screen and (max-width: 1024px) {
 }
 @media only screen and (min-width: 993px) {
+  .payemnt-page {
+    padding: 60px 30px;
+  }
   .payemnt-page .content,
   .payment-status-container {
     width: 700px;
@@ -207,17 +210,7 @@
   padding: 30px;
   border-radius: 8px;
   background-color: white;
-  width: 400px;
-}
-
-.payment-status-container .payment-status.success {
-  border: 2px solid #009999;
-  background-color: #e6f7e6;
-}
-
-.payment-status-container .payment-status.failure {
-  border: 2px solid #f0273b;
-  background-color: #f8d7da;
+  width: 600px;
 }
 
 .payment-status-container .status-icon {
@@ -238,6 +231,13 @@
   color: #fe5a5d;
 }
 
+.payment-status-container.loading .payment-status h1 {
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  color: #2e2e2e;
+}
+
 .payment-status-container.success .payment-status h2 {
   font-size: 24px;
   text-align: center;
@@ -246,11 +246,19 @@
   color: #008f6d;
 }
 .payment-status-container.failure .payment-status h2 {
-  font-size: 14px;
+  font-size: 24px;
   text-align: center;
   font-weight: 600;
   text-align: center;
   color: #fe5a5d;
+}
+
+.payment-status-container.loading .payment-status h2 {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+  text-align: center;
+  color: #2e2e2e;
 }
 
 .payment-status-container button {

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "../../assets/styles/page/chat.css"
-import { ButtonCommon } from '../../infrastructure/common/components/button/button-common';
-import robot from "../../assets/images/robot.gif";
+import robot from "../../assets/images/botChat.png";
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout';
 import BubbleCommon from '../../infrastructure/common/components/controls/Bubble';
 import Constants from '../../core/common/constants';
@@ -10,11 +9,14 @@ import authService from '../../infrastructure/repositories/auth/service/auth.ser
 import { useNavigate } from 'react-router-dom';
 import { FullPageLoading } from '../../infrastructure/common/components/controls/loading';
 import { ROUTE_PATH } from '../../core/common/appRouter';
+import { useRecoilValue } from 'recoil';
+import { ProfileState } from '../../core/atoms/profile/profileState';
+import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 const SelectBotPage = () => {
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
-
+    const profileState = useRecoilValue(ProfileState).user
     const handleOptionClick = (option: any) => {
         setSelectedOption(option);
     };
@@ -47,7 +49,7 @@ const SelectBotPage = () => {
                                     return (
                                         <Col xs={24} sm={12} md={8} key={index}>
                                             <div
-                                                className={`option ${selectedOption === item.value ? 'selected' : ''}`}
+                                                className={`option ${(selectedOption === item.value) ? 'selected' : ''} ${profileState?.character?.id === item.value ? "owner" : ""}`}
                                                 onClick={() => handleOptionClick(item.value)}
                                             >
                                                 <img src={robot} alt="" width={160} />
@@ -58,8 +60,8 @@ const SelectBotPage = () => {
                                 })
                             }
                             <Col span={24}>
-                                <ButtonCommon classColor={'white'}
-                                    isFullWidth={true}
+                                <ButtonDesign
+                                    classColor={'green'}
                                     onClick={onChangeBotAsync}
                                     title={'Xác nhận'}
                                 />

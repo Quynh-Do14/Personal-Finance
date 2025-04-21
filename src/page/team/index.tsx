@@ -7,7 +7,6 @@ import { Col, Row } from "antd";
 import ModalCreateTeam from "./modalCreate";
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import { Link } from "react-router-dom";
-import { ButtonCommon } from "../../infrastructure/common/components/button/button-common";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import "../../assets/styles/page/team.css"
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";

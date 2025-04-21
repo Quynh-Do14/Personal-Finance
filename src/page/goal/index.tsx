@@ -15,6 +15,8 @@ import BannerCommon from "../../infrastructure/common/components/banner/BannerCo
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
+import AlertBudget from "../../infrastructure/common/components/alert/alert-budget";
+import ChatBotInfo from "./common/chatInfo";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -357,6 +359,12 @@ const GoalSpendingPage = () => {
                 <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
                 <div className="padding-common">
                     <Row gutter={[20, 20]}>
+                        <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
+                            <ChatBotInfo />
+                        </Col>
+                        <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
+                            <AlertBudget />
+                        </Col>
                         <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
                             <div className="category">
                                 <div className="flex flex-col gap-4">

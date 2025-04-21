@@ -4,6 +4,13 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import customerImg from "../../assets/images/customer.png"
+
+import trust1 from "../../assets/images/trust1.png"
+import trust2 from "../../assets/images/trust2.png"
+import trust3 from "../../assets/images/trust3.png"
+import trust4 from "../../assets/images/trust4.png"
+import trust5 from "../../assets/images/trust5.png"
+
 const customer = [
     {
         "name": "Nguyễn Hoàng An",
@@ -22,6 +29,14 @@ const customer = [
     }
 ]
 
+const trusts = [
+    trust1,
+    trust2,
+    trust3,
+    trust4,
+    trust5,
+]
+
 const CustomerComponent = () => {
     const settings = {
         dots: true,
@@ -38,8 +53,6 @@ const CustomerComponent = () => {
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
-                    infinite: true,
-                    dots: true
                 }
             },
             {
@@ -47,7 +60,6 @@ const CustomerComponent = () => {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    dots: true
                 }
             },
             {
@@ -61,12 +73,61 @@ const CustomerComponent = () => {
         ]
     };
 
+    const settingLogo = {
+        dots: false,
+        infinite: true,
+        speed: 3000,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 768, // màn hình <= 768px
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 480, // màn hình <= 480px
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            }
+        ]
+    };
+
     return (
         <div className="customer">
             <TitleComponent
                 title={'TRUST BY'}
                 color={'white'}
             />
+            <Slider {...settingLogo} className='slider'>
+                {
+                    trusts && trusts.length && trusts.concat(trusts).map((it, index) => {
+                        return (
+                            <div className={"slider-content"} key={index}>
+                                <img
+                                    src={it}
+                                    alt={`Slide ${index + 1}`}
+                                />
+
+                            </div>
+                        )
+                    })
+                }
+            </Slider>
             <div className="line"></div>
             <div className="title">
                 <h2>Khách hàng nói gì về fATS</h2>

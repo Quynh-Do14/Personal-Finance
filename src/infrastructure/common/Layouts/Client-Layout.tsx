@@ -3,6 +3,7 @@ import "../../../assets/styles/components/MainLayout.css";
 import FooterClient from "./Footer";
 import HeaderClient from "./Header";
 import HeaderMobileComponent from "./Header-Mobile";
+import FormAdvisement from "./Form";
 
 const LayoutClient = ({ ...props }: any) => {
     const [isLoginClick, setIsLoginClick] = useState<boolean>(false);
@@ -69,6 +70,7 @@ const LayoutClient = ({ ...props }: any) => {
                 <div>
                     {props.children}
                 </div>
+                <FormAdvisement />
                 <FooterClient />
             </div>
         </div>

@@ -48,6 +48,27 @@ class StaticService {
             setLoading(false);
         }
     };
+
+    async getStatisticalByTime(goalId: string, type: "week" | "month", setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .get(`${Endpoint.Static.Common.GetByTime}/${goalId}`, {
+                    timeRange: type
+                })
+                .then(response => {
+                    if (response) {
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    };
 }
 
 export default new StaticService();

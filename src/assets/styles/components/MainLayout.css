@@ -179,7 +179,7 @@
   flex-direction: row;
   background: #fff;
   position: relative;
-   font-family: 'Mulish', sans-serif;
+  font-family: 'Mulish', sans-serif;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -562,4 +562,23 @@
   margin-right: 12px;
   color: #1d9b5e;
   font-size: 18px;
+}
+
+.advisement {
+  background-image: url('../../images/bgAdvisement.png');
+}
+.advisement .left {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 30px;
+}
+.advisement .left p {
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 60px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  text-transform: capitalize;
+  color: #fff;
 }

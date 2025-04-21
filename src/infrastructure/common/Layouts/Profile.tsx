@@ -4,11 +4,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../repositories/auth/service/auth.service';
 import { WarningMessage } from '../components/toast/notificationToast';
-import { ButtonCommon } from '../components/button/button-common';
 import { useRecoilState } from 'recoil';
 import { ProfileState } from '../../../core/atoms/profile/profileState';
-import InputDateCommon from '../components/input/input-date';
-import { configImageURL, convertDateOnly } from '../../helper/helper';
+import { configImageURL } from '../../helper/helper';
 import { isTokenStoraged } from '../../utils/storage';
 import UploadAvatar from '../components/input/upload-avatar';
 import { ButtonDesign } from '../components/button/buttonDesign';
@@ -53,27 +51,25 @@ const ProfileModal = (props: Props) => {
   };
 
   const onGetProfileAsync = async () => {
-    if (token) {
-      try {
-        await authService.profile(
-          setLoading
-        ).then((response) => {
-          setDetailProfile(response)
-          setDetailState({
-            user: response
-          })
+    const tokenS = isTokenStoraged();
+    if (!tokenS) return;
+    try {
+      await authService.profile(
+        setLoading
+      ).then((response) => {
+        setDetailProfile(response)
+        setDetailState({
+          user: response
         })
-      }
-      catch (error) {
-        console.error(error)
-      }
+      })
+    }
+    catch (error) {
+      console.error(error)
     }
   }
   useEffect(() => {
-    if (token) {
-      onGetProfileAsync().then(() => { })
-    }
-  }, [token])
+    onGetProfileAsync().then(() => { })
+  }, [])
 
   useEffect(() => {
     if (detailProfile) {

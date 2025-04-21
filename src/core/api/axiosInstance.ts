@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json',
     },
     timeout: 15000,
-    withCredentials: true,
+    // withCredentials: true,
 });
 
 // Hàm lấy token từ cookie
@@ -69,7 +69,8 @@ axiosInstance.interceptors.response.use(
 
                     const response = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`,
                         { refreshToken: token?.refreshToken },
-                        { validateStatus: () => true });
+                        // { validateStatus: () => true }
+                    );
 
                     if (!response) {
                         throw new Error('Refresh token failed');
@@ -98,7 +99,7 @@ axiosInstance.interceptors.response.use(
                         message: 'Thông báo',
                         description: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
                     });
-                    window.location.href = ROUTE_PATH.LOGIN;
+                    window.location.href = ROUTE_PATH.HOME_PAGE;
                     return Promise.reject(error);
                 } finally {
                     isRefreshing = false;

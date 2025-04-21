@@ -68,6 +68,11 @@ const FooterClient = () => {
                         </p>
                     </div>
                 </Col>
+                <Col span={24}>
+                    <div className="flex justify-center">
+                        <a href="//www.dmca.com/Protection/Status.aspx?ID=60d23d0c-f8a6-4d1b-b3fc-b90faaa075f9" title="DMCA.com Protection Status" className="dmca-badge"> <img src="https://images.dmca.com/Badges/dmca-badge-w150-5x1-10.png?ID=60d23d0c-f8a6-4d1b-b3fc-b90faaa075f9" alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                    </div>
+                </Col>
             </Row>
         </footer>
     )

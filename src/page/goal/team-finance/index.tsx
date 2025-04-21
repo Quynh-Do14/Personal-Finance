@@ -24,6 +24,7 @@ import BarChartStatic from "../common/barChart";
 import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
+import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -55,6 +56,11 @@ const TeamFinancePage = () => {
     const [dataTableMember, setDataTableMember] = useState<any[]>([]);
     const [spendDataTable, setSpendDataTable] = useState<any[]>([]);
 
+    const [statisticsByTime, setStatisticsByTime] = useState<any>({
+        labels: [],
+        datasets: [{ data: [], backgroundColor: "" }],
+    });
+
     const [spendMemberDataTable, setSpendMemberDataTable] = useState<any[]>([]);
     const [spendData, setSpendData] = useState({
         labels: [],
@@ -72,7 +78,6 @@ const TeamFinancePage = () => {
         datasets: [{ data: [], backgroundColor: ["#FF6384"] }],
     });
     const onGetDetailGoalAsync = async () => {
-        console.log("vào");
         try {
             await goalService.GoalTeamById(
                 Number(id),
@@ -317,9 +322,12 @@ const TeamFinancePage = () => {
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>
+                        <Col span={24}>
+                            <AlertBudget />
+                        </Col>
                         <Col sm={24} md={14} lg={16}>
                             <BarChartStatic
-                                barChartData={barChartData}
+                                statisticsByTime={statisticsByTime}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>

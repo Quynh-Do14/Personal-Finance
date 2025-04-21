@@ -268,3 +268,30 @@
 
 .input-text-common .ant-picker.ant-picker-middle.input-date-common.input-error {
 }
+
+.input-advisement input {
+  border-bottom: 1px solid #ffffff59;
+  background: transparent;
+  padding: 10px 0;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  color: #fff;
+  width: 100%;
+}
+.input-advisement input::placeholder {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  color: #fff;
+}
+
+.input-advisement input:focus {
+  outline: none;
+  border-bottom: 1px solid #ffffff59;
+  box-shadow: none;
+}

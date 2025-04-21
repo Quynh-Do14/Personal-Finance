@@ -53,6 +53,18 @@
   align-items: flex-start;
 }
 
+@keyframes rotateIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.chat-box-container .header .rotate {
+  transition: all 0.3s;
+  animation: rotateIcon infinite 2s linear;
+}
 .chat-box-container .header .title {
   font-size: 20px;
   font-weight: bold;
@@ -259,6 +271,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 8px;
   cursor: pointer;
   padding: 10px;
   border-radius: 8px;
@@ -266,13 +279,19 @@
   background: #ffffff66;
   border: 1px solid #d7d7d785;
   box-shadow: 5px 5px 10px -10px #7c0fd1;
+  background-color: #006699;
 }
 .select-bot-container .option p {
   font-size: 16px;
   font-weight: 600;
+  color: #fff;
 }
 .select-bot-container .option.selected {
-  background-color: rgb(71, 206, 247);
+  background-color: #47cef7;
+}
+
+.select-bot-container .option.owner {
+  background-color: #006633 !important;
 }
 .select-bot-container .icon {
   width: 50px;
@@ -294,4 +313,43 @@
 }
 .select-bot-container .confirm-button:hover {
   background-color: #0056b3;
+}
+
+.chatbot-info {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 156px;
+  height: 100%;
+  background: #003333;
+  border-radius: 15px;
+  padding: 20px;
+}
+.chatbot-info .bot-name {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chatbot-info p {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  text-align: left;
+  color: #ffffff;
+}
+.chatbot-info img {
+  animation: chatZoom infinite 2s linear;
+}
+@keyframes chatZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

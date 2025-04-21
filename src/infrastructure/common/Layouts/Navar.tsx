@@ -5,13 +5,14 @@ import { ROUTE_PATH } from '../../../core/common/appRouter';
 import "../../../assets/styles/components/MainLayout.css";
 import Constants from '../../../core/common/constants';
 import { isTokenStoraged } from '../../utils/storage';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { ProfileState } from '../../../core/atoms/profile/profileState';
 import { configImageURL } from '../../helper/helper';
 import avatar from '../../../assets/images/no-avatar.png';
 import AnimatedButton from '../components/button/animationButton';
 import authService from '../../repositories/auth/service/auth.service';
 import { ButtonDesign } from '../components/button/buttonDesign';
+import { useEffect, useState } from 'react';
 
 type Props = {
     isOpen: boolean,
@@ -39,10 +40,54 @@ const NavbarComponent = (props: Props) => {
         isOpenModalChangePassword,
         setIsOpenModalChangePassword,
     } = props;
-    const token = isTokenStoraged();
+    const [token, setToken] = useState<boolean>(false);
+    const [isLoadingToken, setIsLoadingToken] = useState<boolean>(false);
+    const [dataProfile, setDataProfile] = useState<any>({});
+
     const location = useLocation();
     const navigate = useNavigate();
-    const profileState = useRecoilValue(ProfileState).user;
+
+
+    const [, setProfileState] = useRecoilState(ProfileState);
+
+    useEffect(() => {
+        const fetchToken = async () => {
+            try {
+                const tokenS = await isTokenStoraged();
+                setToken(tokenS);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsLoadingToken(true);
+            }
+        };
+
+        fetchToken();
+    }, []);
+
+    const getProfileUser = async () => {
+        const tokenS = isTokenStoraged();
+        if (!tokenS) return;
+        try {
+            await authService.profile(
+                () => { }
+            ).then((response) => {
+                if (response) {
+                    setDataProfile(response)
+                    setProfileState(
+                        {
+                            user: response,
+                        }
+                    )
+                }
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        getProfileUser().then(() => { })
+    }, [token])
 
     const openModalLogout = () => {
         setIsOpenModalLogout(true);
@@ -121,10 +166,10 @@ const NavbarComponent = (props: Props) => {
                 {
                     token ?
                         <div className="profile">
-                            <img src={profileState?.avatarCode ? configImageURL(profileState?.avatarCode) : avatar} className="avatar" alt='' />
+                            <img src={dataProfile?.avatarCode ? configImageURL(dataProfile?.avatarCode) : avatar} className="avatar" alt='' />
                             <div>
-                                <p className="name">{profileState.name}</p>
-                                <p className="phone">{profileState.email}</p>
+                                <p className="name">{dataProfile.name}</p>
+                                <p className="phone">{dataProfile.email}</p>
                             </div>
                         </div>
                         :
@@ -159,82 +204,90 @@ const NavbarComponent = (props: Props) => {
                             )
                         }
                         else {
-                            if (!token) {
-                                return (
-                                    <a
-                                        onClick={() => setIsLoginClick(!isLoginClick)}
-                                        key={index}
-                                    >
-                                        <li key={index} className={`${conditionActive(item.link)} menu-item`}>
-                                            <a
-                                                onClick={() => setIsLoginClick(!isLoginClick)}
-                                            >
-                                                <span className="icon">
-                                                    <i className={item.icon} aria-hidden="true"></i>
-                                                </span>
-                                                <span>{item.label}</span>
-                                            </a>
-                                        </li>
-                                    </a>
-                                )
+                            if (isLoadingToken) {
+                                if (!token) {
+                                    return (
+                                        <a
+                                            onClick={() => setIsLoginClick(!isLoginClick)}
+                                            key={index}
+                                        >
+                                            <li key={index} className={`${conditionActive(item.link)} menu-item`}>
+                                                <a
+                                                    onClick={() => setIsLoginClick(!isLoginClick)}
+                                                >
+                                                    <span className="icon">
+                                                        <i className={item.icon} aria-hidden="true"></i>
+                                                    </span>
+                                                    <span>{item.label}</span>
+                                                </a>
+                                            </li>
+                                        </a>
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <a
+                                            href={item.link}
+                                            key={index}
+                                        >
+                                            <li key={index} className={`${conditionActive(item.link)} menu-item`}>
+                                                <a
+                                                    onClick={() => setIsLoginClick(!isLoginClick)}
+                                                >
+                                                    <span className="icon">
+                                                        <i className={item.icon} aria-hidden="true"></i>
+                                                    </span>
+                                                    <span>{item.label}</span>
+                                                </a>
+                                            </li>
+                                        </a>
+                                    )
+                                }
                             }
-                            else {
-                                return (
-                                    <a
-                                        href={item.link}
-                                        key={index}
-                                    >
-                                        <li key={index} className={`${conditionActive(item.link)} menu-item`}>
-                                            <a
-                                                onClick={() => setIsLoginClick(!isLoginClick)}
-                                            >
-                                                <span className="icon">
-                                                    <i className={item.icon} aria-hidden="true"></i>
-                                                </span>
-                                                <span>{item.label}</span>
-                                            </a>
-                                        </li>
-                                    </a>
-                                )
-                            }
+
                         }
 
                     })}
 
                 </ul>
                 {
-                    token
-                    &&
-                    < ul className="menu">
 
-                        <li className={`menu-item`} onClick={openModalProfile}>
-                            <span className="icon">
-                                <i className="fa fa-user" aria-hidden="true"></i>
-                            </span>
-                            <span>Thông tin cá nhân</span>
-                        </li>
-                        <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
-                            <li className={`menu-item`} onClick={openModalChangePassword}>
+                    isLoadingToken
+                        ?
+                        (token
+                            &&
+                            < ul className="menu">
 
-                                <span className="icon">
-                                    <i className="fa fa-retweet" aria-hidden="true"></i>
-                                </span>
-                                <span>Thay đổi Bot Chat</span>
-                            </li>
-                        </a>
-                        <li className={`menu-item`} onClick={openModalChangePassword}>
-                            <span className="icon">
-                                <i className="fa fa-key" aria-hidden="true"></i>
-                            </span>
-                            <span>Đổi mật khẩu</span>
-                        </li>
-                        <li className={`menu-item`} onClick={openModalLogout}>
-                            <span className="icon">
-                                <i className="fa fa-sign-out" aria-hidden="true"></i>
-                            </span>
-                            <span>Đăng xuất</span>
-                        </li>
-                    </ul>
+                                <li className={`menu-item`} onClick={openModalProfile}>
+                                    <span className="icon">
+                                        <i className="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <span>Thông tin cá nhân</span>
+                                </li>
+                                <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
+                                    <li className={`menu-item`} onClick={openModalChangePassword}>
+
+                                        <span className="icon">
+                                            <i className="fa fa-retweet" aria-hidden="true"></i>
+                                        </span>
+                                        <span>Thay đổi Bot Chat</span>
+                                    </li>
+                                </a>
+                                <li className={`menu-item`} onClick={openModalChangePassword}>
+                                    <span className="icon">
+                                        <i className="fa fa-key" aria-hidden="true"></i>
+                                    </span>
+                                    <span>Đổi mật khẩu</span>
+                                </li>
+                                <li className={`menu-item`} onClick={openModalLogout}>
+                                    <span className="icon">
+                                        <i className="fa fa-sign-out" aria-hidden="true"></i>
+                                    </span>
+                                    <span>Đăng xuất</span>
+                                </li>
+                            </ul>)
+                        :
+                        null
                 }
 
             </div >
