@@ -21,6 +21,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  user-select: none;
 }
 .profile .tabs .option {
   cursor: pointer;

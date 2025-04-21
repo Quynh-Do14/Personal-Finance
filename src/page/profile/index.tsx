@@ -27,7 +27,7 @@ const ProfilePage = () => {
     const [detailProfile, setDetailProfile] = useState<any>({});
     const [budget, setBudget] = useState<any>({});
     const [loading, setLoading] = useState<boolean>(false)
-    const [tab, setTab] = useState<number>(1 | 2 | 3);
+    const [tab, setTab] = useState<number>(1);
     const navigate = useNavigate();
 
     const [, setDetailState] = useRecoilState(ProfileState);
@@ -156,7 +156,6 @@ const ProfilePage = () => {
             WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
         };
     };
-    console.log("dataProfile", dataProfile);
 
     const onUpdateBudget = async () => {
         await setSubmittedTime(Date.now());

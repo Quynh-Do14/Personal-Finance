@@ -194,7 +194,7 @@ const GoalSpendingPage = () => {
                     await spendingTypeService.CreateUser(
                         {
                             name: dataRequestCategory.name,
-                            iconId: dataRequestCategory.iconId
+                            iconId: dataRequestCategory.iconId || 1
                         },
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
@@ -219,7 +219,7 @@ const GoalSpendingPage = () => {
                         await incomeTypeService.CreateUser(
                             {
                                 name: dataRequestCategory.name,
-                                iconId: dataRequestCategory.iconId
+                                iconId: dataRequestCategory.iconId || 1
                             },
                             () => {
                                 onGetIncomeTypeAsync().then(_ => { });
@@ -244,6 +244,7 @@ const GoalSpendingPage = () => {
         };
     }
 
+    console.log("dataRequestCategory", dataRequestCategory);
 
     const onUpdateCategoryAsync = async () => {
         if (selectedTab == 'spend') {

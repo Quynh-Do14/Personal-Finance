@@ -7,121 +7,113 @@ import { ROUTE_PATH } from '../common/appRouter';
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 const axiosInstance = axios.create({
-    baseURL: baseURL,
+    baseURL,
     headers: {
         'Content-Type': 'application/json',
     },
     timeout: 15000,
-    // withCredentials: true,
 });
 
-// Hàm lấy token từ cookie
-const getToken = () => {
-    const token = Cookies.get('token');
-    return token ? JSON.parse(token) : null;
+// Utils
+const getToken = (): { accessToken: string; refreshToken: string } | null => {
+    try {
+        const token = Cookies.get('token');
+        return token ? JSON.parse(token) : null;
+    } catch {
+        Cookies.remove('token');
+        return null;
+    }
 };
 
-// Biến để tránh refresh token đồng thời từ nhiều request
-let isRefreshing = false;
-let failedQueue: any[] = [];
-
-// Hàm xử lý hàng đợi các request khi refresh token
-const processQueue = (error: any, token: string | null = null) => {
-    failedQueue.forEach((prom) => {
-        if (token) {
-            prom.resolve(token);
-        } else {
-            prom.reject(error);
-        }
+const setToken = (accessToken: string, refreshToken: string) => {
+    Cookies.set('token', JSON.stringify({ accessToken, refreshToken }), {
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Strict',
+        expires: 7,
     });
-    failedQueue = [];
 };
 
-// Interceptor xử lý trước khi gửi request
-axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = getToken();
-        if (token?.accessToken) {
-            config.headers.Authorization = `Bearer ${token.accessToken}`;
-        }
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
+const removeToken = () => {
+    Cookies.remove('token');
+};
 
-// Interceptor xử lý phản hồi từ server
+// Interceptor request: thêm accessToken vào header
+axiosInstance.interceptors.request.use((config) => {
+    const token = getToken();
+    if (token?.accessToken && config.headers) {
+        config.headers.Authorization = `Bearer ${token.accessToken}`;
+    }
+    return config;
+});
+
+// Biến toàn cục để tránh gọi refresh nhiều lần
+let isRefreshing = false;
+let subscribers: ((token: string) => void)[] = [];
+
+const onRefreshed = (newAccessToken: string) => {
+    subscribers.forEach((callback) => callback(newAccessToken));
+    subscribers = [];
+};
+
+const addSubscriber = (callback: (token: string) => void) => {
+    subscribers.push(callback);
+};
+
+// Interceptor response: tự động gọi refresh token nếu accessToken hết hạn
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     async (error) => {
         const originalRequest = error.config;
+        const token = getToken();
 
-        // Kiểm tra nếu token hết hạn và chưa được retry
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // ✅ Nếu là lỗi 401 trong lúc login, không xử lý redirect
+        const isAuthEndpoint = originalRequest.url?.includes(Endpoint.Auth.Login)
+            || originalRequest.url?.includes(Endpoint.Auth.Register);
+
+        if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
             originalRequest._retry = true;
+
+            if (!token?.refreshToken) {
+                removeToken();
+                window.location.href = ROUTE_PATH.HOME_PAGE;
+                return Promise.reject(error);
+            }
 
             if (!isRefreshing) {
                 isRefreshing = true;
 
                 try {
-                    const token = getToken();
-
-                    const response = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`,
-                        { refreshToken: token?.refreshToken },
-                        // { validateStatus: () => true }
-                    );
-
-                    if (!response) {
-                        throw new Error('Refresh token failed');
-                    }
-
-                    const { refreshToken, accessToken } = response.data;
-
-                    // Lưu token mới vào cookie
-                    Cookies.set('token', JSON.stringify({ refreshToken, accessToken }), {
-                        path: '/',
-                        secure: process.env.NODE_ENV === 'production',
-                        sameSite: 'Strict',
-                        expires: 7,
+                    const res = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`, {
+                        refreshToken: token.refreshToken,
                     });
 
-                    // Sau khi refresh token thành công, gọi lại các request trong hàng đợi
-                    processQueue(null, accessToken);
-
-                    // Cập nhật Authorization cho request gốc
-                    originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-                    return axiosInstance(originalRequest);
-                } catch (error) {
-                    processQueue(error, null);
-                    Cookies.remove('token');
+                    const { accessToken, refreshToken } = res.data;
+                    setToken(accessToken, refreshToken);
+                    onRefreshed(accessToken);
+                } catch (refreshError) {
+                    removeToken();
                     notification.error({
                         message: 'Thông báo',
                         description: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
                     });
                     window.location.href = ROUTE_PATH.HOME_PAGE;
-                    return Promise.reject(error);
+                    return Promise.reject(refreshError);
                 } finally {
                     isRefreshing = false;
                 }
             }
 
-            // Nếu đang refresh token, thêm request vào hàng đợi
-            return new Promise((resolve, reject) => {
-                failedQueue.push({
-                    resolve: (token: string) => {
-                        originalRequest.headers.Authorization = `Bearer ${token}`;
-                        resolve(axiosInstance(originalRequest));
-                    },
-                    reject: (err: any) => {
-                        reject(err);
-                    },
+            return new Promise((resolve) => {
+                addSubscriber((newToken: string) => {
+                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                    resolve(axiosInstance(originalRequest));
                 });
             });
         }
 
         return Promise.reject(error);
     }
+
 );
 
 export default axiosInstance;
