@@ -41,7 +41,8 @@ const PaymentResultPage = () => {
         }
         
         // Kiểm tra nếu đã xử lý giao dịch này (ngay cả khi reload)
-        const storedResponse = sessionStorage.getItem(`payment_${transactionId}`);
+        const storedResponse = localStorage.getItem(`payment_${transactionId}`);
+        
         if (storedResponse) {
             try {
                 const parsedResponse = JSON.parse(storedResponse);
