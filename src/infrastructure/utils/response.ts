@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "../../core/api/axiosInstance";
 
 export const RequestService = {
@@ -34,5 +35,22 @@ export const RequestService = {
     async delete(url: any) {
         let resp = await axiosInstance.delete(url);
         return resp.data;
+    },
+    getWithHeaders: async (url: string, headers: Record<string, string>) => {
+        try {
+            const res = await axios.get(url, { headers });
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    postWithHeaders: async (url: string, data: any, headers: Record<string, string>) => {
+        try {
+            const res = await axios.post(url, data, { headers });
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
     },
 };

@@ -8,6 +8,7 @@ import { FullPageLoading } from '../../infrastructure/common/components/controls
 import succes from "../../assets/images/success.png"
 import failure from "../../assets/images/failure.png"
 import loadingGif from "../../assets/images/loading.gif"
+import { PaymentRequestIdStore } from '../../infrastructure/utils/PaymentRequestIdStore';
 
 const PaymentResultPage = () => {
     const location = useLocation();
@@ -40,34 +41,49 @@ const PaymentResultPage = () => {
             return;
         }
         
-        // Kiểm tra nếu đã xử lý giao dịch này (ngay cả khi reload)
-        const storedResponse = localStorage.getItem(`payment_${transactionId}`);
-        
-        if (storedResponse) {
-            try {
-                const parsedResponse = JSON.parse(storedResponse);
-                setRespone(parsedResponse);
-                setHasProcessed(true);
-                setIsLoading(true);
-                return;
-            } catch (error) {
-                console.error("Error parsing stored response", error);
-                // Tiếp tục xử lý nếu không parse được response đã lưu
+        // Nếu đã xử lý giao dịch này trước đó
+        if (PaymentRequestIdStore.hasBeenProcessed(transactionId)) {
+            console.log(`[${new Date().toISOString()}] Transaction ${transactionId} already processed, loading from storage`);
+            
+            const storedResponse = localStorage.getItem(`payment_result_${transactionId}`);
+            if (storedResponse) {
+                try {
+                    const parsedResponse = JSON.parse(storedResponse);
+                    setRespone(parsedResponse);
+                    setHasProcessed(true);
+                    setIsLoading(true);
+                    return;
+                } catch (error) {
+                    console.error("Error parsing stored response", error);
+                }
             }
         }
         
+        // Generate một ID duy nhất cho request này
+        const requestIdempotencyKey = `${transactionId}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        
         const processPayment = async () => {
             try {
-                setLoading(true);
-                const res = await paymentService.Payment(location.search, setLoading);
+                console.log(`[${new Date().toISOString()}] Processing payment for transaction ${transactionId} with idempotency key ${requestIdempotencyKey}`);
                 
-                // Lưu kết quả vào sessionStorage để tránh gọi lại khi reload
-                sessionStorage.setItem(`payment_${transactionId}`, JSON.stringify(res));
+                setLoading(true);
+                // Thêm idempotency key vào headers
+                const res = await paymentService.paymentWithIdempotency(
+                    location.search, 
+                    requestIdempotencyKey,
+                    setLoading
+                );
+                
+                // Đánh dấu giao dịch đã được xử lý
+                PaymentRequestIdStore.markRequestProcessed(transactionId);
+                
+                // Lưu kết quả
+                localStorage.setItem(`payment_result_${transactionId}`, JSON.stringify(res));
                 
                 setRespone(res);
                 setHasProcessed(true);
             } catch (error) {
-                console.error("Payment processing error:", error);
+                console.error(`[${new Date().toISOString()}] Payment error:`, error);
                 setHasProcessed(true);
             } finally {
                 setIsLoading(true);
@@ -76,7 +92,7 @@ const PaymentResultPage = () => {
         };
         
         processPayment();
-    }, [transactionId, location.search]);
+    }, [transactionId]); // Chỉ phụ thuộc vào transactionId
 
     const condition = () => {
         if (respone) {
