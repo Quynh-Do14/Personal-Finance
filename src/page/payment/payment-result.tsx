@@ -36,39 +36,49 @@ const PaymentResultPage = () => {
 
     useEffect(() => {
         if (!location.search || !transactionId) return;
-    
-        // Nếu đã có processed flag thì chỉ lấy từ sessionStorage
-        if (location.search.includes('processed=true')) {
-            const stored = sessionStorage.getItem(`payment_${transactionId}`);
-            if (stored) {
-                setRespone(JSON.parse(stored));
+        
+        // Kiểm tra nếu giao dịch này đã được xử lý trước đó
+        const processingKey = `processed_${transactionId}`;
+        const storedResult = localStorage.getItem(`payment_${transactionId}`);
+        
+        if (localStorage.getItem(processingKey) === 'true' && storedResult) {
+            console.log('Giao dịch đã được xử lý trước đó, lấy từ localStorage');
+            try {
+                setRespone(JSON.parse(storedResult));
                 setHasProcessed(true);
                 setIsLoading(true);
+                return;
+            } catch (error) {
+                console.error("Lỗi khi phân tích dữ liệu lưu trữ", error);
+                // Tiếp tục xử lý nếu dữ liệu trong localStorage bị lỗi
             }
-            return;
         }
-    
+        
+        // Đánh dấu đang xử lý ngay lập tức, trước khi gọi API
+        localStorage.setItem(processingKey, 'true');
+        
         const processPayment = async () => {
             try {
                 setLoading(true);
                 const res = await paymentService.Payment(location.search, setLoading);
-                sessionStorage.setItem(`payment_${transactionId}`, JSON.stringify(res));
+                
+                // Lưu kết quả vào localStorage thay vì sessionStorage
+                localStorage.setItem(`payment_${transactionId}`, JSON.stringify(res));
+                
                 setRespone(res);
                 setHasProcessed(true);
-                
-                // Thêm processed flag vào URL để tránh xử lý lại khi reload
-                const newUrl = `${window.location.pathname}${location.search}&processed=true`;
-                window.history.replaceState(null, '', newUrl);
             } catch (error) {
-                console.error(error);
+                console.error("Lỗi xử lý thanh toán:", error);
                 setHasProcessed(true);
             } finally {
                 setIsLoading(true);
                 setLoading(false);
             }
         };
+        
         processPayment();
-    }, [transactionId, location.search]);
+        
+    }, []);
 
     const condition = () => {
         if (respone) {
