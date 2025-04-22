@@ -35,7 +35,9 @@ const PaymentResultPage = () => {
     const decoded_vnp_OrderInfo = vnp_OrderInfo ? decodeFromBase64(String(vnp_OrderInfo)) : "";
 
     useEffect(() => {
+        alert("Đang xử lí giao dịch, vui lòng không tắt trình duyệt 1")
         if (!location.search || !transactionId) return;
+        alert("Đang xử lí giao dịch, vui lòng không tắt trình duyệt 2")
         
         // Kiểm tra nếu giao dịch này đã được xử lý trước đó
         const processingKey = `processed_${transactionId}`;
