@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import "../../assets/styles/page/payment.css"
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout';
@@ -12,7 +12,9 @@ import loadingGif from "../../assets/images/loading.gif"
 const PaymentResultPage = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    console.log("queryParams", location.search);
+    // console.log("queryParams", location.search);
+    const hasCalledPayment = useRef(false);
+
     const [loading, setLoading] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [respone, setRespone] = useState<any>({});
@@ -21,8 +23,8 @@ const PaymentResultPage = () => {
     const vnp_TransactionStatus = queryParams.get("vnp_TransactionStatus");
     const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
     const vnp_OrderInfo = queryParams.get("vnp_OrderInfo");
-    console.log("vnp_TransactionNo", vnp_TransactionNo);
-    console.log("vnp_ResponseCode", vnp_ResponseCode);
+    // console.log("vnp_TransactionNo", vnp_TransactionNo);
+    // console.log("vnp_ResponseCode", vnp_ResponseCode);
 
     const decodeFromBase64 = (base64: string): string => {
         const binary = atob(base64);
@@ -50,7 +52,7 @@ const PaymentResultPage = () => {
     }
 
     useEffect(() => {
-        if (location.search) {
+        if (location.search && !hasCalledPayment.current) {
             onPaymentAsync().then(() => { });
         }
     }, [location.search])

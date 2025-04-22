@@ -565,7 +565,8 @@
 }
 
 .advisement {
-  background-image: url('../../images/bgAdvisement.png');
+  background: url('../../images/bgAdvisement.png') no-repeat center/cover;
+  width: 100%;
 }
 .advisement .left {
   display: flex;
