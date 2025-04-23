@@ -358,7 +358,6 @@ const PersonalFinancePage = () => {
                             <StaticComponent
                                 selectedTab={selectedTab}
                                 dataTable={dataTable}
-
                                 spendStatistics={spendStatistics}
                                 incomeStatistics={incomeStatistics}
                                 setTimeRange={setTimeRange}
@@ -369,6 +368,8 @@ const PersonalFinancePage = () => {
                                 onGetSpendPersonalByGoalStatistical={onGetSpendPersonalByGoalStatistical}
                                 onGetIncomePersonalByGoalStatistical={onGetIncomePersonalByGoalStatistical}
                                 setSelectedTab={setSelectedTab}
+                                selectedType={"type"}
+                                setSelectedType={() => { }}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>

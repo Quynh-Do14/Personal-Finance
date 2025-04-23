@@ -312,7 +312,10 @@ const ChatBoxCommon = (props: Props) => {
                         <div className="chat-box" ref={chatBoxRef}>
                             {dataChatBox.map((message, index) => (
                                 <div key={index} className="flex flex-col gap-2">
-                                    <div className={`flex justify-end`}>
+                                    <div className={`flex flex-col items-end`}>
+                                        <div className="human-name">
+                                            {message.name}
+                                        </div>
                                         <Tooltip title={convertDateShow(message.createdAt)} color="#003333">
                                             {
                                                 message.chatType === "TEXT"
@@ -325,7 +328,6 @@ const ChatBoxCommon = (props: Props) => {
                                                         <Image src={configImageURL(message.userMessage)} alt="" />
                                                     </div>
                                             }
-
                                         </Tooltip>
                                     </div>
                                     <div key={index} className={`flex justify-start`}>

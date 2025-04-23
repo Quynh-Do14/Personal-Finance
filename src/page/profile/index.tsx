@@ -124,6 +124,7 @@ const ProfilePage = () => {
             setDataProfile({
                 goalsSet: budget.goalsSet,
                 totalIncome: budget.totalIncome,
+                totalExpense: budget.totalExpense,
             });
         }
     }, [budget]);
@@ -333,6 +334,19 @@ const ProfilePage = () => {
                                                 dataAttribute={dataProfile.goalsSet}
                                                 setData={setDataProfile}
                                                 disabled={false}
+                                                validate={validateBudget}
+                                                setValidate={setValidateBudget}
+                                                submittedTime={submittedTime}
+                                            />
+                                        </Col>
+                                        <Col span={24}>
+                                            <InputNumberCommon
+                                                label={"Tổng chi tiêu"}
+                                                attribute={"totalExpense"}
+                                                isRequired={true}
+                                                dataAttribute={dataProfile.totalExpense}
+                                                setData={setDataProfile}
+                                                disabled={true}
                                                 validate={validateBudget}
                                                 setValidate={setValidateBudget}
                                                 submittedTime={submittedTime}
