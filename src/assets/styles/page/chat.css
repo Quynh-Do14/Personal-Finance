@@ -97,7 +97,13 @@
   gap: 8px;
   height: calc(100vh - 60px);
 }
-
+.chat-box-container .chat-box .human-name {
+  color: #003333;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
 .chat-box-container .chat-box .human-chat {
   background: #003333;
   max-width: 90%;

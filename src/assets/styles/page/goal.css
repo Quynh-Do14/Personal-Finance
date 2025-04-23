@@ -143,9 +143,10 @@
 .goal-container .static table {
   width: 100%;
   text-align: left;
-  font-size: 14px;
-  line-height: 20px;
-  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
 }
 .goal-container .static table tr {
   font-size: 16px;
@@ -158,6 +159,15 @@
 .goal-container .static table tr td {
   font-size: 14px;
   line-height: 20px;
+}
+.goal-container .static table tr td .cate {
+  width: 60px;
+  padding: 6px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #99cc99;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
 }
 
 @media only screen and (max-width: 576px) {

@@ -202,6 +202,11 @@ const GoalSpendingTeamPage = () => {
                         () => {
                             onGetSpendingTypeAsync().then(_ => { });
                             onCloseModalCreateCategory();
+                            setDataRequestCategory({
+                                name: "",
+                                iconId: "",
+                                imageCode: ""
+                            })
                         },
                         setLoading
                     ).then(() => { })
@@ -221,6 +226,11 @@ const GoalSpendingTeamPage = () => {
                         () => {
                             onGetIncomeTypeAsync().then(_ => { });
                             onCloseModalCreateCategory();
+                            setDataRequestCategory({
+                                name: "",
+                                iconId: "",
+                                imageCode: ""
+                            })
                         },
                         setLoading
                     ).then(() => { })
