@@ -2,6 +2,7 @@ import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { ProfileState } from '../../../../core/atoms/profile/profileState'
 import alert from "../../../../assets/images/alert.png"
+import { ROUTE_PATH } from '../../../../core/common/appRouter'
 const AlertBudget = () => {
     const profileState = useRecoilValue(ProfileState).user;
     return (
@@ -21,7 +22,7 @@ const AlertBudget = () => {
             }}
         >
             <img src={alert} alt="" />
-            <p>{profileState?.budgetAlert?.alert}</p>
+            <p>{profileState?.budgetAlert?.level == 0 ? <a href={ROUTE_PATH.PROFILE}>Tạo ngân sách. {" "} </a> : null} {profileState?.budgetAlert?.alert}</p>
         </div>
     )
 }

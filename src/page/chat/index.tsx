@@ -23,6 +23,8 @@ type Props = {
     setLoading: Function
     dataChatBox: Array<any>
     handleSendMessage: () => void
+    messagesLoading: string
+    setMessagesLoading: Function
     messages: string
     setMessages: Function
     idGoal: string
@@ -37,6 +39,8 @@ const ChatBoxCommon = (props: Props) => {
         setLoading,
         dataChatBox,
         handleSendMessage,
+        messagesLoading,
+        setMessagesLoading,
         messages,
         setMessages,
         idGoal,
@@ -110,6 +114,7 @@ const ChatBoxCommon = (props: Props) => {
     };
     const onChangeText = (e: any) => {
         setMessages(e.target.value)
+        setMessagesLoading(e.target.value)
     }
 
     const sendMessage = () => {
@@ -352,7 +357,7 @@ const ChatBoxCommon = (props: Props) => {
                                                     <div
                                                         className="human-chat"
                                                     >
-                                                        {messages}
+                                                        {messagesLoading}
                                                     </div>
                                             }
 

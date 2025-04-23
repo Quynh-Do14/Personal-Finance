@@ -67,7 +67,7 @@ const PaymentResultPage = () => {
                                 <h1>Giao dịch thành công</h1>
                                 <h2>{decoded_vnp_OrderInfo}</h2>
                                 <img src={succes} alt="" width={160} />
-                                <h2>Giao dịch của bạn thành công</h2>
+                                <h2>Giao dịch của bạn đã được xử lý thành công.</h2>
                                 <a href={ROUTE_PATH.HOME_PAGE} className="action-btn success-btn">Trang chủ</a>
                             </div>
                         </div>
@@ -91,10 +91,10 @@ const PaymentResultPage = () => {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
-                            <h1>Giao dịch thất bại</h1>
+                            <h1>Không tìm thấy thông tin giao dịch</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
-                            <h2>Không tìm thấy giao dịch</h2>
+                            <h2>Không tìm thấy thông tin giao dịch. Vui lòng kiểm tra lại hoặc liên hệ hỗ trợ.</h2>
                             <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
                         </div>
                     </div>
@@ -104,10 +104,10 @@ const PaymentResultPage = () => {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
-                            <h1>Giao dịch thất bại</h1>
+                            <h1>Giao dịch này đã được xử lý trước đó</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
-                            <h2>Giao dịch đã được thanh toán</h2>
+                            <h2>Giao dịch này đã được xử lý trước đó. Không cần thanh toán lại</h2>
                             <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
                         </div>
                     </div>
@@ -120,7 +120,7 @@ const PaymentResultPage = () => {
                             <h1>Giao dịch thất bại</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
-                            <h2>Số tiền không hợp lệ</h2>
+                            <h2>Số tiền giao dịch không hợp lệ</h2>
                             <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ const PaymentResultPage = () => {
                             <h1>Giao dịch thất bại</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
-                            <h2>Chữ kí không hợp lệ</h2>
+                            <h2>Chữ ký xác thực không hợp lệ</h2>
                             <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
                         </div>
                     </div>

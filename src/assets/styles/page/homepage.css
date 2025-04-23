@@ -132,7 +132,7 @@
 }
 
 .homepage-container .banner .top {
-  animation: topTo 1s 0.75s both ease-out 1;
+  animation: topTo 0.5s 0.75s both ease-out 1;
 }
 
 @keyframes topTo {
@@ -206,7 +206,7 @@
   fill: #fff;
 }
 .homepage-container .tag-container {
-  animation: topTo 1.5s 1.75s both ease-out 1;
+  animation: topTo 1s 1.75s both ease-out 1;
 }
 .homepage-container .tag-container .tag-col {
   position: relative;
@@ -426,9 +426,7 @@
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }
-.homepage-container .introduction img.img.top {
-  animation: topTo 1s 2.5s both ease-out 1;
-}
+
 @keyframes topTo {
   0% {
     transform: translateY(-100%);

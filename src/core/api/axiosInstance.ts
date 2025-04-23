@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
     baseURL,
     headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
     },
     timeout: 15000,
 });
@@ -66,11 +67,13 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
         const token = getToken();
 
-        // ✅ Nếu là lỗi 401 trong lúc login, không xử lý redirect
         const isAuthEndpoint = originalRequest.url?.includes(Endpoint.Auth.Login)
             || originalRequest.url?.includes(Endpoint.Auth.Register);
 
-        if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
+        const is401 = error.response?.status === 401;
+        const isRetry = originalRequest._retry;
+
+        if (is401 && !isRetry && !isAuthEndpoint) {
             originalRequest._retry = true;
 
             if (!token?.refreshToken) {
@@ -108,6 +111,16 @@ axiosInstance.interceptors.response.use(
                     originalRequest.headers.Authorization = `Bearer ${newToken}`;
                     resolve(axiosInstance(originalRequest));
                 });
+            });
+        }
+
+        // ✅ Không hiển thị popup nếu đang xử lý refresh token
+        const suppressNotification = isRetry || isAuthEndpoint;
+
+        if (!suppressNotification) {
+            notification.error({
+                message: 'Lỗi',
+                description: error?.response?.data?.message || 'Đã có lỗi xảy ra.',
             });
         }
 

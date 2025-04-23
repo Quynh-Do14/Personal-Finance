@@ -42,7 +42,8 @@ const TeamFinancePage = () => {
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
     const [messages, setMessages] = useState<string>("");
-    const [imageBill, setImageBill] = useState<any>();
+    const [messagesLoading, setMessagesLoading] = useState<string>("");
+
     const [dailySpend, setDailySpend] = useState<any>();
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
@@ -270,25 +271,28 @@ const TeamFinancePage = () => {
     }, [tokenString]);
 
     const handleSendMessage = async () => {
-        try {
-            await chatService.AddChatTeam(
-                String(id),
-                {
-                    question: messages
-                },
-                async () => {
-                    // setTimeout(async () => {
-                    //     setMessages("");
-                    //     await onGetChatBoxAsync();
-                    // }, 10);
-                    setMessages("");
-                },
-                setLoadingBot
-            ).then(() => {
-            });
-        }
-        catch (error) {
-            console.error(error);
+        if (messages) {
+            setMessages("");
+            try {
+                await chatService.AddChatTeam(
+                    String(id),
+                    {
+                        question: messages
+                    },
+                    async () => {
+                        // setTimeout(async () => {
+                        //     setMessages("");
+                        //     await onGetChatBoxAsync();
+                        // }, 10);
+                        setMessagesLoading("");
+                    },
+                    setLoadingBot
+                ).then(() => {
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
     };
 
@@ -370,6 +374,8 @@ const TeamFinancePage = () => {
                         setIsOpenChatBox={setIsOpenChatBox}
                         dataChatBox={dataChatBox}
                         handleSendMessage={handleSendMessage}
+                        messagesLoading={messagesLoading}
+                        setMessagesLoading={setMessagesLoading}
                         messages={messages}
                         setMessages={setMessages}
                         idGoal={String(id)}

@@ -6,6 +6,8 @@ type Props = {
     setIsOpenChatBox: Function
     dataChatBox: Array<any>
     handleSendMessage: () => void
+    messagesLoading: string
+    setMessagesLoading: Function
     messages: string
     setMessages: Function
     loading: boolean
@@ -22,6 +24,8 @@ const ChatButton = (props: Props) => {
         setIsOpenChatBox,
         dataChatBox,
         handleSendMessage,
+        messagesLoading,
+        setMessagesLoading,
         messages,
         setMessages,
         loading,
@@ -46,6 +50,8 @@ const ChatButton = (props: Props) => {
                 loading={loading}
                 dataChatBox={dataChatBox}
                 handleSendMessage={handleSendMessage}
+                messagesLoading={messagesLoading}
+                setMessagesLoading={setMessagesLoading}
                 messages={messages}
                 setMessages={setMessages}
                 idGoal={String(idGoal)}

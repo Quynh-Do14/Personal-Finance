@@ -37,8 +37,11 @@ const Authenticate = () => {
   }, [isLoggedin, navigate]);
 
   return (
-    <div>
-      <h1>Vui lòng chờ</h1>
+    <div className="authenticate">
+      <div className="loading-card">
+        <div className="spinner" />
+        <p className="loading-text">Vui lòng chờ<br />Đang đăng nhập bằng Google...</p>
+      </div>
     </div>
   )
 }
