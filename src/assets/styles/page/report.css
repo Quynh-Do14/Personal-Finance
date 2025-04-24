@@ -1,9 +1,0 @@
-.personal-finance-container .banner .layout {
-  text-align: center;
-  background: url('../../images/banner.png') no-repeat center/cover;
-  height: 400px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

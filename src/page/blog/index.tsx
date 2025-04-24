@@ -3,12 +3,16 @@ import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import "../../assets/styles/page/blog.css";
 import { PaginationCommon } from "../../infrastructure/common/components/pagination/Pagination";
+import banner1 from "../../assets/images/banner/banner1.png"
 const BlogPage = () => {
   return (
     <LayoutClient>
       <div className="blog">
-        <BannerCommon title={"Tin tức"} sub={"Tin tức"} />
-
+        <BannerCommon
+          title={"Tin tức"}
+          sub={"Tin tức"}
+          backgroundUrl={banner1}
+        />
         <div className="padding-common">
           <div className="grid grid-cols-12 gap-6 md:gap-16">
             <div className="col-span-12 md:col-span-9 flex flex-col gap-12 order-2 md:order-1 left">

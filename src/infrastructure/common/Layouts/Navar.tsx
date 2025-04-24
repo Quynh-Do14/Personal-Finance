@@ -1,15 +1,13 @@
 import { Drawer } from 'antd'
-import logo from '../../../assets/images/logo.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../core/common/appRouter';
 import "../../../assets/styles/components/MainLayout.css";
 import Constants from '../../../core/common/constants';
 import { isTokenStoraged } from '../../utils/storage';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { ProfileState } from '../../../core/atoms/profile/profileState';
 import { configImageURL } from '../../helper/helper';
 import avatar from '../../../assets/images/no-avatar.png';
-import AnimatedButton from '../components/button/animationButton';
 import authService from '../../repositories/auth/service/auth.service';
 import { ButtonDesign } from '../components/button/buttonDesign';
 import { useEffect, useState } from 'react';
@@ -208,18 +206,13 @@ const NavbarComponent = (props: Props) => {
                                 if (!token) {
                                     return (
                                         <a
-                                            onClick={() => setIsLoginClick(!isLoginClick)}
                                             key={index}
-                                        >
+                                            href={ROUTE_PATH.LOGIN}>
                                             <li key={index} className={`${conditionActive(item.link)} menu-item`}>
-                                                <a
-                                                    onClick={() => setIsLoginClick(!isLoginClick)}
-                                                >
-                                                    <span className="icon">
-                                                        <i className={item.icon} aria-hidden="true"></i>
-                                                    </span>
-                                                    <span>{item.label}</span>
-                                                </a>
+                                                <span className="icon">
+                                                    <i className={item.icon} aria-hidden="true"></i>
+                                                </span>
+                                                <span>{item.label}</span>
                                             </li>
                                         </a>
                                     )
@@ -231,14 +224,10 @@ const NavbarComponent = (props: Props) => {
                                             key={index}
                                         >
                                             <li key={index} className={`${conditionActive(item.link)} menu-item`}>
-                                                <a
-                                                    onClick={() => setIsLoginClick(!isLoginClick)}
-                                                >
-                                                    <span className="icon">
-                                                        <i className={item.icon} aria-hidden="true"></i>
-                                                    </span>
-                                                    <span>{item.label}</span>
-                                                </a>
+                                                <span className="icon">
+                                                    <i className={item.icon} aria-hidden="true"></i>
+                                                </span>
+                                                <span>{item.label}</span>
                                             </li>
                                         </a>
                                     )

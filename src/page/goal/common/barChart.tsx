@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { Bar } from 'react-chartjs-2'
 type Props = {
     statisticsByTime: any
@@ -26,7 +25,7 @@ const BarChartStatic = (props: Props) => {
                             display: true,
                             beginAtZero: true,
                             ticks: {
-                                stepSize: 500000
+                                stepSize: 1000000
                             }
                         }
                     },

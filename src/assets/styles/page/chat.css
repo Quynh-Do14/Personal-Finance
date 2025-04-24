@@ -359,3 +359,50 @@
     transform: scale(1);
   }
 }
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 156px;
+  height: 100%;
+  background: #003333;
+  border-radius: 15px;
+  padding: 20px;
+}
+.team-info .qr {
+  width: 120px !important;
+  height: 120px !important;
+  padding: 0 !important;
+  border-radius: 0px !important;
+}
+
+.team-info div {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-align: left;
+  color: #ffffff;
+}
+.team-info i {
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+}
+.team-info p {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-align: left;
+  color: #ffffff;
+  text-decoration: underline;
+  word-break: break-all;
+  cursor: pointer;
+}
+.team-info p:hover,
+.team-info i:hover {
+  color: #aeecee;
+}

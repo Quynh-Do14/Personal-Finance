@@ -20,6 +20,8 @@ import chatbot from '../../assets/images/botChat.png';
 import InputNumberCommon from '../../infrastructure/common/components/input/input-number';
 import budgetService from '../../infrastructure/repositories/budget/budget.service';
 import Constants from '../../core/common/constants';
+import banner3 from '../../assets/images/banner/banner3.png'
+
 const ProfilePage = () => {
     const [validate, setValidate] = useState<any>({});
     const [validateBudget, setValidateBudget] = useState<any>({});
@@ -182,8 +184,12 @@ const ProfilePage = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon title={'Hồ sơ'} sub={'Thông tin cá nhân'} />
-            <div className='profile'>
+            <BannerCommon
+                title={'Hồ sơ'}
+                sub={'Thông tin cá nhân'}
+                backgroundUrl={banner3}
+            />
+            <div className='profile-page'>
                 <div className='container'>
                     <div className="tabs">
                         {

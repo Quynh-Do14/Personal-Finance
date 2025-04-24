@@ -10,6 +10,7 @@ import { FullPageLoading } from '../../infrastructure/common/components/controls
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign'
 import { ROUTE_PATH } from '../../core/common/appRouter'
 import BannerCommon from '../../infrastructure/common/components/banner/BannerCommon'
+import banner3 from '../../assets/images/banner/banner3.png'
 const LoginScreen = () => {
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
@@ -76,7 +77,11 @@ const LoginScreen = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon title={'Đăng Nhập'} sub={'Thành viên'} />
+            <BannerCommon
+                title={'Đăng Nhập'}
+                sub={'Thành viên'}
+                backgroundUrl={banner3}
+            />
             <div className='auth-screen'>
                 <div className='content'>
                     <div>
