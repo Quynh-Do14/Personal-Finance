@@ -19,6 +19,7 @@ import BlogPage from "../../page/blog";
 import PaymentPage from "../../page/payment";
 import PaymentResultPage from "../../page/payment/payment-result";
 import ProfilePage from "../../page/profile";
+import JoinTeam from "../../page/team/joinTeam";
 
 export const privateRoutes = [
 
@@ -120,6 +121,11 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.PROFILE,
         component: ProfilePage,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.JOIN_TEAM,
+        component: JoinTeam,
         private: true,
     },
 ]

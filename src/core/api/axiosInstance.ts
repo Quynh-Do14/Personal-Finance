@@ -114,16 +114,6 @@ axiosInstance.interceptors.response.use(
             });
         }
 
-        // ✅ Không hiển thị popup nếu đang xử lý refresh token
-        const suppressNotification = isRetry || isAuthEndpoint;
-
-        if (!suppressNotification) {
-            notification.error({
-                message: 'Lỗi',
-                description: error?.response?.data?.message || 'Đã có lỗi xảy ra.',
-            });
-        }
-
         return Promise.reject(error);
     }
 );

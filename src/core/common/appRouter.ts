@@ -21,6 +21,7 @@ export const ROUTE_PATH = {
     PAYMENT_INFO: `${PREFIX}/payment-info`,
     PAYMENT_RESULT: `${PREFIX}/payment`,
     PROFILE: `${PREFIX}/profile`,
+    JOIN_TEAM: `${PREFIX}/members/t/join/:id`,
 
     CONTACT: `${PREFIX}/contact`,
 

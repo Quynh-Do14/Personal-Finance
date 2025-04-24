@@ -11,6 +11,7 @@ import { ButtonDesign } from '../../infrastructure/common/components/button/butt
 import { ROUTE_PATH } from '../../core/common/appRouter'
 import BannerCommon from '../../infrastructure/common/components/banner/BannerCommon'
 import DialogNotificationCommon from '../../infrastructure/common/components/modal/dialogNotification'
+import banner3 from '../../assets/images/banner/banner3.png'
 
 const RegisterScreen = () => {
     const [validate, setValidate] = useState<any>({});
@@ -75,7 +76,11 @@ const RegisterScreen = () => {
     }
     return (
         <LayoutClient>
-            <BannerCommon title={'Đăng Kí'} sub={'Thành viên'} />
+            <BannerCommon
+                title={'Đăng Kí'}
+                sub={'Thành viên'}
+                backgroundUrl={banner3}
+            />
             <div className='auth-screen'>
                 <div className='content'>
 

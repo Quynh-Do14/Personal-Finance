@@ -1,15 +1,15 @@
-.profile {
+.profile-page {
   background: #e6f0f5;
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 12px;
 }
-.profile .container {
+.profile-page .container {
   display: flex;
   flex-direction: column;
 }
-.profile .content {
+.profile-page .content {
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -17,15 +17,15 @@
   padding: 12px;
   border-radius: 0 0 8px 8px;
 }
-.profile .tabs {
+.profile-page .tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
 }
-.profile .tabs .option {
+.profile-page .tabs .option {
   cursor: pointer;
 }
-.profile .tabs .option.active {
+.profile-page .tabs .option.active {
   background: #fff;
   border-radius: 8px 8px 0 0;
   padding: 12px 16px;
@@ -35,7 +35,7 @@
   color: #47cef7;
   width: 120px;
 }
-.profile .tabs .option.no-active {
+.profile-page .tabs .option.no-active {
   font-weight: 700;
   font-size: 16px;
   line-height: 26px;
@@ -43,14 +43,14 @@
   width: 120px;
   padding-bottom: 4px;
 }
-.profile .tabs .option.active p {
+.profile-page .tabs .option.active p {
   background: #fff;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.profile .tabs .option.no-active p {
+.profile-page .tabs .option.no-active p {
   border-radius: 8px;
   background: #ffffff;
   height: 100%;
@@ -59,7 +59,7 @@
   align-items: center;
   border: 1px solid #47cef7;
 }
-.profile h2 {
+.profile-page h2 {
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
@@ -67,7 +67,7 @@
   color: #787878;
 }
 
-.profile .chatbot {
+.profile-page .chatbot {
   display: flex;
   align-items: start;
   flex-wrap: wrap;
@@ -78,7 +78,7 @@
   border-radius: 15px;
   padding: 20px;
 }
-.profile .chatbot .bot-name {
+.profile-page .chatbot .bot-name {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -86,7 +86,7 @@
   min-width: 200px;
   width: 100%;
 }
-.profile .chatbot p {
+.profile-page .chatbot p {
   font-weight: 600;
   font-size: 16px;
   line-height: 26px;
@@ -94,36 +94,36 @@
   text-align: left;
   color: #ffffff;
 }
-.profile .chatbot img {
+.profile-page .chatbot img {
   animation: chatZoom infinite 2s linear;
 }
 
 @media only screen and (min-width: 993px) {
-  .profile {
+  .profile-page {
     padding: 60px 30px;
   }
-  .profile .container {
+  .profile-page .container {
     width: 700px;
     max-width: 700px;
     margin: auto;
   }
 }
 @media only screen and (max-width: 992px) {
-  .profile {
+  .profile-page {
     padding: 60px 30px;
   }
-  .profile .container {
+  .profile-page .container {
     width: 100%;
   }
 }
 @media only screen and (max-width: 768px) {
-  .profile {
+  .profile-page {
     padding: 60px 30px;
   }
 }
 
 @media only screen and (max-width: 576px) {
-  .profile {
+  .profile-page {
     padding: 50px 20px;
   }
 }

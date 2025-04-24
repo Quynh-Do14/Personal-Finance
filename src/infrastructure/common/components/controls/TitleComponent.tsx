@@ -7,7 +7,7 @@ type Props = {
 const TitleComponent = (props: Props) => {
     const { title, color } = props;
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center z-10">
             <div className="title-component">
                 <div className={`title ${color}`}>{title}</div>
                 <div>

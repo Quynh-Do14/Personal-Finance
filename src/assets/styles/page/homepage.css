@@ -10,7 +10,7 @@
 
 .homepage-container .banner .layout {
   text-align: center;
-  background: url('../../images/banner.png') no-repeat center/cover;
+  /* background: url('../../images/banner.png') no-repeat center/cover; */
   width: 100%;
   display: flex;
   justify-content: center;

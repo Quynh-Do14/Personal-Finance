@@ -22,6 +22,7 @@ import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
 import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
+import banner2 from '../../../assets/images/banner/banner2.png'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -333,7 +334,11 @@ const PersonalFinancePage = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
+            <BannerCommon
+                title={"Tài chính cá nhân"}
+                sub={"Tài chính"}
+                backgroundUrl={banner2}
+            />
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>

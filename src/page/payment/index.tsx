@@ -11,6 +11,7 @@ import paymentService from '../../infrastructure/repositories/payment/payment.se
 import InputSelectCategoryCommon from '../../infrastructure/common/components/input/select-category-common'
 import { formatCurrencyVND } from '../../infrastructure/helper/helper'
 import { isTokenStoraged } from '../../infrastructure/utils/storage'
+import banner4 from '../../assets/images/banner/banner4.png'
 const PaymentPage = () => {
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
@@ -79,7 +80,11 @@ const PaymentPage = () => {
     }, [])
     return (
         <LayoutClient>
-            <BannerCommon title={'Thanh toán'} sub={'Dịch vụ tài chính'} />
+            <BannerCommon
+                title={'Thanh toán'}
+                sub={'Dịch vụ tài chính'}
+                backgroundUrl={banner4}
+            />
             <div className='payemnt-page'>
                 <div className='content'>
 

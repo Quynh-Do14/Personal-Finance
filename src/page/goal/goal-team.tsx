@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutClient from "../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../infrastructure/repositories/goal/goal.service";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { configImageURL, convertDateOnly, convertDateOnlyShow, formatCurrencyVND } from "../../infrastructure/helper/helper";
 import ModalCreateGoal from "./modal/modalCreate";
 import '../../assets/styles/page/personalFinance.css'
 import ModalCreateCategory from "./modal/modalCreateCategory";
 import Constants from "../../core/common/constants";
-import { Col, Row } from "antd";
+import { Col, Dropdown, Menu, Row } from "antd";
 import BannerCommon from "../../infrastructure/common/components/banner/BannerCommon";
 import incomeTypeService from "../../infrastructure/repositories/type/income-type.service";
 import spendingTypeService from "../../infrastructure/repositories/type/spending-type.service";
@@ -18,16 +18,30 @@ import SelectFilterCommon from "../../infrastructure/common/components/input/sel
 import ModalAddMember from "./modal/modalAddMember";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
-
+import AlertBudget from "../../infrastructure/common/components/alert/alert-budget";
+import { PaginationNoSizeCommon } from "../../infrastructure/common/components/pagination/PaginationNoSize";
+import DialogConfirmCommon from "../../infrastructure/common/components/modal/dialogConfirm";
+import lock from "../../assets/images/lock.gif"
+import banner3 from "../../assets/images/banner/banner3.png"
+import TeamInfo from "./common/infoTeam";
 const GoalSpendingTeamPage = () => {
+    const [detailTeam, setDetailTeam] = useState<any>({});
+
     const [listGoal, setListGoal] = useState<Array<any>>([]);
+    const [page, setPage] = useState<number>(1);
+    const [total, setTotal] = useState<number>(0);
+
     const [newlistGoal, setNewListGoal] = useState<Array<any>>([]);
 
     const [loading, setLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
     const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
     const [isOpenModalCreateCategory, setIsOpenModalCreateCategory] = useState<boolean>(false);
     const [isOpenModalAddMember, setIsOpenModalAddMember] = useState<boolean>(false);
     const [isOpenDrawerCategory, setIsOpenDrawerCategory] = useState<boolean>(false);
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState<boolean>(false);
+    const [selectedGoalId, setSelectedGoalId] = useState<string>("");
 
     const [listSpendingType, setListSpendingType] = useState<Array<any>>([]);
     const [listIncomeType, setListIncomeType] = useState<Array<any>>([]);
@@ -84,11 +98,35 @@ const GoalSpendingTeamPage = () => {
         });
         return allRequestOK;
     };
+    const onGetInfoTeamAsync = async () => {
+        try {
+            await teamService.GetTeamById(
+                String(id),
+                setLoading
+            ).then((res) => {
+                if (res) {
+                    setDetailTeam(res)
+                }
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            setIsLoading(false);
+        }
+    };
 
+    const pageSize = 6
     const onGetListGoalAsync = async () => {
+        const param = {
+            page: page - 1,
+            size: pageSize,
+        }
         try {
             await goalService.GoalTeam(
                 Number(id),
+                param,
                 setLoading
             ).then((res) => {
                 setListGoal(res.content);
@@ -97,15 +135,20 @@ const GoalSpendingTeamPage = () => {
         catch (error) {
             console.error(error);
         }
-    }
+    };
+
+    const onChangePage = (value: any) => {
+        setPage(value);
+    };
 
     const onOpenModalCreate = () => {
-        setIsOpenModalCreate(!isOpenModalCreate)
-    }
+        setIsOpenModalCreate(!isOpenModalCreate);
+    };
 
     const onCloseModalCreate = () => {
-        setIsOpenModalCreate(false)
-    }
+        setIsOpenModalCreate(false);
+    };
+
     const onCreateGoalAsync = async () => {
         await setSubmittedTime(new Date());
         if (isValidData()) {
@@ -123,10 +166,10 @@ const GoalSpendingTeamPage = () => {
                         onCloseModalCreate();
                     },
                     setLoading
-                ).then(() => { })
+                ).then(() => { });
             }
             catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
         else {
@@ -209,10 +252,10 @@ const GoalSpendingTeamPage = () => {
                             })
                         },
                         setLoading
-                    ).then(() => { })
+                    ).then(() => { });
                 }
                 catch (error) {
-                    console.error(error)
+                    console.error(error);
                 }
             }
             else if (selectedTab == "income") {
@@ -233,17 +276,17 @@ const GoalSpendingTeamPage = () => {
                             })
                         },
                         setLoading
-                    ).then(() => { })
+                    ).then(() => { });
                 }
                 catch (error) {
-                    console.error(error)
+                    console.error(error);
                 }
             }
         }
         else {
-            WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
+            WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
         };
-    }
+    };
 
 
     const onUpdateCategoryAsync = async () => {
@@ -263,10 +306,10 @@ const GoalSpendingTeamPage = () => {
                             onCloseModalCreateCategory();
                         },
                         setLoading
-                    ).then(() => { })
+                    ).then(() => { });
                 }
                 catch (error) {
-                    console.error(error)
+                    console.error(error);
                 }
             }
         }
@@ -286,14 +329,14 @@ const GoalSpendingTeamPage = () => {
                             onCloseModalCreateCategory();
                         },
                         setLoading
-                    ).then(() => { })
+                    ).then(() => { });
                 }
                 catch (error) {
-                    console.error(error)
+                    console.error(error);
                 }
             }
         }
-    }
+    };
 
     const onDeleteCategoryAsync = async () => {
         if (selectedTab == 'spend') {
@@ -322,13 +365,13 @@ const GoalSpendingTeamPage = () => {
                         onCloseModalCreateCategory();
                     },
                     setLoading
-                ).then(() => { })
+                ).then(() => { });
             }
             catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
-    }
+    };
     // Danh mục
 
     //Member
@@ -344,15 +387,15 @@ const GoalSpendingTeamPage = () => {
         catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const onOpenModalAddMember = () => {
-        setIsOpenModalAddMember(!isOpenModalAddMember)
-    }
+        setIsOpenModalAddMember(!isOpenModalAddMember);
+    };
 
     const onCloseModalAddMember = () => {
-        setIsOpenModalAddMember(false)
-    }
+        setIsOpenModalAddMember(false);
+    };
 
     //Member
 
@@ -374,159 +417,257 @@ const GoalSpendingTeamPage = () => {
 
     useEffect(() => {
         const newData = assignRandomColors(listGoal, Constants.RandomColor.List);
-        setNewListGoal(newData)
-    }, [listGoal])
+        setNewListGoal(newData);
+    }, [listGoal]);
 
     useEffect(() => {
+        onGetInfoTeamAsync().then(_ => { });
         onGetListMemberAsync().then(_ => { });
         onGetIncomeTypeAsync().then(_ => { });
         onGetSpendingTypeAsync().then(_ => { });
-        onGetListGoalAsync().then(_ => { });
     }, []);
+
+    useEffect(() => {
+        onGetListGoalAsync().then(_ => { });
+    }, [page]);
+
+    //Xóa goal
+    const onOpenModalDelete = (id: string) => {
+        setIsOpenModalDelete(!isOpenModalDelete);
+        setSelectedGoalId(id);
+    }
+
+    const onCloseModalDelete = () => {
+        setIsOpenModalDelete(false);
+    }
+
+    const onDeleteGoalAsync = async () => {
+        await setSubmittedTime(Date.now());
+        if (isValidData()) {
+            await goalService.DeleteTeamPersonal(
+                selectedGoalId,
+                () => {
+                    onCloseModalDelete();
+                    onGetListGoalAsync().then(_ => { });
+                },
+                setLoading
+            )
+        }
+        else {
+            WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+        };
+    };
+    //Xóa goal
+
+    const listAction = (item: any) => {
+        return (
+            <Menu className='action-admin'>
+                < Menu.Item className='info-admin'>
+                    <a href={`/team-finance/${item.id}?idTeam=${id}`}>
+                        <div className='info-admin-title px-1 py-2 flex items-center'>
+                            <i className="fa fa-users" aria-hidden="true"></i>
+                            Xem mục tiêu
+                        </div>
+                    </a>
+                </Menu.Item>
+                <Menu.Item className='info-admin' onClick={() => onOpenModalDelete(item.id)}>
+                    <div className='info-admin-title px-1 py-2 flex items-center' >
+                        <i className='fa fa-trash' aria-hidden='true'></i>
+                        Xóa mục tiêu
+                    </div>
+                </Menu.Item>
+            </Menu >
+        )
+    };
 
     return (
         <LayoutClient>
             <div className="personal-finance-container">
-                <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
-                <div className="padding-common">
-                    <Row gutter={[20, 20]}>
-                        <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
-
-                            <div className="category">
-                                <SelectFilterCommon
-                                    label={""}
-                                    listDataOfItem={Constants.MenuTabFinance.List}
-                                    onChange={(e: any) => setSelectedMenu(e.target.value)}
-                                />
-                                <div className="content">
-                                    <div className={`${selectedMenu == 1 ? "show" : "un-show"} box`}>
-                                        <div className="flex flex-col gap-2">
-                                            <div className="flex justify-center gap-4">
-                                                <ButtonDesign
-                                                    classColor={selectedTab === "income" ? "green" : "transparent"}
-                                                    onClick={() => setSelectedTab("income")}
-                                                    title={"Thu nhập"}
-                                                />
-                                                <ButtonDesign
-                                                    classColor={selectedTab === "spend" ? "green" : "transparent"}
-                                                    onClick={() => setSelectedTab("spend")}
-                                                    title={"Chi phí"}
-                                                />
-                                            </div>
-                                            {
-                                                listType.map((item, index) => {
-                                                    return (
-                                                        <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
-                                                            <div className="category-name">
-                                                                <img src={configImageURL(item.imageCode)} alt="" width={40} />
-                                                                <p>{item.name} </p>
-                                                            </div>
-                                                            <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                <BannerCommon
+                    title={detailTeam.name}
+                    sub={"Tài chính"}
+                    backgroundUrl={detailTeam.imageCode ? configImageURL(detailTeam.imageCode) : banner3}
+                />
+                {
+                    !isLoading
+                    &&
+                    (
+                        Object.keys(detailTeam).length === 0
+                            ?
+                            <div className="padding-common">
+                                <div className="lock-team">
+                                    <div className="loading-card">
+                                        <div className="spinner" >
+                                            <img src={lock} alt="" />
                                         </div>
-                                        <ButtonDesign
-                                            classColor={'green'}
-                                            onClick={() => onOpenModalCreateCategory(null)}
-                                            title={'Thêm danh mục'}
-                                        />
-                                    </div>
-                                    <div className={`${selectedMenu == 2 ? "show" : "un-show"} box`}>
-                                        <div className="flex flex-col gap-2">
-                                            {
-                                                listMember.map((item, index) => {
-                                                    return (
-                                                        <div className="category-item" key={index}>
-                                                            <div className="category-name">
-                                                                {
-                                                                    item?.avatarCode
-                                                                        ?
-                                                                        <div className="img">
-                                                                            <img src={configImageURL(item?.avatarCode)} alt="" />
-                                                                        </div>
-                                                                        :
-                                                                        <div className="icon">
-                                                                            <i className="fa fa-users" aria-hidden="true"></i>
-                                                                        </div>
-                                                                }
-                                                                <p>{item.name} </p>
-                                                            </div>
-                                                            <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                        <ButtonDesign
-                                            classColor={'green'}
-                                            onClick={onOpenModalAddMember}
-                                            title={'Thêm thành viên'}
-                                        />
+                                        <p className="loading-text">Nhóm đã bị khóa<br />Vui lòng mở khóa để tiếp tục sử dụng</p>
                                     </div>
                                 </div>
                             </div>
-                        </Col>
-                        <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
-                            <div className="target">
-                                <Row gutter={[20, 20]} >
-                                    <Col span={24}>
-                                        <h2 className="text-xl font-bold text-left text-gray-800">Danh sách mục tiêu</h2>
-                                    </Col>
-                                    {newlistGoal.map((goal, index) => {
-                                        const percentage = Math.min((goal.currentAmount / goal.goalAmount) * 100, 100);
-                                        return (
-                                            <Col xs={24} sm={12} md={24} lg={12}>
-                                                <Link to={`/team-finance/${goal.id}?idTeam=${id}`}
-                                                    key={index}
-                                                    className="box"
-                                                    style={{
-                                                        background: `${goal.color.background}`
-                                                    }}
-                                                >
-                                                    {/* Thông tin mục tiêu */}
-                                                    <div className="flex flex-col gap-2">
-                                                        <div className="flex gap-2 items-center">
-                                                            <div className="icon">
-                                                                <i className="fa fa-car" aria-hidden="true"></i>
-                                                            </div>
-                                                            <p className="text-[20px] font-semibold">{goal.name}</p>
-                                                        </div>
-                                                        <p className="text-[14px]">Mục tiêu: {formatCurrencyVND(goal.currentAmount)} / {formatCurrencyVND(goal.goalAmount)}</p>
-                                                        <p className="text-[14px]">Thời gian: {convertDateOnlyShow(goal.startDate)} - {convertDateOnlyShow(goal.endDate)}</p>
-                                                    </div>
-                                                    {/* Thanh tiến trình */}
-                                                    <div className="w-full">
-                                                        <div className="relative w-full h-2 bg-[#ffffff] rounded-full overflow-hidden">
-                                                            <div
-                                                                style={{
-                                                                    background: `${goal.color.line}`,
-                                                                    width: `${percentage}%`
-                                                                }}
-                                                                className="absolute top-0 left-0 h-full"
-                                                            ></div>
-                                                        </div>
-                                                        <p className="text-right text-sm text-[#242424] mt-1">
-                                                            {percentage.toFixed(0)}%
-                                                        </p>
-                                                    </div>
-                                                </Link>
-                                            </Col>
-                                        );
-                                    })}
-                                </Row>
-                                <ButtonDesign
-                                    classColor={'green'}
-                                    onClick={onOpenModalCreate}
-                                    title={'Thêm mục tiêu'}
-                                />
-                            </div>
-                        </Col>
+                            :
 
-                    </Row>
-                </div>
+                            <div className="padding-common">
+                                <Row gutter={[20, 20]}>
+                                    <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
+                                        <TeamInfo
+                                            linkJoinUrl={detailTeam.linkJoinUrl}
+                                        />
+                                    </Col>
+                                    <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
+                                        <AlertBudget />
+                                    </Col>
+                                    <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
+                                        <div className="category">
+                                            <SelectFilterCommon
+                                                label={""}
+                                                listDataOfItem={Constants.MenuTabFinance.List}
+                                                onChange={(e: any) => setSelectedMenu(e.target.value)}
+                                            />
+                                            <div className="content">
+                                                <div className={`${selectedMenu == 1 ? "show" : "un-show"} box`}>
+                                                    <div className="flex flex-col gap-2">
+                                                        <div className="flex justify-center gap-4">
+                                                            <ButtonDesign
+                                                                classColor={selectedTab === "income" ? "green" : "transparent"}
+                                                                onClick={() => setSelectedTab("income")}
+                                                                title={"Thu nhập"}
+                                                            />
+                                                            <ButtonDesign
+                                                                classColor={selectedTab === "spend" ? "green" : "transparent"}
+                                                                onClick={() => setSelectedTab("spend")}
+                                                                title={"Chi phí"}
+                                                            />
+                                                        </div>
+                                                        {
+                                                            listType.map((item, index) => {
+                                                                return (
+                                                                    <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
+                                                                        <div className="category-name">
+                                                                            <img src={configImageURL(item.imageCode)} alt="" width={40} />
+                                                                            <p>{item.name} </p>
+                                                                        </div>
+                                                                        <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                    <ButtonDesign
+                                                        classColor={'green'}
+                                                        onClick={() => onOpenModalCreateCategory(null)}
+                                                        title={'Thêm danh mục'}
+                                                    />
+                                                </div>
+                                                <div className={`${selectedMenu == 2 ? "show" : "un-show"} box`}>
+                                                    <div className="flex flex-col gap-2">
+                                                        {
+                                                            listMember.map((item, index) => {
+                                                                return (
+                                                                    <div className="category-item" key={index}>
+                                                                        <div className="category-name">
+                                                                            {
+                                                                                item?.avatarCode
+                                                                                    ?
+                                                                                    <div className="img">
+                                                                                        <img src={configImageURL(item?.avatarCode)} alt="" />
+                                                                                    </div>
+                                                                                    :
+                                                                                    <div className="icon">
+                                                                                        <i className="fa fa-users" aria-hidden="true"></i>
+                                                                                    </div>
+                                                                            }
+                                                                            <p>{item.name} </p>
+                                                                        </div>
+                                                                        <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                    <ButtonDesign
+                                                        classColor={'green'}
+                                                        onClick={onOpenModalAddMember}
+                                                        title={'Thêm thành viên'}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
+                                        <div className="target">
+                                            <Row gutter={[20, 20]} >
+                                                <Col span={24}>
+                                                    <div className="flex justify-between w-full">
+                                                        <h2 className="text-xl font-bold text-left text-gray-800">Danh sách mục tiêu</h2>
+                                                        <PaginationNoSizeCommon
+                                                            total={total}
+                                                            currentPage={page}
+                                                            onChangePage={onChangePage}
+                                                            pageSize={pageSize} />
+                                                    </div>
+                                                </Col>
+                                                {newlistGoal.map((goal, index) => {
+                                                    const percentage = Math.min((goal.currentAmount / goal.goalAmount) * 100, 100);
+                                                    return (
+                                                        <Col xs={24} sm={12} md={24} lg={12}>
+                                                            <Dropdown overlay={() => listAction(goal)} trigger={['click']}>
+                                                                <div
+                                                                    key={index}
+                                                                    className="box"
+                                                                    style={{
+                                                                        background: `${goal.color.background}`
+                                                                    }}
+                                                                >
+                                                                    {/* Thông tin mục tiêu */}
+                                                                    <div className="flex flex-col gap-2">
+                                                                        <div className="flex gap-2 items-start justify-between">
+                                                                            <p className="text-[20px] font-semibold text-truncate-2">{goal.name}</p>
+                                                                            {
+                                                                                goal.achieved
+                                                                                    ?
+                                                                                    <div className='is-done'>Hoàn thành</div>
+                                                                                    :
+                                                                                    <div className='is-not-done'>Chưa đạt</div>
+                                                                            }
+                                                                        </div>
+                                                                        <p className="text-[14px]">Mục tiêu: {formatCurrencyVND(goal.currentAmount)} / {formatCurrencyVND(goal.goalAmount)}</p>
+                                                                        <p className="text-[14px]">Thời gian: {convertDateOnlyShow(goal.startDate)} - {convertDateOnlyShow(goal.endDate)}</p>
+                                                                    </div>
+                                                                    {/* Thanh tiến trình */}
+                                                                    <div className="w-full">
+                                                                        <div className="relative w-full h-2 bg-[#ffffff] rounded-full overflow-hidden">
+                                                                            <div
+                                                                                style={{
+                                                                                    background: `${goal.color.line}`,
+                                                                                    width: `${percentage}%`
+                                                                                }}
+                                                                                className="absolute top-0 left-0 h-full"
+                                                                            ></div>
+                                                                        </div>
+                                                                        <p className="text-right text-sm text-[#242424] mt-1">
+                                                                            {percentage.toFixed(0)}%
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </Dropdown>
+                                                        </Col>
+                                                    );
+                                                })}
+                                            </Row>
+                                            <ButtonDesign
+                                                classColor={'green'}
+                                                onClick={onOpenModalCreate}
+                                                title={'Thêm mục tiêu'}
+                                            />
+                                        </div>
+                                    </Col>
+
+                                </Row>
+                            </div>
+                    )
+                }
             </div>
+
             <ModalCreateCategory
                 selectedId={selectedId}
                 selectedTab={selectedTab}
@@ -565,6 +706,15 @@ const GoalSpendingTeamPage = () => {
                 data={dataRequestCategory}
                 setData={setDataRequestCategory}
                 handleCancel={onCloseDrawerCategory}
+            />
+            <DialogConfirmCommon
+                title={"Xóa mục tiêu"}
+                message={"Bạn muốn xóa mục tiêu?"}
+                titleCancel={"Hủy"}
+                titleOk={"Đồng ý"}
+                handleOk={onDeleteGoalAsync}
+                handleCancel={onCloseModalDelete}
+                visible={isOpenModalDelete}
             />
             <FullPageLoading isLoading={loading} />
         </LayoutClient >

@@ -3,7 +3,7 @@ import { FailMessage, SuccessMessage } from "../../common/components/toast/notif
 import { RequestService } from "../../utils/response";
 
 class GoalService {
-    async GoalTeam(id: number, setLoading: Function) {
+    async GoalTeam(id: number, params: any, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
@@ -57,6 +57,28 @@ class GoalService {
                 });
         } catch (error: any) {
             FailMessage("Thêm mới không thành công", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async DeleteTeamPersonal(id: string, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .delete(`${Endpoint.Goal.Team.Delete}/${id}`)
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Xóa mục tiêu thành công", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Xóa mục tiêu không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);
@@ -119,6 +141,27 @@ class GoalService {
                 });
         } catch (error: any) {
             FailMessage("Thêm mới không thành công", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+    async DeleteGoalPersonal(id: string, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .delete(`${Endpoint.Goal.Personal.Delete}/${id}`)
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Xóa mục tiêu thành công", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Xóa mục tiêu không thành công", error.response.data.message)
             console.error(error)
         } finally {
             setLoading(false);

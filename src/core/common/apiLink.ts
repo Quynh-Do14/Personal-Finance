@@ -15,20 +15,26 @@ export class Endpoint {
             static Get = "/goals/user/all"
             static GetById = "/goals/detail"
             static Add = "/goals/user/create"
+            static Delete = "/goals/user/delete"
         }
         static Team = class {
             static Get = "/goals/user/team"
             static GetById = "/goals/detail"
             static Add = "/goals/team/create"
+            static Delete = "/goals/team/delete"
         }
     }
     static Team = class {
         static Get = "/members/user/all"
+        static GetById = "/teams/user/info"
         static Create = "/teams/user/create"
         static Join = "/members/t/join"
         static Member = "/teams/users"
         static AddMember = "/members/add-member"
         static Leave = "/members/user/leave"
+        static Delete = "/members/user/delete"
+        static Lock = "/teams/user/block"
+        static UnLock = "/teams/user/unblock"
     }
     static Chat = class {
         static Personal = class {

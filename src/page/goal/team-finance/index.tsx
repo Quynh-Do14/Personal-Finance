@@ -23,6 +23,7 @@ import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
 import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
+import banner2 from '../../../assets/images/banner/banner2.png'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -333,11 +334,11 @@ const TeamFinancePage = () => {
 
                 // Lắng nghe thông báo từ đích riêng của user
                 stompClient.subscribe('/user/queue/chat', () => {
-                    onGetDetailGoalAsync();
-                    onGetChatBoxAsync();
-                    onGetSpendTeamByGoalStatisticalDaily();
-                    onGetSpendTeamByGoalStatistical();
-                    onGetIncomeTeamByGoalStatistical();
+                    onGetDetailGoalAsync().then(_ => { });
+                    onGetChatBoxAsync().then(_ => { });
+                    onGetSpendTeamByGoalStatisticalDaily().then(_ => { });
+                    onGetSpendTeamByGoalStatistical().then(_ => { });
+                    onGetIncomeTeamByGoalStatistical().then(_ => { });
                     onGetStaticByTimeAsync().then(_ => { });
                 });
             },
@@ -364,11 +365,9 @@ const TeamFinancePage = () => {
                         //     setMessages("");
                         //     await onGetChatBoxAsync();
                         // }, 10);
-                        setMessagesLoading("");
                     },
                     setLoadingBot
-                ).then(() => {
-                });
+                ).then(() => { });
             }
             catch (error) {
                 console.error(error);
@@ -387,7 +386,11 @@ const TeamFinancePage = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon title={"Quỹ nhóm"} sub={"Tài chính"} />
+            <BannerCommon
+                title={"Quỹ nhóm"}
+                sub={"Tài chính"}
+                backgroundUrl={banner2}
+            />
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>

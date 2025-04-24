@@ -227,6 +227,7 @@ const ChatBoxCommon = (props: Props) => {
     /////
 
     const onTransitAsync = async () => {
+        scrollToBottom();
         await setSubmittedTime(Date.now());
         if (isValidData()) {
             if (dataRequest.type == 1) {
