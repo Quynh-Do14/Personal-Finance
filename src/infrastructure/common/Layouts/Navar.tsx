@@ -45,7 +45,6 @@ const NavbarComponent = (props: Props) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-
     const [, setProfileState] = useRecoilState(ProfileState);
 
     useEffect(() => {
@@ -174,12 +173,11 @@ const NavbarComponent = (props: Props) => {
                         <div className="profile">
                             <ButtonDesign
                                 classColor={'green'}
-                                title={'Đăng nhập'}
-                                onClick={() => setIsLoginClick(!isLoginClick)}
+                                title={'Đăng Nhập'}
+                                onClick={() => navigate(ROUTE_PATH.LOGIN)}
                             />
                         </div>
                 }
-
                 <ul className="menu">
                     {Constants.MenuClient.List.map((item, index) => {
                         if (!item.private) {
@@ -189,14 +187,10 @@ const NavbarComponent = (props: Props) => {
                                     key={index}
                                 >
                                     <li key={index} className={`${conditionActive(item.link)} menu-item`}>
-                                        <a
-                                            onClick={() => setIsLoginClick(!isLoginClick)}
-                                        >
-                                            <span className="icon">
-                                                <i className={item.icon} aria-hidden="true"></i>
-                                            </span>
-                                            <span>{item.label}</span>
-                                        </a>
+                                        <span className="icon">
+                                            <i className={item.icon} aria-hidden="true"></i>
+                                        </span>
+                                        <span>{item.label}</span>
                                     </li>
                                 </a>
                             )

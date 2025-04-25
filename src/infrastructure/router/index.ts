@@ -13,8 +13,6 @@ import PaymentPolicy from "../../page/policy/payment-policy";
 import ServiceStandard from "../../page/policy/service-standard";
 import TermOfServicePolicy from "../../page/policy/term-of-service";
 import RefundPolicy from "../../page/policy/refund-policy";
-import LoginScreen from "../../page/Auth/LoginScreen";
-import RegisterScreen from "../../page/Auth/RegisterScreen";
 import BlogPage from "../../page/blog";
 import PaymentPage from "../../page/payment";
 import PaymentResultPage from "../../page/payment/payment-result";
@@ -28,16 +26,6 @@ export const privateRoutes = [
         component: HomePage,
         private: false,
     },
-    // {
-    //     path: ROUTE_PATH.LOGIN,
-    //     component: LoginScreen,
-    //     private: false,
-    // },
-    // {
-    //     path: ROUTE_PATH.REGISTER,
-    //     component: RegisterScreen,
-    //     private: false,
-    // },
     {
         path: ROUTE_PATH.REPORT_PAGE,
         component: ReportPage,
@@ -126,6 +114,6 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.JOIN_TEAM,
         component: JoinTeam,
-        private: true,
+        private: false,
     },
 ]

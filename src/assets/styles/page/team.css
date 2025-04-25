@@ -86,7 +86,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 12px;
+  padding: 24px 12px;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -121,8 +121,8 @@
 }
 
 .join-card .member-avatars img {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #fff;
@@ -135,8 +135,8 @@
   justify-content: center;
   background: #eee;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   font-size: 14px;
   color: #333;
 }
@@ -195,6 +195,5 @@
   color: #444;
   line-height: 1.5;
   overflow: hidden;
-  white-space: nowrap;
   animation: wave 2s infinite ease-in-out;
 }

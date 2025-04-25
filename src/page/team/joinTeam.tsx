@@ -13,13 +13,14 @@ import lock from "../../assets/images/lock.gif"
 import avatar from "../../assets/images/no-avatar.png"
 
 import { configImageURL } from '../../infrastructure/helper/helper';
+import { isTokenStoraged } from '../../infrastructure/utils/storage';
 
 const JoinTeam = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [detailTeam, setDetailTeam] = useState<any>({});
     const [member, setMember] = useState<any[]>([]);
-
+    const [token, setToken] = useState<boolean>(false);
 
     const { id } = useParams();
     const { search } = useLocation();
@@ -29,10 +30,26 @@ const JoinTeam = () => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchToken = async () => {
+            try {
+                const tokenS = await isTokenStoraged();
+                setToken(tokenS);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsLoading(true);
+            }
+        };
+
+        fetchToken();
+    }, []);
+
     const onJoinTeamAsync = async () => {
         try {
             await teamService.JoinTeam(
                 String(id),
+                String(teamId),
                 () => { },
                 setLoading
             ).then(() => {
@@ -67,7 +84,6 @@ const JoinTeam = () => {
     useEffect(() => {
         onGetInfoTeamAsync().then(_ => { });
     }, []);
-    console.log("detailTeam", detailTeam);
 
     return (
         <LayoutClient>
@@ -100,17 +116,17 @@ const JoinTeam = () => {
                                 />
                                 <h2 className="team-name">{detailTeam.name}</h2>
                                 <p className="invite-message">
-                                    Bạn được mời tham gia vào nhóm để cùng quản lý quỹ chung.
+                                    Tham gia vào nhóm để cùng quản lý quỹ chung.
                                 </p>
                                 {
-                                    member.length > 4
+                                    member.length > 3
                                         ?
                                         <div className="member-avatars">
-                                            {member.slice(3).map((item, index) => {
+                                            {member.slice(0, 3).map((item, index) => {
                                                 return (
                                                     <img
                                                         key={index}
-                                                        src={item.imageCode ? configImageURL(item.imageCode) : avatar}
+                                                        src={item.avatarCode ? configImageURL(item.avatarCode) : avatar}
                                                         alt="Member"
                                                     />
                                                 )
@@ -123,21 +139,32 @@ const JoinTeam = () => {
                                                 return (
                                                     <img
                                                         key={index}
-                                                        src={item.imageCode ? configImageURL(item.imageCode) : avatar}
+                                                        src={item.avatarCode ? configImageURL(item.avatarCode) : avatar}
                                                         alt="Member"
                                                     />
                                                 )
                                             })}
                                         </div>
                                 }
+                                {
+                                    !isLoading
+                                    &&
+                                    (
+                                        token
+                                            ?
+                                            <div className="actions">
+                                                <button onClick={onJoinTeamAsync} className="join-btn">Tham gia nhóm</button>
+                                            </div>
 
-                                <div className="actions">
-                                    <button onClick={onJoinTeamAsync} className="join-btn">Tham gia nhóm</button>
-                                </div>
+                                            :
+                                            <div className="actions">
+                                                <button onClick={() => navigate(ROUTE_PATH.LOGIN)} className="join-btn">Đăng nhập</button>
+                                            </div>
+                                    )
+                                }
                             </div>
                     )
                 }
-
             </div>
             <FullPageLoading isLoading={loading} />
         </LayoutClient>

@@ -19,7 +19,7 @@
 }
 .profile-page .tabs {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: 4px;
 }
 .profile-page .tabs .option {
@@ -28,7 +28,7 @@
 .profile-page .tabs .option.active {
   background: #fff;
   border-radius: 8px 8px 0 0;
-  padding: 12px 16px;
+  padding: 12px 0px;
   font-weight: 700;
   font-size: 16px;
   line-height: 26px;
@@ -57,7 +57,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #47cef7;
 }
 .profile-page h2 {
   font-weight: 700;

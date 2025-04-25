@@ -474,13 +474,20 @@ const GoalSpendingPage = () => {
                             <div className="target">
                                 <Row gutter={[20, 20]} >
                                     <Col span={24}>
-                                        <div className="flex justify-between w-full">
+                                        <div className="flex justify-between w-full gap-2 flex-wrap">
                                             <h2 className="text-xl font-bold text-left text-gray-800">Danh sách mục tiêu</h2>
-                                            <PaginationNoSizeCommon
-                                                total={total}
-                                                currentPage={page}
-                                                onChangePage={onChangePage}
-                                                pageSize={pageSize} />
+                                            {
+                                                newlistGoal.length
+                                                    ?
+                                                    <PaginationNoSizeCommon
+                                                        total={total}
+                                                        currentPage={page}
+                                                        onChangePage={onChangePage}
+                                                        pageSize={pageSize}
+                                                    />
+                                                    :
+                                                    null
+                                            }
                                         </div>
                                     </Col>
                                     {newlistGoal.map((goal, index) => {
