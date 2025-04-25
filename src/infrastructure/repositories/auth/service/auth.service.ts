@@ -136,45 +136,43 @@ class AuthService {
         }
     }
 
-    // async forgotPassword(email, setLoading) {
-    //     setLoading(true)
-    //     try {
-    //         return await RequestService.post(`${apiRoutes.common.auth.forgot_password}?email=${email}`,
-    //             {},
-    //         ).then((response) => {
-    //             if (response) {
-    //                 setLoading(false)
-    //                 SuccessMessage("Gửi Email thành công", "Yêu cầu thiết lập lại mật khẩu của bạn gửi thành công. Kiểm tra Email để thiết lập lại mật khẩu")
-    //                 return response;
-    //             }
-    //         });
-    //     } catch (error) {
-    //         FailMessage("Gửi Email không thành công", "Kiểm tra lại thông tin Email")
-    //         console.error(error)
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+    async forgotPassword(data: object, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService.post(Endpoint.Auth.ForgotPassword,
+                data,
+            ).then((response) => {
+                if (response) {
+                    setLoading(false)
+                    SuccessMessage("Gửi Email thành công", "Yêu cầu thiết lập lại mật khẩu của bạn gửi thành công. Kiểm tra Email để thiết lập lại mật khẩu")
+                    return response;
+                }
+            });
+        } catch (error) {
+            FailMessage("Gửi Email không thành công", "Kiểm tra lại thông tin Email")
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
 
-    // async resetPassword(email, token, setLoading, setIsSuccessDialog) {
-    //     setLoading(true)
-    //     try {
-    //         return await RequestService.post(`${apiRoutes.common.auth.reset_password}?newPassword=${email}&token=${token}`,
-    //             {},
-    //         ).then(response => {
-    //             setLoading(false)
-    //             SuccessMessage("Thay đổi mật khẩu thành công", "")
-    //             setIsSuccessDialog(true)
-    //             return response;
-    //         });
-    //     } catch (error) {
-    //         FailMessage("Thay đổi mật khẩu không thành công", "Kiểm tra lại thông tin")
-    //         console.error(error)
-    //         setIsSuccessDialog(false)
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+    async resetPassword(code: string, data: object, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService.put(`${Endpoint.Auth.ResetPassword}?code=${code}`,
+                data,
+            ).then(response => {
+                setLoading(false)
+                SuccessMessage("Thay đổi mật khẩu thành công", "")
+                return response;
+            });
+        } catch (error) {
+            FailMessage("Thay đổi mật khẩu không thành công", "Kiểm tra lại thông tin")
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
 
     async changeBotChat(id: number, onBack: Function, setLoading: Function) {
         setLoading(true)
