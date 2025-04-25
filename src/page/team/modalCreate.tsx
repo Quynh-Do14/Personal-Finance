@@ -27,6 +27,7 @@ const ModalCreateTeam = (props: Props) => {
         setValidate,
         submittedTime
     } = props;
+    console.log("data", data);
 
     return (
         <Modal
@@ -40,7 +41,7 @@ const ModalCreateTeam = (props: Props) => {
             closeIcon={<CloseOutlined />}
         >
             <div>
-                <div className='text-[18px] text-[#1e2330] font-semibold text-center mb'>Thêm nhóm mới</div>
+                <div className='text-[18px] text-[#1e2330] font-semibold text-center mb'>{data.id ? 'Cập nhật nhóm' : "Thêm nhóm mới"}</div>
                 <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
                     <Col xs={12} sm={12} lg={12}>
                         <div className='rounded-[15px] bg-[#f3f3f1] border-[1px] border-blue-100 h-full min-w-[110px] min-h-[200px] relative'>
@@ -79,7 +80,7 @@ const ModalCreateTeam = (props: Props) => {
                         <ButtonDesign
                             classColor={'green'}
                             onClick={handleOk}
-                            title={'Thêm nhóm mới'}
+                            title={data.id ? "Cập nhật nhóm" : 'Thêm nhóm mới'}
                         />
                     </Col>
                 </Row>

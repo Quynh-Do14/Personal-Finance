@@ -26,14 +26,15 @@ class StaticService {
         }
     };
 
-    async TeamStatisticalByGoal(goalId: string, type: "type" | "", endDate: string, startDate: string, timeRange: string, setLoading: Function) {
+    async TeamStatisticalByGoal(goalId: string, byStat: "type" | "user", endDate: string, startDate: string, timeRange: string, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
                 .get(`${Endpoint.Static.Team.GetStatisticalGoal}/${goalId}`, {
                     endDate,
                     startDate,
-                    timeRange
+                    timeRange,
+                    byStat
                 })
                 .then(response => {
                     if (response) {

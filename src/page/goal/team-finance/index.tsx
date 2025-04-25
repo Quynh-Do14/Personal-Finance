@@ -14,17 +14,16 @@ import { FullPageLoading } from "../../../infrastructure/common/components/contr
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import TimeFilter from "../../../infrastructure/common/components/time-filter/TimeFilter";
 import BannerCommon from "../../../infrastructure/common/components/banner/BannerCommon";
 import { Col, Row } from "antd";
 import StaticComponent from "../common/static";
-import { ButtonDesign } from "../../../infrastructure/common/components/button/buttonDesign";
 import OverviewComponent from "../common/overview";
 import BarChartStatic from "../common/barChart";
 import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
 import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
+import banner2 from '../../../assets/images/banner/banner2.png'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -42,7 +41,8 @@ const TeamFinancePage = () => {
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
     const [messages, setMessages] = useState<string>("");
-    const [imageBill, setImageBill] = useState<any>();
+    const [messagesLoading, setMessagesLoading] = useState<string>("");
+
     const [dailySpend, setDailySpend] = useState<any>();
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
@@ -50,7 +50,7 @@ const TeamFinancePage = () => {
     const [startDate, setStartDate] = useState<string>("");
     const [timeRange, setTimeRange] = useState<string>("daily");
     const [selectedTab, setSelectedTab] = useState<"spend" | "income">("income");
-    const [selectedType, setSelectedType] = useState<"type" | "">("type");
+    const [selectedType, setSelectedType] = useState<"type" | "user">("type");
 
     const [dataTable, setDataTable] = useState<any[]>([]);
     const [dataTableMember, setDataTableMember] = useState<any[]>([]);
@@ -111,7 +111,7 @@ const TeamFinancePage = () => {
         try {
             await staticService.TeamStatisticalByGoal(
                 String(id),
-                "",
+                "type",
                 "",
                 "",
                 "daily",
@@ -146,6 +146,48 @@ const TeamFinancePage = () => {
         return Array.from({ length }, (_, i) => colors[i % colors.length]); // Lặp lại màu nếu thiếu
     };
 
+    const onGetStaticByTimeAsync = async () => {
+        try {
+            await staticService.getStatisticalByTime(
+                String(id),
+                "week",
+                setLoading
+            ).then((res) => {
+                const labels = res?.map((item: any) => item?.dayOfWeek);
+                const dataIncome = res?.map((item: any) => item.totalIncome || 0);
+                const dataSpend = res?.map((item: any) => item.totalSpend || 0);
+
+                setStatisticsByTime({
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Thu',
+                            data: dataIncome,
+                            backgroundColor: "#006699",
+                            barThickness: 20,
+                            borderRadius: 10,
+                            categoryPercentage: 0.5,
+                            barPercentage: 0.8,
+                        },
+                        {
+                            label: 'Chi',
+                            data: dataSpend,
+                            backgroundColor: "#006633",
+                            barThickness: 20,
+                            borderRadius: 10,
+                            categoryPercentage: 0.5,
+                            barPercentage: 0.8,
+                        },
+                    ],
+                });
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const onGetSpendTeamByGoalStatistical = async () => {
         setLoading(true);
         try {
@@ -158,26 +200,43 @@ const TeamFinancePage = () => {
                 setLoading
             );
 
-            if (!res.spendStatistics || !Array.isArray(res.spendStatistics.spendingTypeAndAmounts)) {
-                console.warn("No spending data available");
-                setSpendData({ labels: [], datasets: [] });
-                return;
+            // if (!res.spendStatistics || !Array.isArray(res.spendStatistics.spendingTypeAndAmounts)) {
+            //     console.warn("No spending data available");
+            //     setSpendData({ labels: [], datasets: [] });
+            //     return;
+            // }
+            if (selectedType == "type") {
+                const labels = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.spendingType?.name || "Unknown");
+                const dataValues = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.amount || 0);
+                const colors = generateColors(labels.length);
+                setSpendDataTable(res.spendStatistics.spendingTypeAndAmounts);
+                setSpendStatistics(res.spendStatistics);
+                setSpendData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: dataValues,
+                            backgroundColor: colors,
+                        },
+                    ],
+                });
             }
-
-            const labels = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.spendingType?.name || "Unknown");
-            const dataValues = res.spendStatistics.spendingTypeAndAmounts.map((item: any) => item.amount || 0);
-            const colors = generateColors(labels.length);
-            setSpendDataTable(res.spendStatistics.spendingTypeAndAmounts);
-            setSpendStatistics(res.spendStatistics);
-            setSpendData({
-                labels: labels,
-                datasets: [
-                    {
-                        data: dataValues,
-                        backgroundColor: colors,
-                    },
-                ],
-            });
+            else if (selectedType == "user") {
+                const labels = res.spendStatistics.userAndAmounts.map((item: any) => item.user?.name || "Unknown");
+                const dataValues = res.spendStatistics.userAndAmounts.map((item: any) => item.amount || 0);
+                const colors = generateColors(labels.length);
+                setSpendDataTable(res.spendStatistics.userAndAmounts);
+                setSpendStatistics(res.spendStatistics);
+                setSpendData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: dataValues,
+                            backgroundColor: colors,
+                        },
+                    ],
+                });
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -197,41 +256,63 @@ const TeamFinancePage = () => {
                 () => { }
             );
 
-            if (!res.incomeStatistics || !Array.isArray(res.incomeStatistics.inComeTypeAndAmounts)) {
-                console.warn("No income data available");
-                setIncomeData({ labels: [], datasets: [] });
-                return;
+            // if (!res.incomeStatistics || !Array.isArray(res.incomeStatistics.inComeTypeAndAmounts)) {
+            //     console.warn("No income data available");
+            //     setIncomeData({ labels: [], datasets: [] });
+            //     return;
+            // }
+            if (selectedType == "type") {
+                const labels = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.inComeType?.name || "Unknown");
+                const dataValues = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.amount || 0);
+                const colors = generateColors(labels.length);
+                setIncomeDataTable(res.incomeStatistics.inComeTypeAndAmounts);
+                setIncomeStatistics(res.incomeStatistics);
+                setIncomeData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: dataValues,
+                            backgroundColor: colors,
+                        },
+                    ],
+                });
+            }
+            else if (selectedType == "user") {
+                const labels = res.incomeStatistics.userAndAmounts.map((item: any) => item.user?.name || "Unknown");
+                const dataValues = res.incomeStatistics.userAndAmounts.map((item: any) => item.amount || 0);
+                const colors = generateColors(labels.length);
+                setIncomeDataTable(res.incomeStatistics.userAndAmounts);
+                setIncomeStatistics(res.incomeStatistics);
+                setIncomeData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: dataValues,
+                            backgroundColor: colors,
+                        },
+                    ],
+                });
             }
 
-            const labels = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.inComeType?.name || "Unknown");
-            const dataValues = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.amount || 0);
-            const colors = generateColors(labels.length);
-            setIncomeDataTable(res.incomeStatistics.inComeTypeAndAmounts);
-            setIncomeStatistics(res.incomeStatistics);
-            setIncomeData({
-                labels: labels,
-                datasets: [
-                    {
-                        data: dataValues,
-                        backgroundColor: colors,
-                    },
-                ],
-            });
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
     };
+    console.log("spendStatistics", spendDataTable);
 
     useEffect(() => {
         onGetDetailGoalAsync().then(_ => { });
         onGetChatBoxAsync().then(_ => { });
         onGetSpendTeamByGoalStatisticalDaily().then(_ => { });
-        onGetSpendTeamByGoalStatistical().then(_ => { });
-        onGetIncomeTeamByGoalStatistical().then(_ => { });
+        onGetStaticByTimeAsync().then(_ => { });
     }, [timeRange]);
 
+    useEffect(() => {
+        onGetSpendTeamByGoalStatistical().then(_ => { });
+        onGetIncomeTeamByGoalStatistical().then(_ => { });
+    }, [timeRange, selectedType, selectedTab])
     useEffect(() => {
         // Lấy JWT từ localStorage hoặc sessionStorage
         const tokenData = tokenString ? JSON.parse(tokenString) : null;
@@ -253,11 +334,12 @@ const TeamFinancePage = () => {
 
                 // Lắng nghe thông báo từ đích riêng của user
                 stompClient.subscribe('/user/queue/chat', () => {
-                    onGetDetailGoalAsync();
-                    onGetChatBoxAsync();
-                    onGetSpendTeamByGoalStatisticalDaily();
-                    onGetSpendTeamByGoalStatistical();
-                    onGetIncomeTeamByGoalStatistical();
+                    onGetDetailGoalAsync().then(_ => { });
+                    onGetChatBoxAsync().then(_ => { });
+                    onGetSpendTeamByGoalStatisticalDaily().then(_ => { });
+                    onGetSpendTeamByGoalStatistical().then(_ => { });
+                    onGetIncomeTeamByGoalStatistical().then(_ => { });
+                    onGetStaticByTimeAsync().then(_ => { });
                 });
             },
         });
@@ -270,25 +352,26 @@ const TeamFinancePage = () => {
     }, [tokenString]);
 
     const handleSendMessage = async () => {
-        try {
-            await chatService.AddChatTeam(
-                String(id),
-                {
-                    question: messages
-                },
-                async () => {
-                    // setTimeout(async () => {
-                    //     setMessages("");
-                    //     await onGetChatBoxAsync();
-                    // }, 10);
-                    setMessages("");
-                },
-                setLoadingBot
-            ).then(() => {
-            });
-        }
-        catch (error) {
-            console.error(error);
+        if (messages) {
+            setMessages("");
+            try {
+                await chatService.AddChatTeam(
+                    String(id),
+                    {
+                        question: messages
+                    },
+                    async () => {
+                        // setTimeout(async () => {
+                        //     setMessages("");
+                        //     await onGetChatBoxAsync();
+                        // }, 10);
+                    },
+                    setLoadingBot
+                ).then(() => { });
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
     };
 
@@ -301,24 +384,13 @@ const TeamFinancePage = () => {
         }
     }, [selectedTab, incomeDataTable, spendDataTable]);
 
-    const upLoadBillAsync = async () => {
-        try {
-            await chatService.GetBillPersonal(
-                String(id),
-                {
-                    question: messages
-                },
-                () => { },
-            ).then(() => {
-            });
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
     return (
         <LayoutClient>
-            <BannerCommon title={"Quỹ nhóm"} sub={"Tài chính"} />
+            <BannerCommon
+                title={"Quỹ nhóm"}
+                sub={"Tài chính"}
+                backgroundUrl={banner2}
+            />
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>
@@ -343,7 +415,6 @@ const TeamFinancePage = () => {
                             <StaticComponent
                                 selectedTab={selectedTab}
                                 dataTable={dataTable}
-
                                 spendStatistics={spendStatistics}
                                 incomeStatistics={incomeStatistics}
                                 setTimeRange={setTimeRange}
@@ -354,6 +425,9 @@ const TeamFinancePage = () => {
                                 onGetSpendPersonalByGoalStatistical={onGetSpendTeamByGoalStatistical}
                                 onGetIncomePersonalByGoalStatistical={onGetIncomeTeamByGoalStatistical}
                                 setSelectedTab={setSelectedTab}
+                                isType={true}
+                                selectedType={selectedType}
+                                setSelectedType={setSelectedType}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>
@@ -370,6 +444,8 @@ const TeamFinancePage = () => {
                         setIsOpenChatBox={setIsOpenChatBox}
                         dataChatBox={dataChatBox}
                         handleSendMessage={handleSendMessage}
+                        messagesLoading={messagesLoading}
+                        setMessagesLoading={setMessagesLoading}
                         messages={messages}
                         setMessages={setMessages}
                         idGoal={String(id)}

@@ -38,14 +38,22 @@ const OverviewComponent = (props: Props) => {
         autoplaySpeed: 6000,
         arrows: false,
     }
+    console.log('spendStatistics', spendStatistics);
 
     return (
         <div className="overview box-common">
             <div className='flex justify-between gap-2 flex-wrap'>
                 <p className="title-box">{detailGoal.name} </p>
-                <div className='is-done'>
-                    Chưa đạt
-                </div>
+
+                {
+                    detailGoal.currentAmount >= detailGoal.goalAmount
+                        ?
+                        <div className='is-done'>Hoàn thành</div>
+                        :
+                        <div className='is-not-done'>Chưa hoàn thành</div>
+                }
+
+
             </div>
             <div className='target'>
                 <div className="label">Số tiền mục tiêu</div>

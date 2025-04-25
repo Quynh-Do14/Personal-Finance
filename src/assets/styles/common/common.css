@@ -261,7 +261,7 @@
 .alert-common {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 8px;
   width: 100%;
   min-height: 156px;
   height: 100%;
@@ -274,6 +274,46 @@
   font-size: 16px;
   line-height: 26px;
   letter-spacing: 0%;
-  text-align: justify;
+  text-align: left;
   color: #ffffff;
+}
+
+.alert-common a {
+  text-decoration: underline;
+}
+
+.text-truncate {
+  white-space: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.text-truncate-2 {
+  white-space: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.text-truncate-3 {
+  white-space: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.text-truncate-4 {
+  white-space: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }

@@ -4,17 +4,22 @@ type Props = {
     title: string
     sub: string
     color?: "white" | "black"
+    backgroundUrl: any
 }
 const BannerCommon = (props: Props) => {
-    const { title, sub, color = "white" } = props;
+    const { title, sub, color = "white", backgroundUrl } = props;
     return (
         <div className="banner-common">
-            <div className='overlay'></div>
-            <div className="layout text-center bg-cover bg-center py-20">
+            <div className="layout text-center bg-cover bg-center py-20"
+                style={{
+                    backgroundImage: `url(${backgroundUrl})`
+                }}
+            >
+                <div className='overlay'></div>
                 <TitleComponent title={sub} color={color} />
                 <h1>{title}</h1>
             </div>
-        </div>
+        </div >
     )
 }
 

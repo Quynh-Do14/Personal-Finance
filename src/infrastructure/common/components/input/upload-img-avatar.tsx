@@ -47,17 +47,20 @@ function UploadImageAvatar(props: Props) {
         }
     }, [submittedTime]);
 
+
     useEffect(() => {
-        if (dataAttribute) {
-            setData(configImageURL(dataAttribute))
+        if (dataAttribute == null) {
+            setValue("")
         }
-        else {
-            setData(dataAttribute)
+        else if (value) {
+            setValue(value)
         }
-    }, [dataAttribute])
+        else if (dataAttribute) {
+            setValue(dataAttribute)
+        }
+    }, [value, dataAttribute])
 
     return (
-        // <div className={`${value && "relative"} file-upload`} >
         <div className='flex justify-center items-center h-full'>
 
             {

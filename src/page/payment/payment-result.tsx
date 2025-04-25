@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+=======
+import React, { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom';
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
 import "../../assets/styles/page/payment.css"
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout';
 import { ROUTE_PATH } from '../../core/common/appRouter';
@@ -12,7 +17,13 @@ import loadingGif from "../../assets/images/loading.gif"
 const PaymentResultPage = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
+<<<<<<< HEAD
     
+=======
+    // console.log("queryParams", location.search);
+    const hasCalledPayment = useRef(false);
+
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
     const [loading, setLoading] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [respone, setRespone] = useState<any>({});
@@ -21,9 +32,14 @@ const PaymentResultPage = () => {
     const vnp_TransactionNo = queryParams.get("vnp_TransactionNo");
     const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
     const vnp_OrderInfo = queryParams.get("vnp_OrderInfo");
+<<<<<<< HEAD
     const vnp_TxnRef = queryParams.get("vnp_TxnRef");
 
     const transactionId = `${vnp_TxnRef || ''}_${vnp_TransactionNo || ''}`;
+=======
+    // console.log("vnp_TransactionNo", vnp_TransactionNo);
+    // console.log("vnp_ResponseCode", vnp_ResponseCode);
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
 
     const decodeFromBase64 = (base64: string): string => {
         const binary = atob(base64);
@@ -35,6 +51,7 @@ const PaymentResultPage = () => {
     const decoded_vnp_OrderInfo = vnp_OrderInfo ? decodeFromBase64(String(vnp_OrderInfo)) : "";
 
     useEffect(() => {
+<<<<<<< HEAD
         alert("Đang xử lí giao dịch, vui lòng không tắt trình duyệt 1")
         if (!location.search || !transactionId) return;
         alert("Đang xử lí giao dịch, vui lòng không tắt trình duyệt 2")
@@ -54,6 +71,10 @@ const PaymentResultPage = () => {
                 console.error("Lỗi khi phân tích dữ liệu lưu trữ", error);
                 // Tiếp tục xử lý nếu dữ liệu trong localStorage bị lỗi
             }
+=======
+        if (location.search && !hasCalledPayment.current) {
+            onPaymentAsync().then(() => { });
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
         }
         
         // Đánh dấu đang xử lý ngay lập tức, trước khi gọi API
@@ -92,8 +113,14 @@ const PaymentResultPage = () => {
                                 <h1>Giao dịch thành công</h1>
                                 <h2>{decoded_vnp_OrderInfo}</h2>
                                 <img src={succes} alt="" width={160} />
+<<<<<<< HEAD
                                 <h2>Giao dịch của bạn thành công</h2>
                                 <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn success-btn">Trang chủ</Link>                            </div>
+=======
+                                <h2>Giao dịch của bạn đã được xử lý thành công.</h2>
+                                <a href={ROUTE_PATH.HOME_PAGE} className="action-btn success-btn">Trang chủ</a>
+                            </div>
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
                         </div>
                     )
                 }
@@ -115,11 +142,16 @@ const PaymentResultPage = () => {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
-                            <h1>Giao dịch thất bại</h1>
+                            <h1>Không tìm thấy thông tin giao dịch</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
+<<<<<<< HEAD
                             <h2>Không tìm thấy giao dịch</h2>
                             <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
+=======
+                            <h2>Không tìm thấy thông tin giao dịch. Vui lòng kiểm tra lại hoặc liên hệ hỗ trợ.</h2>
+                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
                         </div>
                     </div>
                 )
@@ -128,11 +160,16 @@ const PaymentResultPage = () => {
                 return (
                     <div className={`payment-status-container failure`}>
                         <div className="payment-status">
-                            <h1>Giao dịch thất bại</h1>
+                            <h1>Giao dịch này đã được xử lý trước đó</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
+<<<<<<< HEAD
                             <h2>Giao dịch đã được thanh toán</h2>
                             <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
+=======
+                            <h2>Giao dịch này đã được xử lý trước đó. Không cần thanh toán lại</h2>
+                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
                         </div>
                     </div>
                 )
@@ -144,8 +181,13 @@ const PaymentResultPage = () => {
                             <h1>Giao dịch thất bại</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
+<<<<<<< HEAD
                             <h2>Số tiền không hợp lệ</h2>
                             <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
+=======
+                            <h2>Số tiền giao dịch không hợp lệ</h2>
+                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
                         </div>
                     </div>
                 )
@@ -157,8 +199,13 @@ const PaymentResultPage = () => {
                             <h1>Giao dịch thất bại</h1>
                             <h2>{decoded_vnp_OrderInfo}</h2>
                             <img src={failure} alt="" width={160} />
+<<<<<<< HEAD
                             <h2>Chữ kí không hợp lệ</h2>
                             <Link to={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</Link>
+=======
+                            <h2>Chữ ký xác thực không hợp lệ</h2>
+                            <a href={ROUTE_PATH.HOME_PAGE} className="action-btn failure-btn">Trang chủ</a>
+>>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
                         </div>
                     </div>
                 )

@@ -43,7 +43,7 @@ const SelectBotPage = () => {
                 <div className="padding-common">
                     <div className='bg-[#FFFFFF60] rounded-[8px] px-10 py-8'>
                         <h2 className="header">Bạn muốn BotChat có tính cách như thế nào?</h2>
-                        <Row gutter={[20, 20]} className="options">
+                        <Row gutter={[20, 20]} className="options" justify={"center"}>
                             {
                                 Constants.BotChatList.List.map((item, index) => {
                                     return (
@@ -64,6 +64,13 @@ const SelectBotPage = () => {
                                     classColor={'green'}
                                     onClick={onChangeBotAsync}
                                     title={'Xác nhận'}
+                                />
+                            </Col>
+                            <Col span={24}>
+                                <ButtonDesign
+                                    classColor={'transparent'}
+                                    onClick={() => navigate(ROUTE_PATH.HOME_PAGE)}
+                                    title={'Quay lại'}
                                 />
                             </Col>
                         </Row>

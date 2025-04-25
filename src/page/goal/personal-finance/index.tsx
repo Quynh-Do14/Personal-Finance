@@ -22,6 +22,7 @@ import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
 import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
+import banner2 from '../../../assets/images/banner/banner2.png'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -37,6 +38,7 @@ const PersonalFinancePage = () => {
     const [detailGoal, setDetailGoal] = useState<any>({});
     const [dataChatBox, setDataChatBox] = useState<any[]>([]);
     const [messages, setMessages] = useState<string>("");
+    const [messagesLoading, setMessagesLoading] = useState<string>("");
 
     const [dailySpend, setDailySpend] = useState<any>();
     const [spendStatistics, setSpendStatistics] = useState<any>({});
@@ -297,25 +299,28 @@ const PersonalFinancePage = () => {
     }, [tokenString]);
 
     const handleSendMessage = async () => {
-        try {
-            await chatService.AddChatPersonal(
-                String(id),
-                {
-                    question: messages
-                },
-                async () => {
-                    // setTimeout(async () => {
-                    //     setMessages("");
-                    //     await onGetChatBoxAsync();
-                    // }, 10);
-                    setMessages("");
-                },
-                setLoadingBot
-            ).then(() => {
-            });
-        }
-        catch (error) {
-            console.error(error);
+        if (messages) {
+            setMessages("");
+            try {
+                await chatService.AddChatPersonal(
+                    String(id),
+                    {
+                        question: messages
+                    },
+                    async () => {
+                        // setTimeout(async () => {
+                        //     setMessages("");
+                        //     await onGetChatBoxAsync();
+                        // }, 10);
+                        setMessagesLoading("")
+                    },
+                    setLoadingBot
+                ).then(() => {
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
     };
     useEffect(() => {
@@ -329,7 +334,11 @@ const PersonalFinancePage = () => {
 
     return (
         <LayoutClient>
-            <BannerCommon title={"Tài chính cá nhân"} sub={"Tài chính"} />
+            <BannerCommon
+                title={"Tài chính cá nhân"}
+                sub={"Tài chính"}
+                backgroundUrl={banner2}
+            />
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>
@@ -354,7 +363,6 @@ const PersonalFinancePage = () => {
                             <StaticComponent
                                 selectedTab={selectedTab}
                                 dataTable={dataTable}
-
                                 spendStatistics={spendStatistics}
                                 incomeStatistics={incomeStatistics}
                                 setTimeRange={setTimeRange}
@@ -365,6 +373,8 @@ const PersonalFinancePage = () => {
                                 onGetSpendPersonalByGoalStatistical={onGetSpendPersonalByGoalStatistical}
                                 onGetIncomePersonalByGoalStatistical={onGetIncomePersonalByGoalStatistical}
                                 setSelectedTab={setSelectedTab}
+                                selectedType={"type"}
+                                setSelectedType={() => { }}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>
@@ -381,6 +391,8 @@ const PersonalFinancePage = () => {
                         setIsOpenChatBox={setIsOpenChatBox}
                         dataChatBox={dataChatBox}
                         handleSendMessage={handleSendMessage}
+                        messagesLoading={messagesLoading}
+                        setMessagesLoading={setMessagesLoading}
                         messages={messages}
                         setMessages={setMessages}
                         idGoal={String(id)}

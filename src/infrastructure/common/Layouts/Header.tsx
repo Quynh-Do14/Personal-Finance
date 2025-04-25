@@ -149,21 +149,21 @@ const HeaderClient = (props: Props) => {
                     </Menu.Item>
                 }
                 <Menu.Item className='info-admin'>
-                    <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
-                        <a href={ROUTE_PATH.PROFILE}>
+                    <a href={ROUTE_PATH.PROFILE}>
+                        <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
                             <i className='fa fa-user' aria-hidden='true'></i>
                             Thông tin cá nhân
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </Menu.Item>
 
                 <Menu.Item className='info-admin' >
-                    <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
-                        <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
+                    <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
+                        <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
                             <i className="fa fa-retweet" aria-hidden="true"></i>
                             Thay đổi Bot Chat
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </Menu.Item>
                 <Menu.Item className='info-admin' onClick={openModalChangePassword}>
                     <div className='info-admin-title px-1 py-2 flex items-center hover:text-[#5e5eff]'>
@@ -226,7 +226,6 @@ const HeaderClient = (props: Props) => {
                                         return (
                                             <a
                                                 href={ROUTE_PATH.LOGIN}
-                                                // onClick={() => setIsLoginClick(!isLoginClick)}
                                                 key={index}
                                                 className={`${conditionActive(item.link)} cursor-pointer`}
                                             >{item.label}</a>
@@ -243,7 +242,6 @@ const HeaderClient = (props: Props) => {
                 <div className="flex space-x-4">
                     <div>
                         {
-
                             isLoadingToken
                                 ?
                                 (
@@ -292,8 +290,6 @@ const HeaderClient = (props: Props) => {
                                 null
                         }
                     </div>
-
-
                 </div>
             </nav >
             <LoginModal

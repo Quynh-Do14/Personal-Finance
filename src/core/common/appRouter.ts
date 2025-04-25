@@ -5,6 +5,8 @@ export const ROUTE_PATH = {
     LOGIN: `${PREFIX}/login`,
     REGISTER: `${PREFIX}/register`,
     VERIFY_EMAIL: `${PREFIX}/auth/verify`,
+    FORGOT_PASSWORD: `${PREFIX}/auth/forgot-password`,
+    RESET_PASSWORD: `${PREFIX}/auth/reset-password`,
 
     ///Client
     HOME_PAGE: `${PREFIX}/`,
@@ -21,6 +23,7 @@ export const ROUTE_PATH = {
     PAYMENT_INFO: `${PREFIX}/payment-info`,
     PAYMENT_RESULT: `${PREFIX}/payment`,
     PROFILE: `${PREFIX}/profile`,
+    JOIN_TEAM: `${PREFIX}/members/t/join/:id`,
 
     CONTACT: `${PREFIX}/contact`,
 

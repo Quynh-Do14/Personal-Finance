@@ -20,6 +20,8 @@ import chatbot from '../../assets/images/botChat.png';
 import InputNumberCommon from '../../infrastructure/common/components/input/input-number';
 import budgetService from '../../infrastructure/repositories/budget/budget.service';
 import Constants from '../../core/common/constants';
+import banner3 from '../../assets/images/banner/banner3.png'
+
 const ProfilePage = () => {
     const [validate, setValidate] = useState<any>({});
     const [validateBudget, setValidateBudget] = useState<any>({});
@@ -73,16 +75,16 @@ const ProfilePage = () => {
             await authService.profile(
                 setLoading
             ).then((response) => {
-                setDetailProfile(response)
+                setDetailProfile(response);
                 setDetailState({
                     user: response
                 })
-            })
+            });
         }
         catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
 
     const onGetBudgetAsync = async () => {
         const tokenS = isTokenStoraged();
@@ -91,27 +93,29 @@ const ProfilePage = () => {
             await budgetService.GetBudget(
                 setLoading
             ).then((response) => {
-                setBudget(response)
+                setBudget(response);
 
             })
         }
         catch (error) {
             console.error(error)
         }
-    }
+    };
+
     useEffect(() => {
-        onGetProfileAsync().then(() => { })
-        onGetBudgetAsync().then(() => { })
-    }, [])
+        onGetProfileAsync().then(() => { });
+        onGetBudgetAsync().then(() => { });
+    }, []);
 
     useEffect(() => {
         if (detailProfile) {
             setDataProfile({
-                avatar: configImageURL(detailProfile.avatarCode),
+                avatar: detailProfile.avatarCode ? configImageURL(detailProfile.avatarCode) : null,
                 email: detailProfile.email,
                 username: detailProfile.username,
                 name: detailProfile.name,
                 phoneNumber: detailProfile.phoneNumber,
+
             });
         }
     }, [detailProfile]);
@@ -122,12 +126,13 @@ const ProfilePage = () => {
             setDataProfile({
                 goalsSet: budget.goalsSet,
                 totalIncome: budget.totalIncome,
+                totalExpense: budget.totalExpense,
             });
         }
     }, [budget]);
 
     const onUpdateProfile = async () => {
-        await setSubmittedTime(Date.now());
+        // await setSubmittedTime(Date.now());
         if (isValidData()) {
             await authService.updateProfile(
                 String(dataProfile.avatar).includes("https")
@@ -140,12 +145,13 @@ const ProfilePage = () => {
                     }
                     :
                     {
-                        avatar: dataProfile.avatar,
+                        avatar: dataProfile.avatar || null,
                         email: dataProfile.email,
                         username: dataProfile.username,
                         name: dataProfile.name,
                         phoneNumber: dataProfile.phoneNumber,
-                    },
+                    }
+                ,
                 () => {
                     onGetProfileAsync();
                 },
@@ -158,8 +164,8 @@ const ProfilePage = () => {
     };
 
     const onUpdateBudget = async () => {
-        await setSubmittedTime(Date.now());
-        if (isValidData()) {
+        // await setSubmittedTime(Date.now());
+        if (isValidDataBudget()) {
             await budgetService.UpdateBudget(
                 {
                     totalIncome: dataProfile.totalIncome,
@@ -176,11 +182,14 @@ const ProfilePage = () => {
         };
     };
 
-
     return (
         <LayoutClient>
-            <BannerCommon title={'Hồ sơ'} sub={'Thông tin cá nhân'} />
-            <div className='profile'>
+            <BannerCommon
+                title={'Hồ sơ'}
+                sub={'Thông tin cá nhân'}
+                backgroundUrl={banner3}
+            />
+            <div className='profile-page'>
                 <div className='container'>
                     <div className="tabs">
                         {
@@ -314,12 +323,12 @@ const ProfilePage = () => {
                                             <InputNumberCommon
                                                 label={"Tổng thu nhập"}
                                                 attribute={"totalIncome"}
-                                                isRequired={false}
+                                                isRequired={true}
                                                 dataAttribute={dataProfile.totalIncome}
                                                 setData={setDataProfile}
                                                 disabled={false}
-                                                validate={validate}
-                                                setValidate={setValidate}
+                                                validate={validateBudget}
+                                                setValidate={setValidateBudget}
                                                 submittedTime={submittedTime}
                                             />
                                         </Col>
@@ -327,12 +336,25 @@ const ProfilePage = () => {
                                             <InputNumberCommon
                                                 label={"Mức chi tiêu mong muốn"}
                                                 attribute={"goalsSet"}
-                                                isRequired={false}
+                                                isRequired={true}
                                                 dataAttribute={dataProfile.goalsSet}
                                                 setData={setDataProfile}
                                                 disabled={false}
-                                                validate={validate}
-                                                setValidate={setValidate}
+                                                validate={validateBudget}
+                                                setValidate={setValidateBudget}
+                                                submittedTime={submittedTime}
+                                            />
+                                        </Col>
+                                        <Col span={24}>
+                                            <InputNumberCommon
+                                                label={"Tổng chi tiêu"}
+                                                attribute={"totalExpense"}
+                                                isRequired={true}
+                                                dataAttribute={dataProfile.totalExpense}
+                                                setData={setDataProfile}
+                                                disabled={true}
+                                                validate={validateBudget}
+                                                setValidate={setValidateBudget}
                                                 submittedTime={submittedTime}
                                             />
                                         </Col>

@@ -23,6 +23,8 @@ type Props = {
     setLoading: Function
     dataChatBox: Array<any>
     handleSendMessage: () => void
+    messagesLoading: string
+    setMessagesLoading: Function
     messages: string
     setMessages: Function
     idGoal: string
@@ -37,6 +39,8 @@ const ChatBoxCommon = (props: Props) => {
         setLoading,
         dataChatBox,
         handleSendMessage,
+        messagesLoading,
+        setMessagesLoading,
         messages,
         setMessages,
         idGoal,
@@ -110,6 +114,7 @@ const ChatBoxCommon = (props: Props) => {
     };
     const onChangeText = (e: any) => {
         setMessages(e.target.value)
+        setMessagesLoading(e.target.value)
     }
 
     const sendMessage = () => {
@@ -222,6 +227,7 @@ const ChatBoxCommon = (props: Props) => {
     /////
 
     const onTransitAsync = async () => {
+        scrollToBottom();
         await setSubmittedTime(Date.now());
         if (isValidData()) {
             if (dataRequest.type == 1) {
@@ -307,7 +313,10 @@ const ChatBoxCommon = (props: Props) => {
                         <div className="chat-box" ref={chatBoxRef}>
                             {dataChatBox.map((message, index) => (
                                 <div key={index} className="flex flex-col gap-2">
-                                    <div className={`flex justify-end`}>
+                                    <div className={`flex flex-col items-end`}>
+                                        <div className="human-name">
+                                            {message.name}
+                                        </div>
                                         <Tooltip title={convertDateShow(message.createdAt)} color="#003333">
                                             {
                                                 message.chatType === "TEXT"
@@ -320,7 +329,6 @@ const ChatBoxCommon = (props: Props) => {
                                                         <Image src={configImageURL(message.userMessage)} alt="" />
                                                     </div>
                                             }
-
                                         </Tooltip>
                                     </div>
                                     <div key={index} className={`flex justify-start`}>
@@ -352,7 +360,7 @@ const ChatBoxCommon = (props: Props) => {
                                                     <div
                                                         className="human-chat"
                                                     >
-                                                        {messages}
+                                                        {messagesLoading}
                                                     </div>
                                             }
 
