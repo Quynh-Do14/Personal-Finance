@@ -126,20 +126,20 @@ const ChangePasswordModal = (props: Props) => {
                         />
                     </Col>
                 </Row>
-                    <div className='flex gap-2 justify-center'>
-                        <ButtonDesign
-                            onClick={handleCancel}
-                            classColor="transparent"
-                            width={120}
-                            title={'Quay lại'}
-                        />
-                        <ButtonDesign
-                            onClick={onUpdateProfile}
-                            classColor="green"
-                            width={120}
-                            title={'Cập nhật'}
-                        />
-                    </div>
+                <div className='flex gap-2 justify-center'>
+                    <ButtonDesign
+                        onClick={handleCancel}
+                        classColor="transparent"
+                        width={120}
+                        title={'Quay lại'}
+                    />
+                    <ButtonDesign
+                        onClick={onUpdateProfile}
+                        classColor="green"
+                        width={120}
+                        title={'Cập nhật'}
+                    />
+                </div>
             </div>
 
         </Modal>

@@ -105,11 +105,34 @@ class TeamService {
             setLoading(false);
         }
     }
-    async JoinTeam(id: string, onBack: Function, setLoading: Function) {
+    async UpdateTeam(id: string, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
             return await RequestService
-                .post(`${Endpoint.Team.Join}/${id}`)
+                .putForm(`${Endpoint.Team.Update}/${id}`,
+                    data
+                )
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Cập nhật thành công", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Cập nhật không thành công", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+    async JoinTeam(id: string, teamId: string, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .post(`${Endpoint.Team.Join}/${id}?teamId=${teamId}`)
                 .then(response => {
                     if (response) {
                         onBack()

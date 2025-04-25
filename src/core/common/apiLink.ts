@@ -28,6 +28,7 @@ export class Endpoint {
         static Get = "/members/user/all"
         static GetById = "/teams/user/info"
         static Create = "/teams/user/create"
+        static Update = "/teams/user/update"
         static Join = "/members/t/join"
         static Member = "/teams/users"
         static AddMember = "/members/add-member"

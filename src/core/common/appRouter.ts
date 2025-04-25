@@ -5,6 +5,8 @@ export const ROUTE_PATH = {
     LOGIN: `${PREFIX}/login`,
     REGISTER: `${PREFIX}/register`,
     VERIFY_EMAIL: `${PREFIX}/auth/verify`,
+    FORGOT_PASSWORD: `${PREFIX}/forgot-password`,
+
 
     ///Client
     HOME_PAGE: `${PREFIX}/`,

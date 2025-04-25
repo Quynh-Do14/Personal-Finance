@@ -261,7 +261,7 @@
 .alert-common {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 8px;
   width: 100%;
   min-height: 156px;
   height: 100%;
@@ -274,7 +274,7 @@
   font-size: 16px;
   line-height: 26px;
   letter-spacing: 0%;
-  text-align: justify;
+  text-align: left;
   color: #ffffff;
 }
 

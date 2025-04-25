@@ -24,6 +24,7 @@ const TeamPage = () => {
     const dataRequest = _dataRequest;
 
     const [selectdId, setSelectdId] = useState<string>("");
+    const [selectedTeam, setSelectedTeam] = useState<any>({});
     const [isOpenModalLock, setIsOpenModalLock] = useState<boolean>(false);
     const [isOpenModalUnLock, setIsOpenModalUnLock] = useState<boolean>(false);
     const [isOpenModalDelete, setIsOpenModalDelete] = useState<boolean>(false);
@@ -68,23 +69,53 @@ const TeamPage = () => {
         onGetListTeamAsync().then(_ => { });
     }, []);
 
-    const onOpenModalCreate = () => {
+    const onOpenModalCreate = (item: any) => {
         setIsOpenCreate(!isOpenModalCreate)
+        setSelectedTeam(item)
     }
 
+    useEffect(() => {
+        if (selectedTeam) {
+            setDataRequest({
+                id: selectedTeam.id,
+                name: selectedTeam.name,
+                image: selectedTeam.imageCode ? configImageURL(selectedTeam.imageCode) : null
+            });
+        }
+    }, [selectedTeam]);
+    console.log("selectedTeam", selectedTeam);
+
     const onCreateTeamAsync = async () => {
+
         await setSubmittedTime(Date.now());
         if (isValidData()) {
-            await teamService.CreateTeam({
-                image: dataRequest.image,
-                name: dataRequest.name,
-            },
-                () => {
-                    setIsOpenCreate(false);
-                    onGetListTeamAsync().then(_ => { });
+            if (dataRequest.id) {
+                await teamService.UpdateTeam(
+                    String(dataRequest.id),
+                    {
+                        image: dataRequest.image,
+                        name: dataRequest.name,
+                    },
+                    () => {
+                        setIsOpenCreate(false);
+                        onGetListTeamAsync().then(_ => { });
+                    },
+                    setLoading
+                )
+            }
+            else {
+                await teamService.CreateTeam({
+                    image: dataRequest.image,
+                    name: dataRequest.name,
                 },
-                setLoading
-            )
+                    () => {
+                        setIsOpenCreate(false);
+                        onGetListTeamAsync().then(_ => { });
+                    },
+                    setLoading
+                )
+            }
+
         }
         else {
             WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
@@ -220,6 +251,17 @@ const TeamPage = () => {
                 {
                     String(profileState.username) === String(item.teamLeader?.username)
                     &&
+
+                    <Menu.Item className='info-admin' onClick={() => onOpenModalCreate(item)}>
+                        <div className='info-admin-title px-1 py-2 flex items-center'>
+                            <i className="fa fa-pencil-square" aria-hidden="true"></i>
+                            Thay đổi thông tin nhóm
+                        </div>
+                    </Menu.Item>
+                }
+                {
+                    String(profileState.username) === String(item.teamLeader?.username)
+                    &&
                     (
                         item?.active
                             ?
@@ -329,7 +371,7 @@ const TeamPage = () => {
                     </Row>
                     <ButtonDesign
                         classColor={"green"}
-                        onClick={onOpenModalCreate}
+                        onClick={() => onOpenModalCreate({})}
                         title={"Thêm nhóm mới"}
                     />
                     {/* Nút thêm mục tiêu mới */}
