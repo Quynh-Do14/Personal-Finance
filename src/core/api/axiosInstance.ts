@@ -67,13 +67,6 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
         const token = getToken();
 
-<<<<<<< HEAD
-        // ✅ Nếu là lỗi 401 trong lúc login, không xử lý redirect
-        const isAuthEndpoint = originalRequest.url?.includes(Endpoint.Auth.Login)
-            || originalRequest.url?.includes(Endpoint.Auth.Register);
-
-        if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
-=======
         const isAuthEndpoint = originalRequest.url?.includes(Endpoint.Auth.Login)
             || originalRequest.url?.includes(Endpoint.Auth.Register);
 
@@ -81,7 +74,6 @@ axiosInstance.interceptors.response.use(
         const isRetry = originalRequest._retry;
 
         if (is401 && !isRetry && !isAuthEndpoint) {
->>>>>>> 3a111f9977907d41522b261a83a5dd6b9e7e389e
             originalRequest._retry = true;
 
             if (!token?.refreshToken) {
