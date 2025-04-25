@@ -43,10 +43,9 @@ const ForgotPasswordScreen = () => {
         await setSubmittedTime(new Date());
         if (isValidData()) {
             try {
-                await authService.login(
+                await authService.forgotPassword(
                     {
-                        username: dataLogin.username,
-                        password: dataLogin.password,
+                        email: dataLogin.email,
                     },
                     setLoading
                 ).then((response) => {
@@ -66,65 +65,34 @@ const ForgotPasswordScreen = () => {
     return (
         <LayoutClient>
             <BannerCommon
-                title={'Đăng Nhập'}
+                title={'Quên mật khẩu'}
                 sub={'Thành viên'}
                 backgroundUrl={banner3}
             />
             <div className='auth-screen'>
                 <div className='content'>
                     <div>
-                        <h2>Chào mừng trở lại !</h2>
-                        <h3>Nhập thông tin để có quyền truy cập không giới hạn vào dữ liệu và thông tin</h3>
+                        <h2>Bạn đã quên mật khẩu !</h2>
+                        <h3>Vui lòng nhập thông tin Email để đặt lại mật khẩu</h3>
                     </div>
                     <div className='flex flex-col gap-5'>
                         <InputTextCommon
-                            label={"Tên đăng nhập"}
-                            attribute={"username"}
+                            label={"Email"}
+                            attribute={"email"}
                             isRequired={true}
-                            dataAttribute={dataLogin.username}
+                            dataAttribute={dataLogin.email}
                             setData={setDataLogin}
                             disabled={false}
                             validate={validate}
                             setValidate={setValidate}
                             submittedTime={submittedTime}
                         />
-                        <InputPasswordCommon
-                            label={"Mật khẩu"}
-                            attribute={"password"}
-                            isRequired={true}
-                            dataAttribute={dataLogin.password}
-                            setData={setDataLogin}
-                            disabled={false}
-                            validate={validate}
-                            setValidate={setValidate}
-                            submittedTime={submittedTime}
-                            onEnterPress={onLoginAsync}
-                        />
-                        <div className="remember-forgot">
-                            <label className="custom-checkbox">
-                                {/* <input
-                                    type="checkbox"
-                                    checked={remember}
-                                    onChange={() => setRemember(!remember)}
-                                />
-                                <span className="checkmark" />
-                                Ghi nhớ tài khoản */}
-                            </label>
 
-                            <a href="/forgot-password" className="forgot-link">Quên mật khẩu</a>
-                        </div>
                         <ButtonDesign
                             classColor={'green'}
-                            title={'Đăng nhập'}
+                            title={'Gửi yêu cầu'}
                             onClick={onLoginAsync}
                         />
-
-                        <div className="divider">
-                            <div className="line" />
-                            <span className="divider-text">Hay đăng nhập</span>
-                            <div className="line" />
-                        </div>
-
                         <p className="signup-text">
                             <a href={ROUTE_PATH.LOGIN} className="gradient-link">Quay lại</a>
                         </p>

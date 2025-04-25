@@ -18,12 +18,24 @@ import PaymentPage from "../../page/payment";
 import PaymentResultPage from "../../page/payment/payment-result";
 import ProfilePage from "../../page/profile";
 import JoinTeam from "../../page/team/joinTeam";
+import ForgotPasswordScreen from "../../page/Auth/ForgotPassword";
+import ResetPasswordScreen from "../../page/Auth/ResetPassword";
 
 export const privateRoutes = [
 
     {
         path: ROUTE_PATH.HOME_PAGE,
         component: HomePage,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.FORGOT_PASSWORD,
+        component: ForgotPasswordScreen,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.RESET_PASSWORD,
+        component: ResetPasswordScreen,
         private: false,
     },
     {

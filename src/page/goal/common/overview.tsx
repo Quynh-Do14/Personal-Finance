@@ -38,6 +38,7 @@ const OverviewComponent = (props: Props) => {
         autoplaySpeed: 6000,
         arrows: false,
     }
+    console.log('spendStatistics', spendStatistics);
 
     return (
         <div className="overview box-common">
