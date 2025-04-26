@@ -319,7 +319,8 @@ const TeamFinancePage = () => {
         const token = tokenData ? tokenData.accessToken : null;
         const baseUrl = process.env.REACT_APP_BASE_URL;
 
-        const socket = new SockJS(`${baseUrl}/ws?token=${token}`);
+        const wsBaseUrl = baseUrl?.replace('/api/v1/hdkt', '');
+        const socket = new SockJS(`${wsBaseUrl}/ws?token=${token}`);
 
         const stompClient = new Client({
             webSocketFactory: () => socket,
