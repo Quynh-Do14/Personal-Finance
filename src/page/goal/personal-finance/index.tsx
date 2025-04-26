@@ -268,7 +268,7 @@ const PersonalFinancePage = () => {
         const token = tokenData ? tokenData.accessToken : null;
         const baseUrl = process.env.REACT_APP_BASE_URL;
 
-        const wsBaseUrl = process.env.REACT_APP_BASE_URL?.replace('/api/v1', '');
+        const wsBaseUrl = process.env.REACT_APP_BASE_URL?.replace('/api/v1/hdkt', '');
         const socket = new SockJS(`${wsBaseUrl}/ws?token=${token}`);
 
         const stompClient = new Client({
