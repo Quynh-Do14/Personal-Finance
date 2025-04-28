@@ -8,17 +8,17 @@ const slogan = [
     {
         title: "Tầm Nhìn",
         sub: "Nền tảng công nghệ số 01",
-        des: "Về cung cấp dịch vụ tài chính doanh nghiệp tích hợp trợ lý ảo AI"
+        des: "Kiến tạo tương lai tài chính thông minh với AI, đồng hành cùng khách hàng trên hành trình phát triển bền vững."
     },
     {
         title: "Sứ Mệnh",
         sub: "Cung cấp trải nghiệm tốt nhất",
-        des: "Cho người dùng thông qua dịch vụ tài chính và công nghệ hàng đầu"
+        des: "Tối ưu hóa trải nghiệm khách hàng bằng AI tiên tiến, thông qua quản lý ngân sách, phát triển tài chính, xây dựng tương lai."
     },
     {
         title: "giá trị cốt lõi",
         sub: "Quản lý và kết nối hiệu quả",
-        des: "Hỗ trợ cá nhân & doanh nghiệp hướng tới phát triển tài chính bền vững"
+        des: "Đơn giản – Chính xác – Đồng hành – Phát triển – Bền vững"
     },
 ]
 const SloganComponent = () => {
@@ -45,16 +45,16 @@ const SloganComponent = () => {
             <div className="line"></div>
             <Row className="part-2" gutter={[20, 20]} justify={"space-between"} align={"top"}>
                 <Col lg={12} md={12} sm={24} xs={24}>
-                    <h2>FATS - Financial Analysis Technology Service</h2>
+                    <h2>FATS – Empowering Smarter Financial Futures</h2>
                 </Col>
                 <Col lg={12} md={12} sm={24} xs={24}>
                 </Col>
                 <Col lg={12} md={12} sm={24} xs={24}>
 
-                    <h3>Là doanh nghiệp tiên phong trong lĩnh vực phát triển phần mềm phân tích tài chính ứng dụng AI, cung cấp giải pháp quản lý tài sản, tối ưu dòng tiền và lập kế hoạch tài chính cho cá nhân và doanh nghiệp SME.</h3>
+                    <h3>FATS AI định hình tương lai tài chính số bằng công nghệ trí tuệ nhân tạo (AI). Chúng tôi cung cấp nền tảng quản lý tài chính toàn diện, giúp cá nhân và doanh nghiệp SME chủ động kiểm soát tài sản, tối ưu hóa dòng tiền và kiến tạo kế hoạch tài chính bền vững, hướng tới tăng trưởng dài hạn.</h3>
                 </Col>
                 <Col lg={10} md={12} sm={24} xs={24}>
-                    <p>FATS cam kết sáng tạo, minh bạch và đáng tin cậy, hướng đến phát triển bền vững và hỗ trợ chuyển đổi số trong tài chính. FATS phục vụ hai nhóm khách hàng chính là: cá nhân có nhu cầu quản lý tài chính, đầu tư & SME cần tối ưu chi phí, dòng tiền để phát triển kinh doanh.</p>
+                    <p>FATS AI cam kết đổi mới sáng tạo, minh bạch và đồng hành cùng khách hàng trên hành trình xây dựng tương lai tài chính bền vững. Chúng tôi phục vụ cá nhân cần kiểm soát tài chính cá nhân thông minh và SME cần tối ưu chi phí, quản lý dòng tiền và phát triển kinh doanh hiệu quả.</p>
                 </Col>
             </Row>
             <Row className="part-2" gutter={[20, 20]}>

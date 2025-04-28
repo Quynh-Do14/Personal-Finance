@@ -151,17 +151,6 @@ const PaymentPage = () => {
                             setValidate={setValidate}
                             submittedTime={submittedTime}
                         />
-                        <InputTextCommon
-                            label={"Địa chỉ"}
-                            attribute={"address"}
-                            isRequired={true}
-                            dataAttribute={dataRequest.address}
-                            setData={setDataRequest}
-                            disabled={false}
-                            validate={validate}
-                            setValidate={setValidate}
-                            submittedTime={submittedTime}
-                        />
                         <ButtonDesign
                             classColor={'green'}
                             title={'Thanh toán'}

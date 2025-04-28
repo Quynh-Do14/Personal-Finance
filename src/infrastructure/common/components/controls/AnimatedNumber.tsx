@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import '../../../../assets/styles/components/animation.css'
-const AnimatedNumber: React.FC<{ value: number }> = ({ value }) => {
+type Props = {
+    value: number
+}
+const AnimatedNumber = (props: Props) => {
+    const { value } = props;
     const [displayValue, setDisplayValue] = useState(0);
 
     useEffect(() => {

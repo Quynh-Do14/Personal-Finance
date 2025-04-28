@@ -300,7 +300,6 @@ const TeamFinancePage = () => {
             setLoading(false);
         }
     };
-    console.log("spendStatistics", spendDataTable);
 
     useEffect(() => {
         onGetDetailGoalAsync().then(_ => { });

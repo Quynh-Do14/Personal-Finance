@@ -3,7 +3,9 @@ import TitleComponent from '../../infrastructure/common/components/controls/Titl
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import customerImg from "../../assets/images/customer.png"
+import customer1 from "../../assets/images/customer1.png"
+import customer2 from "../../assets/images/customer2.png"
+import customer3 from "../../assets/images/customer3.png"
 
 import trust1 from "../../assets/images/trust1.png"
 import trust2 from "../../assets/images/trust2.png"
@@ -14,18 +16,21 @@ import trust5 from "../../assets/images/trust5.png"
 const customer = [
     {
         "name": "Nguyễn Hoàng An",
+        img: customer1,
         "title": "CEO ABC Corp",
-        "testimonial": "Nhờ nền tảng quản lý tài chính thông minh, chúng tôi đã tiết kiệm được hơn 30% chi phí vận hành, tối ưu hóa dòng tiền hiệu quả. Giao diện thân thiện, dễ sử dụng ngay cả với người không chuyên tài chính."
+        "testimonial": "Nhờ FATS AI, tôi đã kiểm soát chi tiêu dễ dàng hơn, tiết kiệm đến 30% mỗi tháng và quản lý tài chính cá nhân hiệu quả hơn. Ứng dụng đơn giản, dễ sử dụng ngay cả khi tôi không có nhiều kiến thức về tài chính."
     },
     {
         "name": "Trần Minh Tuấn",
+        img: customer2,
         "title": "Nhà đầu tư cá nhân",
-        "testimonial": "Trước đây, tôi gặp khó khăn trong việc quản lý chi tiêu và đầu tư. Nhưng từ khi sử dụng nền tảng này, tôi có cái nhìn rõ ràng hơn về tài chính cá nhân và dễ dàng đưa ra quyết định đầu tư hợp lý."
+        "testimonial": "Trước đây, tôi gặp nhiều khó khăn trong việc theo dõi chi tiêu và lên kế hoạch tài chính. Nhờ FATS AI, tôi dễ dàng kiểm soát tài chính cá nhân, có cái nhìn rõ ràng hơn và đưa ra quyết định đầu tư sáng suốt hơn."
     },
     {
         "name": "Lê Thanh Hà",
+        img: customer3,
         "title": "Giám đốc tài chính XYZ",
-        "testimonial": "Trí tuệ nhân tạo hỗ trợ tôi chuẩn hóa và đưa ra các khuyến nghị tài chính kịp thời, tránh rủi ro và tối ưu hiệu quả. Dịch vụ khách hàng rất chuyên nghiệp!"
+        "testimonial": "FATS AI giúp tôi quản lý tài chính cá nhân dễ dàng hơn, đưa ra các gợi ý chi tiêu và tiết kiệm hợp lý. Nhờ đó, tôi kiểm soát tốt hơn ngân sách, tránh rủi ro tài chính và đạt được các mục tiêu tiết kiệm cá nhân nhanh hơn."
     }
 ]
 
@@ -138,7 +143,7 @@ const CustomerComponent = () => {
                         return (
                             <div className={"slider-content"} key={index}>
                                 <img
-                                    src={customerImg}
+                                    src={it.img}
                                     alt={`Slide ${index + 1}`}
                                 />
                                 <div className='name'>
