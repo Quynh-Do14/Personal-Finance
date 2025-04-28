@@ -26,8 +26,9 @@ const VerifyEmailPage: React.FC = () => {
     if (code) {
       setLoading(true);
       try {
-        await authService.verifyEmail(code);
-        setSuccess(true);
+        await authService.verifyEmail(code).then(() => {
+          setSuccess(true);
+        });
       } catch (error) {
         console.error(error);
         setSuccess(false);

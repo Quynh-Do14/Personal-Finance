@@ -4,7 +4,7 @@ export const ROUTE_PATH = {
 
     LOGIN: `${PREFIX}/login`,
     REGISTER: `${PREFIX}/register`,
-    VERIFY_EMAIL: `${PREFIX}/auth/verify`,
+    VERIFY_EMAIL: `${PREFIX}/auth/verify-email`,
     FORGOT_PASSWORD: `${PREFIX}/auth/forgot-password`,
     RESET_PASSWORD: `${PREFIX}/auth/reset-password`,
 
