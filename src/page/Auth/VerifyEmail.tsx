@@ -5,7 +5,7 @@ import BubbleCommon from "../../infrastructure/common/components/controls/Bubble
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "../../core/common/appRouter";
 
-const VerifyEmailPage: React.FC = () => {
+const VerifyEmailPage = () => {
   const [code, setCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean | null>(null);

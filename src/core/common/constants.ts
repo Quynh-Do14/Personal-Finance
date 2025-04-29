@@ -1,5 +1,10 @@
 import { ROUTE_PATH } from "./appRouter";
-
+import dynamic from "../../assets/images/botFace/dynamic.jpg";
+import friendly from "../../assets/images/botFace/friendly.jpg";
+import serious from "../../assets/images/botFace/serious.jpg";
+import happy from "../../assets/images/botFace/happy.jpg";
+import strict from "../../assets/images/botFace/strict.jpg";
+import quiet from "../../assets/images/botFace/quiet.jpg";
 export default class Constants {
     static Menu = class {
         static List = [
@@ -90,12 +95,36 @@ export default class Constants {
 
     static BotChatList = class {
         static List = [
-            { label: "Nghiêm túc", value: 1 },
-            { label: "Thân thiện", value: 2 },
-            { label: "Vui vẻ", value: 3 },
-            { label: "Nghiêm khắc", value: 4 },
-            { label: "Trầm tĩnh", value: 5 },
-            { label: "Năng động", value: 6 },
+            {
+                label: "Nghiêm túc",
+                value: 1,
+                avatar: serious,
+            },
+            {
+                label: "Thân thiện",
+                value: 2,
+                avatar: friendly,
+            },
+            {
+                label: "Vui vẻ",
+                value: 3,
+                avatar: happy,
+            },
+            {
+                label: "Nghiêm khắc",
+                value: 4,
+                avatar: strict,
+            },
+            {
+                label: "Trầm tĩnh",
+                value: 5,
+                avatar: quiet,
+            },
+            {
+                label: "Năng động",
+                value: 6,
+                avatar: dynamic,
+            },
         ]
     }
     static FigureUI = class {

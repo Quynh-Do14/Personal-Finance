@@ -286,6 +286,7 @@
   border: 1px solid #d7d7d785;
   box-shadow: 5px 5px 10px -10px #7c0fd1;
   background-color: #006699;
+  /* background-color: #0a2d56; */
 }
 .select-bot-container .option p {
   font-size: 16px;

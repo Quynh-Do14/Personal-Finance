@@ -67,11 +67,11 @@ const PostComponent = () => {
     return (
         <div className="post">
             <TitleComponent
-                title={'Có thể bạn chưa biết'}
+                title={'Kho kiến thức Tài Chính'}
                 color={'black'}
             />
             <div className="title">
-                <h2>Khách hàng nói gì về fATS</h2>
+                <h2>Có Thể Bạn Chưa Biết</h2>
             </div>
             <Slider {...settings} className='slider'>
                 {

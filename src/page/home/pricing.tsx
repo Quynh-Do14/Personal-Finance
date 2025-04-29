@@ -1,25 +1,23 @@
 import { Col, Row } from "antd";
-import { useState } from "react";
 import TitleComponent from "../../infrastructure/common/components/controls/TitleComponent";
-import paymentService from "../../infrastructure/repositories/payment/payment.service";
-import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
 import selectFats1 from "../../assets/images/selectFats1.png";
 import selectFats2 from "../../assets/images/selectFats2.png";
 import selectFats3 from "../../assets/images/selectFats3.png";
 import selectFats4 from "../../assets/images/selectFats4.png";
 import { useNavigate } from "react-router-dom";
+import AnimatedNumber from "../../infrastructure/common/components/controls/AnimatedNumber";
+import { useEffect, useRef, useState } from "react";
 
 const PricingComponent = () => {
     const plans = [
         {
             id: 1,
-            title: "Quản Lý Dòng Tiền",
+            title: "FATS Cơ bản",
             sub: "Cash Flow Management",
-            price: "1.499.000vnđ",
+            price: false,
             features: [
+                "AI hỗ trợ quản lý ngân sách (có giới hạn)",
                 "Theo dõi dòng tiền theo thời gian thực",
-                "Đồng bộ dữ liệu tự động",
-                "Quản lý công nợ phải thu / phải trả",
                 "Cảnh báo dòng tiền"
             ],
             button: "Try for free",
@@ -27,26 +25,34 @@ const PricingComponent = () => {
         },
         {
             id: 2,
-            title: "Lập Kế Hoạch Ngắn Hạn",
+            title: "FATS AI +",
             sub: "Short-term Planning",
-            price: "1.499.000vnđ",
+            price: "49.900vnđ",
+            cost: "69.900vnđ",
             features: [
-                "Dự báo dòng tiền trong 30-90 ngày",
-                "Kế hoạch thanh toán và thu hồi",
-                "Mô phỏng kịch bản dòng tiền"
+                "Các tính năng của gói FATS Cơ Bản",
+                "AI hỗ trợ quản lý ngân sách không giới hạn",
+                "Theo dõi và cảnh báo dòng tiền theo thời gian thực",
+                "Nhận diện hóa đơn tự động",
+                "Khi đăng ký FATS AI+, bạn đã góp 1.000 VNĐ vào Quỹ Hỗ Trợ Trẻ Em Sứt Môi, Hở Hàm Ếch của Operation Smile Việt Nam – Cùng chung tay mang lại những nụ cười trọn vẹn và tương lai tươi sáng cho các em nhỏ."
             ],
             button: "Try for free",
             highlighted: true,
         },
         {
             id: 3,
-            title: "Lập Kế Hoạch Dài Hạn",
+            title: "FATS AI Premium",
             sub: "Long-term Planning",
-            price: "2.499.000vnđ",
+            price: "89.900vnđ",
+            cost: "129.900vnđ",
             features: [
-                "Dự báo tài chính 1-5 năm",
-                "Lập kế hoạch đầu tư",
-                "Theo dõi mục tiêu tài chính"
+                "Các tính năng của gói FATS +",
+                "AI hỗ trợ quản lý ngân sách không giới hạn",
+                "Theo dõi dòng tiền theo thời gian thực",
+                "Cảnh báo dòng tiền",
+                "Nhận diện hóa đơn tự động",
+                "Đặt mục tiêu tiết kiệm theo nhóm không giới hạn",
+                "Khi đăng ký FATS AI+, bạn đã góp 2.000 VNĐ vào Quỹ Hỗ Trợ Trẻ Em Sứt Môi, Hở Hàm Ếch của Operation Smile Việt Nam – Cùng chung tay mang lại những nụ cười trọn vẹn và tương lai tươi sáng cho các em nhỏ.",
             ],
             button: "Try for free",
             highlighted: false,
@@ -57,41 +63,66 @@ const PricingComponent = () => {
         {
             img: selectFats1,
             name: "Tối ưu",
-            number: "25",
+            number: 25,
             content: "Chi phí vận hành cho doanh nghiệp"
         },
         {
             img: selectFats2,
             name: "Tiết kiệm",
-            number: "70",
+            number: 70,
             content: "Thời gian xử lý sổ sách và báo cáo"
         },
         {
             img: selectFats3,
             name: "Tăng",
-            number: "65",
+            number: 65,
             content: "Năng suất làm việc khi sử dụng dịch vụ"
         },
         {
             img: selectFats4,
             name: "Hơn",
-            number: "99",
+            number: 99,
             content: "Đối tác và khách hàng hài lòng"
         },
     ]
     const navigate = useNavigate();
+    const textRef = useRef<HTMLDivElement>(null);
+    const [isAnimate, setIsAnimate] = useState<boolean>(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsAnimate(entry.isIntersecting);
+            },
+            {
+                threshold: 0.1 // Adjust this value to determine when the section is considered "in view"
+            }
+        );
+
+        const currentSectionRef = textRef.current;
+        if (currentSectionRef) {
+            observer.observe(currentSectionRef);
+        }
+
+        return () => {
+            if (currentSectionRef) {
+                observer.unobserve(currentSectionRef);
+            }
+        };
+    }, []);
+
     return (
         <div className="pricing-container">
             <div className="title">
                 <TitleComponent
-                    title={'Nâng Tầm Quản Lý'}
+                    title={'Nâng Tầm Tài Chính'}
                     color={'black'}
                 />
                 <div>
-                    <h2>Dịch vụ tài chính</h2>
-                    <h3>toàn diện - Hiệu quả - chính xác</h3>
+                    <h2>Giải Pháp Tài Chính</h2>
+                    <h3>Thông minh - Hiệu quả - Bền Vững</h3>
                 </div>
-                <p className="sub">FATS cung cấp giải pháp tài chính toàn diện, giúp quản lý kế toán, tài chính cá nhân và định giá doanh nghiệp, tối ưu lợi nhuận và kiểm soát dòng tiền hiệu quả.</p>
+                <p className="sub">FATS AI – Cung cấp các gói giải pháp tài chính thông minh.</p>
             </div>
             <Row gutter={[40, 20]}>
                 {plans.map((plan, index) => (
@@ -100,18 +131,27 @@ const PricingComponent = () => {
                             <div>
                                 <h3>{plan.title}</h3>
                                 <p className="sub">{plan.sub}</p>
-                                <span className="text-[18px] font-normal text-[#666666]">Chỉ từ</span>
-                                <p className="text-[24px] font-semibold">
-                                    {plan.price}<span className="text-[18px] font-normal text-[#666666]"> / tháng</span>
-                                </p>
+                                <span className="text-[18px] font-normal text-[#666666]">{plan.price == false ? "Miễn phí" : " Chỉ từ"}</span>
+                                {
+                                    plan.price == false
+                                        ?
+                                        <p className="text-[24px] font-semibold">
+                                            14 ngày dùng thử tính năng FATS premium
+                                        </p>
+                                        :
+                                        <p className="text-[24px] font-semibold">
+                                            {plan.price}<span className="text-[18px] font-normal text-[#666666]"> / tháng</span>
+                                            <div className="text-[14px] font-normal text-[#666666]">Giá gốc: <span className="line-through">{plan.cost} / tháng </span></div>
+                                        </p>
+                                }
                             </div>
-                            <button onClick={() => navigate("/payment-info")}>Liên Hệ Tư Vấn Ngay</button>
+                            <button onClick={() => navigate("/payment-info")}>Đăng ký ngay</button>
                             <ul className="flex flex-col gap-4">
                                 <li>Dịch vụ bao gồm</li>
                                 {plan.features.map((feature, idx) => (
                                     <li
                                         key={idx}
-                                        className={`flex items-center`}>
+                                        className={`flex items-start`}>
                                         <span className="mr-2">
                                             <i className="fa fa-thumb-tack" aria-hidden="true"></i>
                                         </span>
@@ -120,7 +160,6 @@ const PricingComponent = () => {
                                 ))}
 
                             </ul>
-                            <div className="show-more">Xem thêm <i className="fa fa-arrow-right" aria-hidden="true"></i></div>
                         </div>
                     </Col>
                 ))}
@@ -135,8 +174,8 @@ const PricingComponent = () => {
                             <div className="flex flex-col items-center">
                                 <img src={item.img} alt="" />
                                 <div className="label">
-                                    <span>{item.name}</span>
-                                    <div>{item.number}%</div>
+                                    <span className="name-figure">{item.name}</span>
+                                    <div ref={textRef} className="figure"><AnimatedNumber value={isAnimate ? item.number : 0} />%</div>
                                 </div>
                                 <p>{item.content}</p>
                             </div>

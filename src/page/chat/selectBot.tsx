@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import "../../assets/styles/page/chat.css"
-import robot from "../../assets/images/botChat.png";
 import LayoutClient from '../../infrastructure/common/Layouts/Client-Layout';
 import BubbleCommon from '../../infrastructure/common/components/controls/Bubble';
 import Constants from '../../core/common/constants';
@@ -12,6 +11,7 @@ import { ROUTE_PATH } from '../../core/common/appRouter';
 import { useRecoilValue } from 'recoil';
 import { ProfileState } from '../../core/atoms/profile/profileState';
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
+
 const SelectBotPage = () => {
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
@@ -52,8 +52,8 @@ const SelectBotPage = () => {
                                                 className={`option ${(selectedOption === item.value) ? 'selected' : ''} ${profileState?.character?.id === item.value ? "owner" : ""}`}
                                                 onClick={() => handleOptionClick(item.value)}
                                             >
-                                                <img src={robot} alt="" width={160} />
-                                                <p>{item.label}</p>
+                                                <img src={item.avatar} alt="" width={160} />
+                                                {/* <p>{item.label}</p> */}
                                             </div>
                                         </Col>
                                     )
