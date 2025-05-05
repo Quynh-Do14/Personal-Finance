@@ -56,7 +56,7 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.GOAL_SPENDING_PAGE,
         component: GoalSpendingPage,
-        private: true,
+        private: false,
     },
     {
         path: ROUTE_PATH.GOAL_SPENDING_TEAM_PAGE,

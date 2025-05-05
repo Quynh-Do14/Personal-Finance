@@ -22,8 +22,9 @@ import BarChartStatic from "../common/barChart";
 import { getTokenStoraged } from "../../../infrastructure/utils/storage";
 import staticService from "../../../infrastructure/repositories/static/static.service";
 import PieChart from "../common/pieChart";
-import AlertBudget from "../../../infrastructure/common/components/alert/alert-budget";
+import AlertBudget from "../../../infrastructure/common/components/budget/alert-budget";
 import banner2 from '../../../assets/images/banner/banner2.png'
+import OpenChatBot from "../../chat/openChat";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -394,8 +395,24 @@ const TeamFinancePage = () => {
             <div className="goal-container padding-common">
                 <div className="flex flex-col gap-6 overflow-hidden">
                     <Row gutter={[20, 20]}>
-                        <Col span={24}>
+                        <Col sm={24} md={14} lg={16}>
                             <AlertBudget />
+                        </Col>
+                        <Col sm={24} md={10} lg={8}>
+                            <OpenChatBot
+                                titleChat={detailGoal.name}
+                                isOpenChatBox={isOpenChatBox}
+                                setIsOpenChatBox={setIsOpenChatBox}
+                                dataChatBox={dataChatBox}
+                                handleSendMessage={handleSendMessage}
+                                messagesLoading={messagesLoading}
+                                setMessagesLoading={setMessagesLoading}
+                                messages={messages}
+                                setMessages={setMessages}
+                                idGoal={String(id)}
+                                loading={loadingBot}
+                                setLoading={setLoadingBot}
+                            />
                         </Col>
                         <Col sm={24} md={14} lg={16}>
                             <BarChartStatic

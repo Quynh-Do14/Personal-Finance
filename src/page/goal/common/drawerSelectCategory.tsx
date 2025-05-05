@@ -57,7 +57,7 @@ const DrawerSelectCategory = (props: Props) => {
             <div className='modal-select'>
                 <Row gutter={[20, 20]}>
                     {
-                        listIcon.map((item, index) => {
+                        listIcon?.map((item, index) => {
                             return (
                                 <Col xs={8} sm={8} md={4} key={index}>
                                     <div className={`flex justify-center`}>

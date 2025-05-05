@@ -15,11 +15,12 @@ import BannerCommon from "../../infrastructure/common/components/banner/BannerCo
 import { WarningMessage } from "../../infrastructure/common/components/toast/notificationToast";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
-import AlertBudget from "../../infrastructure/common/components/alert/alert-budget";
+import AlertBudget from "../../infrastructure/common/components/budget/alert-budget";
 import ChatBotInfo from "./common/chatInfo";
 import { PaginationNoSizeCommon } from "../../infrastructure/common/components/pagination/PaginationNoSize";
 import DialogConfirmCommon from "../../infrastructure/common/components/modal/dialogConfirm";
 import banner2 from '../../assets/images/banner/banner2.png'
+import BudgetInfo from "../../infrastructure/common/components/budget/budget-info.";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -430,9 +431,13 @@ const GoalSpendingPage = () => {
                         <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
                             <ChatBotInfo />
                         </Col>
-                        <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
+                        <Col xs={24} sm={24} md={14} lg={8} xxl={8}>
+                            <BudgetInfo />
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={8} xxl={10}>
                             <AlertBudget />
                         </Col>
+
                         <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
                             <div className="category">
                                 <div className="flex flex-col gap-4">

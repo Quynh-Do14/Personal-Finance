@@ -18,12 +18,13 @@ import SelectFilterCommon from "../../infrastructure/common/components/input/sel
 import ModalAddMember from "./modal/modalAddMember";
 import DrawerSelectCategory from "./common/drawerSelectCategory";
 import { ButtonDesign } from "../../infrastructure/common/components/button/buttonDesign";
-import AlertBudget from "../../infrastructure/common/components/alert/alert-budget";
+import AlertBudget from "../../infrastructure/common/components/budget/alert-budget";
 import { PaginationNoSizeCommon } from "../../infrastructure/common/components/pagination/PaginationNoSize";
 import DialogConfirmCommon from "../../infrastructure/common/components/modal/dialogConfirm";
 import lock from "../../assets/images/lock.gif"
 import banner3 from "../../assets/images/banner/banner3.png"
 import TeamInfo from "./common/infoTeam";
+import BudgetInfo from "../../infrastructure/common/components/budget/budget-info.";
 const GoalSpendingTeamPage = () => {
     const [detailTeam, setDetailTeam] = useState<any>({});
 
@@ -513,7 +514,10 @@ const GoalSpendingTeamPage = () => {
                                             linkJoinUrl={detailTeam.linkJoinUrl}
                                         />
                                     </Col>
-                                    <Col xs={24} sm={24} md={14} lg={16} xxl={18}>
+                                    <Col xs={24} sm={24} md={14} lg={8} xxl={8}>
+                                        <BudgetInfo />
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={8} xxl={10}>
                                         <AlertBudget />
                                     </Col>
                                     <Col xs={24} sm={24} md={10} lg={8} xxl={6}>
