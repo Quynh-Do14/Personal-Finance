@@ -340,7 +340,7 @@
   background-color: #003333;
   color: #fff;
 }
-.content-layout-client .footer-container img {
+.content-layout-client .footer-container img.logo {
   margin-bottom: 24px;
 }
 .content-layout-client .footer-container .link-container {
@@ -367,8 +367,8 @@
   align-items: center;
   justify-content: center;
 }
-.content-layout-client .footer-container .link .link-icon i {
-  font-size: 28px;
+.content-layout-client .footer-container .link .link-icon img {
+  width: 32px;
 }
 .content-layout-client .footer-container h2 {
   font-size: 20px;

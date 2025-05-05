@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState } from 'react'
 import thumb1 from "../../assets/images/thumbnail/thumb1.png"
 import thumb2 from "../../assets/images/thumbnail/thumb2.png"
 import thumb3 from "../../assets/images/thumbnail/thumb3.png"
@@ -21,53 +22,65 @@ const finance = [
     },
 ]
 
+// Component animation scroll
+const AnimateOnScroll = ({ children }: any) => {
+    const ref = useRef<any>();
+    const [show, setShow] = useState(false)
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShow(true)
+                    observer.unobserve(ref.current)
+                }
+            },
+            { threshold: 0.2 }
+        )
+        if (ref.current) observer.observe(ref.current)
+        return () => observer.disconnect()
+    }, [])
+
+    return (
+        <div ref={ref} className={`finance-animate ${show ? 'show' : ''}`}>
+            {children}
+        </div>
+    )
+}
+
 const FinanceComponent = () => {
     return (
         <div className="finance">
             <Row gutter={[20, 20]}>
-                {
-                    finance.map((item, index) => {
-                        if (index % 2 == 0) {
-                            return (
-                                <Col span={24} key={index}>
-                                    <Row gutter={[0, 20]} align="middle" justify={"space-between"}>
+                {finance.map((item, index) => (
+                    <Col span={24} key={index}>
+                        <AnimateOnScroll>
+                            <Row gutter={[0, 20]} align="middle" justify="space-between">
+                                {index % 2 === 0 ? (
+                                    <>
                                         <Col xs={24} md={11}>
-                                            <div className='title'>
-                                                {item.title}
-                                            </div>
-                                            <div className='sub'>
-                                                {item.sub}
-                                            </div>
+                                            <div className='title'>{item.title}</div>
+                                            <div className='sub'>{item.sub}</div>
                                         </Col>
                                         <Col xs={24} md={11}>
                                             <img src={item.img} alt="" className='finance-img' />
                                         </Col>
-                                    </Row>
-                                </Col>
-                            )
-                        }
-                        else {
-                            return (
-                                <Col span={24} key={index}>
-                                    <Row gutter={[0, 20]} align="middle" justify={"space-between"}>
+                                    </>
+                                ) : (
+                                    <>
                                         <Col xs={24} md={11}>
                                             <img src={item.img} alt="" className='finance-img' />
                                         </Col>
                                         <Col xs={24} md={11}>
-                                            <div className='title'>
-                                                {item.title}
-                                            </div>
-                                            <div className='sub'>
-                                                {item.sub}
-                                            </div>
+                                            <div className='title'>{item.title}</div>
+                                            <div className='sub'>{item.sub}</div>
                                         </Col>
-
-                                    </Row>
-                                </Col>
-                            )
-                        }
-                    })
-                }
+                                    </>
+                                )}
+                            </Row>
+                        </AnimateOnScroll>
+                    </Col>
+                ))}
             </Row>
         </div>
     )

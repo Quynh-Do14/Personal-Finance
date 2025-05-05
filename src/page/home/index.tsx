@@ -114,8 +114,8 @@ const HomePage = () => {
                     </div>
                 </div> */}
                 <IntroductionComponent />
-                <FinanceComponent />
                 <SloganComponent />
+                <FinanceComponent />
                 {/* <ServiceComponent /> */}
                 <PricingComponent />
                 <CustomerComponent />

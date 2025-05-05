@@ -2,27 +2,32 @@ import { Col, Row } from "antd";
 import "../../../assets/styles/components/MainLayout.css";
 import { ROUTE_PATH } from "../../../core/common/appRouter";
 import logo from "../../../assets/images/logo-footer.png"
+import fb from "../../../assets/images/icon/fb.png"
+import ig from "../../../assets/images/icon/ig.png"
+import ytb from "../../../assets/images/icon/ytb.png"
+import tw from "../../../assets/images/icon/tw.png"
+
 const FooterClient = () => {
     return (
         <footer className="footer-container padding-common">
             <Row gutter={[20, 20]}>
                 <Col sm={24} md={12} lg={8}>
-                    <img src={logo} alt="" />
+                    <img src={logo} alt="" className="logo" />
                     <div className="link-container">
                         <div className="flex flex-col gap-4">
                             <p>Kết nối với chúng tôi</p>
                             <div className="link">
                                 <div className="link-icon">
-                                    <a href="" target='_blank'><i className="fa fa-facebook"></i> </a>
+                                    <a href="" target='_blank'><img src={fb} alt="" /></a>
                                 </div>
                                 <div className="link-icon">
-                                    <a href="" target='_blank'><i className="fa fa-instagram"></i> </a>
+                                    <a href="" target='_blank'><img src={ig} alt="" /></a>
                                 </div>
                                 <div className="link-icon">
-                                    <a href="" target='_blank'><i className="fa fa-youtube-play" ></i> </a>
+                                    <a href="" target='_blank'><img src={ytb} alt="" /></a>
                                 </div>
                                 <div className="link-icon">
-                                    <a href="" target='_blank'><i className="fa fa-twitter"></i> </a>
+                                    <a href="" target='_blank'><img src={tw} alt="" /></a>
                                 </div>
                             </div>
                         </div>
