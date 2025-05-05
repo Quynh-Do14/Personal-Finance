@@ -1,3 +1,5 @@
+// src/api/axiosInstance.ts
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { notification } from 'antd';
@@ -13,9 +15,11 @@ const axiosInstance = axios.create({
         'Accept': 'application/json',
     },
     timeout: 15000,
+    withCredentials: true,
 });
 
-// Utils
+// ======= Utils =======
+
 const getToken = (): { accessToken: string; refreshToken: string } | null => {
     try {
         const token = Cookies.get('token');
@@ -31,6 +35,7 @@ const setToken = (accessToken: string, refreshToken: string) => {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'Strict',
         expires: 7,
+        path: '/',
     });
 };
 
@@ -38,38 +43,48 @@ const removeToken = () => {
     Cookies.remove('token');
 };
 
-// Biến toàn cục để tránh gọi refresh nhiều lần
+// ======= Refresh Token Queue =======
+
 let isRefreshing = false;
-let subscribers: ((token: string) => void)[] = [];
+let failedQueue: {
+    resolve: (token: string) => void;
+    reject: (error: any) => void;
+}[] = [];
 
-const onRefreshed = (newAccessToken: string) => {
-    subscribers.forEach((callback) => callback(newAccessToken));
-    subscribers = [];
+const processQueue = (error: any, newAccessToken: string | null = null) => {
+    failedQueue.forEach((prom) => {
+        if (newAccessToken) {
+            prom.resolve(newAccessToken);
+        } else {
+            prom.reject(error);
+        }
+    });
+    failedQueue = [];
 };
 
-const addSubscriber = (callback: (token: string) => void) => {
-    subscribers.push(callback);
-};
+// ======= Request Interceptor =======
 
-// Interceptor request: thêm accessToken vào header
-axiosInstance.interceptors.request.use((config) => {
-    const token = getToken();
-    if (token?.accessToken && config.headers && !config.headers.Authorization) {
-        config.headers.Authorization = `Bearer ${token.accessToken}`;
-    }
-    return config;
-});
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const token = getToken();
+        if (token?.accessToken && config.headers) {
+            config.headers.Authorization = `Bearer ${token.accessToken}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 
-// Interceptor response: tự động gọi refresh token nếu accessToken hết hạn
+// ======= Response Interceptor =======
+
 axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-        const token = getToken();
 
         const isAuthEndpoint =
-            originalRequest?.url?.includes(Endpoint.Auth.Login) ||
-            originalRequest?.url?.includes(Endpoint.Auth.Register);
+            originalRequest.url?.includes(Endpoint.Auth.Login) ||
+            originalRequest.url?.includes(Endpoint.Auth.Register);
 
         const is401 = error.response?.status === 401;
         const isRetry = originalRequest._retry;
@@ -77,19 +92,17 @@ axiosInstance.interceptors.response.use(
         if (is401 && !isRetry && !isAuthEndpoint) {
             originalRequest._retry = true;
 
-            // Nếu không có refreshToken => remove token và redirect
+            const token = getToken();
+
             if (!token?.refreshToken) {
                 removeToken();
-                if (originalRequest.headers?.Authorization) {
-                    delete originalRequest.headers.Authorization;
-                }
                 window.location.href = ROUTE_PATH.HOME_PAGE;
                 return Promise.reject(error);
             }
 
-            // Nếu chưa refresh, bắt đầu refresh
             if (!isRefreshing) {
                 isRefreshing = true;
+
                 try {
                     const res = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`, {
                         refreshToken: token.refreshToken,
@@ -97,8 +110,12 @@ axiosInstance.interceptors.response.use(
 
                     const { accessToken, refreshToken } = res.data;
                     setToken(accessToken, refreshToken);
-                    onRefreshed(accessToken);
+                    processQueue(null, accessToken);
+
+                    originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+                    return axiosInstance(originalRequest);
                 } catch (refreshError) {
+                    processQueue(refreshError, null);
                     removeToken();
                     notification.error({
                         message: 'Thông báo',
@@ -111,13 +128,15 @@ axiosInstance.interceptors.response.use(
                 }
             }
 
-            // Queue các request đợi token mới
-            return new Promise((resolve) => {
-                addSubscriber((newAccessToken: string) => {
-                    if (originalRequest.headers) {
-                        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                    }
-                    resolve(axiosInstance(originalRequest));
+            return new Promise((resolve, reject) => {
+                failedQueue.push({
+                    resolve: (newToken: string) => {
+                        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                        resolve(axiosInstance(originalRequest));
+                    },
+                    reject: (err: any) => {
+                        reject(err);
+                    },
                 });
             });
         }
