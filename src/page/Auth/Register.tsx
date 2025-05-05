@@ -1,16 +1,12 @@
 import { Col, Modal, Row } from 'antd'
-import { Link, useNavigate } from 'react-router-dom';
 import InputTextCommon from '../../infrastructure/common/components/input/input-text';
 import InputPasswordCommon from '../../infrastructure/common/components/input/input-password';
 import { useState } from 'react';
 import authService from '../../infrastructure/repositories/auth/service/auth.service';
 import { WarningMessage } from '../../infrastructure/common/components/toast/notificationToast';
-import { toast, ToastContainer } from 'react-toastify';
-import DialogNotificationCommon from '../../infrastructure/common/components/modal/dialogNotification';
 import { ButtonDesign } from '../../infrastructure/common/components/button/buttonDesign';
 
 type Props = {
-
     setLoading: Function,
     isRegister: boolean,
     setIsRegisterClick?: any,

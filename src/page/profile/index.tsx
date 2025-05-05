@@ -321,7 +321,7 @@ const ProfilePage = () => {
                                     <Row gutter={[20, 20]}>
                                         <Col span={24}>
                                             <InputNumberCommon
-                                                label={"Tổng thu nhập"}
+                                                label={"Tổng thu nhập (VNĐ)"}
                                                 attribute={"totalIncome"}
                                                 isRequired={true}
                                                 dataAttribute={dataProfile.totalIncome}
@@ -334,25 +334,12 @@ const ProfilePage = () => {
                                         </Col>
                                         <Col span={24}>
                                             <InputNumberCommon
-                                                label={"Mức chi tiêu mong muốn"}
+                                                label={"Mức chi tiêu mong muốn (VNĐ)"}
                                                 attribute={"goalsSet"}
                                                 isRequired={true}
                                                 dataAttribute={dataProfile.goalsSet}
                                                 setData={setDataProfile}
                                                 disabled={false}
-                                                validate={validateBudget}
-                                                setValidate={setValidateBudget}
-                                                submittedTime={submittedTime}
-                                            />
-                                        </Col>
-                                        <Col span={24}>
-                                            <InputNumberCommon
-                                                label={"Tổng chi tiêu"}
-                                                attribute={"totalExpense"}
-                                                isRequired={true}
-                                                dataAttribute={dataProfile.totalExpense}
-                                                setData={setDataProfile}
-                                                disabled={true}
                                                 validate={validateBudget}
                                                 setValidate={setValidateBudget}
                                                 submittedTime={submittedTime}

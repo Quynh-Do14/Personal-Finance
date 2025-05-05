@@ -16,7 +16,6 @@ type Props = {
     setLoading: Function
 }
 
-
 const ChatButton = (props: Props) => {
     const {
         titleChat,

@@ -322,7 +322,7 @@
   background-color: #0056b3;
 }
 
-.chatbot-info {
+.open-chatbot {
   display: flex;
   align-items: start;
   flex-wrap: wrap;
@@ -333,11 +333,26 @@
   border-radius: 15px;
   padding: 20px;
 }
+
+.chatbot-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 156px;
+  height: 100%;
+  background: #003333;
+  border-radius: 15px;
+  padding: 20px;
+}
+.open-chatbot .bot-name,
 .chatbot-info .bot-name {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+.open-chatbot p,
 .chatbot-info p {
   font-weight: 600;
   font-size: 16px;
