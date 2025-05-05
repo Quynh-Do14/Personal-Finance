@@ -54,8 +54,10 @@ const OpenChatBot = (props: Props) => {
                     <ButtonSend
                         classColor={'green'}
                         onClick={handleCartClick}
-                        title={'Đoạn chat'}
+                        title={'Trò chuyện'}
+                        width={120}
                     />
+                    <p>Bắt đầu trò chuyện với ChatBot</p>
                 </div>
                 <ChatBoxCommon
                     titleChat={titleChat}
