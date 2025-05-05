@@ -27,13 +27,6 @@ const BudgetInfo = () => {
     }, []);
     return (
         <div className='budget-info'>
-            <div className="budget-info__header">
-                <h3>Ngân sách</h3>
-                <div className="budget-info__level">
-                    Mức độ: {profileState?.budgetAlert?.level || 1}
-                </div>
-            </div>
-
             <div className="budget-info__items">
                 <div className="budget-item">
                     <div className="budget-item__icon">

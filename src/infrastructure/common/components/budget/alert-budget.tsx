@@ -22,7 +22,12 @@ const AlertBudget = () => {
             }}
         >
             <img src={alert} alt="" />
-            <p>{profileState?.budgetAlert?.level == 0 ? <a href={ROUTE_PATH.PROFILE}>Tạo ngân sách. {" "} </a> : null} {profileState?.budgetAlert?.alert}</p>
+            <div className='level'>
+                <div className="budget-info__level">
+                    Mức độ: {profileState?.budgetAlert?.level || 1}
+                </div>
+                <p>{profileState?.budgetAlert?.level == 0 ? <a href={ROUTE_PATH.PROFILE}>Tạo ngân sách. {" "} </a> : null} {profileState?.budgetAlert?.alert}</p>
+            </div>
         </div>
     )
 }

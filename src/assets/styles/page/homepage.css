@@ -836,6 +836,30 @@
   color: rgb(0, 140, 255) !important;
 }
 
+.homepage-container .finance .title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 34px;
+  letter-spacing: 0%;
+  text-align: left;
+  text-transform: capitalize;
+  color: #101010;
+}
+
+.homepage-container .finance .sub {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  text-align: left;
+  color: #101010;
+}
+.homepage-container .finance img {
+  border-radius: 12px;
+  max-height: 300px;
+  display: block;
+  margin: 0 auto;
+}
 @media only screen and (min-width: 1600px) {
   .homepage-container .introduction {
     padding: 160px 300px 0;
@@ -843,6 +867,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,
@@ -859,6 +884,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,
@@ -875,6 +901,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,
@@ -895,6 +922,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,
@@ -911,6 +939,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,
@@ -942,6 +971,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,
@@ -962,6 +992,7 @@
   .homepage-container .banner .layout,
   .homepage-container .tag-container,
   .homepage-container .spending,
+  .homepage-container .finance,
   .homepage-container .customer,
   .homepage-container .post,
   .homepage-container .service,

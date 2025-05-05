@@ -57,7 +57,7 @@ const SloganComponent = () => {
                     <p>FATS AI cam kết đổi mới sáng tạo, minh bạch và đồng hành cùng khách hàng trên hành trình xây dựng tương lai tài chính bền vững. Chúng tôi phục vụ cá nhân cần kiểm soát tài chính cá nhân thông minh và SME cần tối ưu chi phí, quản lý dòng tiền và phát triển kinh doanh hiệu quả.</p>
                 </Col>
             </Row>
-            <Row className="part-2" gutter={[20, 20]}>
+            {/* <Row className="part-2" gutter={[20, 20]}>
                 <Col lg={8} md={12} sm={12} xs={24}>
                     <img src={slogan1} alt="" className="rounded-[15px]" />
                 </Col>
@@ -67,7 +67,7 @@ const SloganComponent = () => {
                 <Col lg={8} md={12} sm={12} xs={24}>
                     <img src={slogan3} alt="" className="rounded-[15px]" />
                 </Col>
-            </Row>
+            </Row> */}
         </div>
     )
 }

@@ -7,6 +7,7 @@ import SloganComponent from './slogan'
 import IntroductionComponent from './introduction'
 import CustomerComponent from './customer'
 import PostComponent from './post'
+import FinanceComponent from './finance'
 const HomePage = () => {
     const text = "TẠO RA GIẢI PHÁP TÀI CHÍNH HIỆU QUẢ & HỮU ÍCH";
     const [displayedText, setDisplayedText] = useState("");
@@ -113,6 +114,7 @@ const HomePage = () => {
                     </div>
                 </div> */}
                 <IntroductionComponent />
+                <FinanceComponent />
                 <SloganComponent />
                 {/* <ServiceComponent /> */}
                 <PricingComponent />

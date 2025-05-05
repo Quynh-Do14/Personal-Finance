@@ -282,6 +282,20 @@
 .alert-common a {
   text-decoration: underline;
 }
+.alert-common .level {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+.alert-common .budget-info__level {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+}
 
 .budget-info {
   display: flex;
@@ -308,14 +322,6 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0;
-}
-
-.budget-info__level {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
 }
 
 .budget-info__items {

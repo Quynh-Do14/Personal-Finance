@@ -130,7 +130,7 @@ const PricingComponent = () => {
                         <div key={index} className={`box`}>
                             <div>
                                 <h3>{plan.title}</h3>
-                                <p className="sub">{plan.sub}</p>
+                                {/* <p className="sub">{plan.sub}</p> */}
                                 <span className="text-[18px] font-normal text-[#666666]">{plan.price == false ? "Miễn phí" : " Chỉ từ"}</span>
                                 {
                                     plan.price == false
