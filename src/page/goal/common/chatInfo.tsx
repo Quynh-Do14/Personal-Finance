@@ -1,6 +1,5 @@
 import { useRecoilValue } from 'recoil';
 import { ProfileState } from '../../../core/atoms/profile/profileState';
-import chatbot from '../../../assets/images/botChat.png'
 import { ButtonSend } from '../../../infrastructure/common/components/button/buttonSend';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../core/common/appRouter';

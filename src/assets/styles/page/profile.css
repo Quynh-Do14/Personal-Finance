@@ -86,6 +86,9 @@
   min-width: 200px;
   width: 100%;
 }
+.profile-page .chatbot img {
+  border-radius: 50%;
+}
 .profile-page .chatbot p {
   font-weight: 600;
   font-size: 16px;

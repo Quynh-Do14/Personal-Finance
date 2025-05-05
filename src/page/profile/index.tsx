@@ -181,7 +181,7 @@ const ProfilePage = () => {
             WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
         };
     };
-
+    const botInfo = Constants.BotChatList.List.find((item) => item.value === detailProfile?.character?.id)
     return (
         <LayoutClient>
             <BannerCommon
@@ -300,9 +300,7 @@ const ProfilePage = () => {
                                     <h2>Thông tin BotChat</h2>
                                     <div className='chatbot'>
                                         <div className='flex flex-col gap-2 items-center'>
-                                            <img src={chatbot} alt='' width={100} />
-                                            <p>{detailProfile.character?.name}</p>
-
+                                            <img src={botInfo?.avatar} alt='' width={100} />
                                         </div>
                                         <div className='bot-name'>
                                             <p>{detailProfile.character?.description}</p>

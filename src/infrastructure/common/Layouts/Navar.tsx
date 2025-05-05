@@ -249,7 +249,6 @@ const NavbarComponent = (props: Props) => {
                                 </li>
                                 <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
                                     <li className={`menu-item`} onClick={openModalChangePassword}>
-
                                         <span className="icon">
                                             <i className="fa fa-retweet" aria-hidden="true"></i>
                                         </span>

@@ -38,15 +38,6 @@ const removeToken = () => {
     Cookies.remove('token');
 };
 
-// Interceptor request: thêm accessToken vào header
-axiosInstance.interceptors.request.use((config) => {
-    const token = getToken();
-    if (token?.accessToken && config.headers) {
-        config.headers.Authorization = `Bearer ${token.accessToken}`;
-    }
-    return config;
-});
-
 // Biến toàn cục để tránh gọi refresh nhiều lần
 let isRefreshing = false;
 let subscribers: ((token: string) => void)[] = [];
@@ -60,6 +51,15 @@ const addSubscriber = (callback: (token: string) => void) => {
     subscribers.push(callback);
 };
 
+// Interceptor request: thêm accessToken vào header
+axiosInstance.interceptors.request.use((config) => {
+    const token = getToken();
+    if (token?.accessToken && config.headers && !config.headers.Authorization) {
+        config.headers.Authorization = `Bearer ${token.accessToken}`;
+    }
+    return config;
+});
+
 // Interceptor response: tự động gọi refresh token nếu accessToken hết hạn
 axiosInstance.interceptors.response.use(
     (response) => response,
@@ -67,8 +67,9 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
         const token = getToken();
 
-        const isAuthEndpoint = originalRequest.url?.includes(Endpoint.Auth.Login)
-            || originalRequest.url?.includes(Endpoint.Auth.Register);
+        const isAuthEndpoint =
+            originalRequest?.url?.includes(Endpoint.Auth.Login) ||
+            originalRequest?.url?.includes(Endpoint.Auth.Register);
 
         const is401 = error.response?.status === 401;
         const isRetry = originalRequest._retry;
@@ -76,15 +77,19 @@ axiosInstance.interceptors.response.use(
         if (is401 && !isRetry && !isAuthEndpoint) {
             originalRequest._retry = true;
 
+            // Nếu không có refreshToken => remove token và redirect
             if (!token?.refreshToken) {
                 removeToken();
+                if (originalRequest.headers?.Authorization) {
+                    delete originalRequest.headers.Authorization;
+                }
                 window.location.href = ROUTE_PATH.HOME_PAGE;
                 return Promise.reject(error);
             }
 
+            // Nếu chưa refresh, bắt đầu refresh
             if (!isRefreshing) {
                 isRefreshing = true;
-
                 try {
                     const res = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`, {
                         refreshToken: token.refreshToken,
@@ -106,9 +111,12 @@ axiosInstance.interceptors.response.use(
                 }
             }
 
+            // Queue các request đợi token mới
             return new Promise((resolve) => {
-                addSubscriber((newToken: string) => {
-                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                addSubscriber((newAccessToken: string) => {
+                    if (originalRequest.headers) {
+                        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                    }
                     resolve(axiosInstance(originalRequest));
                 });
             });

@@ -62,7 +62,7 @@ const ModalCreateGoal = (props: Props) => {
                                 </Col>
                                 <Col span={24}>
                                     <InputNumberCommon
-                                        label={'Mục tiêu'}
+                                        label={'Số tiền (VNĐ)'}
                                         attribute={'goalAmount'}
                                         isRequired={true}
                                         setData={setData}
