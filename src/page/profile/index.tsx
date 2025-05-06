@@ -30,6 +30,10 @@ const ProfilePage = () => {
     const [budget, setBudget] = useState<any>({});
     const [loading, setLoading] = useState<boolean>(false)
     const [tab, setTab] = useState<number>(1);
+
+    const [token, setToken] = useState<boolean>(false);
+    const [isLoadingToken, setIsLoadingToken] = useState<boolean>(false);
+
     const navigate = useNavigate();
 
     const [, setDetailState] = useRecoilState(ProfileState);
@@ -68,44 +72,61 @@ const ProfilePage = () => {
         return allRequestOK;
     };
 
+    useEffect(() => {
+        const fetchToken = async () => {
+            try {
+                const tokenS = await isTokenStoraged();
+                setToken(tokenS);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsLoadingToken(true);
+            }
+        };
+
+        fetchToken();
+    }, []);
+
     const onGetProfileAsync = async () => {
-        const tokenS = isTokenStoraged();
-        if (!tokenS) return;
-        try {
-            await authService.profile(
-                setLoading
-            ).then((response) => {
-                setDetailProfile(response);
-                setDetailState({
-                    user: response
-                })
-            });
-        }
-        catch (error) {
-            console.error(error);
+        if (isLoadingToken) {
+            if (!token) return;
+            try {
+                await authService.profile(
+                    setLoading
+                ).then((response) => {
+                    setDetailProfile(response);
+                    setDetailState({
+                        user: response
+                    })
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
     };
 
     const onGetBudgetAsync = async () => {
-        const tokenS = isTokenStoraged();
-        if (!tokenS) return;
-        try {
-            await budgetService.GetBudget(
-                setLoading
-            ).then((response) => {
-                setBudget(response);
+        if (isLoadingToken) {
+            if (!token) return;
+            try {
+                await budgetService.GetBudget(
+                    setLoading
+                ).then((response) => {
+                    setBudget(response);
 
-            })
-        }
-        catch (error) {
-            console.error(error)
+                })
+            }
+            catch (error) {
+                console.error(error)
+            }
         }
     };
 
     useEffect(() => {
-        onGetProfileAsync().then(() => { });
+        onGetProfileAsync().then(() => { })
         onGetBudgetAsync().then(() => { });
-    }, []);
+    }, [token, isLoadingToken])
 
     useEffect(() => {
         if (detailProfile) {
