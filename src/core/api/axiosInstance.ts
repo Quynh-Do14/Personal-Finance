@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json',
     },
     timeout: 15000,
-    withCredentials: true,
+    // withCredentials: true,
 });
 
 // Hàm lấy từng token riêng
