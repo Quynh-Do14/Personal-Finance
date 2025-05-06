@@ -1,4 +1,4 @@
-// axiosInstance.ts (đã tối ưu tách riêng accessToken và refreshToken)
+// axiosInstance.ts (đã fix popup browser)
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -12,14 +12,29 @@ const axiosInstance = axios.create({
     baseURL: baseURL,
     headers: {
         'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest', // <- thêm để browser hiểu đây là XHR
     },
     timeout: 15000,
-    withCredentials: true,
+    withCredentials: true, // chỉ giữ nếu BE đã config đúng CORS cho credentials
 });
 
 // Hàm lấy từng token riêng
 const getAccessToken = () => Cookies.get('accessToken');
 const getRefreshToken = () => Cookies.get('refreshToken');
+
+const setTokens = (accessToken: string, refreshToken: string) => {
+    Cookies.set('accessToken', accessToken, {
+        path: '/', secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: 7,
+    });
+    Cookies.set('refreshToken', refreshToken, {
+        path: '/', secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: 7,
+    });
+};
+
+const clearTokens = () => {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+};
 
 // Biến kiểm soát refresh token đồng thời
 let isRefreshing = false;
@@ -54,7 +69,12 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // Nếu request bị cancel hoặc lỗi mạng -> bỏ qua (không xử lý 401)
+        if (!error.response) {
+            return Promise.reject(error);
+        }
+
+        if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
             if (!isRefreshing) {
@@ -67,21 +87,17 @@ axiosInstance.interceptors.response.use(
 
                     const response = await axios.post(`${baseURL}${Endpoint.Auth.RefreshToken}`, {
                         refreshToken: refreshToken,
+                    }, {
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }, // <- đảm bảo luôn có
+                        withCredentials: true,
                     });
 
-                    if (!response || !response.data?.accessToken || !response.data?.refreshToken) {
+                    if (!response?.data?.accessToken || !response?.data?.refreshToken) {
                         throw new Error('Invalid refresh response');
                     }
 
                     const { accessToken, refreshToken: newRefreshToken } = response.data;
-
-                    // Lưu token mới tách biệt
-                    Cookies.set('accessToken', accessToken, {
-                        path: '/', secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: 7,
-                    });
-                    Cookies.set('refreshToken', newRefreshToken, {
-                        path: '/', secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: 7,
-                    });
+                    setTokens(accessToken, newRefreshToken);
 
                     processQueue(null, accessToken);
 
@@ -90,8 +106,7 @@ axiosInstance.interceptors.response.use(
 
                 } catch (err) {
                     processQueue(err, null);
-                    Cookies.remove('accessToken');
-                    Cookies.remove('refreshToken');
+                    clearTokens();
                     notification.error({
                         message: 'Thông báo',
                         description: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
