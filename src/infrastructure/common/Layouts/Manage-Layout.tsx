@@ -51,32 +51,32 @@ const ManageLayout = ({ ...props }: any) => {
         }
     }
 
-    const getProfileUser = async () => {
-        if (token) {
-            try {
-                await authService.profile(
-                    () => { }
-                ).then((response) => {
-                    if (response) {
-                        setDataProfile(response)
-                        // setProfileState(
-                        //     {
-                        //         user: response,
-                        //     }
-                        // )
-                    }
-                })
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    }
+    // const getProfileUser = async () => {
+    //     if (token) {
+    //         try {
+    //             await authService.profile(
+    //                 () => { }
+    //             ).then((response) => {
+    //                 if (response) {
+    //                     setDataProfile(response)
+    //                     // setProfileState(
+    //                     //     {
+    //                     //         user: response,
+    //                     //     }
+    //                     // )
+    //                 }
+    //             })
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
+    // }
 
-    useEffect(() => {
-        if (token) {
-            getProfileUser().then(() => { });
-        }
-    }, [token]);
+    // useEffect(() => {
+    //     if (token) {
+    //         getProfileUser().then(() => { });
+    //     }
+    // }, [token]);
 
     const listAction = () => {
         return (

@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 
 type Props = {
     isOpen: boolean,
+    dataProfile: any,
     closeDrawer: () => void,
     isLoginClick: boolean,
     setIsLoginClick: Function,
@@ -28,6 +29,7 @@ type Props = {
 const NavbarComponent = (props: Props) => {
     const {
         isOpen,
+        dataProfile,
         closeDrawer,
         isLoginClick,
         setIsLoginClick,
@@ -40,12 +42,10 @@ const NavbarComponent = (props: Props) => {
     } = props;
     const [token, setToken] = useState<boolean>(false);
     const [isLoadingToken, setIsLoadingToken] = useState<boolean>(false);
-    const [dataProfile, setDataProfile] = useState<any>({});
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [, setProfileState] = useRecoilState(ProfileState);
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -61,30 +61,6 @@ const NavbarComponent = (props: Props) => {
 
         fetchToken();
     }, []);
-
-    const getProfileUser = async () => {
-        const tokenS = isTokenStoraged();
-        if (!tokenS) return;
-        try {
-            await authService.profile(
-                () => { }
-            ).then((response) => {
-                if (response) {
-                    setDataProfile(response)
-                    setProfileState(
-                        {
-                            user: response,
-                        }
-                    )
-                }
-            })
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    useEffect(() => {
-        getProfileUser().then(() => { })
-    }, [token])
 
     const openModalLogout = () => {
         setIsOpenModalLogout(true);

@@ -20,6 +20,7 @@ import { FullPageLoading } from '../components/controls/loading';
 import DialogNotificationCommon from '../components/modal/dialogNotification';
 import { ButtonDesign } from '../components/button/buttonDesign';
 type Props = {
+    dataProfile: any
     scrollDirection: boolean
     lastScrollY: number
     isLoginClick: boolean,
@@ -34,6 +35,7 @@ type Props = {
 }
 const HeaderClient = (props: Props) => {
     const {
+        dataProfile,
         scrollDirection,
         lastScrollY,
         isLoginClick,
@@ -47,7 +49,6 @@ const HeaderClient = (props: Props) => {
     } = props;
     const navigate = useNavigate();
     const location = useLocation();
-    const [dataProfile, setDataProfile] = useState<any>({});
 
     const [dataLogined, setDataLogined] = useState<boolean>(false)
     const [isRegister, setIsRegisterClick] = useState<boolean>(false)
@@ -73,29 +74,6 @@ const HeaderClient = (props: Props) => {
 
         fetchToken();
     }, []);
-    const getProfileUser = async () => {
-        const tokenS = await isTokenStoraged();
-        if (!tokenS) return;
-        try {
-            await authService.profile(
-                () => { }
-            ).then((response) => {
-                if (response) {
-                    setDataProfile(response)
-                    setProfileState(
-                        {
-                            user: response,
-                        }
-                    )
-                }
-            })
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    useEffect(() => {
-        getProfileUser().then(() => { })
-    }, [dataLogined, token])
 
     const openModalLogout = () => {
         setIsOpenModalLogout(true);

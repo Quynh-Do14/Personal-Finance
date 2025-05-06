@@ -68,7 +68,7 @@ const ProfileModal = (props: Props) => {
     }
   }
   useEffect(() => {
-    onGetProfileAsync().then(() => { })
+    // onGetProfileAsync().then(() => { })
   }, [])
 
   useEffect(() => {

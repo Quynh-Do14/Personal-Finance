@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NavbarComponent from './Navar';
 type Props = {
     collapsed: boolean,
+    dataProfile: any,
     setCollapsed: Function,
     isLoginClick: boolean,
     setIsLoginClick: Function,
@@ -17,6 +18,7 @@ type Props = {
 const HeaderMobileComponent = (props: Props) => {
     const {
         collapsed,
+        dataProfile,
         setCollapsed,
         isLoginClick,
         setIsLoginClick,
@@ -42,6 +44,7 @@ const HeaderMobileComponent = (props: Props) => {
             </div>
             <NavbarComponent
                 isOpen={collapsed}
+                dataProfile={dataProfile}
                 closeDrawer={onNavbarClick}
                 isLoginClick={isLoginClick}
                 setIsLoginClick={setIsLoginClick}
