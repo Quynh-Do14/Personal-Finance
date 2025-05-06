@@ -1,31 +1,32 @@
+import Cookies, { CookieAttributes } from "js-cookie";
 import { Endpoint } from "../../../../core/common/apiLink";
 import { FailMessage, SuccessMessage } from "../../../common/components/toast/notificationToast";
 import { RequestService } from "../../../utils/response";
 import { clearToken, saveToken } from "../../../utils/storage";
 
+const TOKEN_COOKIE_OPTIONS: CookieAttributes = {
+    path: '/',
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict',
+    expires: 7, // 7 ngày
+};
 class AuthService {
     async login(data: any, setLoading: Function) {
-        setLoading(true)
+        setLoading(true);
         try {
-            return await RequestService
-                .post(Endpoint.Auth.Login, {
-                    ...data
-                })
-                .then(response => {
-                    if (response) {
-                        const token = {
-                            accessToken: response.accessToken,
-                            refreshToken: response.refreshToken,
-                        }
-                        saveToken("token", JSON.stringify(token));
-                    }
-                    setLoading(false)
-                    SuccessMessage("Đăng nhập thành công", "")
-                    return response;
-                });
+            const response = await RequestService.post(Endpoint.Auth.Login,
+                data);
+            if (response?.accessToken && response?.refreshToken) {
+                Cookies.set('accessToken', response.accessToken, TOKEN_COOKIE_OPTIONS);
+                Cookies.set('refreshToken', response.refreshToken, TOKEN_COOKIE_OPTIONS);
+
+                SuccessMessage('Đăng nhập thành công', '');
+            }
+
+            return response;
         } catch (error: any) {
-            console.error(error)
-            FailMessage("Đăng nhập không thành công", error.response.data.message)
+            console.error(error);
+            FailMessage('Đăng nhập không thành công', error?.response?.data?.message || 'Đã có lỗi xảy ra');
         } finally {
             setLoading(false);
         }
