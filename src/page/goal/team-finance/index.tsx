@@ -29,7 +29,7 @@ import OpenChatBot from "../../chat/openChat";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const TeamFinancePage = () => {
-    const tokenString = getTokenStoraged();
+    const accessToken = getTokenStoraged();
 
     const { id } = useParams();
     const location = useLocation();
@@ -315,8 +315,7 @@ const TeamFinancePage = () => {
     }, [timeRange, selectedType, selectedTab])
     useEffect(() => {
         // Lấy JWT từ localStorage hoặc sessionStorage
-        const tokenData = tokenString ? JSON.parse(tokenString) : null;
-        const token = tokenData ? tokenData.accessToken : null;
+        const token = accessToken ? accessToken : null;
         const baseUrl = process.env.REACT_APP_BASE_URL;
 
         const wsBaseUrl = process.env.REACT_APP_BASE_URL?.replace('/api/v1/hdkt', '');
@@ -350,7 +349,7 @@ const TeamFinancePage = () => {
         return () => {
             stompClient.deactivate();
         };
-    }, [tokenString]);
+    }, [accessToken]);
 
     const handleSendMessage = async () => {
         if (messages) {
