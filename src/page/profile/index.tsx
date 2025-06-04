@@ -16,7 +16,6 @@ import UploadAvatar from '../../infrastructure/common/components/input/upload-av
 import "../../assets/styles/page/profile.css";
 import { ButtonSend } from '../../infrastructure/common/components/button/buttonSend';
 import { ROUTE_PATH } from '../../core/common/appRouter';
-import chatbot from '../../assets/images/botChat.png';
 import InputNumberCommon from '../../infrastructure/common/components/input/input-number';
 import budgetService from '../../infrastructure/repositories/budget/budget.service';
 import Constants from '../../core/common/constants';
@@ -187,10 +186,9 @@ const ProfilePage = () => {
     const onUpdateBudget = async () => {
         // await setSubmittedTime(Date.now());
         if (isValidDataBudget()) {
-            await budgetService.UpdateBudget(
+            await budgetService.CreateBudget(
                 {
                     totalIncome: dataProfile.totalIncome,
-                    goalsSet: dataProfile.goalsSet,
                 },
                 () => {
                     onGetBudgetAsync();
@@ -344,19 +342,6 @@ const ProfilePage = () => {
                                                 attribute={"totalIncome"}
                                                 isRequired={true}
                                                 dataAttribute={dataProfile.totalIncome}
-                                                setData={setDataProfile}
-                                                disabled={false}
-                                                validate={validateBudget}
-                                                setValidate={setValidateBudget}
-                                                submittedTime={submittedTime}
-                                            />
-                                        </Col>
-                                        <Col span={24}>
-                                            <InputNumberCommon
-                                                label={"Mức chi tiêu mong muốn (VNĐ)"}
-                                                attribute={"goalsSet"}
-                                                isRequired={true}
-                                                dataAttribute={dataProfile.goalsSet}
                                                 setData={setDataProfile}
                                                 disabled={false}
                                                 validate={validateBudget}

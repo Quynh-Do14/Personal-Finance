@@ -21,6 +21,29 @@ class BudgetService {
             setLoading(false);
         }
     };
+    async CreateBudget(data: object, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .post(Endpoint.Budget.Create,
+                    data
+                )
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Cập nhật thành công", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Cập nhật không thành công", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
     async UpdateBudget(data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
