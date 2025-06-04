@@ -27,7 +27,7 @@ export default class Constants {
             {
                 label: "Tài chính",
                 link: ROUTE_PATH.GOAL_SPENDING_PAGE,
-                private: true,
+                private: false,
                 icon: "fa fa-money",
             },
             {

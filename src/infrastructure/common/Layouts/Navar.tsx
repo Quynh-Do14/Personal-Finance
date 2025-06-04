@@ -217,12 +217,14 @@ const NavbarComponent = (props: Props) => {
                             &&
                             < ul className="menu">
 
-                                <li className={`menu-item`} onClick={openModalProfile}>
-                                    <span className="icon">
-                                        <i className="fa fa-user" aria-hidden="true"></i>
-                                    </span>
-                                    <span>Thông tin cá nhân</span>
-                                </li>
+                                <a href={ROUTE_PATH.PROFILE}>
+                                    <li className={`menu-item`}>
+                                        <span className="icon">
+                                            <i className="fa fa-user" aria-hidden="true"></i>
+                                        </span>
+                                        <span>Thông tin cá nhân</span>
+                                    </li>
+                                </a>
                                 <a href={ROUTE_PATH.SELECT_CHAT_BOT}>
                                     <li className={`menu-item`} onClick={openModalChangePassword}>
                                         <span className="icon">

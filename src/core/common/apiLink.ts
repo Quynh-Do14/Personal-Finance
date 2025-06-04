@@ -118,6 +118,7 @@ export class Endpoint {
     }
     static Budget = class {
         static Get = "/budgets/private/my-budget"
+        static Create = "/budgets/private/create"
         static Update = "/budgets/private/update"
     }
 }
