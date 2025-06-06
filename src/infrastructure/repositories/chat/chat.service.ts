@@ -8,7 +8,7 @@ class ChatService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Chat.Personal.Get}/${id}`)
+                .get(`${Endpoint.Chat.Personal.Get}`)
                 .then(response => {
                     if (response) {
                         return response
@@ -27,7 +27,7 @@ class ChatService {
         setLoading(true)
         try {
             return await RequestService
-                .post(`${Endpoint.Chat.Personal.Add}/${id}`,
+                .post(`${Endpoint.Chat.Personal.Add}`,
                     data
                 )
                 .then(response => {
@@ -50,7 +50,7 @@ class ChatService {
         setLoading(true)
         try {
             return await RequestService
-                .postForm(`${Endpoint.Chat.Personal.GetBill}/${id}`,
+                .postForm(`${Endpoint.Chat.Personal.GetBill}`,
                     data
                 )
                 .then(response => {

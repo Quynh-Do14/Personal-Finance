@@ -146,6 +146,31 @@ class GoalService {
             setLoading(false);
         }
     }
+    async AllocationGoalPersonal(data: any[], onBack: Function, setLoading: Function) {
+        setLoading(true)
+        console.log(data);
+
+        try {
+            return await RequestService
+                .putArray(Endpoint.Goal.Personal.Allocation,
+                    data
+                )
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Phân bổ thành công", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Phân bổ không thành công", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
     async DeleteGoalPersonal(id: string, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {

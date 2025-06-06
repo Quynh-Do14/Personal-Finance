@@ -83,7 +83,6 @@ const TeamPage = () => {
             });
         }
     }, [selectedTeam]);
-    console.log("selectedTeam", selectedTeam);
 
     const onCreateTeamAsync = async () => {
 

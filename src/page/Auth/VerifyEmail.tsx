@@ -16,7 +16,6 @@ const VerifyEmailPage = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect called");
     const params = new URLSearchParams(window.location.search);
     const codeURL = params.get("code");
     setCode(codeURL || "");

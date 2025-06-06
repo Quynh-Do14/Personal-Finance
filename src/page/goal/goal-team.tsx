@@ -119,7 +119,7 @@ const GoalSpendingTeamPage = () => {
         }
     };
 
-    const pageSize = 6
+    const pageSize = 4
     const onGetListGoalAsync = async () => {
         const param = {
             page: page - 1,

@@ -5,9 +5,10 @@ import { RequestService } from "../../utils/response";
 class IncomeService {
     async GetIncome(idGoal: string, params: object, setLoading: Function) {
         setLoading(true)
+        const url = idGoal ? `${Endpoint.Income.Get}/${idGoal}` : Endpoint.Income.Get
         try {
             return await RequestService
-                .get(`${Endpoint.Income.Get}/${idGoal}`, {
+                .get(url, {
                     ...params
                 })
                 .then(response => {
@@ -25,10 +26,12 @@ class IncomeService {
     };
     async CreateIncome(idGoal: string, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
+        const url = idGoal ? `${Endpoint.Income.Create}/${idGoal}` : Endpoint.Income.Create
         try {
             return await RequestService
-                .post(`${Endpoint.Income.Create}/${idGoal}`,
-                    { ...data }
+                .post(url, {
+                    ...data
+                }
                 )
                 .then(response => {
                     if (response) {

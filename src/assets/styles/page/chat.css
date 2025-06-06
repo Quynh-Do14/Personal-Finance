@@ -87,7 +87,37 @@
 
 .chat-box-container .header .status-text {
   font-size: 14px;
+  line-height: 24px;
   color: #99cc99;
+}
+.chat-box-container .header .type-chat {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 2px;
+  min-width: 190px;
+}
+@media only screen and (max-width: 992px) {
+  .chat-box-container .header .type-chat {
+    display: none;
+  }
+}
+.chat-box-container .header .type-chat div {
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: bold;
+  color: #003333;
+}
+
+.chat-box-container .header .type-chat p {
+  font-size: 13px;
+  line-height: 23px;
+  font-weight: bold;
+  color: #003333;
+  cursor: pointer;
+}
+.chat-box-container .header .type-chat p:hover {
+  text-decoration: underline;
 }
 .chat-box-container .chat-box {
   padding: 15px;
@@ -327,7 +357,6 @@
 
 .chatbot-info {
   display: flex;
-  flex-direction: column;
   align-items: start;
   flex-wrap: wrap;
   gap: 16px;

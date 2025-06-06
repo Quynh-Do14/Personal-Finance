@@ -79,15 +79,15 @@ const StaticComponent = (props: Props) => {
             {/* Tabs chi phí / thu nhập */}
             <div className="flex justify-center gap-4 mb-6">
                 <ButtonDesign
-                    classColor={selectedTab === "income" ? "green" : "transparent"}
-                    onClick={() => setSelectedTab("income")}
-                    title={"Thu nhập"}
-                    width={160}
-                />
-                <ButtonDesign
                     classColor={selectedTab === "spend" ? "green" : "transparent"}
                     onClick={() => setSelectedTab("spend")}
                     title={"Chi phí"}
+                    width={160}
+                />
+                <ButtonDesign
+                    classColor={selectedTab === "income" ? "green" : "transparent"}
+                    onClick={() => setSelectedTab("income")}
+                    title={"Thu nhập"}
                     width={160}
                 />
             </div>
@@ -101,15 +101,15 @@ const StaticComponent = (props: Props) => {
                             <thead className="bg-[#cce5ff]">
                                 <tr className="text-[16px]">
                                     <th className="px-1 py-1"></th>
-                                    <th className="px-6 py-4">Danh mục</th>
-                                    <th className="px-6 py-4">Chi tiêu</th>
-                                    <th className="px-6 py-4">Tỉ lệ</th>
+                                    <th className="px-6 py-4 text-left">Danh mục</th>
+                                    <th className="px-6 py-4 text-left">Chi tiêu</th>
+                                    <th className="px-6 py-4 text-left">Tỉ lệ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     dataTable.map((item, index) => {
-                                        const percent = item.amount / (selectedTab === "spend" ? spendStatistics?.totalSpend : incomeStatistics?.totalInCome)
+                                        const percent = item.amount / (selectedTab === "spend" ? spendStatistics?.totalSpend : incomeStatistics?.totalIncome)
                                         return (
                                             <tr
                                                 className={`${index % 2 === 0 ? "bg-[#ccf2dd]" : "bg-[#cce5ff]"
@@ -121,7 +121,7 @@ const StaticComponent = (props: Props) => {
                                                             ?
                                                             configImageURL(item?.spendingType?.imageCode) || categoryOther
                                                             :
-                                                            configImageURL(item?.inComeType?.imageCode) || categoryOther
+                                                            configImageURL(item?.incomeType?.imageCode) || categoryOther
                                                         }
                                                         />
                                                     </div>
@@ -131,7 +131,7 @@ const StaticComponent = (props: Props) => {
                                                         ?
                                                         item?.spendingType?.name
                                                         :
-                                                        item?.inComeType?.name}
+                                                        item?.incomeType?.name}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">{formatCurrencyVND(item.amount)}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap">{Number(percent * 100).toFixed(2)}%</td>

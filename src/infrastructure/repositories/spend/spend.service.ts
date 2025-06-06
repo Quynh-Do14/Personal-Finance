@@ -5,9 +5,10 @@ import { RequestService } from "../../utils/response";
 class SpendService {
     async GetSpend(idGoal: string, params: object, setLoading: Function) {
         setLoading(true)
+        const url = idGoal ? `${Endpoint.Spending.Get}/${idGoal}` : Endpoint.Spending.Get
         try {
             return await RequestService
-                .get(`${Endpoint.Spending.Get}/${idGoal}`, {
+                .get(url, {
                     ...params
                 })
                 .then(response => {
@@ -25,9 +26,10 @@ class SpendService {
     };
     async CreateSpend(idGoal: string, data: object, onBack: Function, setLoading: Function) {
         setLoading(true)
+        const url = idGoal ? `${Endpoint.Spending.Create}/${idGoal}` : Endpoint.Spending.Create
         try {
             return await RequestService
-                .post(`${Endpoint.Spending.Create}/${idGoal}`,
+                .post(url,
                     { ...data }
                 )
                 .then(response => {

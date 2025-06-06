@@ -33,7 +33,7 @@ const BudgetInfo = () => {
                         <i className="fa fa-money" aria-hidden="true"></i>
                     </div>
                     <div className="budget-item__content">
-                        <p className="budget-item__label">Tổng thu nhập</p>
+                        <p className="budget-item__label">Tổng thặng dư</p>
                         <p className="budget-item__value">
                             <AnimatedNumber value={budget?.totalIncome || 0} /> VNĐ
                         </p>
@@ -45,9 +45,9 @@ const BudgetInfo = () => {
                         <i className="fa fa-piggy-bank" aria-hidden="true"></i>
                     </div>
                     <div className="budget-item__content">
-                        <p className="budget-item__label">Mức tiết kiệm</p>
+                        <p className="budget-item__label">Tổng thu chi</p>
                         <p className="budget-item__value">
-                            <AnimatedNumber value={budget?.goalsSet || 0} /> VNĐ
+                            <AnimatedNumber value={profileState?.expenseTotal || 0} /> VNĐ
                         </p>
                     </div>
                 </div>
@@ -57,12 +57,13 @@ const BudgetInfo = () => {
                         <i className="fa fa-wallet" aria-hidden="true"></i>
                     </div>
                     <div className="budget-item__content">
-                        <p className="budget-item__label">Tổng chi tiêu</p>
+                        <p className="budget-item__label">Tổng nợ</p>
                         <p className="budget-item__value">
-                            <AnimatedNumber value={budget?.totalExpense || 0} /> VNĐ
+                            <AnimatedNumber value={profileState?.debt || 0} /> VNĐ
                         </p>
                     </div>
                 </div>
+
             </div>
         </div>
     )

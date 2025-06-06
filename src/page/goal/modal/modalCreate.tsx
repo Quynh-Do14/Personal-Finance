@@ -3,7 +3,6 @@ import InputTextCommon from '../../../infrastructure/common/components/input/inp
 import InputNumberCommon from '../../../infrastructure/common/components/input/input-number';
 import "../../../assets/styles/components/modal.css"
 import { CloseOutlined } from '@ant-design/icons';
-import UploadImageAvatar from '../../../infrastructure/common/components/input/upload-img-avatar';
 import InputDateCommon from '../../../infrastructure/common/components/input/input-date';
 import { ButtonDesign } from '../../../infrastructure/common/components/button/buttonDesign';
 
@@ -102,7 +101,7 @@ const ModalCreateGoal = (props: Props) => {
                             </Row>
                         </div>
                     </Col>
-                    <Col span={24}>
+                    <Col span={20}>
                         <ButtonDesign
                             classColor={'green'}
                             onClick={handleOk}
