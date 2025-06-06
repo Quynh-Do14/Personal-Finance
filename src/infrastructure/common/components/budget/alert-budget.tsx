@@ -3,8 +3,10 @@ import { useRecoilValue } from 'recoil'
 import { ProfileState } from '../../../../core/atoms/profile/profileState'
 import alert from "../../../../assets/images/alert.png"
 import { ROUTE_PATH } from '../../../../core/common/appRouter'
+import { BudgetState } from '../../../../core/atoms/budget/budgetState'
 const AlertBudget = () => {
     const profileState = useRecoilValue(ProfileState).user;
+    const budgetState = useRecoilValue(BudgetState).data;
     return (
         <div className='alert-common'
             style={{
@@ -24,9 +26,9 @@ const AlertBudget = () => {
             <img src={alert} alt="" />
             <div className='level'>
                 <div className="budget-info__level">
-                    Mức độ: {profileState?.budgetAlert?.level || 1}
+                    Mức độ: {profileState?.budgetAlert?.level}
                 </div>
-                <p>{profileState?.budgetAlert?.level == 0 ? <a href={ROUTE_PATH.PROFILE}>Tạo ngân sách. {" "} </a> : null} {profileState?.budgetAlert?.alert}</p>
+                <p>{budgetState.totalIncome == 0 ? <a href={ROUTE_PATH.PROFILE}>Tạo ngân sách. {" "} </a> : null} {profileState?.budgetAlert?.alert}</p>
             </div>
         </div>
     )
