@@ -19,6 +19,10 @@ export const RequestService = {
         let resp = await axiosInstance.put(url, { ...obj });
         return resp.data;
     },
+    async putArray(url: any, arr: any[] = []) {
+        let resp = await axiosInstance.put(url, arr);
+        return resp.data;
+    },
     async putForm(url: any, formData: any) {
         let resp = await axiosInstance.putForm(url, formData);
         return resp.data;

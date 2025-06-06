@@ -7,7 +7,7 @@ class StaticService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Static.Personal.GetStatisticalGoal}/${goalId}`, {
+                .get(`${Endpoint.Static.Personal.GetStatisticalGoal}`, {
                     endDate,
                     startDate,
                     timeRange
@@ -30,7 +30,7 @@ class StaticService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Static.Team.GetStatisticalGoal}/${goalId}`, {
+                .get(`${Endpoint.Static.Team.GetStatisticalGoal}`, {
                     endDate,
                     startDate,
                     timeRange,
@@ -54,7 +54,7 @@ class StaticService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Static.Common.GetByTime}/${goalId}`, {
+                .get(`${Endpoint.Static.Common.GetByTime}`, {
                     timeRange: type
                 })
                 .then(response => {

@@ -12,6 +12,8 @@ import InputSelectCategoryCommon from '../../infrastructure/common/components/in
 import { formatCurrencyVND } from '../../infrastructure/helper/helper'
 import { isTokenStoraged } from '../../infrastructure/utils/storage'
 import banner4 from '../../assets/images/banner/banner4.png'
+import { useRecoilValue } from 'recoil'
+import { ProfileState } from '../../core/atoms/profile/profileState'
 const PaymentPage = () => {
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
@@ -19,7 +21,7 @@ const PaymentPage = () => {
     const [remember, setRemember] = useState<boolean>(true);
     const [packageList, setPackageList] = useState<any[]>([]);
     const storage = isTokenStoraged();
-
+    const profileState = useRecoilValue(ProfileState).user;
     const [_data, _setData] = useState<any>({});
     const dataRequest = _data;
 
@@ -43,6 +45,16 @@ const PaymentPage = () => {
 
         return allRequestOK;
     };
+
+    useEffect(() => {
+        if (profileState) {
+            setDataRequest({
+                name: profileState.name,
+                email: profileState.email,
+                phoneNumber: profileState.phoneNumber,
+            })
+        }
+    }, [profileState])
     const onPaymentAsync = async () => {
         try {
             await paymentService.Subscription(
@@ -113,18 +125,18 @@ const PaymentPage = () => {
                             &&
                             <p className="signup-text">
                                 Bạn chưa có tài khoản?
-                                <a href={ROUTE_PATH.LOGIN} className="gradient-link">Đăng nhập ngay</a>
+                                <a href={ROUTE_PATH.REGISTER} className="gradient-link">Đăng kí ngay</a>
                             </p>
                         }
 
                         <div className='method'>Thông tin thanh toán</div>
                         <InputTextCommon
                             label={"Họ tên"}
-                            attribute={"fullName"}
+                            attribute={"name"}
                             isRequired={true}
-                            dataAttribute={dataRequest.fullName}
+                            dataAttribute={dataRequest.name}
                             setData={setDataRequest}
-                            disabled={false}
+                            disabled={true}
                             validate={validate}
                             setValidate={setValidate}
                             submittedTime={submittedTime}
@@ -135,18 +147,18 @@ const PaymentPage = () => {
                             isRequired={true}
                             dataAttribute={dataRequest.email}
                             setData={setDataRequest}
-                            disabled={false}
+                            disabled={true}
                             validate={validate}
                             setValidate={setValidate}
                             submittedTime={submittedTime}
                         />
                         <InputTextCommon
                             label={"Điện thoại"}
-                            attribute={"phone"}
+                            attribute={"phoneNumber"}
                             isRequired={true}
-                            dataAttribute={dataRequest.phone}
+                            dataAttribute={dataRequest.phoneNumber}
                             setData={setDataRequest}
-                            disabled={false}
+                            disabled={true}
                             validate={validate}
                             setValidate={setValidate}
                             submittedTime={submittedTime}

@@ -27,7 +27,6 @@ const ModalCreateTeam = (props: Props) => {
         setValidate,
         submittedTime
     } = props;
-    console.log("data", data);
 
     return (
         <Modal

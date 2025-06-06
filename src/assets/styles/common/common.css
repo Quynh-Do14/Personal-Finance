@@ -197,7 +197,7 @@
 }
 
 .ant-modal.custom-modal {
-  width: 70% !important;
+  width: 60% !important;
 }
 .ant-modal.custom-modal-select {
   width: 50% !important;
@@ -209,10 +209,10 @@
 
 @media only screen and (min-width: 769px) and (max-width: 1200px) {
   .ant-modal.custom-modal {
-    width: 90% !important;
+    width: 80% !important;
   }
   .ant-modal.custom-modal-select {
-    width: 80% !important;
+    width: 70% !important;
   }
   .ant-drawer-content-wrapper {
     width: 50% !important;

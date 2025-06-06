@@ -43,11 +43,11 @@ export const privateRoutes = [
         component: ReportPage,
         private: false,
     },
-    {
-        path: ROUTE_PATH.PERSONAL_FINANCE_PAGE,
-        component: PersonalFinancePage,
-        private: true,
-    },
+    // {
+    //     path: ROUTE_PATH.PERSONAL_FINANCE_PAGE,
+    //     component: PersonalFinancePage,
+    //     private: true,
+    // },
     {
         path: ROUTE_PATH.TEAM_FINANCE_PAGE,
         component: TeamFinancePage,

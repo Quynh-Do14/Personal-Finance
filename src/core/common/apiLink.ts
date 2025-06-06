@@ -19,6 +19,7 @@ export class Endpoint {
             static GetById = "/goals/detail"
             static Add = "/goals/user/create"
             static Delete = "/goals/user/delete"
+            static Allocation = "/goals/user/allocation"
         }
         static Team = class {
             static Get = "/goals/user/team"
@@ -43,7 +44,7 @@ export class Endpoint {
     static Chat = class {
         static Personal = class {
             static Get = "/chat-logs/me/all"
-            static Add = "/ai/chat/spend"
+            static Add = "/ai/chat"
             static GetBill = "/ai/bill/info"
         }
         static Team = class {
@@ -54,22 +55,22 @@ export class Endpoint {
     }
     static Income = class {
         static Get = "/incomes/user/get"
-        static Create = "/incomes/user/create"
+        static Create = "/incomes/user/create/personal"
     }
 
     static Spending = class {
         static Get = "/spends/user/get"
-        static Create = "/spends/user/create"
+        static Create = "/spends/user/create/personal"
     }
     static Static = class {
         static Personal = class {
-            static GetStatisticalGoal = "/spends/user/statistical"
+            static GetStatisticalGoal = "/spends/user/statistical/personal"
         }
         static Team = class {
             static GetStatisticalGoal = "/spends/team/statistical"
         }
         static Common = class {
-            static GetByTime = "/spends/user/statistical/day-of-week"
+            static GetByTime = "/spends/user/statistical/day-of-week/personal"
         }
     }
     static SpendingType = class {

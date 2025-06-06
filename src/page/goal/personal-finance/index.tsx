@@ -147,7 +147,7 @@ const PersonalFinancePage = () => {
                 const labels = res?.map((item: any) => item?.dayOfWeek);
                 const dataIncome = res?.map((item: any) => item.totalIncome || 0);
                 const dataSpend = res?.map((item: any) => item.totalSpend || 0);
-
+                
                 setStatisticsByTime({
                     labels: labels,
                     datasets: [

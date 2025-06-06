@@ -235,7 +235,7 @@ const ChatBoxCommon = (props: Props) => {
                     await inComesService.CreateIncome(
                         String(idGoal),
                         {
-                            inComeTypeId: dataRequest.typeId,
+                            incomeTypeId: dataRequest.typeId,
                             amount: dataRequest.amount,
                             occurrenceDate: convertDateOnly(dataRequest.occurrenceDate)
                         },
@@ -309,6 +309,20 @@ const ChatBoxCommon = (props: Props) => {
                                     onClick={() => { setIsChatContent(!isChatContent) }}
                                 ></i>
                             </Tooltip>
+                            {
+                                isChatContent
+                                    ?
+                                    <div className="type-chat">
+                                        <div>Trò chuyện với ChatBot</div>
+                                        <p onClick={() => { setIsChatContent(!isChatContent) }}>Chuyển chế độ nhập chi tiêu</p>
+                                    </div>
+                                    :
+                                    <div className="type-chat">
+                                        <div>Chế độ nhập chi tiêu</div>
+                                        <p onClick={() => { setIsChatContent(!isChatContent) }}>Trò chuyện với ChatBot </p>
+                                    </div>
+                            }
+
                         </div>
                         <div className="chat-box" ref={chatBoxRef}>
                             {dataChatBox.map((message, index) => (
@@ -427,6 +441,19 @@ const ChatBoxCommon = (props: Props) => {
                                     onClick={() => { setIsChatContent(!isChatContent) }}
                                 ></i>
                             </Tooltip>
+                            {
+                                isChatContent
+                                    ?
+                                    <div className="type-chat">
+                                        <div>Trò chuyện với ChatBot</div>
+                                        <p onClick={() => { setIsChatContent(!isChatContent) }}>Chuyển chế độ nhập chi tiêu</p>
+                                    </div>
+                                    :
+                                    <div className="type-chat">
+                                        <div>Chế độ nhập chi tiêu</div>
+                                        <p onClick={() => { setIsChatContent(!isChatContent) }}>Trò chuyện với ChatBot </p>
+                                    </div>
+                            }
                         </div>
                         <div className="form-expense">
                             <InputSelectCategoryCommon
