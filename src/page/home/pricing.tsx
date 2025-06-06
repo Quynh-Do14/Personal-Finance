@@ -64,25 +64,25 @@ const PricingComponent = () => {
             img: selectFats1,
             name: "Tối ưu",
             number: 25,
-            content: "Chi phí vận hành cho doanh nghiệp"
+            content: "Tiết kiệm chi tiêu"
         },
         {
             img: selectFats2,
             name: "Tiết kiệm",
             number: 70,
-            content: "Thời gian xử lý sổ sách và báo cáo"
+            content: "Thời gian xử lý sổ sách"
         },
         {
             img: selectFats3,
             name: "Tăng",
             number: 65,
-            content: "Năng suất làm việc khi sử dụng dịch vụ"
+            content: "Hiệu quả tài chính"
         },
         {
             img: selectFats4,
             name: "Hơn",
             number: 99,
-            content: "Đối tác và khách hàng hài lòng"
+            content: "Khách hàng tin tưởng và đồng hành cùng FATS AI"
         },
     ]
     const navigate = useNavigate();
@@ -92,10 +92,13 @@ const PricingComponent = () => {
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                setIsAnimate(entry.isIntersecting);
+                // Chỉ set true một lần duy nhất
+                if (entry.isIntersecting && !isAnimate) {
+                    setIsAnimate(true);
+                }
             },
             {
-                threshold: 0.1 // Adjust this value to determine when the section is considered "in view"
+                threshold: 0.1
             }
         );
 
@@ -109,7 +112,7 @@ const PricingComponent = () => {
                 observer.unobserve(currentSectionRef);
             }
         };
-    }, []);
+    }, [isAnimate]);
 
     return (
         <div className="pricing-container">

@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import customer1 from "../../assets/images/customer1.png"
 import customer2 from "../../assets/images/customer2.png"
 import customer3 from "../../assets/images/customer3.png"
+import customer4 from "../../assets/images/no-avatar.png"
 
 import trust1 from "../../assets/images/trust1.png"
 import trust2 from "../../assets/images/trust2.png"
@@ -17,20 +18,26 @@ const customer = [
     {
         "name": "Nguyễn Hoàng An",
         img: customer1,
-        "title": "CEO ABC Corp",
-        "testimonial": "Nhờ FATS AI, tôi đã kiểm soát chi tiêu dễ dàng hơn, tiết kiệm đến 30% mỗi tháng và quản lý tài chính cá nhân hiệu quả hơn. Ứng dụng đơn giản, dễ sử dụng ngay cả khi tôi không có nhiều kiến thức về tài chính."
+        "title": "Giảng viên & tác giả sách kỹ năng tài chính",
+        "testimonial": "Giao diện dễ dùng, AI tự gợi ý giúp tôi cắt giảm chi phí không cần thiết. Nhờ đó, tôi tiết kiệm được 15–20% mỗi tháng mà trước đây không nhận ra!"
     },
     {
         "name": "Trần Minh Tuấn",
         img: customer2,
-        "title": "Nhà đầu tư cá nhân",
-        "testimonial": "Trước đây, tôi gặp nhiều khó khăn trong việc theo dõi chi tiêu và lên kế hoạch tài chính. Nhờ FATS AI, tôi dễ dàng kiểm soát tài chính cá nhân, có cái nhìn rõ ràng hơn và đưa ra quyết định đầu tư sáng suốt hơn."
+        "title": "Cố vấn tài chính cá nhân tại TP HCM",
+        "testimonial": "Tôi từng thử nhiều app quản lý tài chính, nhưng FATS AI là app đầu tiên khiến tôi thấy ‘hợp’. Ghi thu chi nhanh, có nhắc tiết kiệm theo mục tiêu và theo nhóm rất tiện"
     },
     {
         "name": "Lê Thanh Hà",
         img: customer3,
-        "title": "Giám đốc tài chính XYZ",
-        "testimonial": "FATS AI giúp tôi quản lý tài chính cá nhân dễ dàng hơn, đưa ra các gợi ý chi tiêu và tiết kiệm hợp lý. Nhờ đó, tôi kiểm soát tốt hơn ngân sách, tránh rủi ro tài chính và đạt được các mục tiêu tiết kiệm cá nhân nhanh hơn."
+        "title": "Nhân viên văn phòng",
+        "testimonial": "Từ ngày dùng FATS AI, mình theo dõi chi tiêu đều hơn hẳn. App phân loại chi tiết, dễ nhìn và còn cảnh báo khi mình chi vượt mức mỗi tháng. Rất hữu ích!"
+    },
+    {
+        "name": "Hoàng Minh Anh ",
+        img: customer4,
+        "title": "Sinh viên năm cuối",
+        "testimonial": "App này nên có từ hồi năm nhất. Dễ dùng, dễ hiểu, giúp mình không xài lố khi gần hết tháng. Có biểu đồ theo dõi cũng thích"
     }
 ]
 
@@ -139,12 +146,15 @@ const CustomerComponent = () => {
             </div>
             <Slider {...settings} className='slider'>
                 {
-                    customer && customer.length && customer.concat(customer).map((it, index) => {
+                    customer && customer.length && customer.map((it, index) => {
                         return (
                             <div className={"slider-content"} key={index}>
                                 <img
                                     src={it.img}
                                     alt={`Slide ${index + 1}`}
+                                    width={200}
+                                    height={200}
+                                    className='rounded-full'
                                 />
                                 <div className='name'>
                                     <div>{it.name}</div>

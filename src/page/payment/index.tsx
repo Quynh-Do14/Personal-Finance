@@ -113,7 +113,7 @@ const PaymentPage = () => {
                             &&
                             <p className="signup-text">
                                 Bạn chưa có tài khoản?
-                                <a href={ROUTE_PATH.LOGIN} className="gradient-link">Đăng nhập ngay</a>
+                                <a href={ROUTE_PATH.REGISTER} className="gradient-link">Đăng kí ngay</a>
                             </p>
                         }
 

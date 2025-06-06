@@ -90,9 +90,9 @@ const GoalSpendingTeamPage = () => {
     const isValidDataCategory = () => {
         let allRequestOK = true;
 
-        setValidate({ ...validate });
+        setValidateCategory({ ...validateCategory });
 
-        Object.values(validate).forEach((it: any) => {
+        Object.values(validateCategory).forEach((it: any) => {
             if (it.isError === true) {
                 allRequestOK = false;
             }
@@ -233,9 +233,9 @@ const GoalSpendingTeamPage = () => {
     }, [selectedId]);
 
     const onCreateCategoryAsync = async () => {
-        await setSubmittedTimeCategory(new Date());
-        if (isValidDataCategory()) {
-            if (selectedTab == 'spend') {
+        if (selectedTab == 'spend') {
+            await setSubmittedTimeCategory(new Date());
+            if (isValidDataCategory()) {
                 try {
                     await spendingTypeService.CreateTeam(
                         Number(id),
@@ -258,8 +258,13 @@ const GoalSpendingTeamPage = () => {
                 catch (error) {
                     console.error(error);
                 }
-            }
-            else if (selectedTab == "income") {
+            } else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+            };
+        }
+        else if (selectedTab == "income") {
+            await setSubmittedTimeCategory(new Date());
+            if (isValidDataCategory()) {
                 try {
                     await incomeTypeService.CreateTeam(
                         Number(id),
@@ -283,11 +288,12 @@ const GoalSpendingTeamPage = () => {
                     console.error(error);
                 }
             }
-        }
-        else {
-            WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+            else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+            };
         };
-    };
+    }
+
 
 
     const onUpdateCategoryAsync = async () => {
@@ -313,10 +319,13 @@ const GoalSpendingTeamPage = () => {
                     console.error(error);
                 }
             }
+            else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+            };
         }
         else if (selectedTab == "income") {
-            await setSubmittedTime(new Date());
-            if (isValidData()) {
+            await setSubmittedTimeCategory(new Date());
+            if (isValidDataCategory()) {
                 try {
                     await incomeTypeService.UpdateTeam(
                         Number(id),
@@ -336,6 +345,9 @@ const GoalSpendingTeamPage = () => {
                     console.error(error);
                 }
             }
+            else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin");
+            };
         }
     };
 

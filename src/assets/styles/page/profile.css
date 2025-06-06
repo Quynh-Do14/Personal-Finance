@@ -8,6 +8,7 @@
 .profile-page .container {
   display: flex;
   flex-direction: column;
+  margin: auto;
 }
 .profile-page .content {
   background: #fff;
