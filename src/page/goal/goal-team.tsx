@@ -555,19 +555,22 @@ const GoalSpendingTeamPage = () => {
                                                                 title={"Chi phí"}
                                                             />
                                                         </div>
-                                                        {
-                                                            listType.map((item, index) => {
-                                                                return (
-                                                                    <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
-                                                                        <div className="category-name">
-                                                                            <img src={configImageURL(item.imageCode)} alt="" width={40} />
-                                                                            <p>{item.name} </p>
+                                                        <div className="item-list">
+
+                                                            {
+                                                                listType.map((item, index) => {
+                                                                    return (
+                                                                        <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
+                                                                            <div className="category-name">
+                                                                                <img src={configImageURL(item.imageCode)} alt="" width={40} />
+                                                                                <p>{item.name} </p>
+                                                                            </div>
+                                                                            <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                                         </div>
-                                                                        <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
                                                     </div>
                                                     <ButtonDesign
                                                         classColor={'green'}
@@ -577,29 +580,32 @@ const GoalSpendingTeamPage = () => {
                                                 </div>
                                                 <div className={`${selectedMenu == 2 ? "show" : "un-show"} box`}>
                                                     <div className="flex flex-col gap-2">
-                                                        {
-                                                            listMember.map((item, index) => {
-                                                                return (
-                                                                    <div className="category-item" key={index}>
-                                                                        <div className="category-name">
-                                                                            {
-                                                                                item?.avatarCode
-                                                                                    ?
-                                                                                    <div className="img">
-                                                                                        <img src={configImageURL(item?.avatarCode)} alt="" />
-                                                                                    </div>
-                                                                                    :
-                                                                                    <div className="icon">
-                                                                                        <i className="fa fa-users" aria-hidden="true"></i>
-                                                                                    </div>
-                                                                            }
-                                                                            <p>{item.name} </p>
+                                                        <div className="item-list">
+
+                                                            {
+                                                                listMember.map((item, index) => {
+                                                                    return (
+                                                                        <div className="category-item" key={index}>
+                                                                            <div className="category-name">
+                                                                                {
+                                                                                    item?.avatarCode
+                                                                                        ?
+                                                                                        <div className="img">
+                                                                                            <img src={configImageURL(item?.avatarCode)} alt="" />
+                                                                                        </div>
+                                                                                        :
+                                                                                        <div className="icon">
+                                                                                            <i className="fa fa-users" aria-hidden="true"></i>
+                                                                                        </div>
+                                                                                }
+                                                                                <p>{item.name} </p>
+                                                                            </div>
+                                                                            <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                                         </div>
-                                                                        <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
                                                     </div>
                                                     <ButtonDesign
                                                         classColor={'green'}

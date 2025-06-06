@@ -1,30 +1,11 @@
 import { useRecoilValue } from 'recoil'
 import { ProfileState } from '../../../../core/atoms/profile/profileState'
-import { ROUTE_PATH } from '../../../../core/common/appRouter'
 import AnimatedNumber from '../controls/AnimatedNumber';
-import budgetService from '../../../repositories/budget/budget.service';
-import { useEffect, useState } from 'react';
+import { BudgetState } from '../../../../core/atoms/budget/budgetState';
 const BudgetInfo = () => {
     const profileState = useRecoilValue(ProfileState).user;
-    const [budget, setBudget] = useState<any>({});
+    const budget = useRecoilValue(BudgetState).data;
 
-    const onGetBudgetAsync = async () => {
-        try {
-            await budgetService.GetBudget(
-                () => { }
-            ).then((response) => {
-                setBudget(response);
-
-            })
-        }
-        catch (error) {
-            console.error(error)
-        }
-    };
-
-    useEffect(() => {
-        onGetBudgetAsync().then(() => { });
-    }, []);
     return (
         <div className='budget-info'>
             <div className="budget-info__items">

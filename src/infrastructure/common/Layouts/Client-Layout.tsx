@@ -8,6 +8,8 @@ import { isTokenStoraged } from "../../utils/storage";
 import authService from "../../repositories/auth/service/auth.service";
 import { useRecoilState } from "recoil";
 import { ProfileState } from "../../../core/atoms/profile/profileState";
+import budgetService from "../../repositories/budget/budget.service";
+import { BudgetState } from "../../../core/atoms/budget/budgetState";
 
 const LayoutClient = ({ ...props }: any) => {
     const [isLoginClick, setIsLoginClick] = useState<boolean>(false);
@@ -24,6 +26,7 @@ const LayoutClient = ({ ...props }: any) => {
     const [isLoadingToken, setIsLoadingToken] = useState<boolean>(false);
     const [dataProfile, setDataProfile] = useState<any>({});
     const [, setProfileState] = useRecoilState(ProfileState);
+    const [, setBudgetState] = useRecoilState(BudgetState);
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -62,9 +65,34 @@ const LayoutClient = ({ ...props }: any) => {
         }
 
     }
+    const onGetBudgetAsync = async () => {
+        if (isLoadingToken) {
+            if (!token) return;
+            try {
+                await budgetService.GetBudget(
+                    () => { }
+                ).then((response) => {
+                    setBudgetState({
+                        data: response
+                    });
+
+                })
+            }
+            catch (error) {
+                console.error(error)
+            }
+        }
+    };
+
+
     useEffect(() => {
         getProfileUser().then(() => { })
+        onGetBudgetAsync().then(() => { });
     }, [token, isLoadingToken])
+
+
+
+
 
 
     const handleScroll = useCallback(() => {

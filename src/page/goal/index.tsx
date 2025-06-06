@@ -25,7 +25,6 @@ import ChatButton from "../chat/buttonChat";
 import { getTokenStoraged } from "../../infrastructure/utils/storage";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import OverviewComponent from "./common/overview";
 import PieChart from "./common/pieChart";
 import ModalAllocation from "./modal/modalAllocation";
 import staticService from "../../infrastructure/repositories/static/static.service";
@@ -593,8 +592,6 @@ const GoalSpendingPage = () => {
                 timeRange,
                 () => { }
             );
-            console.log("res", res);
-
             if (!res.incomeStatistics || !Array.isArray(res.incomeStatistics.incomeTypeAndAmounts)) {
                 console.warn("No income data available");
                 setIncomeData({ labels: [], datasets: [] });
@@ -627,7 +624,7 @@ const GoalSpendingPage = () => {
             await staticService.getStatisticalByTime(
                 String(""),
                 "week",
-                setLoading
+                () => { }
             ).then((res) => {
                 const labels = res?.map((item: any) => item?.dayOfWeek);
                 const dataIncome = res?.map((item: any) => item.totalIncome || 0);
@@ -807,19 +804,22 @@ const GoalSpendingPage = () => {
                                             title={"Thu nhập"}
                                         />
                                     </div>
-                                    {
-                                        listType.map((item, index) => {
-                                            return (
-                                                <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
-                                                    <div className="category-name">
-                                                        <img src={configImageURL(item.imageCode)} alt="" width={40} />
-                                                        <p>{item.name} </p>
+                                    <div className="item-list">
+                                        {
+                                            listType.map((item, index) => {
+                                                return (
+                                                    <div className="category-item" key={index} onClick={() => onOpenModalCreateCategory(item)}>
+                                                        <div className="category-name">
+                                                            <img src={configImageURL(item.imageCode)} alt="" width={40} />
+                                                            <p>{item.name} </p>
+                                                        </div>
+                                                        <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                     </div>
-                                                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                </div>
-                                            )
-                                        })
-                                    }
+                                                )
+                                            })
+                                        }
+                                    </div>
+
                                 </div>
                                 <div className="flex justify-center gap-2 flex-wrap">
                                     <ButtonDesign
@@ -1040,7 +1040,7 @@ const GoalSpendingPage = () => {
                 handleCancel={onCloseModalDelete}
                 visible={isOpenModalDelete}
             />
-            {/* <FullPageLoading isLoading={loading} /> */}
+            <FullPageLoading isLoading={loading} />
         </LayoutClient >
     );
 };

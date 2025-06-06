@@ -16,6 +16,8 @@
   justify-content: space-between;
   gap: 16px;
   height: 100%;
+  min-height: 200px;
+  max-height: 600px;
 }
 
 .personal-finance-container .category .content {
@@ -46,11 +48,24 @@
     transform: translateX(0%);
   }
 }
-.personal-finance-container .category .category-item {
+.personal-finance-container .category .item-list {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  max-height: 360px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 4px;
+}
+
+.personal-finance-container .category .item-list .category-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 8px 12px;
   border-radius: 8px;
   background: #e6f0eb;
   border: 1px solid #d7d7d785;
@@ -58,7 +73,7 @@
   transition: 0.3s;
   cursor: pointer;
   position: relative;
-  overflow: hidden;
+  height: 58px;
 }
 
 @keyframes underline {
@@ -75,16 +90,16 @@
   }
 
   100% {
-    width: 105%;
+    width: 100%;
   }
 }
 
-.personal-finance-container .category .category-item:hover {
-  scale: 1.05;
+.personal-finance-container .category .item-list .category-item:hover {
+  scale: 1.02;
   background: linear-gradient(252.31deg, #006699 9.19%, #99cc99 90.81%);
 }
 
-.personal-finance-container .category .category-item::after {
+.personal-finance-container .category .item-list .category-item::after {
   content: '';
   background: #ff3f3fd4;
   position: absolute;
@@ -94,22 +109,28 @@
   width: 100%;
 }
 
-.personal-finance-container .category .category-item:hover::after {
+.personal-finance-container .category .item-list .category-item:hover::after {
   content: '';
   background: #7c0fd1;
   height: 2px;
   transition: 0.5s;
   animation: underline 0.4s both ease-in-out 1;
+  overflow-x: hidden;
 }
 
-.personal-finance-container .category .category-item .category-name {
+.personal-finance-container .category .item-list .category-item .category-name {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
 }
 
-.personal-finance-container .category .category-item .category-name .icon {
+.personal-finance-container
+  .category
+  .item
+  .category-item
+  .category-name
+  .icon {
   border: 1px dotted #80808085;
   display: flex;
   justify-content: center;
@@ -117,7 +138,12 @@
   border-radius: 50%;
   padding: 8px;
 }
-.personal-finance-container .category .category-item .category-name .img {
+.personal-finance-container
+  .category
+  .item-list
+  .category-item
+  .category-name
+  .img {
   border: 1px dotted #80808085;
   display: flex;
   justify-content: center;
@@ -127,16 +153,33 @@
   height: 34px;
 }
 
-.personal-finance-container .category .category-item .category-name .img img {
+.personal-finance-container
+  .category
+  .item
+  .category-item
+  .category-name
+  .img
+  img {
   width: 60px;
   height: inherit;
   border-radius: 50%;
 }
-.personal-finance-container .category .category-item .category-name .icon i {
+.personal-finance-container
+  .category
+  .item
+  .category-item
+  .category-name
+  .icon
+  i {
   color: #1d9b5e;
   font-size: 16px;
 }
-.personal-finance-container .category .category-item .category-name p {
+.personal-finance-container
+  .category
+  .item-list
+  .category-item
+  .category-name
+  p {
   font-size: 14px;
   color: #1d1d1d;
   font-weight: 600;
@@ -151,6 +194,8 @@
   border-radius: 15px;
   padding: 20px;
   height: 100%;
+  min-height: 200px;
+  max-height: 600px;
 }
 
 .personal-finance-container .target .box:hover {

@@ -30,7 +30,7 @@ class StaticService {
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Static.Team.GetStatisticalGoal}`, {
+                .get(`${Endpoint.Static.Team.GetStatisticalGoal}/${goalId}`, {
                     endDate,
                     startDate,
                     timeRange,
@@ -51,10 +51,11 @@ class StaticService {
     };
 
     async getStatisticalByTime(goalId: string, type: "week" | "month", setLoading: Function) {
+        const url = goalId ? `${Endpoint.Static.Common.GetByTime}/${goalId}` : Endpoint.Static.Common.GetByTime
         setLoading(true)
         try {
             return await RequestService
-                .get(`${Endpoint.Static.Common.GetByTime}`, {
+                .get(url, {
                     timeRange: type
                 })
                 .then(response => {
