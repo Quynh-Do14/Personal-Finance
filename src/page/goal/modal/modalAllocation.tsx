@@ -1,6 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { Col, Modal, Row } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputNumberCommon from '../../../infrastructure/common/components/input/input-number';
 import goalService from '../../../infrastructure/repositories/goal/goal.service';
 import { WarningMessage } from '../../../infrastructure/common/components/toast/notificationToast';
@@ -20,7 +20,7 @@ const ModalAllocation = (props: Props) => {
         setLoading,
         onGetListGoalAsync
     } = props;
-
+    const [newAllocationArray, setNewAllocationArray] = useState<any[]>([])
     const [validate, setValidate] = useState<any>({});
     const [submittedTime, setSubmittedTime] = useState<any>();
     const [_dataRequest, _setDataRequest] = useState<any>({});
@@ -44,12 +44,23 @@ const ModalAllocation = (props: Props) => {
     };
 
 
-    const newArrayList = newlistGoal.filter(item => item.startDate !== null)
+    useEffect(() => {
+        const newArrayList = newlistGoal.filter(item => item.startDate !== null)
+        if (newArrayList.length) {
+            const newData: any = {};
+
+            newArrayList.forEach(item => {
+                newData[`allocationPercentage${item.id}`] = (item.allocationPercentage) || 0;
+            });
+            setDataRequest(newData); // sẽ gộp vào state hiện tại
+        }
+        setNewAllocationArray(newArrayList);
+    }, [newlistGoal]);
 
     const onAllocateAsync = async () => {
         await setSubmittedTime(new Date());
 
-        const data = newArrayList.map((item) => {
+        const data = newAllocationArray.map((item) => {
             const result = {
                 goalId: item.id,
                 allocationPercentage: dataRequest[`allocationPercentage${item.id}`]
@@ -91,20 +102,19 @@ const ModalAllocation = (props: Props) => {
                 <div className='text-[18px] text-[#1e2330] font-semibold text-center mb-5'>Phân bổ mục tiêu</div>
                 <Row gutter={[30, 30]} justify={"center"} className='sm:p-4 p-0'>
                     {
-                        newArrayList.map((item, index) => {
+                        newAllocationArray.map((item, index) => {
                             return (
-                                <Col span={24}>
+                                <Col span={24} key={index}>
                                     <InputNumberCommon
-                                        label={item.name}
+                                        label={`${item.name} (%)`}
                                         attribute={`allocationPercentage${item.id}`}
-                                        isRequired={true}
+                                        isRequired={false}
                                         setData={setDataRequest}
                                         dataAttribute={dataRequest[`allocationPercentage${item.id}`]}
                                         disabled={false}
                                         validate={validate}
                                         setValidate={setValidate}
                                         submittedTime={submittedTime}
-                                        key={index}
                                     />
                                 </Col>
                             )

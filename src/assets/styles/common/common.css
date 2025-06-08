@@ -299,7 +299,10 @@
 
 .budget-info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+justify-content: space-between;
+  gap: 8px;
   width: 100%;
   height: 100%;
   min-height: 200px;
@@ -329,7 +332,24 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 100%;
+}
+.budget-info .redirect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  width: 140px;
+  height: 26px;
+  white-space: nowrap;
+}
+.budget-info .redirect:hover {
+  text-decoration: underline;
 }
 
 .budget-item {

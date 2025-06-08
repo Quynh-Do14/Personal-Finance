@@ -147,7 +147,7 @@ const PersonalFinancePage = () => {
                 const labels = res?.map((item: any) => item?.dayOfWeek);
                 const dataIncome = res?.map((item: any) => item.totalIncome || 0);
                 const dataSpend = res?.map((item: any) => item.totalSpend || 0);
-                
+
                 setStatisticsByTime({
                     labels: labels,
                     datasets: [
@@ -392,6 +392,7 @@ const PersonalFinancePage = () => {
                                 setSelectedTab={setSelectedTab}
                                 selectedType={"type"}
                                 setSelectedType={() => { }}
+                                goadId={String(id)}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>

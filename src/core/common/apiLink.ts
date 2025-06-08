@@ -37,7 +37,7 @@ export class Endpoint {
         static Member = "/teams/users"
         static AddMember = "/members/add-member"
         static Leave = "/members/user/leave"
-        static Delete = "/members/user/delete"
+        static Delete = "/teams/user/delete"
         static Lock = "/teams/user/block"
         static UnLock = "/teams/user/unblock"
     }
@@ -49,18 +49,31 @@ export class Endpoint {
         }
         static Team = class {
             static Get = "/chat-logs/team/all"
-            static Add = "/ai/chat/team/spend"
+            static Add = "/ai/chat/team"
             static GetBill = "/ai/bill/info"
         }
     }
     static Income = class {
-        static Get = "/incomes/user/get"
-        static Create = "/incomes/user/create/personal"
+        static Personal = class {
+            static Get = "/incomes/user/get"
+            static Create = "/incomes/user/create/personal"
+        }
+        static Team = class {
+            static Get = "/incomes/user/get"
+            static Create = "/incomes/user/create"
+        }
     }
 
     static Spending = class {
-        static Get = "/spends/user/get"
-        static Create = "/spends/user/create/personal"
+        static Personal = class {
+            static Get = "/spends/user/get"
+            static Create = "/spends/user/create/personal"
+        }
+        static Team = class {
+            static Get = "/spends/user/get"
+            static Create = "/spends/user/create"
+        }
+
     }
     static Static = class {
         static Personal = class {
@@ -70,7 +83,8 @@ export class Endpoint {
             static GetStatisticalGoal = "/spends/team/statistical"
         }
         static Common = class {
-            static GetByTime = "/spends/user/statistical/day-of-week/personal"
+            static Personal = "/spends/user/statistical/day-of-week/personal"
+            static Team = "/spends/user/statistical/day-of-week"
         }
     }
     static SpendingType = class {
@@ -121,5 +135,16 @@ export class Endpoint {
         static Get = "/budgets/private/my-budget"
         static Create = "/budgets/private/create"
         static Update = "/budgets/private/update"
+    }
+
+    static History = class {
+        static Personal = class {
+            static Spend = "/spends/user/all"
+            static Income = "/incomes/user/all"
+        }
+        static Team = class {
+            static Spend = "/spends/team/all"
+            static Income = "/incomes/team/all"
+        }
     }
 }

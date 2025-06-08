@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil'
 import { ProfileState } from '../../../../core/atoms/profile/profileState'
 import AnimatedNumber from '../controls/AnimatedNumber';
 import { BudgetState } from '../../../../core/atoms/budget/budgetState';
+import { ROUTE_PATH } from '../../../../core/common/appRouter';
 const BudgetInfo = () => {
     const profileState = useRecoilValue(ProfileState).user;
     const budget = useRecoilValue(BudgetState).data;
@@ -11,7 +12,7 @@ const BudgetInfo = () => {
             <div className="budget-info__items">
                 <div className="budget-item">
                     <div className="budget-item__icon">
-                        <i className="fa fa-money" aria-hidden="true"></i>
+                        <i className="fa fa-piggy-bank" aria-hidden="true"></i>
                     </div>
                     <div className="budget-item__content">
                         <p className="budget-item__label">Tổng thặng dư</p>
@@ -23,7 +24,7 @@ const BudgetInfo = () => {
 
                 <div className="budget-item">
                     <div className="budget-item__icon">
-                        <i className="fa fa-piggy-bank" aria-hidden="true"></i>
+                        <i className="fa fa-money" aria-hidden="true"></i>
                     </div>
                     <div className="budget-item__content">
                         <p className="budget-item__label">Tổng thu chi</p>
@@ -46,6 +47,9 @@ const BudgetInfo = () => {
                 </div>
 
             </div>
+            <a href={ROUTE_PATH.PROFILE} className="redirect">
+                Cập nhật ngân sách
+            </a>
         </div>
     )
 }

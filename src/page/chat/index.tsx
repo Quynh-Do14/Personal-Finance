@@ -154,37 +154,37 @@ const ChatBoxCommon = (props: Props) => {
 
 
     // Danh mục
-    const onGetSpendingTypeAsync = async () => {
-        try {
-            await spendingTypeService.GetUser(
-                {},
-                () => { }
-            ).then((res) => {
-                setListSpendingType(res.content);
-            })
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
+    // const onGetSpendingTypeAsync = async () => {
+    //     try {
+    //         await spendingTypeService.GetUser(
+    //             {},
+    //             () => { }
+    //         ).then((res) => {
+    //             setListSpendingType(res.content);
+    //         })
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
-    const onGetIncomeTypeAsync = async () => {
-        try {
-            await incomeTypeService.GetUser(
-                {},
-                () => { }
-            ).then((res) => {
-                setListIncomeType(res.content);
-            })
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
-    useEffect(() => {
-        onGetSpendingTypeAsync().then(() => { });
-        onGetIncomeTypeAsync().then(() => { });
-    }, [])
+    // const onGetIncomeTypeAsync = async () => {
+    //     try {
+    //         await incomeTypeService.GetUser(
+    //             {},
+    //             () => { }
+    //         ).then((res) => {
+    //             setListIncomeType(res.content);
+    //         })
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+    // useEffect(() => {
+    //     onGetSpendingTypeAsync().then(() => { });
+    //     onGetIncomeTypeAsync().then(() => { });
+    // }, [])
     /////
     // Danh mục
     const onGetSpendingTypeTeamAsync = async () => {
@@ -202,6 +202,19 @@ const ChatBoxCommon = (props: Props) => {
                 console.error(error);
             }
         }
+        else {
+            try {
+                await spendingTypeService.GetUser(
+                    {},
+                    () => { }
+                ).then((res) => {
+                    setListSpendingType(res.content);
+                })
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
     };
 
     const onGetIncomeTypeTeamAsync = async () => {
@@ -209,6 +222,19 @@ const ChatBoxCommon = (props: Props) => {
             try {
                 await incomeTypeService.GetTeam(
                     String(idTeam),
+                    {},
+                    () => { }
+                ).then((res) => {
+                    setListIncomeType(res.content);
+                })
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        else {
+            try {
+                await incomeTypeService.GetUser(
                     {},
                     () => { }
                 ).then((res) => {
