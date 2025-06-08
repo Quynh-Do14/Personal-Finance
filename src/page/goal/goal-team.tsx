@@ -545,14 +545,14 @@ const GoalSpendingTeamPage = () => {
                                                     <div className="flex flex-col gap-2">
                                                         <div className="flex justify-center gap-4">
                                                             <ButtonDesign
-                                                                classColor={selectedTab === "income" ? "green" : "transparent"}
-                                                                onClick={() => setSelectedTab("income")}
-                                                                title={"Thu nhập"}
-                                                            />
-                                                            <ButtonDesign
                                                                 classColor={selectedTab === "spend" ? "green" : "transparent"}
                                                                 onClick={() => setSelectedTab("spend")}
                                                                 title={"Chi phí"}
+                                                            />
+                                                            <ButtonDesign
+                                                                classColor={selectedTab === "income" ? "green" : "transparent"}
+                                                                onClick={() => setSelectedTab("income")}
+                                                                title={"Thu nhập"}
                                                             />
                                                         </div>
                                                         <div className="item-list">

@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import Cookies, { CookieAttributes } from 'js-cookie';
+
+const TOKEN_COOKIE_OPTIONS: CookieAttributes = {
+  path: '/',
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'Strict',
+  expires: 7, // 7 ngày
+};
 
 const Authenticate = () => {
   const navigate = useNavigate();
@@ -19,10 +26,12 @@ const Authenticate = () => {
       const authCode = isMatch[1];
       axios.post(`${baseURL}/auth/oauth2/authentication?code=${authCode}`, {
         code: authCode
-      }).then((response) => {
-        console.log("response: ", response);
-        const { refreshToken, accessToken } = response.data;
-        Cookies.set('token', JSON.stringify({ refreshToken, accessToken }));
+      }).then((response: any) => {
+        if (response?.accessToken && response?.refreshToken) {
+          Cookies.set('accessToken', response.accessToken, TOKEN_COOKIE_OPTIONS);
+          Cookies.set('refreshToken', response.refreshToken, TOKEN_COOKIE_OPTIONS);
+
+        }
         setIsLoggedin(true);
       }).catch((error) => {
         console.log("error: ", error);
