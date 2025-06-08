@@ -4,6 +4,8 @@ import { ButtonDesign } from '../../../infrastructure/common/components/button/b
 import categoryOther from '../../../assets/images/category/another.png'
 import SelectFilterCommon from '../../../infrastructure/common/components/input/select-filter';
 import Constants from '../../../core/common/constants';
+import { ROUTE_PATH } from '../../../core/common/appRouter';
+import { ButtonHref } from '../../../infrastructure/common/components/button/buttonHref';
 type Props = {
     selectedTab: "spend" | "income"
     dataTable: any[]
@@ -21,7 +23,7 @@ type Props = {
     isType?: boolean;
     selectedType: "type" | "user"
     setSelectedType: (value: "type" | "user") => void;
-
+    goadId: String
 }
 const StaticComponent = (props: Props) => {
     const {
@@ -40,7 +42,8 @@ const StaticComponent = (props: Props) => {
         setSelectedTab,
         isType = false,
         selectedType,
-        setSelectedType
+        setSelectedType,
+        goadId
     } = props;
     const onChangeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const mapValue: Record<string, "type" | "user"> = {
@@ -51,10 +54,19 @@ const StaticComponent = (props: Props) => {
         if (selected) {
             setSelectedType(selected);
         }
-    }
+    };
+
     return (
         <div className='static box-common'>
-            <p className='title-box'>Các khoản thu chi</p>
+            <div className='flex justify-between'>
+                <p className='title-box'>Các khoản thu chi</p>
+                <ButtonHref
+                    classColor={'green'}
+                    href={`${ROUTE_PATH.HISTORY_TRANSITION}?goadId=${goadId}`}
+                    title={'Lịch sử giao dịch'}
+                    width={170}
+                />
+            </div>
             <TimeFilter
                 setTimeRange={setTimeRange}
                 startDate={startDate}
@@ -152,7 +164,7 @@ const StaticComponent = (props: Props) => {
                             <tbody>
                                 {
                                     dataTable.map((item, index) => {
-                                        const percent = item.amount / (selectedTab === "spend" ? spendStatistics?.totalInCome : incomeStatistics?.totalInCome)
+                                        const percent = item.amount / (selectedTab === "spend" ? spendStatistics?.totalInCome : incomeStatistics?.totalIncome)
                                         return (
                                             <tr
                                                 className={`${index % 2 === 0 ? "bg-[#ccf2dd]" : "bg-[#cce5ff]"

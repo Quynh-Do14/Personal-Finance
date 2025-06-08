@@ -498,10 +498,6 @@ const GoalSpendingPage = () => {
                         question: messages
                     },
                     async () => {
-                        // setTimeout(async () => {
-                        //     setMessages("");
-                        //     await onGetChatBoxAsync();
-                        // }, 10);
                         setMessagesLoading("")
                     },
                     setLoadingBot
@@ -546,7 +542,6 @@ const GoalSpendingPage = () => {
 
 
     const onGetSpendPersonalByGoalStatistical = async () => {
-        setLoading(true);
         try {
             const res = await staticService.PersonalStatisticalByGoal(
                 String(""),
@@ -578,12 +573,10 @@ const GoalSpendingPage = () => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
         }
     };
 
     const onGetIncomePersonalByGoalStatistical = async () => {
-        setLoading(true);
         try {
             const res = await staticService.PersonalStatisticalByGoal(
                 String(""),
@@ -615,7 +608,6 @@ const GoalSpendingPage = () => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
         }
     };
 
@@ -968,6 +960,7 @@ const GoalSpendingPage = () => {
                                 setSelectedTab={setSelectedTab}
                                 selectedType={"type"}
                                 setSelectedType={() => { }}
+                                goadId={""}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>

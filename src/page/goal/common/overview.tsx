@@ -73,18 +73,18 @@ const OverviewComponent = (props: Props) => {
                             <p className="title">Tổng chi tiêu hôm nay</p>
                             <p className="sum">
                                 {dailySpend >= 0 ? <i className="fa fa-caret-up mr-2" aria-hidden="true"></i> : <i className="fa fa-caret-down" aria-hidden="true"></i>}
-                                {dailySpend && <AnimatedNumber value={dailySpend} />}₫
+                                {dailySpend ? <AnimatedNumber value={dailySpend} /> : 0}₫
                             </p>
                         </div>
                     </div>
                     <div className="more">
                         <div>
                             <p className="">Thu nhập</p>
-                            <p className=""><i className="fa fa-caret-up mr-2" aria-hidden="true"></i>{incomeStatistics.totalInCome && <AnimatedNumber value={incomeStatistics.totalInCome} />}₫</p>
+                            <p className=""><i className="fa fa-caret-up mr-2" aria-hidden="true"></i>{incomeStatistics.totalIncome ? <AnimatedNumber value={incomeStatistics.totalIncome} /> : 0}₫</p>
                         </div>
                         <div>
                             <p className="">Chi phí</p>
-                            <p className=""><i className="fa fa-caret-down mr-2" aria-hidden="true"></i>{spendStatistics.totalSpend && <AnimatedNumber value={spendStatistics.totalSpend} />}₫</p>
+                            <p className=""><i className="fa fa-caret-down mr-2" aria-hidden="true"></i>{spendStatistics.totalSpend ? <AnimatedNumber value={spendStatistics.totalSpend} /> : 0}₫</p>
                         </div>
                     </div>
                 </div>

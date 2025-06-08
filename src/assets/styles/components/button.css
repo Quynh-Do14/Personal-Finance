@@ -198,6 +198,7 @@
   padding-bottom: 10px;
   padding-left: 25px;
   border-radius: 5px;
+  text-align: center;
 }
 
 .btn-send.green {
@@ -207,4 +208,7 @@
 .btn-send.white {
   background: #fff;
   border: 1px #99cc99 solid;
+}
+a.btn-send:hover {
+  color: #003333;
 }

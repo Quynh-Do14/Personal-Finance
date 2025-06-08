@@ -116,14 +116,14 @@ const TeamFinancePage = () => {
                 "",
                 "",
                 "daily",
-                setLoading
+                () => { }
             ).then((res) => {
-                setDailySpend(res.incomeStatistics.totalInCome - res.spendStatistics.totalSpend);
+                setDailySpend(res.incomeStatistics.totalIncome - res.spendStatistics.totalSpend);
                 setBarChartData({
                     labels: ["Thu nhập", "Chi tiêu"],
                     datasets: [{
                         data: [
-                            res.incomeStatistics.totalInCome,
+                            res.incomeStatistics.totalIncome,
                             res.spendStatistics.totalSpend
                         ],
                         backgroundColor: ["#2483DD", "#E14C76"]
@@ -152,8 +152,10 @@ const TeamFinancePage = () => {
             await staticService.getStatisticalByTime(
                 String(id),
                 "week",
-                setLoading
+                () => { }
             ).then((res) => {
+
+
                 const labels = res?.map((item: any) => item?.dayOfWeek);
                 const dataIncome = res?.map((item: any) => item.totalIncome || 0);
                 const dataSpend = res?.map((item: any) => item.totalSpend || 0);
@@ -190,7 +192,6 @@ const TeamFinancePage = () => {
 
 
     const onGetSpendTeamByGoalStatistical = async () => {
-        setLoading(true);
         try {
             const res = await staticService.TeamStatisticalByGoal(
                 String(id),
@@ -198,7 +199,7 @@ const TeamFinancePage = () => {
                 startDate,
                 endDate,
                 timeRange,
-                setLoading
+                () => { }
             );
 
             // if (!res.spendStatistics || !Array.isArray(res.spendStatistics.spendingTypeAndAmounts)) {
@@ -241,12 +242,10 @@ const TeamFinancePage = () => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
         }
     };
 
     const onGetIncomeTeamByGoalStatistical = async () => {
-        setLoading(true);
         try {
             const res = await staticService.TeamStatisticalByGoal(
                 String(id),
@@ -257,16 +256,16 @@ const TeamFinancePage = () => {
                 () => { }
             );
 
-            // if (!res.incomeStatistics || !Array.isArray(res.incomeStatistics.inComeTypeAndAmounts)) {
+            // if (!res.incomeStatistics || !Array.isArray(res.incomeStatistics.incomeTypeAndAmounts)) {
             //     console.warn("No income data available");
             //     setIncomeData({ labels: [], datasets: [] });
             //     return;
             // }
             if (selectedType == "type") {
-                const labels = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.inComeType?.name || "Unknown");
-                const dataValues = res.incomeStatistics.inComeTypeAndAmounts.map((item: any) => item.amount || 0);
+                const labels = res.incomeStatistics.incomeTypeAndAmounts.map((item: any) => item.incomeType?.name || "Unknown");
+                const dataValues = res.incomeStatistics.incomeTypeAndAmounts.map((item: any) => item.amount || 0);
                 const colors = generateColors(labels.length);
-                setIncomeDataTable(res.incomeStatistics.inComeTypeAndAmounts);
+                setIncomeDataTable(res.incomeStatistics.incomeTypeAndAmounts);
                 setIncomeStatistics(res.incomeStatistics);
                 setIncomeData({
                     labels: labels,
@@ -298,7 +297,6 @@ const TeamFinancePage = () => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
         }
     };
 
@@ -361,10 +359,7 @@ const TeamFinancePage = () => {
                         question: messages
                     },
                     async () => {
-                        // setTimeout(async () => {
-                        //     setMessages("");
-                        //     await onGetChatBoxAsync();
-                        // }, 10);
+
                     },
                     setLoadingBot
                 ).then(() => { });
@@ -444,6 +439,7 @@ const TeamFinancePage = () => {
                                 isType={true}
                                 selectedType={selectedType}
                                 setSelectedType={setSelectedType}
+                                goadId={String(id)}
                             />
                         </Col>
                         <Col sm={24} md={10} lg={8}>
@@ -471,7 +467,7 @@ const TeamFinancePage = () => {
                     />
                 </div>
             </div>
-            <FullPageLoading isLoading={false} />
+            <FullPageLoading isLoading={loading} />
         </LayoutClient >
     );
 };

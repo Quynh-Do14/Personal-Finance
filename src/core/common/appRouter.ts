@@ -15,6 +15,7 @@ export const ROUTE_PATH = {
     TEAM_FINANCE_PAGE: `${PREFIX}/team-finance/:id`,
 
     REPORT_PAGE: `${PREFIX}/report`,
+    HISTORY_TRANSITION: `${PREFIX}/history-transition`,
     GOAL_SPENDING_PAGE: `${PREFIX}/goal-spending`,
     TEAM_PAGE: `${PREFIX}/team`,
     GOAL_SPENDING_TEAM_PAGE: `${PREFIX}/team/spending-team/:id`,

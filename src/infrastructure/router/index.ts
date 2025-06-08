@@ -20,6 +20,7 @@ import ProfilePage from "../../page/profile";
 import JoinTeam from "../../page/team/joinTeam";
 import ForgotPasswordScreen from "../../page/Auth/ForgotPassword";
 import ResetPasswordScreen from "../../page/Auth/ResetPassword";
+import HistoryTransitionPage from "../../page/goal/history";
 
 export const privateRoutes = [
 
@@ -66,6 +67,11 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.TEAM_PAGE,
         component: TeamPage,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.HISTORY_TRANSITION,
+        component: HistoryTransitionPage,
         private: true,
     },
     {

@@ -51,7 +51,7 @@ class StaticService {
     };
 
     async getStatisticalByTime(goalId: string, type: "week" | "month", setLoading: Function) {
-        const url = goalId ? `${Endpoint.Static.Common.GetByTime}/${goalId}` : Endpoint.Static.Common.GetByTime
+        const url = goalId ? `${Endpoint.Static.Common.Team}/${goalId}` : Endpoint.Static.Common.Personal
         setLoading(true)
         try {
             return await RequestService
