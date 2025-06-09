@@ -31,6 +31,8 @@ import staticService from "../../infrastructure/repositories/static/static.servi
 import StaticComponent from "./common/static";
 import BarChartStatic from "./common/barChart";
 import OverviewPersonalComponent from "./common/overviewPersonal";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_PATH } from "../../core/common/appRouter";
 
 const GoalSpendingPage = () => {
     const [listGoal, setListGoal] = useState<Array<any>>([]);
@@ -116,6 +118,7 @@ const GoalSpendingPage = () => {
         return allRequestOK;
     };
     //
+    const [isOpenModalOutDate, setIsOpenModalOutDate] = useState<boolean>(false);
 
     const [validateCategory, setValidateCategory] = useState<any>({});
     const [submittedTimeCategory, setSubmittedTimeCategory] = useState<any>();
@@ -138,6 +141,7 @@ const GoalSpendingPage = () => {
         });
         return allRequestOK;
     };
+    const navigate = useNavigate();
     const pageSize = 4
     const onGetListGoalAsync = async () => {
         const param = {
@@ -190,6 +194,12 @@ const GoalSpendingPage = () => {
                     () => {
                         onGetListGoalAsync().then(_ => { });
                         onCloseModalCreate();
+                        setDataRequest({
+                            name: "",
+                            goalAmount: "",
+                            startDate: convertDateOnly(""),
+                            endDate: convertDateOnly("")
+                        })
                     },
                     setLoading
                 ).then(() => { })
@@ -505,7 +515,10 @@ const GoalSpendingPage = () => {
                     async () => {
                         setMessagesLoading("")
                     },
-                    setLoadingBot
+                    setLoadingBot,
+                    () => {
+                        setIsOpenModalOutDate(true)
+                    }
                 ).then(() => {
                 });
             }
@@ -751,6 +764,17 @@ const GoalSpendingPage = () => {
             </Menu >
         )
     };
+
+    ///
+    const onCloseModalOutDate = () => {
+        setIsOpenModalOutDate(false)
+    }
+
+    const onRedirectModalOutDate = () => {
+        setIsOpenModalOutDate(false)
+        navigate(ROUTE_PATH.PAYMENT_INFO)
+    }
+    ///
 
     return (
         <LayoutClient>
@@ -1037,6 +1061,15 @@ const GoalSpendingPage = () => {
                 handleOk={onDeleteGoalAsync}
                 handleCancel={onCloseModalDelete}
                 visible={isOpenModalDelete}
+            />
+            <DialogConfirmCommon
+                message={"Nâng cấp tài khoản để sử dụng nhiều tính năng hơn"}
+                titleCancel={"Bỏ qua"}
+                titleOk={"Nâng cấp"}
+                visible={isOpenModalOutDate}
+                handleCancel={onCloseModalOutDate}
+                handleOk={onRedirectModalOutDate}
+                title={"Số lần chat của bạn đã hết"}
             />
             <FullPageLoading isLoading={loading} />
         </LayoutClient >

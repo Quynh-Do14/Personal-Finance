@@ -27,7 +27,7 @@ const PricingComponent = () => {
             id: 2,
             title: "FATS AI +",
             sub: "Short-term Planning",
-            price: "49.900vnđ",
+            price: "53.000vnđ",
             cost: "69.900vnđ",
             features: [
                 "Các tính năng của gói FATS Cơ Bản",
@@ -43,7 +43,7 @@ const PricingComponent = () => {
             id: 3,
             title: "FATS AI Premium",
             sub: "Long-term Planning",
-            price: "89.900vnđ",
+            price: "96.000vnđ",
             cost: "129.900vnđ",
             features: [
                 "Các tính năng của gói FATS +",

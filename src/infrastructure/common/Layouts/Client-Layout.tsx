@@ -90,11 +90,6 @@ const LayoutClient = ({ ...props }: any) => {
         onGetBudgetAsync().then(() => { });
     }, [token, isLoadingToken])
 
-
-
-
-
-
     const handleScroll = useCallback(() => {
         if (scrollRef.current) {
             const currentScrollY = scrollRef.current.scrollTop;
