@@ -438,7 +438,12 @@ const GoalSpendingPage = () => {
 
     //Xóa goal
     const onOpenModalAllocation = () => {
-        setIsOpenModalAllocation(!isOpenModalAllocation);
+        if (newlistGoal.length > 1) {
+            setIsOpenModalAllocation(!isOpenModalAllocation);
+        }
+        else {
+            WarningMessage("Bạn chưa có mục tiêu nào", "Vui lòng thêm mục tiêu")
+        }
     }
 
     const onCloseModalAllocation = () => {

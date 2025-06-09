@@ -27,11 +27,9 @@ const Authenticate = () => {
       axios.post(`${baseURL}/auth/oauth2/authentication?code=${authCode}`, {
         code: authCode
       }).then((response: any) => {
-        if (response?.accessToken && response?.refreshToken) {
-          Cookies.set('accessToken', response.accessToken, TOKEN_COOKIE_OPTIONS);
-          Cookies.set('refreshToken', response.refreshToken, TOKEN_COOKIE_OPTIONS);
-
-        }
+        const { accessToken, refreshToken } = response.data;
+        Cookies.set('accessToken', accessToken, TOKEN_COOKIE_OPTIONS);
+        Cookies.set('refreshToken', refreshToken, TOKEN_COOKIE_OPTIONS);
         setIsLoggedin(true);
       }).catch((error) => {
         console.log("error: ", error);
