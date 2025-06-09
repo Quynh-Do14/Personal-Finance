@@ -107,11 +107,13 @@ axiosInstance.interceptors.response.use(
                 } catch (err) {
                     processQueue(err, null);
                     clearTokens();
-                    notification.error({
-                        message: 'Thông báo',
-                        description: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
-                    });
-                    window.location.href = ROUTE_PATH.LOGIN;
+                    // notification.error({
+                    //     message: 'Thông báo',
+                    //     description: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
+                    // });
+                    if (window.location.pathname !== ROUTE_PATH.LOGIN) {
+                        window.location.href = ROUTE_PATH.LOGIN;
+                    }
                     return Promise.reject(err);
                 } finally {
                     isRefreshing = false;
