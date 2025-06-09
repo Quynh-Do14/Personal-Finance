@@ -315,7 +315,8 @@ const PersonalFinancePage = () => {
                         // }, 10);
                         setMessagesLoading("")
                     },
-                    setLoadingBot
+                    setLoadingBot,
+                    () => { }
                 ).then(() => {
                 });
             }

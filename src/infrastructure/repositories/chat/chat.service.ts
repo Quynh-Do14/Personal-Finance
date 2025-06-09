@@ -23,7 +23,7 @@ class ChatService {
         }
     };
 
-    async AddChatPersonal(id: string, data: object, onBack: Function, setLoading: Function) {
+    async AddChatPersonal(id: string, data: object, onBack: Function, setLoading: Function, onError: Function) {
         setLoading(true)
         try {
             return await RequestService
@@ -33,14 +33,16 @@ class ChatService {
                 .then(response => {
                     if (response) {
                         onBack()
-                        // SuccessMessage("Thêm mới thành công", "")
                         return response
                     }
                     setLoading(false)
                     return response;
                 });
         } catch (error: any) {
-            FailMessage("Thêm mới không thành công", error.response.data.message)
+            FailMessage("Gửi tin nhắn không thành công", error.response.data.message)
+            if (error.status == 509) {
+                onError()
+            }
             console.error(error)
         } finally {
             setLoading(false);
@@ -87,7 +89,7 @@ class ChatService {
         }
     };
 
-    async AddChatTeam(idGoal: string, data: object, onBack: Function, setLoading: Function) {
+    async AddChatTeam(idGoal: string, data: object, onBack: Function, setLoading: Function, onError: Function) {
         setLoading(true)
         try {
             return await RequestService
@@ -97,15 +99,17 @@ class ChatService {
                 .then(response => {
                     if (response) {
                         onBack()
-                        // SuccessMessage("Thêm mới thành công", "")
                         return response
                     }
                     setLoading(false)
                     return response;
                 });
         } catch (error: any) {
-            FailMessage("Thêm mới không thành công", error.response.data.message)
+            FailMessage("Gửi tin nhắn không thành công", error.response.data.message)
             console.error(error)
+            if (error.status == 509) {
+                onError()
+            }
         } finally {
             setLoading(false);
         }

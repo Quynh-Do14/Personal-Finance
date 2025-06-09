@@ -9,7 +9,7 @@ import "../../../assets/styles/page/goal.css"
 import ChatButton from "../../chat/buttonChat";
 import LayoutClient from "../../../infrastructure/common/Layouts/Client-Layout";
 import goalService from "../../../infrastructure/repositories/goal/goal.service";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { FullPageLoading } from "../../../infrastructure/common/components/controls/loading";
 import chatService from "../../../infrastructure/repositories/chat/chat.service";
 import SockJS from "sockjs-client";
@@ -25,6 +25,8 @@ import PieChart from "../common/pieChart";
 import AlertBudget from "../../../infrastructure/common/components/budget/alert-budget";
 import banner2 from '../../../assets/images/banner/banner2.png'
 import OpenChatBot from "../../chat/openChat";
+import { ROUTE_PATH } from "../../../core/common/appRouter";
+import DialogConfirmCommon from "../../../infrastructure/common/components/modal/dialogConfirm";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -52,6 +54,7 @@ const TeamFinancePage = () => {
     const [timeRange, setTimeRange] = useState<string>("daily");
     const [selectedTab, setSelectedTab] = useState<"spend" | "income">("income");
     const [selectedType, setSelectedType] = useState<"type" | "user">("type");
+    const [isOpenModalOutDate, setIsOpenModalOutDate] = useState<boolean>(false);
 
     const [dataTable, setDataTable] = useState<any[]>([]);
     const [dataTableMember, setDataTableMember] = useState<any[]>([]);
@@ -91,6 +94,7 @@ const TeamFinancePage = () => {
             console.error(error);
         }
     };
+    const navigate = useNavigate();
 
     const onGetChatBoxAsync = async () => {
         try {
@@ -361,7 +365,10 @@ const TeamFinancePage = () => {
                     async () => {
 
                     },
-                    setLoadingBot
+                    setLoadingBot,
+                    () => {
+                        setIsOpenModalOutDate(false)
+                    }
                 ).then(() => { });
             }
             catch (error) {
@@ -378,6 +385,17 @@ const TeamFinancePage = () => {
             setDataTable(incomeDataTable);
         }
     }, [selectedTab, incomeDataTable, spendDataTable]);
+
+    ///
+    const onCloseModalOutDate = () => {
+        setIsOpenModalOutDate(false)
+    }
+
+    const onRedirectModalOutDate = () => {
+        setIsOpenModalOutDate(false)
+        navigate(ROUTE_PATH.PAYMENT_INFO)
+    }
+    ///
 
     return (
         <LayoutClient>
@@ -464,6 +482,15 @@ const TeamFinancePage = () => {
                         idTeam={String(idTeam)}
                         loading={loadingBot}
                         setLoading={setLoadingBot}
+                    />
+                    <DialogConfirmCommon
+                        message={"Nâng cấp tài khoản để sử dụng nhiều tính năng hơn"}
+                        titleCancel={"Bỏ qua"}
+                        titleOk={"Nâng cấp"}
+                        visible={isOpenModalOutDate}
+                        handleCancel={onCloseModalOutDate}
+                        handleOk={onRedirectModalOutDate}
+                        title={"Số lần chat của bạn đã hết"}
                     />
                 </div>
             </div>
