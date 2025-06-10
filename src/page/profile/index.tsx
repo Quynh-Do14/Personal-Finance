@@ -20,6 +20,7 @@ import InputNumberCommon from '../../infrastructure/common/components/input/inpu
 import budgetService from '../../infrastructure/repositories/budget/budget.service';
 import Constants from '../../core/common/constants';
 import banner3 from '../../assets/images/banner/banner3.png'
+import DialogNotificationCommon from '../../infrastructure/common/components/modal/dialogNotification';
 
 const ProfilePage = () => {
     const [validate, setValidate] = useState<any>({});
@@ -29,6 +30,7 @@ const ProfilePage = () => {
     const [budget, setBudget] = useState<any>({});
     const [loading, setLoading] = useState<boolean>(false)
     const [tab, setTab] = useState<number>(1);
+    const [isOpenModalSuccesss, setIsOpenModalSuccesss] = useState<boolean>(false);
 
     const [token, setToken] = useState<boolean>(false);
     const [isLoadingToken, setIsLoadingToken] = useState<boolean>(false);
@@ -152,7 +154,7 @@ const ProfilePage = () => {
     }, [budget]);
 
     const onUpdateProfile = async () => {
-        // await setSubmittedTime(Date.now());
+        await setSubmittedTime(Date.now());
         if (isValidData()) {
             await authService.updateProfile(
                 String(dataProfile.avatar).includes("https")
@@ -174,6 +176,7 @@ const ProfilePage = () => {
                 ,
                 () => {
                     onGetProfileAsync();
+                    navigate(ROUTE_PATH.HOME_PAGE)
                 },
                 setLoading
             )
@@ -184,22 +187,49 @@ const ProfilePage = () => {
     };
 
     const onUpdateBudget = async () => {
-        // await setSubmittedTime(Date.now());
-        if (isValidDataBudget()) {
-            await budgetService.CreateBudget(
-                {
-                    totalIncome: dataProfile.totalIncome,
-                },
-                () => {
-                    onGetBudgetAsync();
-                },
-                setLoading
-            )
+        if (budget.totalIncome) {
+            await setSubmittedTime(Date.now());
+            if (isValidDataBudget()) {
+                await budgetService.UpdateBudget(
+                    {
+                        totalIncome: dataProfile.totalIncome,
+                    },
+                    () => {
+                        onGetBudgetAsync();
+                        setIsOpenModalSuccesss(true)
+                    },
+                    setLoading
+                )
+            }
+            else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
+            };
         }
         else {
-            WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
-        };
+            await setSubmittedTime(Date.now());
+            if (isValidDataBudget()) {
+                await budgetService.CreateBudget(
+                    {
+                        totalIncome: dataProfile.totalIncome,
+                    },
+                    () => {
+                        onGetBudgetAsync();
+                        navigate(ROUTE_PATH.HOME_PAGE)
+                    },
+                    setLoading
+                )
+            }
+            else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
+            };
+        }
+
     };
+    const onCloseSuccessModal = () => {
+        setIsOpenModalSuccesss(false)
+        navigate(ROUTE_PATH.HOME_PAGE)
+    }
+
     const botInfo = Constants.BotChatList.List.find((item) => item.value === detailProfile?.character?.id)
     return (
         <LayoutClient>
@@ -360,7 +390,13 @@ const ProfilePage = () => {
                                 </div>
                     }
                 </div>
-
+                <DialogNotificationCommon
+                    title={'Cập nhật ngân sách thành công'}
+                    message={'Thông tin cập nhật mới sẽ được áp dụng vào tháng tiếp theo'}
+                    titleCancel={'Đóng'}
+                    handleCancel={onCloseSuccessModal}
+                    visible={isOpenModalSuccesss}
+                />
             </div>
             <FullPageLoading isLoading={loading} />
         </LayoutClient>

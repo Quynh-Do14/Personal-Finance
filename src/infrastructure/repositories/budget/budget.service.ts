@@ -54,7 +54,7 @@ class BudgetService {
                 .then(response => {
                     if (response) {
                         onBack()
-                        SuccessMessage("Cập nhật thành công", "")
+                        SuccessMessage("Cập nhật thành công", response.message)
                         return response
                     }
                     setLoading(false)

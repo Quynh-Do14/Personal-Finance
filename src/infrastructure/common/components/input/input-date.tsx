@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { DatePicker } from 'antd';
 import { MessageError } from '../controls/MessageError';
 import dayjs, { Dayjs } from 'dayjs';
+import { validateFields } from '../../../helper/helper';
 type Props = {
     label: string,
     attribute: string,
@@ -54,9 +55,9 @@ const InputDateCommon = (props: Props) => {
     }
     let labelLower = label.toLowerCase();
     const onBlur = (isImplicitChange = false) => {
-        // if (isRequired) {
-        //     validateFields(isImplicitChange, attribute, !value, setValidate, validate, !value ? `Vui lòng nhập ${labelLower}` : "");
-        // }
+        if (isRequired) {
+            validateFields(isImplicitChange, attribute, !value, setValidate, validate, !value ? `Vui lòng nhập ${labelLower}` : "");
+        }
     }
     useEffect(() => {
         if (dataAttribute) {
