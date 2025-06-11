@@ -196,6 +196,7 @@
   height: 100%;
   min-height: 200px;
   max-height: 600px;
+  overflow: auto;
 }
 
 .personal-finance-container .target .box:hover {

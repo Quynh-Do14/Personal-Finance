@@ -426,7 +426,7 @@ const TeamFinancePage = () => {
                                 setLoading={setLoadingBot}
                             />
                         </Col>
-                        <Col sm={24} md={14} lg={16}>
+                        <Col xs={24} sm={24} md={14} lg={16} className="overflow-auto">
                             <BarChartStatic
                                 statisticsByTime={statisticsByTime}
                             />
@@ -460,7 +460,7 @@ const TeamFinancePage = () => {
                                 goadId={String(id)}
                             />
                         </Col>
-                        <Col sm={24} md={10} lg={8}>
+                        <Col xs={24} sm={24} md={10} lg={8}>
                             <PieChart
                                 selectedTab={selectedTab}
                                 spendData={spendData}

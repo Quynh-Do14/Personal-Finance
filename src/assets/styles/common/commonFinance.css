@@ -197,3 +197,9 @@
 }
 
 /* OverviewComponent */
+@media only screen and (max-width: 576px) {
+  .bar-chart {
+    height: 400px;
+    width: 600px;
+  }
+}

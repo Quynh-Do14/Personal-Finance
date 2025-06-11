@@ -959,7 +959,7 @@ const GoalSpendingPage = () => {
                                 </div>
                             </div>
                         </Col>
-                        <Col sm={24} md={10} lg={8}>
+                        <Col xs={24} sm={24} md={10} lg={8}>
                             <OverviewPersonalComponent
                                 detailGoal={""}
                                 dailySpend={dailySpend}
@@ -968,7 +968,7 @@ const GoalSpendingPage = () => {
                                 barChartData={barChartData}
                             />
                         </Col>
-                        <Col sm={24} md={14} lg={16}>
+                        <Col xs={24} sm={24} md={14} lg={16} className="overflow-auto">
                             <BarChartStatic
                                 statisticsByTime={statisticsByTime}
                             />
@@ -992,7 +992,7 @@ const GoalSpendingPage = () => {
                                 goadId={""}
                             />
                         </Col>
-                        <Col sm={24} md={10} lg={8}>
+                        <Col xs={24} sm={24} md={10} lg={8}>
                             <PieChart
                                 selectedTab={selectedTab}
                                 spendData={spendData}

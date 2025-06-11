@@ -363,7 +363,7 @@ const PersonalFinancePage = () => {
                                 setLoading={setLoadingBot}
                             />
                         </Col>
-                        <Col sm={24} md={14} lg={16}>
+                        <Col xs={24} sm={24} md={14} lg={16} className="overflow-auto">
                             <BarChartStatic
                                 statisticsByTime={statisticsByTime}
                             />
