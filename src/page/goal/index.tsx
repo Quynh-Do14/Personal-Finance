@@ -795,12 +795,16 @@ const GoalSpendingPage = () => {
                         </div>
                     </a>
                 </Menu.Item> */}
-                <Menu.Item className='info-admin' onClick={() => onOpenModalAchive(item.id)}>
-                    <div className='info-admin-title px-1 py-2 flex items-center' >
-                        <i className="fa fa-check-square" aria-hidden="true"></i>
-                        Hoàn thành mục tiêu
-                    </div>
-                </Menu.Item>
+                {
+                    item.startDate
+                    &&
+                    <Menu.Item className='info-admin' onClick={() => onOpenModalAchive(item.id)}>
+                        <div className='info-admin-title px-1 py-2 flex items-center' >
+                            <i className="fa fa-check-square" aria-hidden="true"></i>
+                            Hoàn thành mục tiêu
+                        </div>
+                    </Menu.Item>
+                }
                 {
                     item.startDate
                     &&
