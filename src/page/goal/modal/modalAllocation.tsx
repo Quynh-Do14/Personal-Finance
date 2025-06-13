@@ -115,6 +115,9 @@ const ModalAllocation = (props: Props) => {
                                         validate={validate}
                                         setValidate={setValidate}
                                         submittedTime={submittedTime}
+                                        min={0}
+                                        max={100}
+                                        percent
                                     />
                                 </Col>
                             )

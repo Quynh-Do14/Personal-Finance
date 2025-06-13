@@ -46,7 +46,11 @@ const TeamFinancePage = () => {
     const [messages, setMessages] = useState<string>("");
     const [messagesLoading, setMessagesLoading] = useState<string>("");
 
+    ///Thống kê
+    const [dailyTotal, setDailyTotal] = useState<any>();
+    const [dailyIncome, setDailyIncome] = useState<any>();
     const [dailySpend, setDailySpend] = useState<any>();
+
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
     const [endDate, setEndDate] = useState<string>("");
@@ -122,7 +126,10 @@ const TeamFinancePage = () => {
                 "daily",
                 () => { }
             ).then((res) => {
-                setDailySpend(res.incomeStatistics.totalIncome - res.spendStatistics.totalSpend);
+                setDailyTotal(res.incomeStatistics.totalIncome - res.spendStatistics.totalSpend);
+                setDailyIncome(res.incomeStatistics.totalIncome);
+                setDailySpend(res.spendStatistics.totalSpend);
+
                 setBarChartData({
                     labels: ["Thu nhập", "Chi tiêu"],
                     datasets: [{
@@ -434,6 +441,8 @@ const TeamFinancePage = () => {
                         <Col sm={24} md={10} lg={8}>
                             <OverviewComponent
                                 detailGoal={detailGoal}
+                                dailyTotal={dailyTotal}
+                                dailyIncome={dailyIncome}
                                 dailySpend={dailySpend}
                                 incomeStatistics={incomeStatistics}
                                 spendStatistics={spendStatistics}

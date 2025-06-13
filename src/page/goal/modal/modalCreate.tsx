@@ -15,6 +15,7 @@ type Props = {
     validate: any,
     setValidate: Function,
     submittedTime: any,
+    isPersonal?: boolean
 }
 const ModalCreateGoal = (props: Props) => {
     const {
@@ -25,7 +26,8 @@ const ModalCreateGoal = (props: Props) => {
         setData,
         validate,
         setValidate,
-        submittedTime
+        submittedTime,
+        isPersonal = false
     } = props;
 
     return (
@@ -98,6 +100,29 @@ const ModalCreateGoal = (props: Props) => {
                                         submittedTime={submittedTime}
                                     />
                                 </Col>
+                                {
+                                    isPersonal
+                                        ?
+                                        <Col span={24}>
+                                            <InputNumberCommon
+                                                label={'Mức phân bổ'}
+                                                attribute={'allocation'}
+                                                isRequired={true}
+                                                setData={setData}
+                                                dataAttribute={data.allocation}
+                                                disabled={false}
+                                                validate={validate}
+                                                setValidate={setValidate}
+                                                submittedTime={submittedTime}
+                                                min={0}
+                                                max={100}
+                                                percent
+                                            />
+                                        </Col>
+                                        :
+                                        null
+                                }
+
                             </Row>
                         </div>
                     </Col>

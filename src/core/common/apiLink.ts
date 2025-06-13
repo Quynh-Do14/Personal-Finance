@@ -20,6 +20,7 @@ export class Endpoint {
             static Add = "/goals/user/create"
             static Delete = "/goals/user/delete"
             static Allocation = "/goals/user/allocation"
+            static Achieved = "/goals/user/achieved"
         }
         static Team = class {
             static Get = "/goals/user/team"

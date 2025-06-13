@@ -12,6 +12,9 @@ type Props = {
     validate: any,
     setValidate: Function,
     submittedTime: any,
+    min?: number,
+    max?: number,
+    percent?: boolean
 }
 const InputNumberCommon = (props: Props) => {
     const {
@@ -24,6 +27,9 @@ const InputNumberCommon = (props: Props) => {
         isRequired,
         dataAttribute,
         disabled = false,
+        min,
+        max,
+        percent
     } = props;
 
     const [value, setValue] = useState<string>("");
@@ -49,11 +55,24 @@ const InputNumberCommon = (props: Props) => {
     };
 
     const onBlur = (isImplicitChange = false) => {
-        if (isRequired) {
-            const isEmpty = !parseNumber(value);
-            validateFields(isImplicitChange, attribute, isEmpty, setValidate, validate, isEmpty ? `Vui lòng nhập ${label.toLowerCase()}` : "");
+        const parsedValue = parseNumber(value);
+        let errorMessage = "";
+
+        if (isRequired && (parsedValue === null || parsedValue === undefined)) {
+            errorMessage = `Vui lòng nhập ${label.toLowerCase()}`;
+        } else {
+            if (min !== undefined && parsedValue !== null && parsedValue < min) {
+                errorMessage = `${label} không được nhỏ hơn ${min}`;
+            }
+            if (max !== undefined && parsedValue !== null && parsedValue > max) {
+                errorMessage = `${label} không được lớn hơn ${max}`;
+            }
         }
+
+        const isError = !!errorMessage;
+        validateFields(isImplicitChange, attribute, isError, setValidate, validate, errorMessage);
     };
+
 
     useEffect(() => {
         const formatted = formatNumber(dataAttribute || '');

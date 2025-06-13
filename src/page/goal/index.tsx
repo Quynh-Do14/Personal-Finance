@@ -57,6 +57,7 @@ const GoalSpendingPage = () => {
     const [isOpenModalDelete, setIsOpenModalDelete] = useState<boolean>(false);
     const [selectedGoalId, setSelectedGoalId] = useState<string>("");
     const [isOpenModalAllocation, setIsOpenModalAllocation] = useState<boolean>(false);
+    const [isOpenModalAchive, setIsOpenModalAchive] = useState<boolean>(false);
 
     ///Chat AI
     const [isOpenChatBox, setIsOpenChatBox] = useState<boolean>(false);
@@ -67,7 +68,10 @@ const GoalSpendingPage = () => {
     ///Chat AI
 
     ///Thống kê
+    const [dailyTotal, setDailyTotal] = useState<any>();
+    const [dailyIncome, setDailyIncome] = useState<any>();
     const [dailySpend, setDailySpend] = useState<any>();
+
     const [spendStatistics, setSpendStatistics] = useState<any>({});
     const [incomeStatistics, setIncomeStatistics] = useState<any>({});
     const [statisticsByTime, setStatisticsByTime] = useState<any>({
@@ -189,7 +193,8 @@ const GoalSpendingPage = () => {
                         name: dataRequest.name,
                         goalAmount: dataRequest.goalAmount,
                         startDate: convertDateOnly(dataRequest.startDate),
-                        endDate: convertDateOnly(dataRequest.endDate)
+                        endDate: convertDateOnly(dataRequest.endDate),
+                        allocation: dataRequest.allocation,
                     },
                     () => {
                         onGetListGoalAsync().then(_ => { });
@@ -447,17 +452,13 @@ const GoalSpendingPage = () => {
     }, [page]);
 
     //Xóa goal
-    const onOpenModalAllocation = () => {
-        if (newlistGoal.length > 1) {
-            setIsOpenModalAllocation(!isOpenModalAllocation);
-        }
-        else {
-            WarningMessage("Bạn chưa có mục tiêu nào", "Vui lòng thêm mục tiêu")
-        }
+    const onOpenModalDelete = (id: string) => {
+        setIsOpenModalDelete(!isOpenModalDelete);
+        setSelectedGoalId(id)
     }
 
-    const onCloseModalAllocation = () => {
-        setIsOpenModalAllocation(false);
+    const onCloseModalDelete = () => {
+        setIsOpenModalDelete(false);
     }
 
     const onDeleteGoalAsync = async () => {
@@ -479,15 +480,56 @@ const GoalSpendingPage = () => {
     //Xóa goal
 
     //Phân bổ
-    const onOpenModalDelete = (id: string) => {
-        setIsOpenModalDelete(!isOpenModalDelete);
+    const onOpenModalAllocation = () => {
+        if (newlistGoal.length > 1) {
+            setIsOpenModalAllocation(!isOpenModalAllocation);
+        }
+        else {
+            WarningMessage("Bạn chưa có mục tiêu nào", "Vui lòng thêm mục tiêu")
+        }
+    }
+
+    const onCloseModalAllocation = () => {
+        setIsOpenModalAllocation(false);
+    }
+    //Phân bổ
+
+
+    //Hoàn thành
+    const onOpenModalAchive = (id: string) => {
+        setIsOpenModalAchive(!isOpenModalAchive);
         setSelectedGoalId(id)
     }
 
-    const onCloseModalDelete = () => {
-        setIsOpenModalDelete(false);
+    const onCloseModalAchive = () => {
+        setIsOpenModalAchive(false);
     }
-    //Phân bổ
+
+    const onAchievedGoalAsync = async () => {
+        await setSubmittedTime(Date.now());
+        try {
+            if (isValidData()) {
+                await goalService.AchievedGoalPersonal(
+                    selectedGoalId,
+                    () => {
+                        onCloseModalAchive();
+                        onGetListGoalAsync().then(_ => { });
+                    },
+                    setLoading
+                )
+            }
+            else {
+                WarningMessage("Nhập thiếu thông tin", "Vui lòng nhập đầy đủ thông tin")
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            onCloseModalAchive();
+        }
+    }
+    //Hoàn thành
 
     //Chat với AI
     const onGetChatBoxAsync = async () => {
@@ -539,7 +581,10 @@ const GoalSpendingPage = () => {
                 "daily",
                 () => { }
             ).then((res) => {
-                setDailySpend(res.incomeStatistics.totalIncome - res.spendStatistics.totalSpend);
+                setDailyTotal(res.incomeStatistics.totalIncome - res.spendStatistics.totalSpend);
+                setDailyIncome(res.incomeStatistics.totalIncome);
+                setDailySpend(res.spendStatistics.totalSpend);
+
                 setBarChartData({
                     labels: ["Thu nhập", "Chi tiêu"],
                     datasets: [{
@@ -750,6 +795,12 @@ const GoalSpendingPage = () => {
                         </div>
                     </a>
                 </Menu.Item> */}
+                <Menu.Item className='info-admin' onClick={() => onOpenModalAchive(item.id)}>
+                    <div className='info-admin-title px-1 py-2 flex items-center' >
+                        <i className="fa fa-check-square" aria-hidden="true"></i>
+                        Hoàn thành mục tiêu
+                    </div>
+                </Menu.Item>
                 {
                     item.startDate
                     &&
@@ -962,6 +1013,8 @@ const GoalSpendingPage = () => {
                         <Col xs={24} sm={24} md={10} lg={8}>
                             <OverviewPersonalComponent
                                 detailGoal={""}
+                                dailyTotal={dailyTotal}
+                                dailyIncome={dailyIncome}
                                 dailySpend={dailySpend}
                                 incomeStatistics={incomeStatistics}
                                 spendStatistics={spendStatistics}
@@ -1039,6 +1092,7 @@ const GoalSpendingPage = () => {
                 validate={validate}
                 setValidate={setValidate}
                 submittedTime={submittedTime}
+                isPersonal={true}
             />
             <ModalAllocation
                 handleCancel={onCloseModalAllocation}
@@ -1061,6 +1115,15 @@ const GoalSpendingPage = () => {
                 handleOk={onDeleteGoalAsync}
                 handleCancel={onCloseModalDelete}
                 visible={isOpenModalDelete}
+            />
+            <DialogConfirmCommon
+                title={"Hoàn thành mục tiêu"}
+                message={"Bạn muốn hoàn thành mục tiêu?"}
+                titleCancel={"Hủy"}
+                titleOk={"Đồng ý"}
+                handleOk={onAchievedGoalAsync}
+                handleCancel={onCloseModalAchive}
+                visible={isOpenModalAchive}
             />
             <DialogConfirmCommon
                 message={"Nâng cấp tài khoản để sử dụng nhiều tính năng hơn"}

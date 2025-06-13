@@ -148,8 +148,6 @@ class GoalService {
     }
     async AllocationGoalPersonal(data: any[], onBack: Function, setLoading: Function) {
         setLoading(true)
-        console.log(data);
-
         try {
             return await RequestService
                 .putArray(Endpoint.Goal.Personal.Allocation,
@@ -171,6 +169,29 @@ class GoalService {
             setLoading(false);
         }
     }
+
+    async AchievedGoalPersonal(id: string, onBack: Function, setLoading: Function) {
+        setLoading(true)
+        try {
+            return await RequestService
+                .put(`${Endpoint.Goal.Personal.Achieved}/${id}`)
+                .then(response => {
+                    if (response) {
+                        onBack()
+                        SuccessMessage("Đã hoàn thành mục tiêu", "")
+                        return response
+                    }
+                    setLoading(false)
+                    return response;
+                });
+        } catch (error: any) {
+            FailMessage("Mục tiêu không thể hoàn thành", error.response.data.message)
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
+    }
+
     async DeleteGoalPersonal(id: string, onBack: Function, setLoading: Function) {
         setLoading(true)
         try {
