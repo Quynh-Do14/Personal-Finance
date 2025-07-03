@@ -215,7 +215,8 @@
 }
 .input-text-common .ant-picker.ant-picker-middle.input-date-common,
 .input-text-common select,
-.input-text-common input {
+.input-text-common input,
+.input-text-common textarea {
   width: 100%;
   font-weight: 400;
   font-size: 16px;
@@ -233,7 +234,8 @@
   border-radius: 5px;
   border: 1px solid transparent;
 }
-.input-text-common input::placeholder {
+.input-text-common input::placeholder,
+.input-text-common textarea::placeholder {
   color: #9ca3af;
 }
 .input-text-common .input-error,
@@ -241,7 +243,8 @@
   border: #f61a1a solid 1px !important;
 }
 .input-text-common select:focus,
-.input-text-common input:focus {
+.input-text-common input:focus,
+.input-text-common textarea:focus {
   outline: none;
   border: none;
   box-shadow: none;
@@ -294,4 +297,44 @@
   outline: none;
   border-bottom: 1px solid #ffffff59;
   box-shadow: none;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.search-container {
+  padding: 16px 0;
+  width: 300px;
+  position: relative;
+  font-family: sans-serif;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #10101042;
+  padding-right: 30px;
+  font-size: 14px;
+  color: #222;
+}
+
+.search-input:focus {
+  outline: none;
+  border-bottom: 1px solid #555;
+}
+.search-input::placeholder {
+  color: #10101042;
+  font-style: italic;
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #333;
+  pointer-events: none;
 }

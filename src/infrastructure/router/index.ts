@@ -21,6 +21,14 @@ import JoinTeam from "../../page/team/joinTeam";
 import ForgotPasswordScreen from "../../page/Auth/ForgotPassword";
 import ResetPasswordScreen from "../../page/Auth/ResetPassword";
 import HistoryTransitionPage from "../../page/goal/history";
+import BlogDetailPage from "../../page/blog/detail";
+import ListBlogManagement from "../../page/Admin/blog-management";
+import AddBlogManagement from "../../page/Admin/blog-management/add";
+import SlugBlogManagement from "../../page/Admin/blog-management/view";
+import ListCategoryManagement from "../../page/Admin/blog-category-management";
+import AddBlogCategoryManagement from "../../page/Admin/blog-category-management/add";
+import SlugCategoryManagement from "../../page/Admin/blog-category-management/view";
+import AdminLayout from "../common/Layouts/admin/MainLayout";
 
 export const privateRoutes = [
 
@@ -44,11 +52,6 @@ export const privateRoutes = [
         component: ReportPage,
         private: false,
     },
-    // {
-    //     path: ROUTE_PATH.PERSONAL_FINANCE_PAGE,
-    //     component: PersonalFinancePage,
-    //     private: true,
-    // },
     {
         path: ROUTE_PATH.TEAM_FINANCE_PAGE,
         component: TeamFinancePage,
@@ -77,6 +80,11 @@ export const privateRoutes = [
     {
         path: ROUTE_PATH.BLOG,
         component: BlogPage,
+        private: false,
+    },
+    {
+        path: ROUTE_PATH.BLOG_BY_ID,
+        component: BlogDetailPage,
         private: false,
     },
     {
@@ -134,4 +142,43 @@ export const privateRoutes = [
         component: JoinTeam,
         private: false,
     },
+
+    // ADMIN
+    {
+        path: ROUTE_PATH.MANAGE_LAYOUT,
+        component: AdminLayout,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.BLOG_MANAGEMENT,
+        component: ListBlogManagement,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.ADD_BLOG_MANAGEMENT,
+        component: AddBlogManagement,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.VIEW_BLOG_MANAGEMENT,
+        component: SlugBlogManagement,
+        private: true,
+    },
+
+    {
+        path: ROUTE_PATH.BLOG_CATEGORY_MANAGEMENT,
+        component: ListCategoryManagement,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.ADD_BLOG_CATEGORY_MANAGEMENT,
+        component: AddBlogCategoryManagement,
+        private: true,
+    },
+    {
+        path: ROUTE_PATH.VIEW_BLOG_CATEGORY_MANAGEMENT,
+        component: SlugCategoryManagement,
+        private: true,
+    },
+    // ADMIN
 ]

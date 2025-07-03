@@ -78,13 +78,18 @@
   }
 }
 
+.ant-table.ant-table-has-fix-right {
+  background-color: transparent !important;
+}
+
 .table-common table {
-  background: #fff;
-  border: solid rgb(227 227 227) 1px;
+  background: #1010100d;
+  /* border: solid rgb(227 227 227) 1px; */
+  /* border-radius: 15px; */
 }
 
 .table-common .ant-table-thead {
-  background: #f7f7f7 !important;
+  background: #1010100d !important;
   position: sticky;
   top: 0;
   /* left: 0; */
@@ -92,6 +97,16 @@
   z-index: 9;
   overflow: auto;
   width: 100%;
+}
+.table-common th.ant-table-cell {
+  background: #1010100d !important;
+}
+.table-common
+  td.ant-table-cell.ant-table-cell-fix-right.ant-table-cell-fix-right-first {
+  background: #1010100d !important;
+}
+.table-common td.ant-table-cell {
+  background: #1010100d !important;
 }
 
 /* scroll custom */
@@ -301,7 +316,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-justify-content: space-between;
+  justify-content: space-between;
   gap: 8px;
   width: 100%;
   height: 100%;
@@ -337,19 +352,25 @@ justify-content: space-between;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 16px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: #fff;
   cursor: pointer;
-  width: 140px;
-  height: 26px;
+  width: fit-content;
+  height: 36px;
   white-space: nowrap;
+  animation: pulse 2s infinite;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 .budget-info .redirect:hover {
   text-decoration: underline;
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
 }
 
 .budget-item {
@@ -451,4 +472,54 @@ justify-content: space-between;
   -webkit-line-clamp: 4;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+}
+
+span.ant-upload {
+  width: 100%;
+}
+
+.ant-input-number-handler-wrap {
+  z-index: 13;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  width: 100%;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  background-color: white;
+  border: 3px solid #9c9;
+  display: flex;
+  justify-content: center;
+}
+
+.ant-upload-wrapper.ant-upload-picture-circle-wrapper
+  .ant-upload.ant-upload-select {
+  background-color: white;
+  border: 3px solid #9c9;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  background-color: white;
+  border: 3px solid #9c9;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  height: 120px !important;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper.custom
+  .ant-upload.ant-upload-select {
+  background-color: white;
+  border: 2px solid #9c9;
+  display: flex;
+  justify-content: center;
+  width: 200px !important;
+  height: 200px !important;
 }

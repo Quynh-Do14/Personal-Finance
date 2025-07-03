@@ -10,10 +10,14 @@ export default class Constants {
         static List = [
             {
                 label: "Quản lý danh mục",
-                link: ROUTE_PATH.HOME_PAGE,
-                icon: "fa fa-users"
+                link: ROUTE_PATH.BLOG_CATEGORY_MANAGEMENT,
+                icon: "fa fa-folder-open" // Icon thư mục
             },
-
+            {
+                label: "Quản lý bài viết",
+                link: ROUTE_PATH.BLOG_MANAGEMENT,
+                icon: "fa fa-newspaper" // Icon bài viết
+            }
         ]
     };
     static MenuClient = class {

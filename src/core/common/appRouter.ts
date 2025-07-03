@@ -1,4 +1,5 @@
 const PREFIX = "";
+const ADMIN_PREFIX = "/FATS/admin";
 
 export const ROUTE_PATH = {
 
@@ -21,6 +22,7 @@ export const ROUTE_PATH = {
     GOAL_SPENDING_TEAM_PAGE: `${PREFIX}/team/spending-team/:id`,
     SELECT_CHAT_BOT: `${PREFIX}/select-bot`,
     BLOG: `${PREFIX}/blog`,
+    BLOG_BY_ID: `${PREFIX}/blog/view/:id`,
     PAYMENT_INFO: `${PREFIX}/payment-info`,
     PAYMENT_RESULT: `${PREFIX}/payment`,
     PROFILE: `${PREFIX}/profile`,
@@ -35,25 +37,14 @@ export const ROUTE_PATH = {
     TERM_OF_SERVICE: `${PREFIX}/term-of-service`,
 
     ///Management
-    MANAGE_LAYOUT: `${PREFIX}/manage-layout`,
+    MANAGE_LAYOUT: `${ADMIN_PREFIX}`,
 
-    CATEGORY_MANAGEMENT: `${PREFIX}/category`,
-    ADD_CATEGORY_MANAGEMENT: `${PREFIX}/category/add`,
-    VIEW_CATEGORY_MANAGEMENT: `${PREFIX}/category/view/:id`,
+    BLOG_CATEGORY_MANAGEMENT: `${ADMIN_PREFIX}/blog-category-management`,
+    ADD_BLOG_CATEGORY_MANAGEMENT: `${ADMIN_PREFIX}/blog-category-management/add`,
+    VIEW_BLOG_CATEGORY_MANAGEMENT: `${ADMIN_PREFIX}/blog-category-management/view/:id`,
 
-    COURSE_MANAGEMENT: `${PREFIX}/course`,
-    ADD_COURSE_MANAGEMENT: `${PREFIX}/course/add`,
-    VIEW_COURSE_MANAGEMENT: `${PREFIX}/course/view/:id`,
+    BLOG_MANAGEMENT: `${ADMIN_PREFIX}/blog-management`,
+    ADD_BLOG_MANAGEMENT: `${ADMIN_PREFIX}/blog-management/add`,
+    VIEW_BLOG_MANAGEMENT: `${ADMIN_PREFIX}/blog-management/view/:id`,
 
-    TEACHER_MANAGEMENT: `${PREFIX}/teacher`,
-    ADD_TEACHER_MANAGEMENT: `${PREFIX}/teacher/add`,
-    VIEW_TEACHER_MANAGEMENT: `${PREFIX}/teacher/view/:id`,
-
-    LESSON_MANAGEMENT: `${PREFIX}/lesson`,
-    ADD_LESSON_MANAGEMENT: `${PREFIX}/lesson/add`,
-    VIEW_LESSON_MANAGEMENT: `${PREFIX}/lesson/view/:id`,
-
-    BANNER_MANAGEMENT: `${PREFIX}/banner`,
-    ADD_BANNER_MANAGEMENT: `${PREFIX}/banner/add`,
-    VIEW_BANNER_MANAGEMENT: `${PREFIX}/banner/view/:id`,
 }

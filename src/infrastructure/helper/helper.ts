@@ -1,5 +1,5 @@
 import moment from "moment";
-import Constants from "../../core/common/constants";
+import slugify from "slugify";
 const baseURL = process.env.REACT_APP_BASE_URL
 export const validateFields = (isImplicitChange = false, key: any, isCheck: any, setError: Function, error: any, message: string) => {
     if (isImplicitChange) {
@@ -78,4 +78,21 @@ export const getBase64 = (img: any, callback: any) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
+};
+export const splitTakeId = (route: string) => {
+    if (route) {
+        const word1 = route.split(".html");
+        const word2 = word1[0].split("-");
+        const wordResult = word2[word2.length - 1];
+        return wordResult
+    }
+    return "";
+}
+
+
+export const convertSlug = (str: string) => {
+    if (str) {
+        return slugify(str, { lower: true, locale: "vi" })
+    }
+    return ""
 };
