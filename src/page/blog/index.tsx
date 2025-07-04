@@ -11,10 +11,12 @@ import { CategoryBlogState } from "../../core/atoms/category/categoryState";
 import { ROUTE_PATH } from "../../core/common/appRouter";
 import { configImageURL, convertSlug } from "../../infrastructure/helper/helper";
 import { FullPageLoading } from "../../infrastructure/common/components/controls/loading";
+import BlogListSkeleton from "./skeleton";
 const BlogPage = () => {
 
   const [mainBlogs, setMainBlog] = useState<Array<any>>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalElement, setTotalElement] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const categoryBlogState = useRecoilValue(CategoryBlogState).data
   const onGetListAsync = async ({ name = "", page = currentPage }) => {
@@ -29,6 +31,7 @@ const BlogPage = () => {
         setLoading
       ).then((res) => {
         setMainBlog(res.content);
+        setTotalElement(res.totalElements);
       })
     }
     catch (error) {
@@ -70,53 +73,67 @@ const BlogPage = () => {
           <div className="grid grid-cols-12 gap-6 md:gap-16">
             <div className="col-span-12 md:col-span-9 flex flex-col gap-12 order-2 md:order-1 left">
               {
-                mainBlogs.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="flex md:flex-row-reverse flex-col mb-3 gap-4 md:gap-10 items-center">
-                      <div className="item-image">
-                        <a href={`${ROUTE_PATH.BLOG_BY_ID.replace("/:id", "")}/${convertSlug(item?.title)}-${item?.id}.html`}>
-                          <div
-                            className="bg-img"
-                            style={{
-                              backgroundImage: `url(${configImageURL(item.imageCode)})`,
-                            }}
-                          ></div>
-                        </a>
-                      </div>
-                      <div className="item-text md:text-right">
-                        <p className="author">
-                          <i className="fa fa-clock-o me-2" aria-hidden="true"></i>
-                          <span>{item.createdAt} </span>
-                          <i
-                            className="fa fa-user-o ms-4 me-2"
-                            aria-hidden="true"
-                          ></i>
-                          <span>{item.createdBy}</span>
-                        </p>
-                        <a href={`${ROUTE_PATH.BLOG_BY_ID.replace("/:id", "")}/${convertSlug(item?.title)}-${item?.id}.html`} className="title">
-                          {item.title}
-                        </a>
-                        <p className="description">
-                          {item.shortDescription}
-                        </p>
-                        <a href={`${ROUTE_PATH.BLOG_BY_ID.replace("/:id", "")}/${convertSlug(item?.title)}-${item?.id}.html`} className="see-move">
-                          Xem chi tiết
-                          <i
-                            className="fa fa-long-arrow-right ms-3"
-                            aria-hidden="true"
-                          ></i>
-                        </a>
-                      </div>
+                !loading ? (
+                  mainBlogs.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center text-gray-600">
+                      <i className="fa fa-folder-open text-[80px] text-[#003333] mb-6" aria-hidden="true"></i>
+                      <h2 className="text-xl font-semibold mb-2">Không có bài viết nào</h2>
                     </div>
+                  ) : (
+                    mainBlogs.map((item, index) => {
+                      const isEven = index % 2 === 0;
+
+                      return (
+                        <div
+                          key={index}
+                          className={`flex flex-col mb-3 gap-4 md:gap-10 items-center 
+              ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                        >
+                          <div className="item-image">
+                            <a href={`${ROUTE_PATH.BLOG_BY_ID.replace("/:id", "")}/${convertSlug(item?.title)}-${item?.id}.html`}>
+                              <div
+                                className="bg-img"
+                                style={{
+                                  backgroundImage: `url(${configImageURL(item.imageCode)})`,
+                                }}
+                              ></div>
+                            </a>
+                          </div>
+
+                          <div className={`item-text ${isEven ? 'md:text-left' : 'md:text-right'}`}>
+                            <p className="author">
+                              <i className="fa fa-clock-o me-2" aria-hidden="true"></i>
+                              <span>{item.createdAt} </span>
+                              <i className="fa fa-user-o ms-4 me-2" aria-hidden="true"></i>
+                              <span>{item.createdBy}</span>
+                            </p>
+
+                            <a href={`${ROUTE_PATH.BLOG_BY_ID.replace("/:id", "")}/${convertSlug(item?.title)}-${item?.id}.html`} className="title">
+                              {item.title}
+                            </a>
+
+                            <p className="description text-truncate-2">
+                              {item.shortDescription}
+                            </p>
+
+                            <a href={`${ROUTE_PATH.BLOG_BY_ID.replace("/:id", "")}/${convertSlug(item?.title)}-${item?.id}.html`} className="see-move">
+                              Xem chi tiết
+                              <i className="fa fa-long-arrow-right ms-3" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    })
                   )
-                })
+                ) : (
+                  <BlogListSkeleton />
+                )
               }
 
+
               <PaginationCommon
-                total={100}
-                currentPage={2}
+                total={totalElement}
+                currentPage={currentPage}
                 onChangePage={() => { }}
                 pageSize={10}
                 onChangeSize={() => { }}
