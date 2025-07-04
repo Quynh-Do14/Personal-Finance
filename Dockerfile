@@ -1,21 +1,29 @@
-# Run stage
+# Giai đoạn xây dựng
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Giai đoạn chạy
 FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/build ./build
 COPY package*.json ./
 
-# Install serve
+# Cài đặt serve
 RUN npm install -g serve
 
-# Add healthcheck
+# Thêm kiểm tra sức khỏe
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
-# Use non-root user for security
+# Sử dụng người dùng không phải root
 USER node
 
-# Expose port
+# Mở cổng
 EXPOSE 3000
 
-# Start the app
+# Khởi động ứng dụng
 CMD ["serve", "-s", "build", "-l", "3000"]
